@@ -1,0 +1,8 @@
+systemg
+Makefile
+*.o
+*.bak
+code/SyGStringData.h
+strings/version
+strings/systemg_menu_strings
+.jcc
