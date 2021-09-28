@@ -10,7 +10,7 @@
 #ifndef _H_SyGHeaderWidget
 #define _H_SyGHeaderWidget
 
-#include "JXColHeaderWidget.h"
+#include "jx-af/jx/JXColHeaderWidget.h"
 
 class SyGFileTreeTable;
 

@@ -8,7 +8,7 @@
 #ifndef _H_SyGColUtils
 #define _H_SyGColUtils
 
-#include <jTypes.h>
+#include <jx-af/jcore/jTypes.h>
 
 class JString;
 class JXTable;

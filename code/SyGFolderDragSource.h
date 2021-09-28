@@ -8,7 +8,7 @@
 #ifndef _H_SyGFolderDragSource
 #define _H_SyGFolderDragSource
 
-#include <JXImageWidget.h>
+#include <jx-af/jx/JXImageWidget.h>
 
 class JXPathInput;
 class JXCurrentPathMenu;

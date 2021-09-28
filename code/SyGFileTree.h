@@ -8,7 +8,7 @@
 #ifndef _H_SyGFileTree
 #define _H_SyGFileTree
 
-#include <JFSFileTree.h>
+#include <jx-af/jfs/JFSFileTree.h>
 #include "SyGColUtils.h"	// need defn of GFMColType
 
 class JDirInfo;

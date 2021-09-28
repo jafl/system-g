@@ -10,9 +10,9 @@
 #include "SyGFileTreeList.h"
 #include "SyGFileTree.h"
 #include "SyGFileTreeNode.h"
-#include <JDirEntry.h>
-#include <jVCSUtil.h>
-#include <jAssert.h>
+#include <jx-af/jcore/JDirEntry.h>
+#include <jx-af/jcore/jVCSUtil.h>
+#include <jx-af/jcore/jAssert.h>
 
 /******************************************************************************
  Constructor

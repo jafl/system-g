@@ -10,7 +10,7 @@
 #ifndef _H_SyGChooseSaveFile
 #define _H_SyGChooseSaveFile
 
-#include <JXChooseSaveFile.h>
+#include <jx-af/jx/JXChooseSaveFile.h>
 
 class SyGChoosePathDialog;
 

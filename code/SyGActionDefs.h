@@ -12,7 +12,7 @@
 #ifndef _H_SyGActionDefs
 #define _H_SyGActionDefs
 
-#include <jXActionDefs.h>	// for convenience
+#include <jx-af/jx/jXActionDefs.h>	// for convenience
 
 // File menu
 

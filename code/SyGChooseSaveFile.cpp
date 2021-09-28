@@ -11,7 +11,7 @@
 
 #include "SyGChooseSaveFile.h"
 #include "SyGChoosePathDialog.h"
-#include <jAssert.h>
+#include <jx-af/jcore/jAssert.h>
 
 const JFileVersion kCurrentPrefsVersion	= 1;
 
@@ -148,16 +148,16 @@ SyGChooseSaveFile::Receive
 	)
 {
 	if (sender == itsPathDialog && message.Is(JXDialogDirector::kDeactivated))
-		{
+	{
 		const auto* info =
 			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
 		assert( info != nullptr );
 		if (info->Successful())
-			{
+		{
 			itsOpenInNewWindow = itsPathDialog->OpenInNewWindow();
-			}
-		itsPathDialog = nullptr;
 		}
+		itsPathDialog = nullptr;
+	}
 
 	JXChooseSaveFile::Receive(sender, message);
 }
@@ -176,9 +176,9 @@ SyGChooseSaveFile::SGReadSetup
 	JFileVersion version;
 	input >> version;
 	if (version > kCurrentPrefsVersion)
-		{
+	{
 		return;
-		}
+	}
 
 	input >> JBoolFromString(itsOpenInNewWindow);
 	JXChooseSaveFile::ReadSetup(input);

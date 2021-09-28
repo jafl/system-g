@@ -8,7 +8,7 @@
 #ifndef _H_SyGFileTreeList
 #define _H_SyGFileTreeList
 
-#include <JNamedTreeList.h>
+#include <jx-af/jcore/JNamedTreeList.h>
 
 class JDirEntry;
 class SyGFileTree;

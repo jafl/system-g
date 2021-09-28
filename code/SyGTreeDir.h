@@ -10,7 +10,7 @@
 #ifndef _H_SyGTreeDir
 #define _H_SyGTreeDir
 
-#include <JXWindowDirector.h>
+#include <jx-af/jx/JXWindowDirector.h>
 
 class JXMenuBar;
 class JXTextMenu;

@@ -10,7 +10,7 @@
 #ifndef _H_SyGChoosePathDialog
 #define _H_SyGChoosePathDialog
 
-#include <JXChoosePathDialog.h>
+#include <jx-af/jx/JXChoosePathDialog.h>
 
 class SyGChoosePathDialog : public JXChoosePathDialog
 {

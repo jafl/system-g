@@ -10,10 +10,10 @@
 
 // we include these for convenience
 
-#include <jXGlobals.h>
-#include <JXDocumentManager.h>
-#include <jMountUtil.h>
-#include <JXPM.h>
+#include <jx-af/jx/jXGlobals.h>
+#include <jx-af/jx/JXDocumentManager.h>
+#include <jx-af/jcore/jMountUtil.h>
+#include <jx-af/jcore/JXPM.h>
 #include "SyGApplication.h"
 
 class JXContainer;

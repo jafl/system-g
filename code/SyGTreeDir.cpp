@@ -18,23 +18,23 @@
 #include "SyGGlobals.h"
 #include "SyGFileVersions.h"
 #include "SyGActionDefs.h"
-#include <JXFSBindingManager.h>
-#include <JXDisplay.h>
-#include <JXWindow.h>
-#include <JXMenuBar.h>
-#include <JXToolBar.h>
-#include <JXTextButton.h>
-#include <JXWDManager.h>
-#include <JXWDMenu.h>
-#include <JXCurrentPathMenu.h>
-#include <JXHelpManager.h>
-#include <JXMacWinPrefsDialog.h>
-#include <jMountUtil.h>
-#include <jFileUtil.h>
-#include <jSysUtil.h>
-#include <jFStreamUtil.h>
+#include <jx-af/jfs/JXFSBindingManager.h>
+#include <jx-af/jx/JXDisplay.h>
+#include <jx-af/jx/JXWindow.h>
+#include <jx-af/jx/JXMenuBar.h>
+#include <jx-af/jx/JXToolBar.h>
+#include <jx-af/jx/JXTextButton.h>
+#include <jx-af/jx/JXWDManager.h>
+#include <jx-af/jx/JXWDMenu.h>
+#include <jx-af/jx/JXCurrentPathMenu.h>
+#include <jx-af/jx/JXHelpManager.h>
+#include <jx-af/jx/JXMacWinPrefsDialog.h>
+#include <jx-af/jcore/jMountUtil.h>
+#include <jx-af/jcore/jFileUtil.h>
+#include <jx-af/jcore/jSysUtil.h>
+#include <jx-af/jcore/jFStreamUtil.h>
 #include <sstream>
-#include <jAssert.h>
+#include <jx-af/jcore/jAssert.h>
 
 #include <jx_help_toc.xpm>
 
@@ -92,11 +92,11 @@ SyGTreeDir::SyGTreeDir
 {
 	if ((SyGGetApplication())->IsMountPoint(startPath) &&
 		!JIsMounted(startPath))
-		{
+	{
 		itsAutoMountFlag = true;
 		(SyGGetApplication())->DisplayBusyCursor();
 		JMount(startPath, true, true);
-		}
+	}
 
 	BuildWindow(startPath);
 }
@@ -109,10 +109,10 @@ SyGTreeDir::SyGTreeDir
 SyGTreeDir::~SyGTreeDir()
 {
 	if (itsAutoMountFlag)
-		{
+	{
 		(SyGGetApplication())->DisplayBusyCursor();		// can take time to flush buffers
 		JMount(GetDirectory(), false);
-		}
+	}
 }
 
 /******************************************************************************
@@ -149,13 +149,13 @@ SyGTreeDir::GetName()
 	const
 {
 	if (SyGIsTrashDirectory(GetDirectory()))
-		{
+	{
 		return JGetString("TrashName::SyGGlobals");
-		}
+	}
 	else
-		{
+	{
 		return itsPathInput->GetText()->GetText();
-		}
+	}
 }
 
 /******************************************************************************
@@ -241,49 +241,49 @@ SyGTreeDir::BuildWindow
 	JString prefsFile = JCombinePathAndName(startPath, kDirPrefsName);
 	prefsFile += JGetUserName();
 	if (!JFileExists(prefsFile))
-		{
+	{
 		const JString origPrefsFile = JCombinePathAndName(startPath, kOrigDirPrefsName);
 		JRenameFile(origPrefsFile, prefsFile);
-		}
+	}
 
 	std::istream* input  = nullptr;
 	const JString* prefs = nullptr;
 	std::string s;
 	if (!JFileReadable(prefsFile) &&
 		(SyGGetApplication())->GetMountPointPrefs(startPath, &prefs))
-		{
+	{
 		s.assign(prefs->GetBytes(), prefs->GetByteCount());
 		input = jnew std::istringstream(s);
-		}
+	}
 	else
-		{
+	{
 		input = jnew std::ifstream(prefsFile.GetBytes());
-		}
+	}
 	assert( input != nullptr );
 
 	JFileVersion vers = 0;
 	JSize w, h;
 	if (input->good())
-		{
+	{
 		*input >> vers;
 
 		if (vers <= kSyGCurrentDirSetupVersion)
-			{
+		{
 			window->ReadGeometry(*input);
-			}
+		}
 		else
-			{
+		{
 			jdelete input;
 			input = nullptr;
-			}
 		}
+	}
 	else if ((SyGGetPrefsMgr())->GetDefaultWindowSize(&w, &h))
-		{
+	{
 		window->SetSize(w,h);
 
 		jdelete input;
 		input = nullptr;
-		}
+	}
 	window->SetCloseAction(JXWindow::kCloseDirector);
 	window->SetWMClass(SyGGetWMClassInstance(), SyGGetFolderWindowClass());
 	window->ShouldFocusWhenShow(true);
@@ -300,12 +300,12 @@ SyGTreeDir::BuildWindow
 	// widgets
 
 	if (input != nullptr && input->good() && vers <= kSyGCurrentDirSetupVersion)
-		{
+	{
 		if (vers < 2)
-			{
+		{
 			JFileVersion v;
 			*input >> v;
-			}
+		}
 
 		itsTreeSet =
 			jnew SyGTreeSet(*input, vers, menuBar, startPath,
@@ -313,15 +313,15 @@ SyGTreeDir::BuildWindow
 							itsToolBar->GetWidgetEnclosure(),
 							JXWidget::kHElastic, JXWidget::kVElastic,
 							0,0, 1000,1000);
-		}
+	}
 	else
-		{
+	{
 		itsTreeSet =
 			jnew SyGTreeSet(menuBar, startPath, itsPathInput, pathMenu,
 							trashButton, itsToolBar->GetWidgetEnclosure(),
 							JXWidget::kHElastic, JXWidget::kVElastic,
 							0,0, 1000,1000);
-		}
+	}
 	assert( itsTreeSet != nullptr );
 	// itsTreeSet has already called FitToEnclosure()
 	ListenTo(GetTable());
@@ -348,9 +348,9 @@ SyGTreeDir::BuildWindow
 
 	itsToolBar->LoadPrefs();
 	if (itsToolBar->IsEmpty())
-		{
+	{
 		GetTable()->LoadToolBarDefaults(itsToolBar);
-		}
+	}
 
 	// clean up
 
@@ -368,18 +368,18 @@ void
 SyGTreeDir::SaveState()
 {
 	if (!(SyGGetPrefsMgr())->WillSaveFolderPrefs())
-		{
+	{
 		return;
-		}
+	}
 
 	const JString& path = GetDirectory();
 	if ((SyGGetApplication())->IsMountPoint(path))
-		{
+	{
 		std::ostringstream data;
 		WriteState(data);
 		const std::string s = data.str();
 		(SyGGetApplication())->SetMountPointPrefs(path, JString(s));
-		}
+	}
 
 	JString prefsFile = JCombinePathAndName(path, kDirPrefsName);
 	prefsFile += JGetUserName();
@@ -388,14 +388,14 @@ SyGTreeDir::SaveState()
 
 	std::ifstream input(prefsFile.GetBytes());
 	if (input.good())
-		{
+	{
 		JFileVersion vers;
 		input >> vers;
 		if (vers > kSyGCurrentDirSetupVersion)
-			{
+		{
 			return;
-			}
 		}
+	}
 	input.close();
 
 	std::ofstream output(prefsFile.GetBytes());
@@ -435,30 +435,30 @@ SyGTreeDir::Receive
 	)
 {
 	if (sender == itsPrefsMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		HandlePrefsMenu(selection->GetIndex());
-		}
+	}
 
 	else if (sender == itsHelpMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		HandleHelpMenu(selection->GetIndex());
-		}
+	}
 
 	else if (sender == itsUpButton && message.Is(JXButton::kPushed))
-		{
+	{
 		GetTable()->GoUp((GetDisplay()->GetLatestKeyModifiers()).meta());
-		}
+	}
 
 	else
-		{
+	{
 		JXWindowDirector::Receive(sender, message);
-		}
+	}
 }
 
 /******************************************************************************
@@ -473,26 +473,26 @@ SyGTreeDir::HandlePrefsMenu
 	)
 {
 	if (index == kEditPrefsCmd)
-		{
+	{
 		(SyGGetPrefsMgr())->EditPrefs();
-		}
+	}
 	else if (index == kEditBindings)
-		{
+	{
 		(JXFSBindingManager::Instance())->EditBindings();
-		}
+	}
 	else if (index == kEditToolBarCmd)
-		{
+	{
 		itsToolBar->Edit();
-		}
+	}
 	else if (index == kEditMacWinPrefsCmd)
-		{
+	{
 		JXMacWinPrefsDialog::EditPrefs();
-		}
+	}
 
 	else if (index == kSaveWindSizeCmd)
-		{
+	{
 		GetTable()->SavePrefsAsDefault();
-		}
+	}
 }
 
 /******************************************************************************
@@ -507,23 +507,23 @@ SyGTreeDir::HandleHelpMenu
 	)
 {
 	if (index == kAboutCmd)
-		{
+	{
 		(SyGGetApplication())->DisplayAbout();
-		}
+	}
 	else if (index == kTOCCmd)
-		{
+	{
 		(JXGetHelpManager())->ShowTOC();
-		}
+	}
 	else if (index == kOverviewCmd)
-		{
+	{
 		(JXGetHelpManager())->ShowSection("SyGGettingStartedHelp");
-		}
+	}
 	else if (index == kChangesCmd)
-		{
+	{
 		(JXGetHelpManager())->ShowChangeLog();
-		}
+	}
 	else if (index == kCreditsCmd)
-		{
+	{
 		(JXGetHelpManager())->ShowCredits();
-		}
+	}
 }

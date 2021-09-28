@@ -9,8 +9,8 @@
 
 #include "SyGFileTree.h"
 #include "SyGFileTreeNode.h"
-#include <JDirInfo.h>
-#include <jAssert.h>
+#include <jx-af/jcore/JDirInfo.h>
+#include <jx-af/jcore/jAssert.h>
 
 /******************************************************************************
  Constructor
@@ -63,13 +63,13 @@ SyGFileTree::Update
 	)
 {
 	if (force || updateNode == nullptr || *updateNode == nullptr)
-		{
+	{
 		return GetSyGRoot()->Update(force, updateNode);
-		}
+	}
 	else
-		{
+	{
 		return (**updateNode).Update(force, updateNode);
-		}
+	}
 }
 
 /******************************************************************************

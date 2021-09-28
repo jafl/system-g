@@ -11,9 +11,9 @@
 #include "SyGFileTreeTable.h"
 #include "SyGFileTreeList.h"
 #include "SyGFileTreeNode.h"
-#include <jXConstants.h>
-#include <JTableSelection.h>
-#include <jAssert.h>
+#include <jx-af/jx/jXConstants.h>
+#include <jx-af/jcore/JTableSelection.h>
+#include <jx-af/jcore/jAssert.h>
 
 /******************************************************************************
  Constructor
@@ -55,17 +55,17 @@ void
 SyGBeginEditingTask::Perform()
 {
 	if (itsTable != nullptr)
-		{
+	{
 		itsTable->itsEditTask = nullptr;	// first action:  allows it to create another one, if necessary
 
 		JPoint cell;
 		if (itsTable->GetTableSelection().GetSingleSelectedCell(&cell) &&
 			itsTable->GetFileTreeList()->GetSyGNode(cell.y) == itsNode)
-			{
+		{
 			itsTable->BeginEditing(cell);
 			itsTable->TableScrollToCell(JPoint(itsTable->GetToggleOpenColIndex(), cell.y));
-			}
 		}
+	}
 
 	jdelete this;
 }
@@ -83,7 +83,7 @@ SyGBeginEditingTask::Perform
 	)
 {
 	if (TimeToPerform(delta, maxSleepTime))
-		{
+	{
 		Perform();
-		}
+	}
 }

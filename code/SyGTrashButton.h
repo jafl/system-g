@@ -8,7 +8,7 @@
 #ifndef _H_SyGTrashButton
 #define _H_SyGTrashButton
 
-#include <JXImageButton.h>
+#include <jx-af/jx/JXImageButton.h>
 
 class SyGTrashButton : public JXImageButton
 {

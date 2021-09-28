@@ -11,12 +11,13 @@
 
 #include "SyGHeaderWidget.h"
 #include "SyGFileTreeTable.h"
-#include <JXWindow.h>
-#include <JFontManager.h>
-#include <JXColorManager.h>
-#include <jXPainterUtil.h>
-#include <jXGlobals.h>
-#include <jAssert.h>
+#include <jx-af/jx/JXDisplay.h>
+#include <jx-af/jx/JXWindow.h>
+#include <jx-af/jcore/JFontManager.h>
+#include <jx-af/jx/JXColorManager.h>
+#include <jx-af/jx/jXPainterUtil.h>
+#include <jx-af/jx/jXGlobals.h>
+#include <jx-af/jcore/jAssert.h>
 
 const JCoordinate kBorderWidth = 3;
 
@@ -88,9 +89,9 @@ SyGHeaderWidget::TableDrawCell
 {
 	JFont font = JFontManager::GetDefaultFont();
 	if (itsTable->IsCurrentCol(cell.x))
-		{
+	{
 		font.SetUnderlineCount(1);
-		}
+	}
 	p.SetFont(font);
 
 	const JString str				= itsTable->GetColTitle(cell.x);
@@ -98,15 +99,15 @@ SyGHeaderWidget::TableDrawCell
 
 	JRect sRect = rect;
 	if (bufferWidth < 0)
-		{
+	{
 		sRect.right += bufferWidth;
 		p.String(sRect, str, JPainter::kHAlignRight, JPainter::kVAlignCenter);
-		}
+	}
 	else
-		{
+	{
 		sRect.left += bufferWidth;
 		p.String(sRect, str, JPainter::kHAlignLeft, JPainter::kVAlignCenter);
-		}
+	}
 }
 
 /******************************************************************************
@@ -126,8 +127,8 @@ SyGHeaderWidget::HandleMouseDown
 {
 	JPoint cell;
 	if (GetCell(pt, &cell))
-		{
+	{
 		itsTable->SetCurrentColIndex(cell.x);
 		TableRefresh();
-		}
+	}
 }

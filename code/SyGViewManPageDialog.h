@@ -10,9 +10,9 @@
 #ifndef _H_SyGViewManPageDialog
 #define _H_SyGViewManPageDialog
 
-#include <JXWindowDirector.h>
-#include <JPrefObject.h>
-#include <JString.h>
+#include <jx-af/jx/JXWindowDirector.h>
+#include <jx-af/jcore/JPrefObject.h>
+#include <jx-af/jcore/JString.h>
 
 class JXTextButton;
 class JXInputField;

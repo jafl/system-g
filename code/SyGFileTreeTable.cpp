@@ -24,52 +24,52 @@
 #include "SyGGlobals.h"
 #include "SyGActionDefs.h"
 
-#include <JXFSBindingManager.h>
-#include <JXFSDirMenu.h>
-#include <JXFSRunCommandDialog.h>
+#include <jx-af/jfs/JXFSBindingManager.h>
+#include <jx-af/jfs/JXFSDirMenu.h>
+#include <jx-af/jfs/JXFSRunCommandDialog.h>
 
-#include <JXApplication.h>
-#include <JXWindowDirector.h>
-#include <JXCloseDirectorTask.h>
-#include <JXDisplay.h>
-#include <JXWindow.h>
-#include <JXWindowIcon.h>
-#include <JXColorManager.h>
-#include <JXDragPainter.h>
-#include <JXDNDManager.h>
-#include <JXSelectionManager.h>
-#include <JXFileSelection.h>
-#include <JXTextSelection.h>
-#include <JXInputField.h>
-#include <JXMenuBar.h>
-#include <JXSaveFileInput.h>
-#include <JXTextMenu.h>
-#include <JXFSDirMenu.h>
-#include <JXRadioGroupDialog.h>
-#include <JXCheckboxListDialog.h>
-#include <JXGetStringDialog.h>
-#include <JXTimerTask.h>
-#include <JXToolBar.h>
-#include <JXImage.h>
-#include <jXUtil.h>
+#include <jx-af/jx/JXApplication.h>
+#include <jx-af/jx/JXWindowDirector.h>
+#include <jx-af/jx/JXCloseDirectorTask.h>
+#include <jx-af/jx/JXDisplay.h>
+#include <jx-af/jx/JXWindow.h>
+#include <jx-af/jx/JXWindowIcon.h>
+#include <jx-af/jx/JXColorManager.h>
+#include <jx-af/jx/JXDragPainter.h>
+#include <jx-af/jx/JXDNDManager.h>
+#include <jx-af/jx/JXSelectionManager.h>
+#include <jx-af/jx/JXFileSelection.h>
+#include <jx-af/jx/JXTextSelection.h>
+#include <jx-af/jx/JXInputField.h>
+#include <jx-af/jx/JXMenuBar.h>
+#include <jx-af/jx/JXSaveFileInput.h>
+#include <jx-af/jx/JXTextMenu.h>
+#include <jx-af/jfs/JXFSDirMenu.h>
+#include <jx-af/jx/JXRadioGroupDialog.h>
+#include <jx-af/jx/JXCheckboxListDialog.h>
+#include <jx-af/jx/JXGetStringDialog.h>
+#include <jx-af/jx/JXTimerTask.h>
+#include <jx-af/jx/JXToolBar.h>
+#include <jx-af/jx/JXImage.h>
+#include <jx-af/jx/jXUtil.h>
 #include <X11/keysym.h>
 
-#include <JFontManager.h>
-#include <JTableSelection.h>
-#include <JSimpleProcess.h>
-#include <JStringIterator.h>
-#include <JRegex.h>
-#include <JSubstitute.h>
-#include <JDirInfo.h>
-#include <jMountUtil.h>
-#include <jStreamUtil.h>
-#include <jDirUtil.h>
-#include <jFileUtil.h>
-#include <jMouseUtil.h>
-#include <jVCSUtil.h>
-#include <jTime.h>
-#include <jASCIIConstants.h>
-#include <jAssert.h>
+#include <jx-af/jcore/JFontManager.h>
+#include <jx-af/jcore/JTableSelection.h>
+#include <jx-af/jcore/JSimpleProcess.h>
+#include <jx-af/jcore/JStringIterator.h>
+#include <jx-af/jcore/JRegex.h>
+#include <jx-af/jcore/JSubstitute.h>
+#include <jx-af/jcore/JDirInfo.h>
+#include <jx-af/jcore/jMountUtil.h>
+#include <jx-af/jcore/jStreamUtil.h>
+#include <jx-af/jcore/jDirUtil.h>
+#include <jx-af/jcore/jFileUtil.h>
+#include <jx-af/jcore/jMouseUtil.h>
+#include <jx-af/jcore/jVCSUtil.h>
+#include <jx-af/jcore/jTime.h>
+#include <jx-af/jcore/jASCIIConstants.h>
+#include <jx-af/jcore/jAssert.h>
 
 #include <jx_file_new.xpm>
 #include <jx_file_open.xpm>
@@ -335,9 +335,9 @@ SyGFileTreeTable::SyGFileTreeTable
 	itsWindowIconType			= 0;
 
 	for (JUnsignedOffset i=0; i<5; i++)
-		{
+	{
 		itsVisibleCols[i] = false;
-		}
+	}
 	itsCurrentColType = kGFMName;
 
 	ShouldHilightTextOnly(true);
@@ -370,7 +370,7 @@ SyGFileTreeTable::SyGFileTreeTable
 
 	JString recentDir;
 	if (SyGGetRecentFileDirectory(&recentDir))
-		{
+	{
 		itsRecentFilesMenu =
 			jnew JXFSDirMenu(recentDir, itsFileMenu, kOpenRecentItemIndex, menuBar);
 		assert( itsRecentFilesMenu != nullptr );
@@ -381,14 +381,14 @@ SyGFileTreeTable::SyGFileTreeTable
 
 		JDirInfo* info;
 		if (itsRecentFilesMenu->GetDirInfo(&info))
-			{
-			info->ChangeSort(JDirEntry::CompareModTimes, JListT::kSortDescending);
-			}
-		}
-	else
 		{
-		itsFileMenu->DisableItem(kOpenRecentItemIndex);
+			info->ChangeSort(JDirEntry::CompareModTimes, JListT::kSortDescending);
 		}
+	}
+	else
+	{
+		itsFileMenu->DisableItem(kOpenRecentItemIndex);
+	}
 
 	JXTEBase* te         = GetEditMenuHandler();
 	itsEditMenu          = te->AppendEditMenu(menuBar);
@@ -604,26 +604,26 @@ SyGFileTreeTable::TableDrawCell
 	)
 {
 	if (cell.y % 2 == 0)
-		{
+	{
 		const JColorID origColor = p.GetPenColor();
 		p.SetPenColor(itsAltRowColor);
 		p.SetFilling(true);
 		p.Rect(rect);
 		p.SetFilling(false);
 		p.SetPenColor(origColor);
-		}
+	}
 
 	if (JIndex(cell.x) == GetToggleOpenColIndex() ||
 		JIndex(cell.x) == GetNodeColIndex())
-		{
+	{
 		JXNamedTreeListWidget::TableDrawCell(p,cell,rect);
 		return;
-		}
+	}
 
 	const GFMColType type = GetFMColType(cell.x, GetNodeColIndex(), itsVisibleCols);
 	const JString str     = GetCellString(cell);
 	if (type == kGFMMode && !str.IsEmpty())
-		{
+	{
 		p.SetFont(GetFont());
 
 		JRect pRect = rect;
@@ -634,30 +634,30 @@ SyGFileTreeTable::TableDrawCell
 		JStringIterator iter(str);
 		JUtf8Character c;
 		while (iter.Next(&c))
-			{
+		{
 			p.String(pRect, JString(c), JPainter::kHAlignCenter, JPainter::kVAlignCenter);
 			pRect.Shift(itsPermCharWidth, 0);
-			}
 		}
+	}
 	else if (!str.IsEmpty())
-		{
+	{
 		p.SetFont(GetFont());
 
 		JRect sRect = rect;
 		const JCoordinate theBuffer = GetFMBufferWidth(itsVisibleCols, GetNodeColIndex(), cell.x);
 		if (theBuffer > 0)
-			{
+		{
 			sRect.left += theBuffer;
-			}
+		}
 		else
-			{
+		{
 			sRect.right += theBuffer;
-			}
+		}
 
 		p.String(sRect, str,
 				 type == kGFMSize ? JPainter::kHAlignRight : JPainter::kHAlignLeft,
 				 JPainter::kVAlignCenter);
-		}
+	}
 }
 
 /******************************************************************************
@@ -677,36 +677,36 @@ SyGFileTreeTable::GetImage
 
 	JIndex dndIndex;
 	if (GetDNDTargetIndex(&dndIndex) && dndIndex == index)
-		{
+	{
 		selected = true;
-		}
+	}
 
 	const SyGFileTreeNode* node = itsFileTreeList->GetSyGNode(index);
 	const JDirEntry* entry      = node->GetDirEntry();
 	if (node->IsOpenable() && entry->IsWritable())
-		{
+	{
 		*image = SyGGetFolderSmallIcon(selected);
-		}
+	}
 	else if (node->IsOpenable())
-		{
+	{
 		*image = SyGGetReadOnlyFolderSmallIcon(selected);
-		}
+	}
 	else if (entry->IsDirectory())
-		{
+	{
 		*image = SyGGetLockedFolderSmallIcon(selected);
-		}
+	}
 	else if (!itsIgnoreExecPermFlag && entry->IsExecutable() && entry->IsFile())
-		{
+	{
 		*image = SyGGetExecSmallIcon(selected);
-		}
+	}
 	else if (entry->IsFile() || entry->IsBrokenLink())
-		{
+	{
 		*image = SyGGetFileSmallIcon(selected);
-		}
+	}
 	else
-		{
+	{
 		*image = SyGGetUnknownSmallIcon(selected);
-		}
+	}
 	return true;
 }
 
@@ -728,41 +728,41 @@ SyGFileTreeTable::GetCellString
 	const GFMColType type = GetFMColType(cell.x, GetNodeColIndex(), itsVisibleCols);
 
 	if (type == kGFMUID)
-		{
+	{
 		return dirEntry->GetUserName();
-		}
+	}
 	else if (type == kGFMGID)
-		{
+	{
 		return dirEntry->GetGroupName();
-		}
+	}
 	else if (type == kGFMSize && !dirEntry->IsLink())
-		{
+	{
 		if (dirEntry->IsDirectory())
-			{
-			return JString("-", JString::kNoCopy);
-			}
-		else
-			{
-			return JPrintFileSize(dirEntry->GetSize());
-			}
-		}
-	else if (type == kGFMMode && !dirEntry->IsLink())
 		{
+			return JString("-", JString::kNoCopy);
+		}
+		else
+		{
+			return JPrintFileSize(dirEntry->GetSize());
+		}
+	}
+	else if (type == kGFMMode && !dirEntry->IsLink())
+	{
 		mode_t mode = dirEntry->GetMode();
 		if (itsIgnoreExecPermFlag)
-			{
+		{
 			mode &= ~(S_IXUSR | S_IXGRP | S_IXOTH);
-			}
+		}
 		return JGetPermissionsString(mode);
-		}
+	}
 	else if (type == kGFMDate)
-		{
+	{
 		return JConvertToTimeStamp(dirEntry->GetModTime());
-		}
+	}
 	else
-		{
+	{
 		return JString();
-		}
+	}
 }
 
 /******************************************************************************
@@ -786,35 +786,35 @@ SyGFileTreeTable::SelectName
 	)
 {
 	if (!name.IsEmpty())
-		{
+	{
 		if (updateContent)
-			{
+		{
 			itsFileTree->Update(true);
-			}
+		}
 
 		if (parent == nullptr)
-			{
+		{
 			parent = itsFileTree->GetSyGRoot();
-			}
+		}
 
 		const JNamedTreeNode* node;
 		JIndex index;
 		if (parent->FindNamedChild(name, &node) &&
 			itsFileTreeList->FindNode(node, &index))
-			{
+		{
 			cell->Set(GetNodeColIndex(), index);
 			(GetTableSelection()).SelectCell(*cell);
 
 			if (updateView)
-				{
+			{
 				ForceAdjustToTree();	// make sure col widths are correct
 				UpdateScrollbars();		// make sure they are visible
-				}
+			}
 
 			TableScrollToCell(*cell);
 			return true;
-			}
 		}
+	}
 
 	return false;
 }
@@ -837,9 +837,9 @@ SyGFileTreeTable::SelectName
 	)
 {
 	if (updateContent)
-		{
+	{
 		itsFileTree->Update(true);
-		}
+	}
 	bool updateView = updateContent;
 
 	JTableSelection& s      = GetTableSelection();
@@ -847,47 +847,47 @@ SyGFileTreeTable::SelectName
 
 	const JSize count = pathList.GetElementCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		const JString& name1 = *(pathList.GetElement(i));
 
 		const JNamedTreeNode* node;
 		JIndex index;
 		if (parent->FindNamedChild(name1, &node) &&
 			itsFileTreeList->FindNode(node, &index))
-			{
+		{
 			cell->Set(GetNodeColIndex(), index);
 
 			if (i == count && name.IsEmpty())
-				{
-				if (clearSelection)
-					{
-					s.ClearSelection();
-					}
-				SelectName(name1, parent, cell, false, updateView);
-				}
-			}
-		else
 			{
-			if (clearSelection)
+				if (clearSelection)
 				{
-				s.ClearSelection();
+					s.ClearSelection();
 				}
+				SelectName(name1, parent, cell, false, updateView);
+			}
+		}
+		else
+		{
+			if (clearSelection)
+			{
+				s.ClearSelection();
+			}
 			SelectName(name1, parent, cell, false, updateView);
 			return false;
-			}
+		}
 
 		if (!itsFileTreeList->IsOpen(cell->y))
-			{
+		{
 			itsFileTreeList->Open(cell->y);
 			updateView = true;
-			}
-		parent = itsFileTreeList->GetSyGNode(cell->y);
 		}
+		parent = itsFileTreeList->GetSyGNode(cell->y);
+	}
 
 	if (clearSelection && !name.IsEmpty())
-		{
+	{
 		s.ClearSelection();
-		}
+	}
 	return SelectName(name, parent, cell, false, updateView);
 }
 
@@ -922,9 +922,9 @@ SyGFileTreeTable::HandleMouseHere
 	)
 {
 	if (itsEditTask != nullptr && JMouseMoved(itsStartPt, pt))
-		{
+	{
 		itsEditTask->Perform();
-		}
+	}
 }
 
 /******************************************************************************
@@ -957,28 +957,28 @@ SyGFileTreeTable::HandleMouseDown
 	JPoint cell;
 	NodePart part;
 	if (!GetNode(pt, &cell, &part))
-		{
+	{
 		if (!ScrollForWheel(button, modifiers))
-			{
-			StartDragRect(pt, button, modifiers);
-			}
-		}
-	else if (part == kToggleColumn || button > kJXRightButton)
 		{
+			StartDragRect(pt, button, modifiers);
+		}
+	}
+	else if (part == kToggleColumn || button > kJXRightButton)
+	{
 		JXNamedTreeListWidget::HandleMouseDown(pt, button, clickCount,
 											   buttonStates, modifiers);
 		if (!IsDraggingToggle())
-			{
+		{
 			StartDragRect(pt, button, modifiers);
-			}
 		}
+	}
 	else if (GetFMColType(cell.x, GetNodeColIndex(), itsVisibleCols) == kGFMMode &&
 			 !(itsFileTreeList->GetDirEntry(cell.y))->IsLink())
-		{
+	{
 		if (!s.IsSelected(cell.y, GetNodeColIndex()))
-			{
+		{
 			s.ClearSelection();
-			}
+		}
 
 		const JRect cellRect  = GetCellRect(cell);
 		const JIndex subIndex = 1 + (pt.x - cellRect.left)/itsPermCharWidth;
@@ -1002,81 +1002,81 @@ SyGFileTreeTable::HandleMouseDown
 		JTableSelectionIterator iter(&s);
 		JPoint testCell;
 		while (iter.Next(&testCell))
-			{
+		{
 			SyGFileTreeNode* node  = itsFileTreeList->GetSyGNode(testCell.y);
 			const JString fullName = (node->GetDirEntry())->GetFullName();
 
 			JString sysCmd("chmod ");
 			if (modifiers.meta())
-				{
+			{
 				sysCmd += "-R ";
-				}
+			}
 			sysCmd += permsStr;
 			sysCmd += " ";
 			sysCmd += JPrepArgForExec(fullName);
 			SyGExec(sysCmd);
 			node->Update(true);
-			}
 		}
+	}
 	else if (part == kBeforeImage || part == kAfterText ||
 			 (part == kOtherColumn && (GetCellString(cell)).IsEmpty()))
-		{
+	{
 		StartDragRect(pt, button, modifiers);
-		}
+	}
 	else if (button == kJXRightButton)
-		{
+	{
 		if (itsContextMenu == nullptr)
-			{
+		{
 			itsContextMenu = jnew JXTextMenu(JString::empty, this, kFixedLeft, kFixedTop, 0,0, 10,10);
 			assert( itsContextMenu != nullptr );
 			itsContextMenu->SetToHiddenPopupMenu(true);
 			itsContextMenu->SetMenuItems(kContextMenuStr);
 			itsContextMenu->SetUpdateAction(JXMenu::kDisableNone);
 			ListenTo(itsContextMenu);
-			}
+		}
 
 		const JPoint cell1(GetNodeColIndex(), cell.y);
 		if (!s.IsSelected(cell1))
-			{
+		{
 			SelectSingleCell(cell1, false);
-			}
+		}
 
 		itsContextMenu->PopUp(this, pt, buttonStates, modifiers);
-		}
+	}
 	else if (modifiers.shift() && !modifiers.control() && !modifiers.meta())
-		{
+	{
 		s.InvertCell(cell.y, GetNodeColIndex());
-		}
+	}
 	else if (clickCount > 1)
-		{
+	{
 		itsWaitingForDragFlag = s.HasSelection();
 		itsLastClickCount     = clickCount;		// save for HandleMouseUp()
-		}
+	}
 	else if (!modifiers.shift() && modifiers.control() && !modifiers.meta())
-		{
+	{
 		// after checking for double-click, since this inverts selection
 
 		// does not use meta on osx, because meta-dbl-click used in too many places
 
 		s.InvertCell(cell.y, GetNodeColIndex());
 		itsWaitingForDragFlag = s.IsSelected(cell.y, GetNodeColIndex());
-		}
+	}
 	else
-		{
+	{
 		itsWaitingForDragFlag = true;
 		itsWaitingToEditFlag  = part == kInText;
 		itsEditCell           = cell;
 
 		if (s.IsSelected(cell.y, GetNodeColIndex()))
-			{
+		{
 			itsClearIfNotDNDFlag = true;
-			}
+		}
 		else
-			{
+		{
 			s.ClearSelection();
 			s.SelectCell(cell.y, GetNodeColIndex());
-			}
 		}
+	}
 }
 
 /******************************************************************************
@@ -1093,15 +1093,15 @@ SyGFileTreeTable::StartDragRect
 	)
 {
 	if (button == kJXLeftButton)
-		{
+	{
 		if (!modifiers.shift())
-			{
+		{
 			(GetTableSelection()).ClearSelection();
-			}
+		}
 
 		JPainter* p = CreateDragInsidePainter();
 		p->Rect(JRect(pt, pt));
-		}
+	}
 }
 
 /******************************************************************************
@@ -1119,23 +1119,23 @@ SyGFileTreeTable::HandleMouseDrag
 {
 	JPainter* p = nullptr;
 	if (GetDragPainter(&p))
-		{
+	{
 		if (pt != itsPrevPt)
-			{
+		{
 			if (!ScrollForDrag(pt))
-				{
+			{
 				p->Rect(JRect(itsStartPt, itsPrevPt));
-				}
+			}
 			p->Rect(JRect(itsStartPt, pt));
 			itsPrevPt = pt;
-			}
 		}
+	}
 	else if (itsWaitingForDragFlag)
-		{
+	{
 		assert( (GetTableSelection()).HasSelection() );
 
 		if (JMouseMoved(itsStartPt, pt))
-			{
+		{
 			itsWaitingForDragFlag = false;
 			itsClearIfNotDNDFlag  = false;
 			itsWaitingToEditFlag  = false;
@@ -1145,15 +1145,15 @@ SyGFileTreeTable::HandleMouseDrag
 
 			ChooseDNDCursors();
 			if (BeginDND(pt, buttonStates, modifiers, data))
-				{
+			{
 				SyGSetDNDSource(this);
-				}
 			}
 		}
+	}
 	else
-		{
+	{
 		JXNamedTreeListWidget::HandleMouseDrag(pt,buttonStates,modifiers);
-		}
+	}
 }
 
 /******************************************************************************
@@ -1174,7 +1174,7 @@ SyGFileTreeTable::HandleMouseUp
 
 	JPainter* p = nullptr;
 	if (GetDragPainter(&p))
-		{
+	{
 		const JRect selRect = JRect(itsStartPt, itsPrevPt);
 		p->Rect(selRect);		// erase rectangle
 
@@ -1189,38 +1189,38 @@ SyGFileTreeTable::HandleMouseUp
 		const JIndex end   = JMax(startCell.y, endCell.y);
 
 		if (startOK || endOK)
-			{
+		{
 			for (JIndex i=start; i<=end; i++)
-				{
+			{
 				JRect r = GetNodeRect(i);
 				if (JIntersection(selRect, r, &r))
-					{
+				{
 					if (modifiers.shift())
-						{
+					{
 						s.InvertCell(i, GetNodeColIndex());
-						}
+					}
 					else
-						{
+					{
 						s.SelectCell(i, GetNodeColIndex());
-						}
 					}
 				}
 			}
+		}
 
 		DeleteDragPainter();
 		Refresh();
-		}
+	}
 	else if (itsWaitingForDragFlag && itsLastClickCount > 1)
-		{
+	{
 		OpenSelection(modifiers.meta(), button == kJXMiddleButton,
 					  modifiers.control() && modifiers.shift(),
 					  modifiers.control());
-		}
+	}
 	else if (itsWaitingToEditFlag)
-		{
+	{
 		JPoint cell;
 		if (GetCell(itsStartPt, &cell))		// might update dir contents
-			{
+		{
 			s.ClearSelection();
 			s.SelectCell(itsEditCell);
 
@@ -1228,27 +1228,27 @@ SyGFileTreeTable::HandleMouseUp
 			itsEditTask = jnew SyGBeginEditingTask(this, itsEditCell);
 			assert( itsEditTask != nullptr );
 			itsEditTask->Start();
-			}
 		}
+	}
 	else if (itsClearIfNotDNDFlag)
-		{
+	{
 		JPoint cell;
 		if (GetCell(itsStartPt, &cell))		// might update dir contents
-			{
+		{
 			s.ClearSelection();
 			s.SelectCell(cell.y, GetNodeColIndex());
-			}
 		}
+	}
 	else
-		{
+	{
 		JXNamedTreeListWidget::HandleMouseUp(pt, button, buttonStates, modifiers);
-		}
+	}
 
 	if (itsSortNode != nullptr)
-		{
+	{
 		itsSortNode->SortChildren();
 		itsSortNode = nullptr;
-		}
+	}
 
 	itsWaitingToEditFlag = false;
 	itsClearIfNotDNDFlag = false;
@@ -1268,54 +1268,54 @@ SyGFileTreeTable::HandleKeyPress
 	)
 {
 	if (!(GetDisplay()->GetLatestButtonStates()).AllOff())
-		{
+	{
 		return;		// don't let selection change during DND
-		}
+	}
 
 	if (c == kJReturnKey || keySym == XK_F2)
-		{
+	{
 		ClearIncrementalSearchBuffer();
 
 		JTableSelection& s = GetTableSelection();
 		JPoint cell;
 		if (IsEditing())
-			{
+		{
 			EndEditing();
-			}
-		else if (s.GetSingleSelectedCell(&cell))
-			{
-			BeginEditing(cell);
-			}
 		}
+		else if (s.GetSingleSelectedCell(&cell))
+		{
+			BeginEditing(cell);
+		}
+	}
 
 	else if ((c == kJUpArrow || c == kJDownArrow) && !IsEditing())
-		{
+	{
 		const bool hasSelection = (GetTableSelection()).HasSelection();
 		if (!hasSelection && c == kJUpArrow && GetRowCount() > 0)
-			{
+		{
 			SelectSingleCell(JPoint(GetNodeColIndex(), GetRowCount()));
-			}
-		else if (!hasSelection && c == kJDownArrow && GetRowCount() > 0)
-			{
-			SelectSingleCell(JPoint(GetNodeColIndex(), 1));
-			}
-		else
-			{
-			HandleSelectionKeyPress(c, modifiers);
-			}
-		ClearIncrementalSearchBuffer();
 		}
+		else if (!hasSelection && c == kJDownArrow && GetRowCount() > 0)
+		{
+			SelectSingleCell(JPoint(GetNodeColIndex(), 1));
+		}
+		else
+		{
+			HandleSelectionKeyPress(c, modifiers);
+		}
+		ClearIncrementalSearchBuffer();
+	}
 
 	else if (c == kJForwardDeleteKey && (SyGGetPrefsMgr())->DelWillDelete())
-		{
+	{
 		ClearIncrementalSearchBuffer();
 		DeleteSelected();
-		}
+	}
 
 	else
-		{
+	{
 		JXNamedTreeListWidget::HandleKeyPress(c, keySym, modifiers);
-		}
+	}
 }
 
 /******************************************************************************
@@ -1327,23 +1327,23 @@ void
 SyGFileTreeTable::DeleteSelected()
 {
 	if (!EndEditing() || !WarnForDelete())
-		{
+	{
 		return;
-		}
+	}
 
 	JTableSelectionIterator iter(&(GetTableSelection()));
 	JPoint cell;
 	while (iter.Next(&cell))
-		{
+	{
 		SyGFileTreeNode* node = itsFileTreeList->GetSyGNode(cell.y);
 		const JString file    = (node->GetDirEntry())->GetFullName();
 		JProcess* p;
 		JRemoveVCS(file, false, &p);
 		if (p != nullptr)
-			{
+		{
 			ListenTo(p);
-			}
 		}
+	}
 }
 
 /******************************************************************************
@@ -1360,46 +1360,46 @@ SyGFileTreeTable::WarnForDelete()
 {
 	const JTableSelection& s = GetTableSelection();
 	if (!s.HasSelection())
-		{
+	{
 		return false;
-		}
+	}
 
 	JString msg;
 	JPoint cell;
 	if (s.GetSingleSelectedCell(&cell))
-		{
+	{
 		const SyGFileTreeNode* node = itsFileTreeList->GetSyGNode(cell.y);
 		const JUtf8Byte* map[] =
-			{
+		{
 			"name", node->GetName().GetBytes()
-			};
+		};
 		msg = JGetString((node->GetDirEntry())->GetType() == JDirEntry::kDir ?
 							"WarnDeleteSingleDir::SyGFileTreeTable" :
 							"WarnDeleteSingleFile::SyGFileTreeTable",
 						 map, sizeof(map));
-		}
+	}
 	else
-		{
+	{
 		bool hasDirs = false;
 		JTableSelectionIterator iter(&s);
 		while (iter.Next(&cell))
-			{
+		{
 			if ((itsFileTreeList->GetDirEntry(cell.y))->GetType() == JDirEntry::kDir)
-				{
+			{
 				hasDirs = true;
 				break;
-				}
 			}
+		}
 
 		const JString countStr(s.GetSelectedCellCount(), 0);
 		const JUtf8Byte* map[] =
-			{
+		{
 			"count", countStr.GetBytes()
-			};
+		};
 		msg = JGetString(hasDirs ? "WarnDeleteMultipleDir::SyGFileTreeTable" :
 								   "WarnDeleteMultipleFile::SyGFileTreeTable",
 						 map, sizeof(map));
-		}
+	}
 
 	return JGetUserNotification()->AskUserNo(msg);
 }
@@ -1417,17 +1417,17 @@ SyGFileTreeTable::HandleShortcut
 	)
 {
 	if (key == kJUpArrow && modifiers.meta())
-		{
+	{
 		GoUp(modifiers.shift());
-		}
+	}
 	else if (key == kJDownArrow && modifiers.meta())
-		{
+	{
 		OpenSelection(modifiers.shift(), false, false, false);
-		}
+	}
 	else
-		{
+	{
 		JXNamedTreeListWidget::HandleShortcut(key, modifiers);
-		}
+	}
 }
 
 /******************************************************************************
@@ -1444,25 +1444,25 @@ SyGFileTreeTable::GoUp
 	ClearIncrementalSearchBuffer();
 
 	if (sameWindow == (SyGGetPrefsMgr())->WillOpenNewWindows())
-		{
+	{
 		SyGFileTreeNode* root = itsFileTree->GetSyGRoot();
 		const JString origDir = root->GetName();
 		const JError err      = root->GoUp();
 		if (err.OK())
-			{
+		{
 			JPoint cell;
 			SelectName(origDir, nullptr, &cell);
-			}
-		else
-			{
-			err.ReportIfError();
-			}
 		}
-	else
+		else
 		{
+			err.ReportIfError();
+		}
+	}
+	else
+	{
 		const JString path = JCombinePathAndName(itsFileTree->GetDirectory(), JString("..", JString::kNoCopy));
 		(SyGGetApplication())->OpenDirectory(path);
-		}
+	}
 }
 
 /******************************************************************************
@@ -1480,14 +1480,14 @@ SyGFileTreeTable::GoTo
 	ClearIncrementalSearchBuffer();
 
 	if (sameWindow == (SyGGetPrefsMgr())->WillOpenNewWindows())
-		{
+	{
 		const JError err = (itsFileTree->GetSyGRoot())->GoTo(path);
 		err.ReportIfError();
-		}
+	}
 	else
-		{
+	{
 		(SyGGetApplication())->OpenDirectory(path);
-		}
+	}
 }
 
 /******************************************************************************
@@ -1506,23 +1506,23 @@ SyGFileTreeTable::WillAcceptDrop
 	)
 {
 	if (!EndEditing())
-		{
+	{
 		return false;
-		}
+	}
 
 	const Atom urlXAtom = GetSelectionManager()->GetURLXAtom(),
 			   xdsXAtom = GetDNDManager()->GetDNDDirectSave0XAtom();
 
 	const JSize typeCount = typeList.GetElementCount();
 	for (JIndex i=1; i<=typeCount; i++)
-		{
+	{
 		const Atom type = typeList.GetElement(i);
 		if (type == urlXAtom || type == xdsXAtom)
-			{
+		{
 			if (SyGIsTrashDirectory(itsFileTree->GetDirectory()))
-				{
+			{
 				*action = GetDNDManager()->GetDNDActionPrivateXAtom();
-				}
+			}
 
 			HandleDNDHere(pt, source);
 
@@ -1530,8 +1530,8 @@ SyGFileTreeTable::WillAcceptDrop
 			const bool accept = GetDNDTargetIndex(&dndIndex);
 			const JString dest    = ((itsFileTree->GetSyGRoot())->GetDirEntry())->GetFullName();
 			return accept || JDirectoryWritable(dest);
-			}
 		}
+	}
 
 	return false;
 }
@@ -1564,13 +1564,13 @@ SyGFileTreeTable::HandleDNDHere
 	NodePart part;
 	if (!GetNode(pt, &cell, &part) ||
 		part == kToggleColumn || part == kBeforeImage || part == kAfterText)
-		{
+	{
 		ClearDNDTargetIndex();
-		}
+	}
 	else
-		{
+	{
 		SetDNDTargetIndex(GetNearestDirIndex(cell.y, true));
-		}
+	}
 }
 
 /******************************************************************************
@@ -1607,22 +1607,22 @@ SyGFileTreeTable::HandleDNDDrop
 
 	bool isXDS = action == dndMgr->GetDNDActionDirectSaveXAtom();
 	if (!isXDS)
-		{
+	{
 		const Atom xdsXAtom   = dndMgr->GetDNDDirectSave0XAtom();
 		const JSize typeCount = typeList.GetElementCount();
 		for (JIndex i = 1; i <= typeCount; i++)
-			{
+		{
 			if (typeList.GetElement(i) == xdsXAtom)
-				{
+			{
 				isXDS = true;
 				break;
-				}
 			}
 		}
+	}
 
 	JIndex dndIndex = 0;
 	if (isXDS)
-		{
+	{
 		const Window dragWindow = dndMgr->GetDraggerWindow();
 
 		Atom actualType;
@@ -1637,7 +1637,7 @@ SyGFileTreeTable::HandleDNDDrop
 
 		if (actualType == selManager->GetMimePlainTextXAtom() &&
 			actualFormat == 8 && itemCount > 0)
-			{
+		{
 			SyGFileTreeNode* node =
 				GetDNDTargetIndex(&dndIndex) ?
 				itsFileTreeList->GetSyGNode(dndIndex) :
@@ -1658,9 +1658,9 @@ SyGFileTreeTable::HandleDNDDrop
 			JXSelectionManager::DeleteMethod delMethod;
 			if (selManager->GetData(dndName, time, dndMgr->GetDNDDirectSave0XAtom(),
 									&returnType, &data, &dataLength, &delMethod))
-				{
+			{
 				if (*data == 0x46)		// F: failure
-					{
+				{
 					XChangeProperty(*(GetDisplay()), dragWindow,
 									dndMgr->GetDNDDirectSave0XAtom(),
 									GetSelectionManager()->GetMimePlainTextXAtom(), 8,
@@ -1668,28 +1668,28 @@ SyGFileTreeTable::HandleDNDDrop
 									(unsigned char*) "", 0);
 					JGetUserNotification()->ReportError(
 						JGetString("RemoteSavingUnusupported::SyGFileTreeTable"));
-					}
-				selManager->DeleteData(&data, delMethod);
 				}
-
+				selManager->DeleteData(&data, delMethod);
 			}
+
 		}
+	}
 	else if (!GetDNDTargetIndex(&dndIndex) &&
 			 SyGIsTrashDirectory(itsFileTree->GetDirectory()))
-		{
+	{
 		SyGTrashButton::MoveFilesToTrash(time, source);
-		}
+	}
 	else if (GetTrueDropAction(&realAction))
-		{
+	{
 		unsigned char* data = nullptr;
 		JSize dataLength;
 		Atom returnType;
 		JXSelectionManager::DeleteMethod delMethod;
 		if (selManager->GetData(dndName, time, selManager->GetURLXAtom(),
 								&returnType, &data, &dataLength, &delMethod))
-			{
+		{
 			if (returnType == selManager->GetURLXAtom())
-				{
+			{
 				auto* fileNameList = jnew JPtrArray<JString>(JPtrArrayT::kDeleteAll);
 				assert( fileNameList != nullptr );
 				JPtrArray<JString> urlList(JPtrArrayT::kDeleteAll);
@@ -1704,32 +1704,32 @@ SyGFileTreeTable::HandleDNDDrop
 					itsFileTree->GetSyGRoot();
 
 				if (realAction == dndMgr->GetDNDActionLinkXAtom())
-					{
+				{
 					(GetTableSelection()).ClearSelection();
 
 					const JSize count = fileNameList->GetElementCount();
 					for (JIndex i=1; i<=count; i++)
-						{
+					{
 						MakeLinkToFile(*(fileNameList->GetElement(i)), destNode, true);
-						}
+					}
 
 					jdelete fileNameList;
-					}
+				}
 				else if (realAction == dndMgr->GetDNDActionMoveXAtom())
-					{
+				{
 					SyGCopyProcess::Move(srcTable, fileNameList, this, destNode);
-					}
+				}
 				else
-					{
+				{
 					SyGCopyProcess::Copy(srcTable, fileNameList, this, destNode);
-					}
-
-				JXReportUnreachableHosts(urlList);
 				}
 
-			selManager->DeleteData(&data, delMethod);
+				JXReportUnreachableHosts(urlList);
 			}
+
+			selManager->DeleteData(&data, delMethod);
 		}
+	}
 
 	ClearDNDTargetIndex();
 	SyGSetDNDSource(nullptr);
@@ -1767,35 +1767,35 @@ SyGFileTreeTable::GetTrueDropAction
 {
 	JXDNDManager* dndMgr = GetDNDManager();
 	if (*action == dndMgr->GetDNDActionAskXAtom())
-		{
+	{
 		JArray<Atom> actionList;
 		JPtrArray<JString> descriptionList(JPtrArrayT::kDeleteAll);
 		if (!dndMgr->GetAskActions(&actionList, &descriptionList))
-			{
-			*action = dndMgr->GetDNDActionMoveXAtom();
-			}
-		else if (!dndMgr->ChooseDropAction(actionList, descriptionList, action))
-			{
-			return false;
-			}
-		}
-	else if (SyGIsTrashDirectory(itsFileTree->GetDirectory()))
 		{
+			*action = dndMgr->GetDNDActionMoveXAtom();
+		}
+		else if (!dndMgr->ChooseDropAction(actionList, descriptionList, action))
+		{
+			return false;
+		}
+	}
+	else if (SyGIsTrashDirectory(itsFileTree->GetDirectory()))
+	{
 		// handle special case when dropping on folder inside trash
 
 		*action = dndMgr->GetDNDActionMoveXAtom();
-		}
+	}
 	else if (*action == dndMgr->GetDNDActionPrivateXAtom())		// ask
-		{
+	{
 		JArray<Atom> actionList;
 		JPtrArray<JString> descriptionList(JPtrArrayT::kDeleteAll);
 		GetDNDAskActions(JXButtonStates(), JXKeyModifiers(GetDisplay()),
 						 &actionList, &descriptionList);
 		if (!dndMgr->ChooseDropAction(actionList, descriptionList, action))
-			{
+		{
 			return false;
-			}
 		}
+	}
 
 	return true;
 }
@@ -1819,7 +1819,7 @@ SyGFileTreeTable::GetSelectionData
 	)
 {
 	if (id == kDNDClassID)
-		{
+	{
 		assert( GetTableSelection().HasSelection() );
 
 		auto* fileData = dynamic_cast<JXFileSelection*>(data);
@@ -1831,17 +1831,17 @@ SyGFileTreeTable::GetSelectionData
 		JTableSelectionIterator iter(&(GetTableSelection()));
 		JPoint cell;
 		while (iter.Next(&cell))
-			{
+		{
 			const JDirEntry* entry = itsFileTreeList->GetDirEntry(cell.y);
 			fileList->Append(entry->GetFullName());
-			}
+		}
 
 		fileData->SetData(fileList);
-		}
+	}
 	else
-		{
+	{
 		JXNamedTreeListWidget::GetSelectionData(data, id);
-		}
+	}
 }
 
 /******************************************************************************
@@ -1883,7 +1883,7 @@ SyGFileTreeTable::GetDNDAction
 
 	SyGFileTreeTable* sygTarget = nullptr;
 	if (SyGGetDNDTarget(target, &sygTarget))
-		{
+	{
 		JIndex dndIndex;
 		SyGFileTreeNode* node =
 			sygTarget->GetDNDTargetIndex(&dndIndex) ?
@@ -1891,10 +1891,10 @@ SyGFileTreeTable::GetDNDAction
 			sygTarget->itsFileTree->GetSyGRoot();
 
 		if (!JIsSamePartition(sourcePath, (node->GetDirEntry())->GetFullName()))
-			{
+		{
 			moveDef = false;
-			}
 		}
+	}
 
 	const JXMenu::Style style = JXMenu::GetDisplayStyle();
 	const bool toggleMoveToCopy = ((style == JXMenu::kMacintoshStyle && modifiers.meta()) ||
@@ -1902,23 +1902,23 @@ SyGFileTreeTable::GetDNDAction
 
 	if ((style == JXMenu::kMacintoshStyle && modifiers.control()) ||
 		(style == JXMenu::kWindowsStyle   && modifiers.shift()))
-		{
+	{
 		return (source->GetDNDManager())->GetDNDActionAskXAtom();
-		}
+	}
 	else if ((style == JXMenu::kMacintoshStyle && modifiers.shift()) ||
 			 (style == JXMenu::kWindowsStyle   && modifiers.meta()))
-		{
+	{
 		return (source->GetDNDManager())->GetDNDActionLinkXAtom();
-		}
+	}
 	else if (( toggleMoveToCopy &&  moveDef) ||
 			 (!toggleMoveToCopy && !moveDef))
-		{
+	{
 		return (source->GetDNDManager())->GetDNDActionCopyXAtom();
-		}
+	}
 	else
-		{
+	{
 		return (source->GetDNDManager())->GetDNDActionMoveXAtom();
-		}
+	}
 }
 
 /******************************************************************************
@@ -1963,34 +1963,34 @@ SyGFileTreeTable::ChooseDNDCursors()
 	JTableSelectionIterator iter(&(GetTableSelection()));
 	JPoint cell;
 	while (iter.Next(&cell) && JIndex(cell.x) == GetNodeColIndex())
-		{
+	{
 		if ((itsFileTreeList->GetDirEntry(cell.y))->IsDirectory())
-			{
+		{
 			hasDir = true;
-			}
+		}
 		else
-			{
+		{
 			hasFile = true;
-			}
+		}
 
 		if (hasDir && hasFile)
-			{
+		{
 			break;
-			}
 		}
+	}
 
 	if (hasDir && hasFile)
-		{
+	{
 		itsDNDCursorType = kDNDMixedCursor;
-		}
+	}
 	else if (hasDir)
-		{
+	{
 		itsDNDCursorType = kDNDDirCursor;
-		}
+	}
 	else
-		{
+	{
 		itsDNDCursorType = kDNDFileCursor;
-		}
+	}
 }
 
 /******************************************************************************
@@ -2013,17 +2013,17 @@ SyGFileTreeTable::HandleDNDResponse
 	JXDNDManager* dndMgr = GetDNDManager();
 	JCursorIndex cursor;
 	if (itsDNDCursorType == kDNDMixedCursor)
-		{
+	{
 		cursor = dndMgr->GetDNDFileAndDirectoryCursor(dropAccepted, action);
-		}
+	}
 	else if (itsDNDCursorType == kDNDDirCursor)
-		{
+	{
 		cursor = dndMgr->GetDNDDirectoryCursor(dropAccepted, action);
-		}
+	}
 	else
-		{
+	{
 		cursor = dndMgr->GetDNDFileCursor(dropAccepted, action);
-		}
+	}
 	DisplayCursor(cursor);
 }
 
@@ -2040,19 +2040,19 @@ SyGFileTreeTable::Receive
 	)
 {
 	if (sender == itsFileMenu && message.Is(JXMenu::kNeedsUpdate))
-		{
+	{
 		UpdateFileMenu();
-		}
+	}
 	else if (sender == itsFileMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		HandleFileMenu(selection->GetIndex());
-		}
+	}
 
 	else if (sender == itsRecentFilesMenu && message.Is(JXFSDirMenu::kFileSelected))
-		{
+	{
 		const auto* info	= 
 			dynamic_cast<const JXFSDirMenu::FileSelected*>(&message);
 		assert( info != nullptr );
@@ -2060,361 +2060,361 @@ SyGFileTreeTable::Receive
 		const JDirEntry entry(info->GetFileName());
 		const JString* link;
 		if (entry.GetLinkName(&link))
-			{
+		{
 			SyGAddRecentFile(*link);
-			}
+		}
 
 		const bool alternateOpen = (GetDisplay()->GetLatestKeyModifiers()).meta();
 
 		JPtrArray<JString> fileList(JPtrArrayT::kDeleteAll);
 		fileList.Append(info->GetFileName());
 		JXFSBindingManager::Exec(fileList, alternateOpen);
-		}
+	}
 
 	else if (sender == itsEditMenu && message.Is(JXMenu::kNeedsUpdate))
-		{
+	{
 		if (HasFocus())
-			{
+		{
 			UpdateEditMenu();
-			}
 		}
+	}
 	else if (sender == itsEditMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		if (HasFocus())
-			{
+		{
 			const auto* selection =
 				dynamic_cast<const JXMenu::ItemSelected*>(&message);
 			assert( selection != nullptr );
 			HandleEditMenu(selection->GetIndex());
-			}
 		}
+	}
 
 	else if (sender == itsGitMenu && message.Is(JXMenu::kNeedsUpdate))
-		{
+	{
 		const auto* info =
 			dynamic_cast<const JXMenu::NeedsUpdate*>(&message);
 		assert( info != nullptr );
 		UpdateGitMenus(info->IsFromShortcut());
-		}
+	}
 	else if (sender == itsGitMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		HandleGitMenu(selection->GetIndex());
-		}
+	}
 
 	else if (sender == itsGitLocalBranchMenu && message.Is(JXMenu::kNeedsUpdate))
-		{
+	{
 		UpdateGitLocalBranchMenu();
-		}
+	}
 	else if (sender == itsGitLocalBranchMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		SwitchToGitBranch(itsGitLocalBranchMenu->GetItemText(selection->GetIndex()));
-		}
+	}
 
 	else if (sender == itsGitPullSourceMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		PullBranch(itsGitPullSourceMenu->GetItemText(selection->GetIndex()));
-		}
+	}
 	else if (sender == itsGitPushDestMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		PushBranch(itsGitPushDestMenu->GetItemText(selection->GetIndex()));
-		}
+	}
 	else if (sender == itsGitMergeBranchMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		MergeFromGitBranch(itsGitMergeBranchMenu->GetItemText(selection->GetIndex()));
-		}
+	}
 	else if (sender == itsGitStashPopMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		Unstash("pop", itsGitStashPopMenu->GetItemText(selection->GetIndex()));
-		}
+	}
 	else if (sender == itsGitStashApplyMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		Unstash("apply", itsGitStashApplyMenu->GetItemText(selection->GetIndex()));
-		}
+	}
 	else if (sender == itsGitStashDropMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		Unstash("drop", itsGitStashDropMenu->GetItemText(selection->GetIndex()));
-		}
+	}
 	else if (sender == itsGitRemoteBranchMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		FetchRemoteGitBranch1(itsGitRemoteBranchMenu->GetItemText(selection->GetIndex()));
-		}
+	}
 	else if (sender == itsGitRemoveBranchMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		RemoveGitBranch(itsGitRemoveBranchMenu->GetItemText(selection->GetIndex()));
-		}
+	}
 	else if (sender == itsGitRemoveRemoteMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		RemoveGitRemote(itsGitRemoveRemoteMenu->GetItemText(selection->GetIndex()));
-		}
+	}
 	else if (sender == itsGitPruneRemoteMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		PruneRemoteGitBranches(itsGitPruneRemoteMenu->GetItemText(selection->GetIndex()));
-		}
+	}
 
 	else if (sender == itsViewMenu && message.Is(JXMenu::kNeedsUpdate))
-		{
+	{
 		UpdateViewMenu();
-		}
+	}
 	else if (sender == itsViewMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		HandleViewMenu(selection->GetIndex());
-		}
+	}
 
 	else if (sender == itsShortcutMenu && message.Is(JXMenu::kNeedsUpdate))
-		{
+	{
 		UpdateShortcutMenu();
-		}
+	}
 	else if (sender == itsShortcutMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		HandleShortcutMenu(selection->GetIndex());
-		}
+	}
 
 	else if (sender == itsUpdateTask && message.Is(JXTimerTask::kTimerWentOff))
-		{
+	{
 		UpdateDisplay();
-		}
+	}
 
 	else if (sender == itsContextMenu && message.Is(JXMenu::kNeedsUpdate))
-		{
+	{
 		UpdateContextMenu();
-		}
+	}
 	else if (sender == itsContextMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		HandleContextMenu(selection->GetIndex());
-		}
+	}
 
 	else if (sender == itsChooseDiskFormatDialog &&
 			 message.Is(JXDialogDirector::kDeactivated))
-		{
+	{
 		const auto* info =
 			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
 		assert(info != nullptr);
 		if (info->Successful())
-			{
+		{
 			const JIndex i   = itsChooseDiskFormatDialog->GetSelectedItem();
 			const JError err = JFormatPartition(itsFileTree->GetDirectory(),
 												kFormatType[i-1], &itsFormatProcess);
 			if (err.OK())
-				{
+			{
 				itsFormatProcess->ShouldDeleteWhenFinished();
 				ListenTo(itsFormatProcess);
-				}
-			else
-				{
-				err.ReportIfError();
-				}
 			}
-		itsChooseDiskFormatDialog = nullptr;
+			else
+			{
+				err.ReportIfError();
+			}
 		}
+		itsChooseDiskFormatDialog = nullptr;
+	}
 	else if (sender == itsFormatProcess && message.Is(JProcess::kFinished))
-		{
+	{
 		JMount(itsFileTree->GetDirectory());
 		itsFormatProcess = nullptr;
-		}
+	}
 
 	else if (sender == itsCreateGitBranchDialog &&
 			 message.Is(JXDialogDirector::kDeactivated))
-		{
+	{
 		const auto* info =
 			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
 		assert(info != nullptr);
 		if (info->Successful())
-			{
+		{
 			CreateGitBranch(itsCreateGitBranchDialog->GetString());
-			}
-		itsCreateGitBranchDialog = nullptr;
 		}
+		itsCreateGitBranchDialog = nullptr;
+	}
 
 	else if (sender == itsFetchGitBranchDialog &&
 			 message.Is(JXDialogDirector::kDeactivated))
-		{
+	{
 		const auto* info =
 			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
 		assert(info != nullptr);
 		if (info->Successful())
-			{
+		{
 			FetchRemoteGitBranch2(itsFetchGitBranchDialog->GetString());
-			}
-		itsFetchGitBranchDialog = nullptr;
 		}
+		itsFetchGitBranchDialog = nullptr;
+	}
 
 	else if (sender == itsCommitGitBranchDialog &&
 			 message.Is(JXDialogDirector::kDeactivated))
-		{
+	{
 		const auto* info =
 			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
 		assert(info != nullptr);
 		if (info->Successful())
-			{
-			CommitGitBranch(itsCommitGitBranchDialog->GetString());
-			}
-		itsCommitGitBranchDialog = nullptr;
-		}
-	else if (sender == itsGitProcess && message.Is(JProcess::kFinished))
 		{
+			CommitGitBranch(itsCommitGitBranchDialog->GetString());
+		}
+		itsCommitGitBranchDialog = nullptr;
+	}
+	else if (sender == itsGitProcess && message.Is(JProcess::kFinished))
+	{
 		const auto* info =
 			dynamic_cast<const JProcess::Finished*>(&message);
 		assert(info != nullptr);
 		if (info->Successful())
-			{
+		{
 			JExecute(itsFileTree->GetDirectory(), (SyGGetApplication())->GetPostCheckoutCommand(), nullptr);
-			}
-		itsGitProcess = nullptr;
 		}
+		itsGitProcess = nullptr;
+	}
 
 	else if (sender == itsGitStashDialog &&
 			 message.Is(JXDialogDirector::kDeactivated))
-		{
+	{
 		const auto* info =
 			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
 		assert(info != nullptr);
 		if (info->Successful())
-			{
+		{
 			Stash(itsGitStashDialog->GetString());
-			}
-		itsGitStashDialog = nullptr;
 		}
+		itsGitStashDialog = nullptr;
+	}
 
 	else if (sender == itsAddGitRemoteDialog &&
 			 message.Is(JXDialogDirector::kDeactivated))
-		{
+	{
 		const auto* info =
 			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
 		assert(info != nullptr);
 		if (info->Successful())
-			{
+		{
 			AddGitRemote(itsAddGitRemoteDialog->GetRepoURL(),
 						 itsAddGitRemoteDialog->GetLocalName());
-			}
-		itsAddGitRemoteDialog = nullptr;
 		}
+		itsAddGitRemoteDialog = nullptr;
+	}
 
 	else if (sender == itsPruneBranchesDialog &&
 			 message.Is(JXDialogDirector::kDeactivated))
-		{
+	{
 		const auto* info =
 			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
 		assert(info != nullptr);
 		if (info->Successful())
-			{
+		{
 			PruneLocalBranches();
-			}
+		}
 		itsPruneBranchesDialog = nullptr;
 
 		jdelete itsPruneBranchList;
 		itsPruneBranchList = nullptr;
-		}
+	}
 
 	else if (sender == itsIconWidget && message.Is(JXWindowIcon::kHandleEnter))
-		{
+	{
 		HandleDNDEnter();
-		}
+	}
 	else if (sender == itsIconWidget && message.Is(JXWindowIcon::kHandleLeave))
-		{
+	{
 		HandleDNDLeave();
-		}
+	}
 	else if (sender == itsIconWidget && message.Is(JXWindowIcon::kHandleDrop))
-		{
+	{
 		const auto* info =
 			dynamic_cast<const JXWindowIcon::HandleDrop*>(&message);
 		assert( info != nullptr );
 		HandleDNDDrop(JPoint(0,0), info->GetTypeList(), info->GetAction(),
 					  info->GetTime(), info->GetSource());
-		}
+	}
 
 	else if (sender == SyGGetApplication() && message.Is(SyGApplication::kTrashNeedsUpdate))
-		{
+	{
 		if (SyGIsTrashDirectory(itsFileTree->GetDirectory()))
-			{
-			UpdateDisplay(true);
-			}
-		}
-	else if (sender == SyGGetApplication() && message.Is(SyGApplication::kShortcutsChanged))
 		{
-		UpdateShortcutMenu();
+			UpdateDisplay(true);
 		}
+	}
+	else if (sender == SyGGetApplication() && message.Is(SyGApplication::kShortcutsChanged))
+	{
+		UpdateShortcutMenu();
+	}
 
 	else if (sender == SyGGetApplication() && message.Is(JFSFileTree::kDirectoryRenamed))
-		{
+	{
 		(itsFileTree->GetSyGRoot())->UpdatePath(message);
-		}
+	}
 
 	else
-		{
+	{
 		if (sender == GetWindow() && message.Is(JXWindow::kIconified))
-			{
+		{
 //			UpdateDisplay();
 //			itsUpdateTask->Stop();
-			}
+		}
 		else if (sender == GetWindow() && message.Is(JXWindow::kDeiconified))
-			{
+		{
 			ClearIncrementalSearchBuffer();
 //			UpdateDisplay();
 //			itsUpdateTask->Start();
-			}
+		}
 
 		else if (sender == itsFileTree && message.Is(JFSFileTree::kDirectoryRenamed))
-			{
+		{
 			(SyGGetApplication())->DirectoryRenamed(message);
-			}
+		}
 		else if (sender == itsFileTree->GetRootDirInfo() &&
 				 message.Is(JDirInfo::kPathChanged))
-			{
+		{
 			UpdateInfo();
-			}
+		}
 
 		else if (message.Is(JProcess::kFinished))
-			{
+		{
 			UpdateDisplay(true);
-			}
+		}
 
 		JXNamedTreeListWidget::Receive(sender, message);
-		}
+	}
 }
 
 /******************************************************************************
@@ -2430,18 +2430,18 @@ SyGFileTreeTable::ReceiveWithFeedback
 	)
 {
 	if (sender == itsIconWidget && message->Is(JXWindowIcon::kAcceptDrop))
-		{
+	{
 		auto* info =
 			dynamic_cast<JXWindowIcon::AcceptDrop*>(message);
 		assert( info != nullptr );
 		info->ShouldAcceptDrop(WillAcceptDrop(
 									info->GetTypeList(), info->GetActionPtr(),
 									info->GetPoint(), info->GetTime(), info->GetSource()));
-		}
+	}
 	else
-		{
+	{
 		JXNamedTreeListWidget::ReceiveWithFeedback(sender, message);
-		}
+	}
 }
 
 /******************************************************************************
@@ -2464,10 +2464,10 @@ SyGFileTreeTable::UpdateInfo()
 	SetWindowIcon();
 
 	if (itsGitProcess != nullptr)
-		{
+	{
 		StopListening(itsGitProcess);
 		itsGitProcess = nullptr;
-		}
+	}
 }
 
 /******************************************************************************
@@ -2483,47 +2483,47 @@ SyGFileTreeTable::UpdateDisplay
 {
 	JPainter* p = nullptr;
 	if (GetDragPainter(&p))
-		{
+	{
 		return;
-		}
+	}
 
 	if (!JFSFileTreeNode::CanHaveChildren(itsFileTree->GetDirectory()))
-		{
+	{
 		if ((SyGGetApplication())->GetWindowCount() == 1)
-			{
+		{
 			JString p;
 			if (!JGetHomeDirectory(&p) || !JFSFileTreeNode::CanHaveChildren(p))
-				{
+			{
 				p = JGetRootDirectory();
-				}
+			}
 			(itsFileTree->GetSyGRoot())->GoTo(p);
-			}
-		else
-			{
-			JXCloseDirectorTask::Close(GetWindow()->GetDirector());
-			}
 		}
-	else
+		else
 		{
+			JXCloseDirectorTask::Close(GetWindow()->GetDirector());
+		}
+	}
+	else
+	{
 		if (force || itsUpdateNode == nullptr)
-			{
+		{
 			itsUpdateNode = itsFileTree->GetSyGRoot();
-			}
+		}
 
 		const bool updateMenus = itsUpdateNode == itsFileTree->GetSyGRoot();
 
 		StopListening(itsUpdateNode);
 		itsFileTree->Update(force, &itsUpdateNode);
 		if (itsUpdateNode != nullptr)
-			{
+		{
 			ClearWhenGoingAway(itsUpdateNode, &itsUpdateNode);
-			}
+		}
 
 		if (updateMenus)
-			{
+		{
 			UpdateMenus();
-			}
 		}
+	}
 
 	// trash button
 
@@ -2543,9 +2543,9 @@ SyGFileTreeTable::UpdateMenus()
 	const JString gitPath = JCombinePathAndName(itsFileTree->GetDirectory(), JGetGitDirectoryName());
 	itsGitMenu->SetActive(JDirectoryExists(gitPath));
 	if (!wasActive && itsGitMenu->IsActive())
-		{
+	{
 		InitGitBranchMenus();
-		}
+	}
 }
 
 /******************************************************************************
@@ -2560,7 +2560,7 @@ SyGFileTreeTable::SetWindowIcon()
 	const JIndex type = SyGGetMountPointLargeIcon(itsFileTree->GetDirectory(),
 												  itsFileTreeList, &plain, &selected);
 	if (type != itsWindowIconType || itsIconWidget == nullptr)
-		{
+	{
 		itsWindowIconType = type;
 
 		JXDisplay* display = GetDisplay();
@@ -2577,7 +2577,7 @@ SyGFileTreeTable::SetWindowIcon()
 		assert_ok( err );
 
 		GetWindow()->SetIcon(icon3);
-		}
+	}
 }
 
 /******************************************************************************
@@ -2601,17 +2601,17 @@ SyGFileTreeTable::UpdateFileMenu()
 
 	bool findOriginal = false;
 	if (hasSelection)
-		{
+	{
 		JTableSelectionIterator iter(&s);
 		JPoint cell;
 		while (iter.Next(&cell))
-			{
+		{
 			if ((itsFileTreeList->GetDirEntry(cell.y))->IsWorkingLink())
-				{
+			{
 				findOriginal = true;
-				}
 			}
 		}
+	}
 
 	itsFileMenu->SetItemEnable(kMakeAliasCmd,        hasSelection);
 	itsFileMenu->SetItemEnable(kFindOriginalCmd,     findOriginal);
@@ -2625,15 +2625,15 @@ SyGFileTreeTable::UpdateFileMenu()
 		(SyGGetApplication())->IsMountPoint(path));
 	bool writable;
 	if (JIsMounted(path, &writable))
-		{
+	{
 		itsFileMenu->SetItemText(kToggleMountCmd, JGetString("UnmountLabel::SyGFileTreeTable"));
 		itsFileMenu->SetItemEnable(kEraseDiskCmd, writable);
-		}
+	}
 	else	// including if not a mount point
-		{
+	{
 		itsFileMenu->SetItemText(kToggleMountCmd, JGetString("MountLabel::SyGFileTreeTable"));
 		itsFileMenu->DisableItem(kEraseDiskCmd);
-		}
+	}
 }
 
 /******************************************************************************
@@ -2650,112 +2650,112 @@ SyGFileTreeTable::HandleFileMenu
 	ClearIncrementalSearchBuffer();
 
 	if (index == kNewDirCmd)
-		{
+	{
 		CreateNewDirectory();
-		}
+	}
 	else if (index == kNewTextFileCmd)
-		{
+	{
 		CreateNewTextFile();
-		}
+	}
 	else if (index == kOpenCmd)
-		{
+	{
 		OpenSelection(false, false, false, false);
-		}
+	}
 	else if (index == kOpenCloseCmd)
-		{
+	{
 		OpenSelection(false, false, false, true);
-		}
+	}
 	else if (index == kOpenIconifyCmd)
-		{
+	{
 		OpenSelection(false, false, true, false);
-		}
+	}
 	else if (index == kAltOpenCmd)
-		{
+	{
 		OpenSelection(true, false, false, false);
-		}
+	}
 	else if (index == kRunOnSelCmd)
-		{
+	{
 		OpenSelection(false, true, false, false);
-		}
+	}
 
 	else if (index == kFindCmd)
-		{
+	{
 		const JString path = GetCommandPath();
 		GetWindow()->Deiconify();
 		(SyGGetFindFileDialog())->Search(path);
-		}
+	}
 
 	else if (index == kRenameCmd)
-		{
+	{
 		JPoint cell;
 		if ((GetTableSelection()).GetSingleSelectedCell(&cell))
-			{
+		{
 			BeginEditing(cell);
-			}
 		}
+	}
 
 	else if (index == kDuplicateCmd)
-		{
+	{
 		DuplicateSelected();
-		}
+	}
 	else if (index == kMakeAliasCmd)
-		{
+	{
 		MakeLinks();
-		}
+	}
 	else if (index == kFindOriginalCmd)
-		{
+	{
 		FindOriginals();
-		}
+	}
 
 	else if (index == kConvertToFileCmd)
-		{
+	{
 		ChangeExecPermission(false);
-		}
+	}
 	else if (index == kConvertToProgramCmd)
-		{
+	{
 		ChangeExecPermission(true);
-		}
+	}
 
 	else if (index == kToggleMountCmd)
-		{
+	{
 		const JString& path = itsFileTree->GetDirectory();
 		JMount(path, !JIsMounted(path));
-		}
+	}
 	else if (index == kEraseDiskCmd)
-		{
+	{
 		FormatDisk();
-		}
+	}
 
 	else if (index == kHomeWindowCmd)
-		{
+	{
 		JString homeDir;
 		if (JGetHomeDirectory(&homeDir))
-			{
+		{
 			GoTo(homeDir, (GetDisplay()->GetLatestKeyModifiers()).shift());
-			}
 		}
+	}
 
 	else if (index == kViewManCmd)
-		{
+	{
 		ViewManPage();
-		}
+	}
 	else if (index == kOpenTermCmd)
-		{
+	{
 		OpenTerminal();
-		}
+	}
 	else if (index == kRunCmdCmd)
-		{
+	{
 		RunCommand();
-		}
+	}
 
 	else if (index == kCloseCmd)
-		{
+	{
 		GetWindow()->Close();
-		}
+	}
 	else if (index == kQuitCmd)
-		{
+	{
 		JXGetApplication()->Quit();
-		}
+	}
 }
 
 /******************************************************************************
@@ -2767,9 +2767,9 @@ void
 SyGFileTreeTable::CreateNewDirectory()
 {
 	if (!EndEditing())
-		{
+	{
 		return;
-		}
+	}
 	ClearIncrementalSearchBuffer();
 
 	SyGFileTreeNode* node = nullptr;
@@ -2777,41 +2777,41 @@ SyGFileTreeTable::CreateNewDirectory()
 	JTableSelection& s = GetTableSelection();
 	JPoint cell;
 	if (s.GetFirstSelectedCell(&cell))
-		{
+	{
 		const JIndex index = GetNearestDirIndex(cell.y, true);
 		if (index == 0)
-			{
+		{
 			node = itsFileTree->GetSyGRoot();
-			}
+		}
 		else
-			{
+		{
 			node = itsFileTreeList->GetSyGNode(index);
 			GetTreeList()->Open(node);
-			}
 		}
+	}
 	else
-		{
+	{
 		node = itsFileTree->GetSyGRoot();
-		}
+	}
 	assert( node != nullptr );
 
 	JString dirName  = (node->GetDirEntry())->GetFullName();
 	dirName          = JGetUniqueDirEntryName(dirName, JGetString("NewNamePrefix::SyGFileTreeTable"));
 	const JError err = JCreateDirectory(dirName);
 	if (err.OK())
-		{
+	{
 		JString p, n;
 		JSplitPathAndName(dirName, &p, &n);
 		JPoint cell;
 		if (SelectName(n, node, &cell))		// updates table
-			{
-			BeginEditing(cell);
-			}
-		}
-	else
 		{
-		JGetStringManager()->ReportError("CreateFolderError::SyGFileTreeTable", err);
+			BeginEditing(cell);
 		}
+	}
+	else
+	{
+		JGetStringManager()->ReportError("CreateFolderError::SyGFileTreeTable", err);
+	}
 }
 
 /******************************************************************************
@@ -2823,9 +2823,9 @@ void
 SyGFileTreeTable::CreateNewTextFile()
 {
 	if (!EndEditing())
-		{
+	{
 		return;
-		}
+	}
 	ClearIncrementalSearchBuffer();
 
 	SyGFileTreeNode* node = nullptr;
@@ -2833,43 +2833,43 @@ SyGFileTreeTable::CreateNewTextFile()
 	JTableSelection& s = GetTableSelection();
 	JPoint cell;
 	if (s.GetFirstSelectedCell(&cell))
-		{
+	{
 		const JIndex index = GetNearestDirIndex(cell.y, true);
 		if (index == 0)
-			{
+		{
 			node = itsFileTree->GetSyGRoot();
-			}
+		}
 		else
-			{
+		{
 			node = itsFileTreeList->GetSyGNode(index);
 			GetTreeList()->Open(node);
-			}
 		}
+	}
 	else
-		{
+	{
 		node = itsFileTree->GetSyGRoot();
-		}
+	}
 	assert( node != nullptr );
 
 	JString name = (node->GetDirEntry())->GetFullName();
 	name         = JGetUniqueDirEntryName(name, JGetString("NewNamePrefix::SyGFileTreeTable"), ".txt");
-	{
+{
 	std::ofstream output(name.GetBytes());
-	}
+}
 	if (JFileExists(name))
-		{
+	{
 		JString p, n;
 		JSplitPathAndName(name, &p, &n);
 		JPoint cell;
 		if (SelectName(n, node, &cell))		// updates table
-			{
-			BeginEditing(cell);
-			}
-		}
-	else
 		{
-		JGetUserNotification()->ReportError(JGetString("CreateTextFileError::SyGFileTreeTable"));
+			BeginEditing(cell);
 		}
+	}
+	else
+	{
+		JGetUserNotification()->ReportError(JGetString("CreateTextFileError::SyGFileTreeTable"));
+	}
 }
 
 /******************************************************************************
@@ -2890,22 +2890,22 @@ SyGFileTreeTable::GetNearestDirIndex
 
 	const JTreeNode* node = treeList->GetNode(index);
 	if (!node->IsOpenable())
-		{
+	{
 		const JTreeNode* parent = node->GetParent();
 		if (!treeList->FindNode(parent, &dirIndex))
-			{
+		{
 			return 0;	// if file not in subdirectory
-			}
 		}
+	}
 
 	if (requireWritable)
-		{
+	{
 		return ((itsFileTreeList->GetDirEntry(dirIndex))->IsWritable() ? dirIndex : 0);
-		}
+	}
 	else
-		{
+	{
 		return dirIndex;
-		}
+	}
 }
 
 /******************************************************************************
@@ -2925,9 +2925,9 @@ SyGFileTreeTable::OpenSelection
 	ClearIncrementalSearchBuffer();
 
 	if (!EndEditing())
-		{
+	{
 		return;
-		}
+	}
 
 	bool found = false;
 
@@ -2937,78 +2937,78 @@ SyGFileTreeTable::OpenSelection
 	JTableSelectionIterator iter(&(GetTableSelection()));
 	JPoint cell;
 	while (iter.Next(&cell))
-		{
+	{
 		SyGFileTreeNode* node  = itsFileTreeList->GetSyGNode(cell.y);
 		const JDirEntry* entry = node->GetDirEntry();
 		if (!alwaysRunCmd && entry->IsDirectory())
-			{
+		{
 			if (node->IsOpenable())
-				{
+			{
 				const JString newPath = (node->GetDirEntry())->GetFullName();
 				GoTo(newPath, alternate);
 				if (alternate)
-					{
+				{
 					return;
-					}
 				}
 			}
+		}
 		else if (!alwaysRunCmd && !itsIgnoreExecPermFlag && entry->IsExecutable())
-			{
+		{
 			const JString file = (node->GetDirEntry())->GetFullName();
 			JXFSBindingManager::Exec(file, alternate);
-			}
+		}
 		else
-			{
+		{
 			auto* s = jnew JString((node->GetDirEntry())->GetFullName());
 			assert( s != nullptr );
 			if (!fileList.InsertSorted(s, false))
-				{
+			{
 				jdelete s;
-				}
 			}
-
-		found = true;
 		}
 
+		found = true;
+	}
+
 	if (found && !fileList.IsEmpty())
-		{
+	{
 		JXFSBindingManager::Exec(fileList, alternate || alwaysRunCmd);
 
 		if (fileList.GetElementCount() == 1)
-			{
-			SyGAddRecentFile(*(fileList.GetElement(1)));
-			}
-		}
-	else if (!found)
 		{
+			SyGAddRecentFile(*(fileList.GetElement(1)));
+		}
+	}
+	else if (!found)
+	{
 		JString path;
 		if (!(SyGGetChooseSaveFile())->
 				ChooseRPath(JGetString("SelectDirectory::SyGFileTreeTable"), JString::empty, itsFileTree->GetDirectory(), &path))
-			{
+		{
 			return;
-			}
+		}
 
 		const bool sameWindow = !(SyGGetChooseSaveFile())->IsOpeningInNewWindow();
 		GoTo(path, sameWindow);
 		if (sameWindow)
-			{
+		{
 			(GetWindow()->GetDirector())->Activate();
 			return;
-			}
 		}
+	}
 
 	// not done if display new directory in same window
 
 	if (iconifyAfter)	// takes precedence because more modifiers than closeAfter
-		{
+	{
 		GetWindow()->Iconify();
-		}
+	}
 	else if (closeAfter)
-		{
+	{
 		// wait until safe to commit suicide
 
 		JXCloseDirectorTask::Close(GetWindow()->GetDirector());
-		}
+	}
 }
 
 /******************************************************************************
@@ -3020,18 +3020,18 @@ void
 SyGFileTreeTable::DuplicateSelected()
 {
 	if (!EndEditing())
-		{
+	{
 		return;
-		}
+	}
 
 	JPtrArray<SyGFileTreeNode> nodeList(JPtrArrayT::kForgetAll);
 
 	JTableSelectionIterator iter(&(GetTableSelection()));
 	JPoint cell;
 	while (iter.Next(&cell))
-		{
+	{
 		nodeList.Append(itsFileTreeList->GetSyGNode(cell.y));
-		}
+	}
 
 	SyGDuplicateProcess::Duplicate(this, nodeList);
 }
@@ -3045,9 +3045,9 @@ void
 SyGFileTreeTable::MakeLinks()
 {
 	if (!EndEditing())
-		{
+	{
 		return;
-		}
+	}
 
 	JPtrArray<SyGFileTreeNode> nodeList(JPtrArrayT::kForgetAll);
 
@@ -3055,24 +3055,24 @@ SyGFileTreeTable::MakeLinks()
 	JTableSelectionIterator iter(&s);
 	JPoint cell;
 	while (iter.Next(&cell))
-		{
+	{
 		// can't call MakeLinkToFile() here because it changes selection
 		nodeList.Append(itsFileTreeList->GetSyGNode(cell.y));
-		}
+	}
 
 	s.ClearSelection();
 
 	const JSize count = nodeList.GetElementCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		const SyGFileTreeNode* node = nodeList.GetElement(i);
 		MakeLinkToFile((node->GetDirEntry())->GetFullName(), node->GetSyGParent(), false);
-		}
+	}
 
 	if (s.GetSingleSelectedCell(&cell))
-		{
+	{
 		BeginEditing(cell);
-		}
+	}
 }
 
 /******************************************************************************
@@ -3095,42 +3095,42 @@ SyGFileTreeTable::MakeLinkToFile
 	const JString destPath = (parentNode->GetDirEntry())->GetFullName();
 	JString dest           = JCombinePathAndName(destPath, srcName);
 	if (JNameUsed(dest))
-		{
+	{
 		JString root, suffix;
 		if (JSplitRootAndSuffix(srcName, &root, &suffix))
-			{
+		{
 			suffix.Prepend(".");
-			}
+		}
 		root += "_alias";
 
 		dest = JGetUniqueDirEntryName(destPath, root, suffix.GetBytes());
-		}
+	}
 
 	if (allowRelative)
-		{
+	{
 		const JUtf8Byte* map[] =
-			{
+		{
 			"name", srcName.GetBytes()
-			};
+		};
 		const JString msg = JGetString("AskRelativeAlias::SyGFileTreeTable", map, sizeof(map));
 		if (JGetUserNotification()->AskUserYes(msg))
-			{
+		{
 			src = JConvertToRelativePath(src, destPath);
-			}
 		}
+	}
 
 	const JError err = JCreateSymbolicLink(src, dest);
 	if (err.OK())
-		{
+	{
 		JString p, n;
 		JSplitPathAndName(dest, &p, &n);
 		JPoint cell;
 		SelectName(n, parentNode, &cell);		// updates table
-		}
+	}
 	else
-		{
+	{
 		JGetStringManager()->ReportError("CreateAliasError::SyGFileTreeTable", err);
-		}
+	}
 }
 
 /******************************************************************************
@@ -3145,14 +3145,14 @@ SyGFileTreeTable::FindOriginals()
 
 	JPoint cell;
 	while (iter.Next(&cell))
-		{
+	{
 		const JDirEntry* entry = itsFileTreeList->GetDirEntry(cell.y);
 		JString fullName;
 		if (entry->IsWorkingLink() &&
 			JGetTrueName(entry->GetFullName(), &fullName))
-			{
+		{
 			if (JDirectoryExists(fullName))
-				{
+			{
 				// open the containing directory, not the directory itself
 
 				JString path, name;
@@ -3162,23 +3162,23 @@ SyGFileTreeTable::FindOriginals()
 				JIndex row;
 				JPoint cell;
 				if ((SyGGetApplication())->OpenDirectory(path, &dir, &row, true, true, false, false))
-					{
+				{
 					SyGFileTreeNode* parent = nullptr;
 					if (row > 0)
-						{
+					{
 						(dir->GetTable()->GetTableSelection()).SelectCell(JPoint(GetNodeColIndex(), row), false);
 						parent = (dir->GetTable()->GetFileTreeList())->GetSyGNode(row);
-						}
+					}
 
 					(dir->GetTable())->SelectName(name, parent, &cell);
-					}
-				}
-			else
-				{
-				(SyGGetApplication())->OpenDirectory(fullName, nullptr, nullptr, true, true, false, false);
 				}
 			}
+			else
+			{
+				(SyGGetApplication())->OpenDirectory(fullName, nullptr, nullptr, true, true, false, false);
+			}
 		}
+	}
 }
 
 /******************************************************************************
@@ -3191,14 +3191,14 @@ SyGFileTreeTable::FormatDisk()
 {
 	if (itsFormatProcess == nullptr &&
 		JGetUserNotification()->AskUserNo(JGetString("WarnEraseDisk::SyGFileTreeTable")))
-		{
+	{
 		assert( itsChooseDiskFormatDialog == nullptr );
 
 		JPtrArray<JString> choiceList(JPtrArrayT::kDeleteAll);
 		for (JUnsignedOffset i=0; i<kFormatCount; i++)
-			{
+		{
 			choiceList.Append(kFormatName[i]);
-			}
+		}
 
 		itsChooseDiskFormatDialog =
 			jnew JXRadioGroupDialog(JXGetApplication(), JGetString("FormatWindowTitle::SyGFileTreeTable"),
@@ -3206,7 +3206,7 @@ SyGFileTreeTable::FormatDisk()
 		assert(itsChooseDiskFormatDialog != nullptr);
 		itsChooseDiskFormatDialog->BeginDialog();
 		ListenTo(itsChooseDiskFormatDialog);
-		}
+	}
 }
 
 /******************************************************************************
@@ -3218,27 +3218,27 @@ void
 SyGFileTreeTable::ViewManPage()
 {
 	if (!EndEditing())
-		{
+	{
 		return;
-		}
+	}
 
 	JTableSelectionIterator iter(&(GetTableSelection()));
 	JPtrArray<JString> list(JPtrArrayT::kDeleteAll);
 
 	JPoint cell;
 	while (iter.Next(&cell))
-		{
+	{
 		list.Append((itsFileTreeList->GetSyGNode(cell.y))->GetName());
-		}
+	}
 
 	if (list.IsEmpty())
-		{
+	{
 		(SyGGetManPageDialog())->Activate();
-		}
+	}
 	else
-		{
+	{
 		(SyGGetManPageDialog())->ViewManPages(list);
-		}
+	}
 }
 
 /******************************************************************************
@@ -3250,10 +3250,10 @@ void
 SyGFileTreeTable::OpenTerminal()
 {
 	if (EndEditing())
-		{
+	{
 		const JString path = GetCommandPath();
 		SyGGetApplication()->OpenTerminal(path);
-		}
+	}
 }
 
 /******************************************************************************
@@ -3265,10 +3265,10 @@ void
 SyGFileTreeTable::RunCommand()
 {
 	if (EndEditing())
-		{
+	{
 		const JString path = GetCommandPath();
 		JXFSBindingManager::Exec(path);
-		}
+	}
 }
 
 /******************************************************************************
@@ -3284,12 +3284,12 @@ SyGFileTreeTable::GetCommandPath()
 
 	JPoint cell1, cell2;
 	if (GetWindow()->IsIconified())
-		{
+	{
 		path = itsFileTree->GetDirectory();
-		}
+	}
 	else if ((GetTableSelection()).GetFirstSelectedCell(&cell1) &&
 			 (GetTableSelection()).GetLastSelectedCell(&cell2))
-		{
+	{
 		const JDirEntry* e1 = itsFileTreeList->GetDirEntry(cell1.y);
 		const JDirEntry* e2 = itsFileTreeList->GetDirEntry(cell2.y);
 
@@ -3297,19 +3297,19 @@ SyGFileTreeTable::GetCommandPath()
 		const JString p2 = e2->GetPath();
 
 		if (cell1 == cell2 && e1->IsDirectory())
-			{
+		{
 			path = e1->GetFullName();
-			}
-		else if (p1 == p2)
-			{
-			path = p1;
-			}
 		}
+		else if (p1 == p2)
+		{
+			path = p1;
+		}
+	}
 
 	if (path.IsEmpty())
-		{
+	{
 		path = itsFileTree->GetDirectory();
-		}
+	}
 
 	return path;
 }
@@ -3329,11 +3329,11 @@ SyGFileTreeTable::ChangeExecPermission
 	JTableSelectionIterator iter(&s);
 	JPoint testCell;
 	while (iter.Next(&testCell))
-		{
+	{
 		SyGFileTreeNode* node  = itsFileTreeList->GetSyGNode(testCell.y);
 		const JString fullName = (node->GetDirEntry())->GetFullName();
 		if (node->GetDirEntry()->IsFile())
-			{
+		{
 			JString sysCmd("chmod ");
 			sysCmd += "a";
 			sysCmd += (canExec ? "+" : "-");
@@ -3341,8 +3341,8 @@ SyGFileTreeTable::ChangeExecPermission
 			sysCmd += JPrepArgForExec(fullName);
 			SyGExec(sysCmd);
 			node->Update(true);
-			}
 		}
+	}
 }
 
 /******************************************************************************
@@ -3357,18 +3357,18 @@ SyGFileTreeTable::UpdateEditMenu()
 
 	JIndex index;
 	if (te->EditMenuCmdToIndex(JTextEditor::kSelectAllCmd, &index))
-		{
+	{
 		itsEditMenu->EnableItem(index);
-		}
+	}
 
 	if ((GetTableSelection()).HasSelection() &&
 		te->EditMenuCmdToIndex(JTextEditor::kCopyCmd, &index))
-		{
+	{
 		assert( itsCopyPathCmdIndex == index+1 );
 
 		itsEditMenu->EnableItem(index);
 		itsEditMenu->EnableItem(itsCopyPathCmdIndex);
-		}
+	}
 }
 
 /******************************************************************************
@@ -3386,22 +3386,22 @@ SyGFileTreeTable::HandleEditMenu
 
 	JTextEditor::CmdIndex cmd;
 	if (!GetEditMenuHandler()->EditMenuIndexToCmd(index, &cmd))
-		{
+	{
 		cmd = JTextEditor::kSeparatorCmd;
-		}
+	}
 
 	if (cmd == JTextEditor::kCopyCmd)
-		{
+	{
 		CopySelectedFileNames(false);
-		}
+	}
 	else if (index == itsCopyPathCmdIndex)
-		{
+	{
 		CopySelectedFileNames(true);
-		}
+	}
 	else if (cmd == JTextEditor::kSelectAllCmd)
-		{
+	{
 		(GetTableSelection()).SelectCol(GetNodeColIndex());
-		}
+	}
 }
 
 /******************************************************************************
@@ -3418,29 +3418,29 @@ SyGFileTreeTable::CopySelectedFileNames
 {
 	const JTableSelection& s = GetTableSelection();
 	if (s.HasSelection())
-		{
+	{
 		JPtrArray<JString> list(JPtrArrayT::kDeleteAll);
 
 		JTableSelectionIterator iter(&s);
 		JPoint cell;
 		while (iter.Next(&cell))
-			{
+		{
 			const JDirEntry* entry = itsFileTreeList->GetDirEntry(cell.y);
 			if (useFullPath)
-				{
+			{
 				list.Append(entry->GetFullName());
-				}
-			else
-				{
-				list.Append(entry->GetName());
-				}
 			}
+			else
+			{
+				list.Append(entry->GetName());
+			}
+		}
 
 		auto* data = jnew JXTextSelection(GetDisplay(), list);
 		assert( data != nullptr );
 
 		GetSelectionManager()->SetData(kJXClipboardName, data);
-		}
+	}
 }
 
 /******************************************************************************
@@ -3452,37 +3452,37 @@ void
 SyGFileTreeTable::UpdateViewMenu()
 {
 	if (itsTreeSet->FilterVisible())
-		{
+	{
 		itsViewMenu->CheckItem(kShowFilterCmd);
-		}
+	}
 
 	if (itsFileTree->HiddenVisible())
-		{
+	{
 		itsViewMenu->CheckItem(kShowHiddenCmd);
-		}
+	}
 
 	bool prefs[kSyGTreePrefCount];
 	GetPreferences(prefs);
 	if (prefs[2])
-		{
+	{
 		itsViewMenu->CheckItem(kShowUserCmd);
-		}
+	}
 	if (prefs[3])
-		{
+	{
 		itsViewMenu->CheckItem(kShowGroupCmd);
-		}
+	}
 	if (prefs[4])
-		{
+	{
 		itsViewMenu->CheckItem(kShowSizeCmd);
-		}
+	}
 	if (prefs[5])
-		{
+	{
 		itsViewMenu->CheckItem(kShowModeCmd);
-		}
+	}
 	if (prefs[6])
-		{
+	{
 		itsViewMenu->CheckItem(kShowDateCmd);
-		}
+	}
 }
 
 /******************************************************************************
@@ -3499,60 +3499,60 @@ SyGFileTreeTable::HandleViewMenu
 	ClearIncrementalSearchBuffer();
 
 	if (index == kShowFilterCmd)
-		{
+	{
 		itsTreeSet->ToggleFilter();
-		}
+	}
 	else if (index == kShowHiddenCmd)
-		{
+	{
 		TogglePref(0);
-		}
+	}
 
 	else if (index == kShowUserCmd)
-		{
+	{
 		TogglePref(2);
-		}
+	}
 	else if (index == kShowGroupCmd)
-		{
+	{
 		TogglePref(3);
-		}
+	}
 	else if (index == kShowSizeCmd)
-		{
+	{
 		TogglePref(4);
-		}
+	}
 	else if (index == kShowModeCmd)
-		{
+	{
 		TogglePref(5);
-		}
+	}
 	else if (index == kShowDateCmd)
-		{
+	{
 		TogglePref(6);
-		}
+	}
 
 	else if (index == kShowAllAttrCmd)
-		{
+	{
 		bool prefs[kSyGTreePrefCount];
 		GetPreferences(prefs);
 		for (JIndex i = 2; i < kSyGTreePrefCount; i++)
-			{
+		{
 			prefs[i] = true;
-			}
-		SetPreferences(prefs);
 		}
+		SetPreferences(prefs);
+	}
 	else if (index == kHideAllAttrCmd)
-		{
+	{
 		bool prefs[kSyGTreePrefCount];
 		GetPreferences(prefs);
 		for (JIndex i = 2; i < kSyGTreePrefCount; i++)
-			{
+		{
 			prefs[i] = false;
-			}
-		SetPreferences(prefs);
 		}
+		SetPreferences(prefs);
+	}
 
 	else if (index == kRefreshCmd)
-		{
+	{
 		UpdateDisplay(true);
-		}
+	}
 }
 
 /******************************************************************************
@@ -3571,9 +3571,9 @@ SyGFileTreeTable::GetPreferences
 	prefs[1] = true;
 
 	for (JIndex i=2; i<kSyGTreePrefCount; i++)
-		{
+	{
 		prefs[i] = itsVisibleCols[i-GetNodeColIndex()];
-		}
+	}
 }
 
 /******************************************************************************
@@ -3595,21 +3595,21 @@ SyGFileTreeTable::SetPreferences
 	itsFileTree->ShowHidden(prefs[0]);
 
 	for (JIndex i=2; i<kSyGTreePrefCount; i++)
-		{
+	{
 		const GFMColType type = kPrefColID[i-GetNodeColIndex()];
 		if (prefs[i])
-			{
+		{
 			InsertFMTreeCol(type);
-			}
+		}
 		else
-			{
+		{
 			RemoveFMTreeCol(type);
 			if (itsCurrentColType == type)
-				{
+			{
 				SetCurrentColIndex(GetNodeColIndex());
-				}
 			}
 		}
+	}
 
 	AdjustToTree();
 }
@@ -3646,9 +3646,9 @@ SyGFileTreeTable::InsertFMTreeCol
 	JCoordinate width;
 
 	if (InsertFMCol(this, itsVisibleCols, GetNodeColIndex(), type, &index, &width))
-		{
+	{
 		InsertCols(index, 1, width);
-		}
+	}
 }
 
 /******************************************************************************
@@ -3665,9 +3665,9 @@ SyGFileTreeTable::RemoveFMTreeCol
 	JIndex index;
 
 	if (RemoveFMCol(this, itsVisibleCols, GetNodeColIndex(), type, &index))
-		{
+	{
 		RemoveCol(index);
-		}
+	}
 }
 
 /******************************************************************************
@@ -3696,19 +3696,19 @@ SyGFileTreeTable::LoadPrefs
 	)
 {
 	if (vers < 2)
-		{
+	{
 		JFileVersion v;
 		is >> v;
-		}
+	}
 
 	int type;
 	is >> type;
 
 	bool prefs[kSyGTreePrefCount];
 	if (vers >= 2)
-		{
+	{
 		is >> JBoolFromString(prefs[0]);
-		}
+	}
 	is >> JBoolFromString(prefs[2])
 	   >> JBoolFromString(prefs[3])
 	   >> JBoolFromString(prefs[4])
@@ -3773,10 +3773,10 @@ SyGFileTreeTable::RestoreDirState
 	)
 {
 	if (vers < 2)
-		{
+	{
 		JFileVersion v;
 		is >> v;
-		}
+	}
 
 	const JString& basePath = itsFileTree->GetDirectory();
 
@@ -3785,24 +3785,24 @@ SyGFileTreeTable::RestoreDirState
 
 	JString file, full;
 	for (JIndex i=1; i<=nameCount; i++)
-		{
+	{
 		is >> file;
 		if (!JConvertToAbsolutePath(file, basePath, &full))
-			{
+		{
 			continue;
-			}
+		}
 
 		const JSize count = itsFileTreeList->GetElementCount();	// changes after Open()
 		for (JIndex j=1; j<=count; j++)
-			{
+		{
 			const JString& n = (itsFileTreeList->GetDirEntry(j))->GetFullName();
 			if (JSameDirEntry(n, full))
-				{
+			{
 				itsFileTreeList->Open(j);
 				break;
-				}
 			}
 		}
+	}
 }
 
 /******************************************************************************
@@ -3821,21 +3821,21 @@ SyGFileTreeTable::SaveDirState
 
 	JSize count = itsFileTreeList->GetElementCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		if (itsFileTreeList->IsOpen(i))
-			{
+		{
 			names.Append(JConvertToRelativePath(
 				(itsFileTreeList->GetDirEntry(i))->GetFullName(), basePath));
-			}
 		}
+	}
 
 	count = names.GetElementCount();
 	os << ' ' << count;
 
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		os << ' ' << *(names.GetElement(i));
-		}
+	}
 
 	os << ' ';
 }
@@ -3883,10 +3883,10 @@ SyGFileTreeTable::SetCurrentColType
 {
 	ClearIncrementalSearchBuffer();
 	if (type != itsCurrentColType && type != kGFMMode)
-		{
+	{
 		itsCurrentColType = type;
 		itsFileTree->SetNodeCompareFunction(type);
-		}
+	}
 }
 
 /******************************************************************************
@@ -3926,18 +3926,18 @@ SyGFileTreeTable::UpdateGitMenus
 	)
 {
 	if (itsGitProcess == nullptr)
-		{
+	{
 		itsGitMenu->EnableAll();
-		}
+	}
 	else
-		{
+	{
 		itsGitMenu->DisableAll();
-		}
+	}
 
 	if (shortcut)
-		{
+	{
 		return;
-		}
+	}
 
 	// fill in sub-menus
 
@@ -3960,37 +3960,37 @@ SyGFileTreeTable::UpdateGitMenus
 
 	const JSize repoCount = repoList.GetElementCount();
 	for (JIndex i=1; i<=repoCount; i++)
-		{
+	{
 		const JString* s = repoList.GetElement(i);
 		itsGitPullSourceMenu->AppendItem(*s);
 		itsGitPushDestMenu->AppendItem(*s);
 		itsGitRemoveRemoteMenu->AppendItem(*s);
 		itsGitPruneRemoteMenu->AppendItem(*s);
-		}
+	}
 
 	itsGitLocalBranchMenu->RemoveAllItems();
 	itsGitMergeBranchMenu->RemoveAllItems();
 	itsGitRemoveBranchMenu->RemoveAllItems();
 	if (hasLocal)
-		{
+	{
 		const JSize localCount = localList.GetElementCount();
 		for (JIndex i=1; i<=localCount; i++)
-			{
+		{
 			const JString* s = localList.GetElement(i);
 			itsGitLocalBranchMenu->AppendItem(*s, JXMenu::kRadioType);
 			itsGitMergeBranchMenu->AppendItem(*s);
 			itsGitRemoveBranchMenu->AppendItem(*s);
 
 			if (*s == itsCurrentGitBranch)
-				{
+			{
 				itsGitLocalBranchMenu->DisableItem(i);
 				itsGitMergeBranchMenu->DisableItem(i);
 				itsGitRemoveBranchMenu->DisableItem(i);
-				}
 			}
 		}
+	}
 	else
-		{
+	{
 		const JString* s = localList.GetFirstElement();
 		itsGitLocalBranchMenu->AppendItem(*s);
 		itsGitLocalBranchMenu->DisableItem(1);
@@ -4000,28 +4000,28 @@ SyGFileTreeTable::UpdateGitMenus
 
 		itsGitRemoveBranchMenu->AppendItem(*s);
 		itsGitRemoveBranchMenu->DisableItem(1);
-		}
+	}
 
 	itsGitRemoteBranchMenu->RemoveAllItems();
 	if (hasRemote)
-		{
+	{
 		if (!itsGitMergeBranchMenu->IsEmpty())
-			{
+		{
 			itsGitMergeBranchMenu->ShowSeparatorAfter(itsGitMergeBranchMenu->GetItemCount());
-			}
+		}
 
 		const JSize remoteCount = remoteList.GetElementCount();
 		for (JIndex i=1; i<=remoteCount; i++)
-			{
+		{
 			itsGitRemoteBranchMenu->AppendItem(*(remoteList.GetElement(i)));
 			itsGitMergeBranchMenu->AppendItem(*(remoteList.GetElement(i)));
-			}
 		}
+	}
 	else
-		{
+	{
 		itsGitRemoteBranchMenu->AppendItem(*remoteList.GetFirstElement());
 		itsGitRemoteBranchMenu->DisableItem(1);
-		}
+	}
 
 	JPtrArray<JString> idList(JPtrArrayT::kDeleteAll);
 	JPtrArray<JString> nameList(JPtrArrayT::kDeleteAll);
@@ -4033,7 +4033,7 @@ SyGFileTreeTable::UpdateGitMenus
 
 	const JSize stashCount = idList.GetElementCount();
 	for (JIndex i=1; i<=stashCount; i++)
-		{
+	{
 		itsGitStashPopMenu->AppendItem(
 			*(idList.GetElement(i)), JXMenu::kPlainType, JString::empty,
 			*(nameList.GetElement(i)));
@@ -4045,17 +4045,17 @@ SyGFileTreeTable::UpdateGitMenus
 		itsGitStashDropMenu->AppendItem(
 			*(idList.GetElement(i)), JXMenu::kPlainType, JString::empty,
 			*(nameList.GetElement(i)));
-		}
+	}
 
 	if (!itsCurrentGitBranch.IsEmpty())
-		{
+	{
 		const JUtf8Byte* map[] =
-			{
+		{
 			"name", itsCurrentGitBranch.GetBytes()
-			};
+		};
 		const JString msg = JGetString("CurrentGitBranch::SyGFileTreeTable", map, sizeof(map));
 		itsGitMenu->SetItemText(kGitSwitchBranchItemIndex, msg);
-		}
+	}
 }
 
 /******************************************************************************
@@ -4068,13 +4068,13 @@ SyGFileTreeTable::UpdateGitLocalBranchMenu()
 {
 	const JSize count = itsGitLocalBranchMenu->GetItemCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		if (itsGitLocalBranchMenu->GetItemText(i) == itsCurrentGitBranch)
-			{
+		{
 			itsGitLocalBranchMenu->CheckItem(i);
 			break;
-			}
 		}
+	}
 }
 
 /******************************************************************************
@@ -4089,70 +4089,70 @@ SyGFileTreeTable::HandleGitMenu
 	)
 {
 	if (itsGitProcess != nullptr)
-		{
+	{
 		return;
-		}
+	}
 
 	if (index == kGitStatusCmd)
-		{
+	{
 		JSimpleProcess::Create(itsFileTree->GetDirectory(),
 							   (SyGGetApplication())->GetGitStatusCommand(), true);
-		}
+	}
 	else if (index == kGitHistoryCmd)
-		{
+	{
 		JSimpleProcess::Create(itsFileTree->GetDirectory(),
 							   (SyGGetApplication())->GetGitHistoryCommand(), true);
-		}
+	}
 
 	else if (index == kGitCommitAllCmd)
-		{
+	{
 		if (getenv("GIT_EDITOR") == nullptr)
-			{
+		{
 			itsCommitGitBranchDialog =
 				jnew JXGetStringDialog(GetWindow()->GetDirector(), JGetString("CommitBranchTitle::SyGFileTreeTable"),
 									  JGetString("CommitBranchPrompt::SyGFileTreeTable"));
 			assert( itsCommitGitBranchDialog != nullptr );
 			itsCommitGitBranchDialog->Activate();
 			ListenTo(itsCommitGitBranchDialog);
-			}
+		}
 		else
-			{
-			CommitGitBranch(JString::empty);
-			}
-		}
-	else if (index == kGitRevertAllCmd)
 		{
-		RevertGitBranch();
+			CommitGitBranch(JString::empty);
 		}
+	}
+	else if (index == kGitRevertAllCmd)
+	{
+		RevertGitBranch();
+	}
 
 	else if (index == kGitStashChangesCmd)
-		{
+	{
 		itsGitStashDialog =
 			jnew JXGetStringDialog(GetWindow()->GetDirector(), JGetString("StashTitle::SyGFileTreeTable"),
 								  JGetString("StashPrompt::SyGFileTreeTable"));
 		assert( itsGitStashDialog != nullptr );
 		itsGitStashDialog->Activate();
 		ListenTo(itsGitStashDialog);
-		}
+	}
 
 	else if (index == kGitCreateBranchCmd)
-		{
+	{
 		itsCreateGitBranchDialog =
 			jnew JXGetStringDialog(GetWindow()->GetDirector(), JGetString("CreateBranchTitle::SyGFileTreeTable"),
 								  JGetString("CreateBranchPrompt::SyGFileTreeTable"));
 		assert( itsCreateGitBranchDialog != nullptr );
 		itsCreateGitBranchDialog->Activate();
 		ListenTo(itsCreateGitBranchDialog);
-		}
+	}
 
 	else if (index == kGitAddRemoteCmd)
-		{
+	{
 		itsAddGitRemoteDialog =
 			jnew SyGNewGitRemoteDialog(GetWindow()->GetDirector());
 		assert( itsAddGitRemoteDialog != nullptr );
 		itsAddGitRemoteDialog->Activate();
 		ListenTo(itsAddGitRemoteDialog);
-		}
+	}
 }
 
 /******************************************************************************
@@ -4172,18 +4172,18 @@ SyGFileTreeTable::CreateGitBranch
 
 	const JError err = JSimpleProcess::Create(&p, itsFileTree->GetDirectory(), cmd, false);
 	if (err.OK())
-		{
+	{
 		p->WaitUntilFinished();
 		if (p->SuccessfulFinish())
-			{
-			JExecute(itsFileTree->GetDirectory(), (SyGGetApplication())->GetPostCheckoutCommand(), nullptr);
-			}
-		jdelete p;
-		}
-	else
 		{
-		err.ReportIfError();
+			JExecute(itsFileTree->GetDirectory(), (SyGGetApplication())->GetPostCheckoutCommand(), nullptr);
 		}
+		jdelete p;
+	}
+	else
+	{
+		err.ReportIfError();
+	}
 }
 
 /******************************************************************************
@@ -4203,21 +4203,21 @@ SyGFileTreeTable::CommitGitBranch
 	JString cmd("git commit -a");
 
 	if (!msg.IsEmpty())
-		{
+	{
 		cmd += " -m ";
 		cmd += JPrepArgForExec(msg);
-		}
+	}
 
 	const JError err = JSimpleProcess::Create(&p, itsFileTree->GetDirectory(), cmd, true);
 	if (err.OK())
-		{
+	{
 		itsGitProcess = p;
 		ListenTo(itsGitProcess);
-		}
+	}
 	else
-		{
+	{
 		err.ReportIfError();
-		}
+	}
 }
 
 /******************************************************************************
@@ -4231,26 +4231,26 @@ void
 SyGFileTreeTable::RevertGitBranch()
 {
 	if (!JGetUserNotification()->AskUserNo(JGetString("WarnRevertBranch::SyGFileTreeTable")))
-		{
+	{
 		return;
-		}
+	}
 
 	JSimpleProcess* p;
 	const JError err = JSimpleProcess::Create(&p, itsFileTree->GetDirectory(),
 											  gitRevertCmd, false);
 	if (err.OK())
-		{
+	{
 		p->WaitUntilFinished();
 		if (p->SuccessfulFinish())
-			{
-			JExecute(itsFileTree->GetDirectory(), (SyGGetApplication())->GetPostCheckoutCommand(), nullptr);
-			}
-		jdelete p;
-		}
-	else
 		{
-		err.ReportIfError();
+			JExecute(itsFileTree->GetDirectory(), (SyGGetApplication())->GetPostCheckoutCommand(), nullptr);
 		}
+		jdelete p;
+	}
+	else
+	{
+		err.ReportIfError();
+	}
 }
 
 /******************************************************************************
@@ -4272,25 +4272,25 @@ SyGFileTreeTable::GetGitBranches
 								kJIgnoreConnection, nullptr,
 								kJCreatePipe, &fromFD);
 	if (!err.OK())
-		{
+	{
 		branchList->Append(JGetString("NoBranchInfo::SyGFileTreeTable"));
 		*currentIndex = 0;
 		itsCurrentGitBranch.Clear();
 		return false;
-		}
+	}
 
 	JString line, *repo;
 	while (true)
-		{
+	{
 		line = JReadUntil(fromFD, '\n');
 		if (line.IsEmpty())
-			{
+		{
 			break;
-			}
+		}
 		else if (line.EndsWith("/HEAD") || line.Contains("->"))
-			{
+		{
 			continue;
-			}
+		}
 
 		const bool current = line.GetFirstCharacter() == '*';
 
@@ -4300,22 +4300,22 @@ SyGFileTreeTable::GetGitBranches
 
 		branchList->Append(line);
 		if (current)
-			{
+		{
 			*currentIndex       = branchList->GetElementCount();
 			itsCurrentGitBranch = line;
-			}
+		}
 
 		iter.BeginMatch();
 		if (repoList != nullptr && iter.Next("/") && !iter.AtBeginning())
-			{
+		{
 			repo = jnew JString(iter.FinishMatch().GetString());
 			assert( repo != nullptr );
 			if (!repoList->InsertSorted(repo, false))
-				{
+			{
 				jdelete repo;
-				}
 			}
 		}
+	}
 
 	::close(fromFD);
 	return true;
@@ -4345,14 +4345,14 @@ SyGFileTreeTable::SwitchToGitBranch
 						  kJCreatePipe, &fromFD,
 						  kJAttachToFromFD);
 	if (err.OK())
-		{
+	{
 		JString msg;
 		JReadAll(fromFD, &msg);
 		if (!msg.IsEmpty())
-			{
+		{
 			err = JExecute(dir, gitStashTempCmd, nullptr);
-			}
 		}
+	}
 
 	// switch branches
 
@@ -4364,7 +4364,7 @@ SyGFileTreeTable::SwitchToGitBranch
 				   kJCreatePipe, &fromFD,
 				   kJAttachToFromFD);
 	if (err.OK())
-		{
+	{
 		JString msg;
 		JReadAll(fromFD, &msg);
 		JGetUserNotification()->DisplayMessage(msg);
@@ -4374,31 +4374,31 @@ SyGFileTreeTable::SwitchToGitBranch
 		JPtrArray<JString> idList(JPtrArrayT::kDeleteAll);
 		JPtrArray<JString> nameList(JPtrArrayT::kDeleteAll);
 		if (GetGitStashList(&idList, &nameList))
-			{
+		{
 			const JUtf8Byte* map[] =
-			{
+		{
 				"branch", branch.GetBytes(),
 				"stash",  kStashDisplaySuffix.GetBytes()
-			};
+		};
 			const JString name = JGetString("BranchIndicator::SyGFileTreeTable", map, sizeof(map));
 
 			const JSize count = nameList.GetElementCount();
 			for (JIndex i=1; i<=count; i++)
-				{
+			{
 				if (name == *(nameList.GetElement(i)))
-					{
+				{
 					Unstash("pop", *(idList.GetElement(i)));
 					break;
-					}
 				}
 			}
+		}
 
 		JExecute(dir, (SyGGetApplication())->GetPostCheckoutCommand(), nullptr);
-		}
+	}
 	else
-		{
+	{
 		err.ReportIfError();
-		}
+	}
 }
 
 /******************************************************************************
@@ -4425,14 +4425,14 @@ SyGFileTreeTable::MergeFromGitBranch
 	JSimpleProcess* p;
 	const JError err = JSimpleProcess::Create(&p, itsFileTree->GetDirectory(), cmd, true);
 	if (err.OK())
-		{
+	{
 		itsGitProcess = p;
 		ListenTo(itsGitProcess);
-		}
+	}
 	else
-		{
+	{
 		err.ReportIfError();
-		}
+	}
 }
 
 /******************************************************************************
@@ -4452,10 +4452,10 @@ SyGFileTreeTable::FetchRemoteGitBranch1
 
 	JStringIterator iter(&name, kJIteratorStartAtEnd);
 	if (iter.Prev("/"))
-		{
+	{
 		iter.SkipNext();
 		iter.RemoveAllPrev();
-		}
+	}
 	iter.Invalidate();
 
 	itsFetchGitBranch = branch;
@@ -4496,14 +4496,14 @@ SyGFileTreeTable::FetchRemoteGitBranch2
 	JSimpleProcess* p;
 	const JError err = JSimpleProcess::Create(&p, itsFileTree->GetDirectory(), cmd, true);
 	if (err.OK())
-		{
+	{
 		itsGitProcess = p;
 		ListenTo(itsGitProcess);
-		}
+	}
 	else
-		{
+	{
 		err.ReportIfError();
-		}
+	}
 }
 
 /******************************************************************************
@@ -4534,14 +4534,14 @@ SyGFileTreeTable::PullBranch
 	JSimpleProcess* p;
 	const JError err = JSimpleProcess::Create(&p, itsFileTree->GetDirectory(), cmd, true);
 	if (err.OK())
-		{
+	{
 		itsGitProcess = p;
 		ListenTo(itsGitProcess);
-		}
+	}
 	else
-		{
+	{
 		err.ReportIfError();
-		}
+	}
 }
 
 /******************************************************************************
@@ -4581,26 +4581,26 @@ SyGFileTreeTable::RemoveGitBranch
 	)
 {
 	if (!force)
-		{
+	{
 		const JUtf8Byte* map[] =
-			{
+		{
 			"name", branch.GetBytes()
-			};
+		};
 		const JString msg = JGetString("WarnRemoveBranch::SyGFileTreeTable", map, sizeof(map));
 		if (!JGetUserNotification()->AskUserNo(msg))
-			{
+		{
 			return false;
-			}
 		}
+	}
 
 	JString cmd("git branch -D ");
 	cmd += JPrepArgForExec(branch);
 
 	JSimpleProcess* p;
 	if (!JSimpleProcess::Create(&p, itsFileTree->GetDirectory(), cmd, false).OK())
-		{
+	{
 		return false;
-		}
+	}
 
 	p->WaitUntilFinished();
 	jdelete p;
@@ -4614,16 +4614,16 @@ SyGFileTreeTable::RemoveGitBranch
 
 	JString stashId;
 	if (FindGitStash(branch, idList, nameList, &stashId))
-		{
+	{
 		cmd  = "git stash drop ";
 		cmd += JPrepArgForExec(stashId);
 
 		if (JSimpleProcess::Create(&p, itsFileTree->GetDirectory(), cmd, false).OK())
-			{
+		{
 			p->WaitUntilFinished();
 			jdelete p;
-			}
 		}
+	}
 
 	return true;
 }
@@ -4646,13 +4646,13 @@ SyGFileTreeTable::FindGitStash
 
 	const JSize count = idList.GetElementCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		if (nameList.GetElement(i)->EndsWith(s))
-			{
+		{
 			*id = *idList.GetElement(i);
 			return true;
-			}
 		}
+	}
 
 	id->Clear();
 	return false;
@@ -4678,30 +4678,30 @@ SyGFileTreeTable::GetGitStashList
 								kJIgnoreConnection, nullptr,
 								kJCreatePipe, &fromFD);
 	if (!err.OK())
-		{
+	{
 		nameList->Append(JGetString("NoStashes::SyGFileTreeTable"));
 		idList->Append(JString::empty);
 		return false;
-		}
+	}
 
 	JString line;
 	while (true)
-		{
+	{
 		line = JReadUntil(fromFD, '\n');
 		if (line.IsEmpty())
-			{
+		{
 			break;
-			}
+		}
 
 		JStringIterator iter(&line);
 		iter.BeginMatch();
 		if (iter.Next(";") && !iter.AtBeginning() && !iter.AtEnd())
-			{
+		{
 			idList->Append(iter.FinishMatch().GetString());
 			iter.RemoveAllPrev();
 			nameList->Append(line);
-			}
 		}
+	}
 
 	::close(fromFD);
 	return !idList->IsEmpty();
@@ -4723,14 +4723,14 @@ SyGFileTreeTable::Stash
 	JSimpleProcess* p;
 	const JError err = JSimpleProcess::Create(&p, itsFileTree->GetDirectory(), cmd, true);
 	if (err.OK())
-		{
+	{
 		itsGitProcess = p;
 		ListenTo(itsGitProcess);
-		}
+	}
 	else
-		{
+	{
 		err.ReportIfError();
-		}
+	}
 }
 
 /******************************************************************************
@@ -4759,14 +4759,14 @@ SyGFileTreeTable::Unstash
 	JSimpleProcess* p;
 	const JError err = JSimpleProcess::Create(&p, itsFileTree->GetDirectory(), cmd, true);
 	if (err.OK())
-		{
+	{
 		itsGitProcess = p;
 		ListenTo(itsGitProcess);
-		}
+	}
 	else
-		{
+	{
 		err.ReportIfError();
-		}
+	}
 }
 
 /******************************************************************************
@@ -4801,14 +4801,14 @@ SyGFileTreeTable::RemoveGitRemote
 	)
 {
 	const JUtf8Byte* map[] =
-		{
+	{
 		"name", name.GetBytes()
-		};
+	};
 	const JString msg = JGetString("WarnRemoveRemote::SyGFileTreeTable", map, sizeof(map));
 	if (!JGetUserNotification()->AskUserNo(msg))
-		{
+	{
 		return;
-		}
+	}
 
 	JString cmd("git remote rm ");
 	cmd += JPrepArgForExec(name);
@@ -4853,9 +4853,9 @@ SyGFileTreeTable::PruneRemoteGitBranches
 
 	JStringIterator iter(s);
 	while (iter.Next(prunedBranchPattern))
-		{
+	{
 		itsPruneBranchList->Append(iter.GetLastMatch().GetSubstring(1));
-		}
+	}
 	iter.Invalidate();
 
 	// prune the branches
@@ -4870,7 +4870,7 @@ SyGFileTreeTable::PruneRemoteGitBranches
 	// check if we have local versions
 
 	if (!itsPruneBranchList->IsEmpty())
-		{
+	{
 		JPtrArray<JString> localList(JPtrArrayT::kDeleteAll);
 		JIndex i;
 		GetGitBranches("git branch", &localList, &i, nullptr);
@@ -4882,22 +4882,22 @@ SyGFileTreeTable::PruneRemoteGitBranches
 
 		const JSize branchCount = itsPruneBranchList->GetElementCount();
 		for (JIndex i=branchCount; i>=1; i--)
-			{
+		{
 			JString* branch = itsPruneBranchList->GetElement(i);
 
 			JIndex j;
 			if (!localList.SearchSorted(branch, JListT::kAnyMatch, &j) ||
 				*branch == *currentBranch)
-				{
+			{
 				itsPruneBranchList->DeleteElement(i);
-				}
 			}
 		}
+	}
 
 	// ask if should delete local versions
 
 	if (!itsPruneBranchList->IsEmpty())
-		{
+	{
 		assert( itsPruneBranchesDialog == nullptr );
 
 		itsPruneBranchesDialog =
@@ -4909,12 +4909,12 @@ SyGFileTreeTable::PruneRemoteGitBranches
 		itsPruneBranchesDialog->SelectAllItems();
 		itsPruneBranchesDialog->Activate();
 		ListenTo(itsPruneBranchesDialog);
-		}
+	}
 	else
-		{
+	{
 		jdelete itsPruneBranchList;
 		itsPruneBranchList = nullptr;
-		}
+	}
 }
 
 /******************************************************************************
@@ -4929,15 +4929,15 @@ SyGFileTreeTable::PruneLocalBranches()
 
 	JArray<JIndex> indexList;
 	if (!itsPruneBranchesDialog->GetSelectedItems(&indexList))
-		{
+	{
 		return;
-		}
+	}
 
 	const JSize count = indexList.GetElementCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		RemoveGitBranch(*(itsPruneBranchList->GetElement(indexList.GetElement(i))), true);
-		}
+	}
 }
 
 /******************************************************************************
@@ -4950,9 +4950,9 @@ SyGFileTreeTable::UpdateShortcutMenu()
 {
 	const JSize count = itsShortcutMenu->GetItemCount();
 	for (JIndex i=count; i>kShortcutCmdOffset; i--)
-		{
+	{
 		itsShortcutMenu->RemoveItem(i);
-		}
+	}
 
 	StopListening(SyGGetApplication());		// avoid double update
 	SyGGetApplication()->UpdateShortcutMenu(itsShortcutMenu);
@@ -4973,22 +4973,22 @@ SyGFileTreeTable::HandleShortcutMenu
 	ClearIncrementalSearchBuffer();
 
 	if (index == kAddShortcutCmd)
-		{
+	{
 		SyGGetApplication()->AddShortcut(itsFileTree->GetDirectory());
-		}
+	}
 	else if (index == kRemoveShortcutCmd)
-		{
+	{
 		SyGGetApplication()->RemoveShortcut(itsFileTree->GetDirectory());
-		}
+	}
 	else if (index == kRemoveAllShortcutsCmd)
-		{
+	{
 		SyGGetApplication()->RemoveAllShortcuts();
-		}
+	}
 
 	else
-		{
+	{
 		SyGGetApplication()->OpenShortcut(index - kShortcutCmdOffset);
-		}
+	}
 }
 
 /******************************************************************************
@@ -5009,17 +5009,17 @@ SyGFileTreeTable::UpdateContextMenu()
 
 	bool findOriginal = false;
 	if (hasSelection)
-		{
+	{
 		JTableSelectionIterator iter(&s);
 		JPoint cell;
 		while (iter.Next(&cell))
-			{
+		{
 			if ((itsFileTreeList->GetDirEntry(cell.y))->IsWorkingLink())
-				{
+			{
 				findOriginal = true;
-				}
 			}
 		}
+	}
 
 	itsContextMenu->SetItemEnable(kMakeAliasCtxCmd,        hasSelection);
 	itsContextMenu->SetItemEnable(kFindOriginalCtxCmd,     findOriginal);
@@ -5043,40 +5043,40 @@ SyGFileTreeTable::HandleContextMenu
 	ClearIncrementalSearchBuffer();
 
 	if (index == kDuplicateCtxCmd)
-		{
+	{
 		DuplicateSelected();
-		}
+	}
 	else if (index == kMakeAliasCtxCmd)
-		{
+	{
 		MakeLinks();
-		}
+	}
 	else if (index == kFindOriginalCtxCmd)
-		{
+	{
 		FindOriginals();
-		}
+	}
 
 	else if (index == kOpenCloseCtxCmd)
-		{
+	{
 		OpenSelection(false, false, false, true);
-		}
+	}
 	else if (index == OpenIconifyCtxCmd)
-		{
+	{
 		OpenSelection(false, false, true, false);
-		}
+	}
 
 	else if (index == kRunOnSelCtxCmd)
-		{
+	{
 		OpenSelection(false, true, false, false);
-		}
+	}
 
 	else if (index == kConvertToFileCtxCmd)
-		{
+	{
 		ChangeExecPermission(false);
-		}
+	}
 	else if (index == kConvertToProgramCtxCmd)
-		{
+	{
 		ChangeExecPermission(true);
-		}
+	}
 }
 
 /******************************************************************************
@@ -5125,9 +5125,9 @@ SyGFileTreeTable::ExtractInputData
 	assert( ok );
 
 	if (input->GetText()->IsEmpty())
-		{
+	{
 		return true;		// treat as cancel
-		}
+	}
 
 	SyGFileTreeNode* node = itsFileTreeList->GetSyGNode(cell.y);
 	const JString newName = input->GetText()->GetText();	// copy since need after input field gone
@@ -5135,18 +5135,18 @@ SyGFileTreeTable::ExtractInputData
 	const JError err      = node->Rename(newName, sort);
 	input                 = nullptr;				// nodes sorted => CancelEditing()
 	if (!err.OK())
-		{
+	{
 		JGetStringManager()->ReportError("RenameError::SyGFileTreeTable", err);
-		}
+	}
 	else if (sort)
-		{
+	{
 		ScrollToNode(node);
-		}
+	}
 	else
-		{
+	{
 		itsSortNode = node->GetSyGParent();
 		ClearWhenGoingAway(itsSortNode, &itsSortNode);
-		}
+	}
 	return err.OK();
 }
 
@@ -5163,17 +5163,17 @@ SyGFileTreeTable::AdjustToTree()
 
 	const JSize count = GetRowCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		const JDirEntry* entry = itsFileTreeList->GetDirEntry(i);
 		if (entry->IsWorkingLink())
-			{
+		{
 			SetCellStyle(JPoint(GetNodeColIndex(), i), workingLink);
-			}
-		else if (entry->IsBrokenLink())
-			{
-			SetCellStyle(JPoint(GetNodeColIndex(), i), brokenLink);
-			}
 		}
+		else if (entry->IsBrokenLink())
+		{
+			SetCellStyle(JPoint(GetNodeColIndex(), i), brokenLink);
+		}
+	}
 
 	JXNamedTreeListWidget::AdjustToTree();
 }
@@ -5191,28 +5191,28 @@ SyGFileTreeTable::GetMinCellWidth
 	const
 {
 	if (JIndex(cell.x) > GetNodeColIndex())
-		{
+	{
 		const JString str = GetCellString(cell);
 
 		const GFMColType type       = GetFMColType(cell.x, GetNodeColIndex(), itsVisibleCols);
 		const JCoordinate theBuffer = JLAbs(GetFMBufferWidth(itsVisibleCols, GetNodeColIndex(), cell.x));
 		JSize w;
 		if (type == kGFMMode)
-			{
+		{
 			w = theBuffer + 9 * itsPermCharWidth;
-			}
+		}
 		else
-			{
+		{
 			w = 2 * theBuffer + GetFont().GetStringWidth(GetFontManager(), str);
-			}
+		}
 
 		const JSize wT = 2 * theBuffer + GetFont().GetStringWidth(GetFontManager(), GetColTitle(cell.x));
 		return JMax(wT, w);
-		}
+	}
 	else
-		{
+	{
 		return JXNamedTreeListWidget::GetMinCellWidth(cell);
-		}
+	}
 }
 
 /******************************************************************************
@@ -5228,13 +5228,13 @@ SyGFileTreeTable::GetBufferWidth
 	const
 {
 	if (index == GetNodeColIndex())
-		{
+	{
 		return (GetRowCount() == 0 ? 0 : GetImageWidth(1));
-		}
+	}
 	else
-		{
+	{
 		return GetFMBufferWidth(itsVisibleCols, GetNodeColIndex(), index);
-		}
+	}
 }
 
 /******************************************************************************
@@ -5251,12 +5251,12 @@ SyGFileTreeTable::GetColTitle
 {
 	JString str;
 	if (index == GetNodeColIndex())
-		{
+	{
 		str = JGetString("NameColumnTitle::SyGColUtils");
-		}
+	}
 	else
-		{
+	{
 		GetFMColTitle(itsVisibleCols, GetNodeColIndex(), index, &str);
-		}
+	}
 	return str;
 }

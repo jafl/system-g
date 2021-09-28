@@ -14,9 +14,9 @@
 #include "SyGViewManPageDialog.h"
 #include "SyGFileVersions.h"
 #include "SyGGlobals.h"
-#include <JXChooseSaveFile.h>
-#include <jDirUtil.h>
-#include <jAssert.h>
+#include <jx-af/jx/JXChooseSaveFile.h>
+#include <jx-af/jcore/jDirUtil.h>
+#include <jx-af/jcore/jAssert.h>
 
 // JBroadcaster messages
 
@@ -76,13 +76,13 @@ SyGPrefsMgr::GetSystemGVersionStr()
 {
 	std::string data;
 	if (GetData(kSProgramVersionID, &data))
-		{
+	{
 		return JString(data);
-		}
+	}
 	else
-		{
+	{
 		return JString("< 0.4.0");		// didn't exist before this version
-		}
+	}
 }
 
 /******************************************************************************
@@ -98,72 +98,72 @@ SyGPrefsMgr::UpgradeData
 	)
 {
 	if (isNew)
-		{
+	{
 		const bool prefs[kSyGTreePrefCount] =
-			{false,false,false,false,false,false,false};
+		{false,false,false,false,false,false,false};
 		SetTreePreferences(prefs);
 		SaveFilterStatePref(false);
-		}
+	}
 
 	if (currentVersion < 5)
-		{
+	{
 		std::string data;
 		if (GetData(3, &data))
-			{
+		{
 			std::ostringstream newData;
 			newData << 0 << ' ' << data.c_str();
 			SetData(3, newData);
-			}
 		}
+	}
 
 	if (currentVersion < 6)
-		{
+	{
 		RemoveData(13);
 		RemoveData(14);
 		RemoveData(15);
 		RemoveData(20);
 
 		DelShouldDelete(false);
-		}
+	}
 
 	if (currentVersion < 7)
-		{
+	{
 		RemoveData(6);
 		RemoveData(8);
 		RemoveData(9);
 		RemoveData(16);
 		RemoveData(17);
-		}
+	}
 
 	if (currentVersion < 8)
-		{
+	{
 		JString cmd;
 		std::string data;
 		if (GetData(11, &data))
-			{
+		{
 			std::istringstream input(data);
 			input >> cmd;
 			(SyGGetApplication())->SetTerminalCommand(cmd);
 			RemoveData(11);
-			}
+		}
 		if (GetData(12, &data))
-			{
+		{
 			std::istringstream input(data);
 			input >> cmd;
 			SyGViewManPageDialog::SetViewManPageCommand(cmd);
 			RemoveData(12);
-			}
 		}
+	}
 
 	if (currentVersion < 10)
-		{
+	{
 		ShouldOpenNewWindows(true);
-		}
+	}
 
 	if (currentVersion < 11)
-		{
+	{
 		ShouldSaveFolderPrefs(true);
-		}
+	}
 }
 
 /******************************************************************************
@@ -179,20 +179,20 @@ SyGPrefsMgr::Receive
 	)
 {
 	if (sender == itsDialog && message.Is(JXDialogDirector::kDeactivated))
-		{
+	{
 		const auto* info =
 			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
 		assert(info != nullptr);
 		if (info->Successful())
-			{
-			UpdatePrefs();
-			}
-		itsDialog = nullptr;
-		}
-	else
 		{
-		JXPrefsManager::Receive(sender, message);
+			UpdatePrefs();
 		}
+		itsDialog = nullptr;
+	}
+	else
+	{
+		JXPrefsManager::Receive(sender, message);
+	}
 }
 
 /******************************************************************************
@@ -260,9 +260,9 @@ SyGPrefsMgr::SetTreePreferences
 {
 	std::ostringstream data;
 	for (JIndex i = 0; i < kSyGTreePrefCount; i++)
-		{
+	{
 		data << JBoolToString(prefs[i]);
-		}
+	}
 
 	SetData(kSTreeOptionsID, data);
 }
@@ -280,9 +280,9 @@ SyGPrefsMgr::GetTreePreferences
 
 	std::istringstream dataStream(data);
 	for (JIndex i = 0; i < kSyGTreePrefCount; i++)
-		{
+	{
 		dataStream >> JBoolFromString(prefs[i]);
-		}
+	}
 }
 
 /******************************************************************************
@@ -300,16 +300,16 @@ SyGPrefsMgr::GetDefaultWindowSize
 {
 	std::string data;
 	if (GetData(kSDefaultWindowSizeID, &data))
-		{
+	{
 		std::istringstream dataStream(data);
 		dataStream >> *w;
 		dataStream >> *h;
 		return true;
-		}
+	}
 	else
-		{
+	{
 		return false;
-		}
+	}
 }
 
 void
@@ -346,12 +346,12 @@ SyGPrefsMgr::GetFilterStatePref()
 {
 	bool show = false;
 	if (IDValid(kSFilterVisibleID))
-		{
+	{
 		std::string data;
 		GetData(kSFilterVisibleID, &data);
 		std::istringstream dataStream(data);
 		dataStream >> JBoolFromString(show);
-		}
+	}
 	return show;
 }
 
@@ -367,7 +367,7 @@ SyGPrefsMgr::RestoreProgramState
 	)
 {
 	if (IDValid(kSChildWindowListID))
-		{
+	{
 		std::string data;
 		GetData(kSChildWindowListID, &data);
 		std::istringstream dataStream(data);
@@ -375,11 +375,11 @@ SyGPrefsMgr::RestoreProgramState
 
 		RemoveData(kSChildWindowListID);
 		return true;
-		}
+	}
 	else
-		{
+	{
 		return false;
-		}
+	}
 }
 
 void

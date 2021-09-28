@@ -12,17 +12,17 @@
 #include "SyGFolderDragSource.h"
 #include "SyGFileTreeTable.h"
 #include "SyGGlobals.h"
-#include <JXFileSelection.h>
-#include <JXDNDManager.h>
-#include <JXSelectionManager.h>
-#include <JXDisplay.h>
-#include <JXPathInput.h>
-#include <JXCurrentPathMenu.h>
-#include <JXImage.h>
-#include <JXImageCache.h>
-#include <jMouseUtil.h>
-#include <jDirUtil.h>
-#include <jAssert.h>
+#include <jx-af/jx/JXFileSelection.h>
+#include <jx-af/jx/JXDNDManager.h>
+#include <jx-af/jx/JXSelectionManager.h>
+#include <jx-af/jx/JXDisplay.h>
+#include <jx-af/jx/JXPathInput.h>
+#include <jx-af/jx/JXCurrentPathMenu.h>
+#include <jx-af/jx/JXImage.h>
+#include <jx-af/jx/JXImageCache.h>
+#include <jx-af/jcore/jMouseUtil.h>
+#include <jx-af/jcore/jDirUtil.h>
+#include <jx-af/jcore/jAssert.h>
 
 #include <jx_folder_small.xpm>
 
@@ -104,12 +104,12 @@ SyGFolderDragSource::HandleMouseDrag
 
 	if (pathValid && !JMouseMoved(itsStartPt, pt) &&
 		JXGetApplication()->GetCurrentTime() >= itsMouseDownTime + kJXDoubleClickTime)
-		{
+	{
 		itsPathMenu->SetPath(path);
 		itsPathMenu->PopUp(this, pt, buttonStates, modifiers);
-		}
+	}
 	else if (pathValid && JMouseMoved(itsStartPt, pt))
-		{
+	{
 		JPtrArray<JString> list(JPtrArrayT::kForgetAll);
 		list.Append(&const_cast<JString&>(path));
 
@@ -117,7 +117,7 @@ SyGFolderDragSource::HandleMouseDrag
 		assert( data != nullptr );
 
 		BeginDND(pt, buttonStates, modifiers, data);
-		}
+	}
 }
 
 /******************************************************************************

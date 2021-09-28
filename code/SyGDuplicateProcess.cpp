@@ -9,14 +9,14 @@
 
 #include "SyGDuplicateProcess.h"
 #include "SyGFileTreeTable.h"
-#include <JXDeleteObjectTask.h>
-#include <JTableSelection.h>
-#include <JSimpleProcess.h>
-#include <JThisProcess.h>
-#include <JDirEntry.h>
-#include <jFileUtil.h>
-#include <jVCSUtil.h>
-#include <jAssert.h>
+#include <jx-af/jx/JXDeleteObjectTask.h>
+#include <jx-af/jcore/JTableSelection.h>
+#include <jx-af/jcore/JSimpleProcess.h>
+#include <jx-af/jcore/JThisProcess.h>
+#include <jx-af/jcore/JDirEntry.h>
+#include <jx-af/jcore/jFileUtil.h>
+#include <jx-af/jcore/jVCSUtil.h>
+#include <jx-af/jcore/jAssert.h>
 
 /******************************************************************************
  Constructor function (static)
@@ -56,12 +56,12 @@ SyGDuplicateProcess::SyGDuplicateProcess
 
 	const JSize count = nodeList.GetElementCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		auto* node = const_cast<SyGFileTreeNode*>(nodeList.GetElement(i));
 		itsNodeList.Append(node);
 		itsFullNameList.Append((node->GetDirEntry())->GetFullName());
 		ListenTo(node);
-		}
+	}
 
 	ProcessNextFile();
 }
@@ -89,35 +89,35 @@ SyGDuplicateProcess::Receive
 	)
 {
 	if (sender == itsProcess && message.Is(JProcess::kFinished))
-		{
+	{
 		const auto* info =
 			dynamic_cast<const JProcess::Finished*>(&message);
 		if (info->Successful() && itsTable != nullptr && !itsTable->IsEditing())
-			{
+		{
 			SyGFileTreeNode* node   = itsNodeList.GetFirstElement();
 			SyGFileTreeNode* parent = nullptr;
 			if (node != nullptr)
-				{
+			{
 				parent = node->GetSyGParent();
-				}
+			}
 
 			JPoint cell;
 			const bool found = itsTable->SelectName(itsCurrentName, parent, &cell);		// updates table
 			if (itsShouldEditFlag && found)
-				{
+			{
 				itsTable->BeginEditing(cell);
-				}
 			}
+		}
 
 		JXDeleteObjectTask<JBroadcaster>::Delete(itsProcess);
 		itsProcess = nullptr;
 		itsNodeList.RemoveElement(1);
 		ProcessNextFile();
-		}
+	}
 	else
-		{
+	{
 		JBroadcaster::Receive(sender, message);
-		}
+	}
 }
 
 /******************************************************************************
@@ -134,22 +134,22 @@ SyGDuplicateProcess::ReceiveGoingAway
 	JIndex nodeIndex  = 0;
 	const JSize count = itsNodeList.GetElementCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		if (sender == itsNodeList.GetElement(i))
-			{
+		{
 			nodeIndex = i;
 			break;
-			}
 		}
+	}
 
 	if (nodeIndex > 0)
-		{
+	{
 		itsNodeList.SetToNull(nodeIndex, JPtrArrayT::kForget);
-		}
+	}
 	else
-		{
+	{
 		JBroadcaster::ReceiveGoingAway(sender);
-		}
+	}
 }
 
 /******************************************************************************
@@ -161,18 +161,18 @@ void
 SyGDuplicateProcess::ProcessNextFile()
 {
 	if (itsFullNameList.IsEmpty())
-		{
+	{
 		JXDeleteObjectTask<JBroadcaster>::Delete(this);
 		return;
-		}
+	}
 
 	const JString* origName = itsFullNameList.GetFirstElement();
 	JString path, name, root, suffix;
 	JSplitPathAndName(*origName, &path, &name);
 	if (JSplitRootAndSuffix(name, &root, &suffix))
-		{
+	{
 		suffix.Prepend(".");
-		}
+	}
 
 	root += "_copy";
 	name  = JGetUniqueDirEntryName(path, root, suffix.GetBytes());
@@ -183,24 +183,24 @@ SyGDuplicateProcess::ProcessNextFile()
 
 	JVCSType type;
 	if (JIsManagedByVCS(*origName, &type) && type == kJSVNType)
-		{
+	{
 		argv[0] = "svn";
 		argv[1] = "cp";
-		}
+	}
 
 	const JError err = JSimpleProcess::Create(&itsProcess, argv, sizeof(argv));
 	err.ReportIfError();
 	itsFullNameList.DeleteElement(1);		// before ProcessNextFile()
 
 	if (err.OK())
-		{
+	{
 		ListenTo(itsProcess);
 		JThisProcess::Ignore(itsProcess);	// detach so it always finishes
-		}
+	}
 	else
-		{
+	{
 		itsProcess = nullptr;
 		itsNodeList.RemoveElement(1);
 		ProcessNextFile();
-		}
+	}
 }

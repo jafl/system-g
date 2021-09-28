@@ -8,7 +8,7 @@
 #ifndef _H_SyGMoveToTrashProcess
 #define _H_SyGMoveToTrashProcess
 
-#include <JPtrArray-JString.h>
+#include <jx-af/jcore/JPtrArray-JString.h>
 
 class JSimpleProcess;
 class SyGFileTreeTable;

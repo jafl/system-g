@@ -8,8 +8,8 @@
 #ifndef _H_SyGPathInput
 #define _H_SyGPathInput
 
-#include <JXPathInput.h>
-#include <JString.h>
+#include <jx-af/jx/JXPathInput.h>
+#include <jx-af/jcore/JString.h>
 
 class SyGPathInput : public JXPathInput
 {

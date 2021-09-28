@@ -8,17 +8,17 @@
  ******************************************************************************/
 
 #include "SyGEditPrefsDialog.h"
-#include <JXWindow.h>
-#include <JXTextButton.h>
-#include <JXStaticText.h>
-#include <JXInputField.h>
-#include <JXTextCheckbox.h>
-#include <JXRadioGroup.h>
-#include <JXTextRadioButton.h>
-#include <JXSaveFileInput.h>
-#include <JXFontManager.h>
-#include <jXGlobals.h>
-#include <jAssert.h>
+#include <jx-af/jx/JXWindow.h>
+#include <jx-af/jx/JXTextButton.h>
+#include <jx-af/jx/JXStaticText.h>
+#include <jx-af/jx/JXInputField.h>
+#include <jx-af/jx/JXTextCheckbox.h>
+#include <jx-af/jx/JXRadioGroup.h>
+#include <jx-af/jx/JXTextRadioButton.h>
+#include <jx-af/jx/JXSaveFileInput.h>
+#include <jx-af/jx/JXFontManager.h>
+#include <jx-af/jx/jXGlobals.h>
+#include <jx-af/jcore/jAssert.h>
 
 /******************************************************************************
  Constructor

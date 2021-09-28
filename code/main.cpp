@@ -9,13 +9,13 @@
 #include "SyGMDIServer.h"
 #include "SyGGlobals.h"
 #include "SyGPrefsMgr.h"
-#include <JXFSBindingManager.h>
-#include <JXSplashWindow.h>
-#include <jCommandLine.h>
-#include <jTime.h>
-#include <jWebUtil.h>
-#include <jSysUtil.h>
-#include <jAssert.h>
+#include <jx-af/jfs/JXFSBindingManager.h>
+#include <jx-af/jx/JXSplashWindow.h>
+#include <jx-af/jcore/jCommandLine.h>
+#include <jx-af/jcore/jTime.h>
+#include <jx-af/jcore/jWebUtil.h>
+#include <jx-af/jcore/jSysUtil.h>
+#include <jx-af/jcore/jAssert.h>
 
 void ParseTextOptions(const int argc, char* argv[]);
 void PrintVersion();
@@ -35,9 +35,9 @@ main
 	ParseTextOptions(argc, argv);
 
 	if (!SyGMDIServer::WillBeMDIServer(SyGApplication::GetAppSignature(), argc, argv))
-		{
+	{
 		return 0;
-		}
+	}
 
 	bool displayAbout;
 	JString prevVersStr;
@@ -46,18 +46,18 @@ main
 
 	if (displayAbout &&
 		!JGetUserNotification()->AcceptLicense())
-		{
+	{
 		return 0;
-		}
+	}
 
 	JCheckForNewerVersion(SyGGetPrefsMgr(), kSVersionCheckID);
 
 	(SyGGetMDIServer())->HandleCmdLineOptions(argc, argv);
 
 	if (displayAbout)
-		{
+	{
 		app->DisplayAbout(prevVersStr);
-		}
+	}
 
 	JXFSBindingManager::Initialize();	// notify user of any upgrades
 
@@ -84,21 +84,21 @@ ParseTextOptions
 {
 	long index = 1;
 	while (index < argc)
-		{
+	{
 		if (JIsVersionRequest(argv[index]))
-			{
+		{
 			SyGApplication::InitStrings();
 			PrintVersion();
 			exit(0);
-			}
+		}
 		else if (JIsHelpRequest(argv[index]))
-			{
+		{
 			SyGApplication::InitStrings();
 			SyGMDIServer::PrintCommandLineHelp();
 			exit(0);
-			}
-		index++;
 		}
+		index++;
+	}
 }
 
 /******************************************************************************

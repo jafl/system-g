@@ -10,7 +10,7 @@
 #ifndef _H_SyGAboutDialog
 #define _H_SyGAboutDialog
 
-#include <JXDialogDirector.h>
+#include <jx-af/jx/JXDialogDirector.h>
 
 class JXTextButton;
 

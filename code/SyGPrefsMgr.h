@@ -10,9 +10,9 @@
 #ifndef _H_SyGPrefsMgr
 #define _H_SyGPrefsMgr
 
-#include <JXPrefsManager.h>
-#include <JPtrArray-JString.h>
-#include <JFontStyle.h>
+#include <jx-af/jx/JXPrefsManager.h>
+#include <jx-af/jcore/JPtrArray-JString.h>
+#include <jx-af/jcore/JFontStyle.h>
 
 class JXStringHistoryMenu;
 class SyGEditPrefsDialog;

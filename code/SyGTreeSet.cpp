@@ -21,22 +21,22 @@
 #include "SyGPrefsMgr.h"
 #include "SyGGlobals.h"
 
-#include <JXDisplay.h>
-#include <JXWindowDirector.h>
-#include <JXWindow.h>
-#include <JXMenuBar.h>
-#include <JXTextMenu.h>
-#include <JXTextButton.h>
-#include <JXStaticText.h>
-#include <JXScrollbarSet.h>
-#include <JXStringHistoryMenu.h>
-#include <JXCurrentPathMenu.h>
-#include <JXCloseDirectorTask.h>
-#include <JXFontManager.h>
+#include <jx-af/jx/JXDisplay.h>
+#include <jx-af/jx/JXWindowDirector.h>
+#include <jx-af/jx/JXWindow.h>
+#include <jx-af/jx/JXMenuBar.h>
+#include <jx-af/jx/JXTextMenu.h>
+#include <jx-af/jx/JXTextButton.h>
+#include <jx-af/jx/JXStaticText.h>
+#include <jx-af/jx/JXScrollbarSet.h>
+#include <jx-af/jx/JXStringHistoryMenu.h>
+#include <jx-af/jx/JXCurrentPathMenu.h>
+#include <jx-af/jx/JXCloseDirectorTask.h>
+#include <jx-af/jx/JXFontManager.h>
 
-#include <JDirInfo.h>
-#include <jDirUtil.h>
-#include <jAssert.h>
+#include <jx-af/jcore/JDirInfo.h>
+#include <jx-af/jcore/jDirUtil.h>
+#include <jx-af/jcore/jAssert.h>
 
 const JCoordinate kEmptyButtonWidth = 50;
 
@@ -90,13 +90,13 @@ SyGTreeSet::SyGTreeSet
 	JXWidgetSet(enclosure, hSizing, vSizing, x,y, w,h)
 {
 	if (vers < 2)
-		{
+	{
 		JFileVersion v;
 		input >> v;
 
 		bool showHidden;
 		input >> JBoolFromString(showHidden);
-		}
+	}
 
 	SyGTreeSetX(menuBar, pathName, pathInput, pathMenu, trashButton, w,h);
 
@@ -117,9 +117,9 @@ SyGTreeSet::SyGTreeSet
 	// must be after directories have been opened
 
 	if (vers >= 3)
-		{
+	{
 		itsTable->ReadScrollSetup(input);
-		}
+	}
 }
 
 void SyGTreeSet::SyGTreeSetX
@@ -149,10 +149,10 @@ void SyGTreeSet::SyGTreeSetX
 
 	JString path = pathName;
 	if (!JFSFileTreeNode::CanHaveChildren(path))
-		{
+	{
 		path = JGetRootDirectory();
 		JXCloseDirectorTask::Close(GetWindow()->GetDirector());
-		}
+	}
 
 	auto* entry = jnew JDirEntry(path);
 	assert( entry != nullptr && JFSFileTreeNode::CanHaveChildren(*entry) );
@@ -222,10 +222,10 @@ void SyGTreeSet::SyGTreeSetX
 	JXTEBase* te = itsTable->GetEditMenuHandler();
 	JXTextMenu* menu;
 	if (te->GetEditMenu(&menu))
-		{
+	{
 		itsPathInput->ShareEditMenu(te);
 		itsFilterInput->ShareEditMenu(te);
-		}
+	}
 
 	// filter starts out hidden
 
@@ -260,39 +260,39 @@ SyGTreeSet::Receive
 	)
 {
 	if (sender == itsPathInput && message.Is(JXWidget::kLostFocus))
-		{
+	{
 		GoToItsPath();
-		}
+	}
 	else if (sender == itsPathMenu && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		itsTable->GoTo(itsPathMenu->GetPath(message),
 					   (GetDisplay()->GetLatestKeyModifiers()).meta());
-		}
+	}
 
 	else if (sender == itsFilterInput && message.Is(JXWidget::kLostFocus))
-		{
+	{
 		SetWildcardFilter(itsFilterInput->GetText()->GetText());
-		}
+	}
 	else if (sender == itsFilterHistory && message.Is(JXMenu::kItemSelected))
-		{
+	{
 		SetWildcardFilter(itsFilterHistory->GetItemText(message));
-		}
+	}
 
 	else if (sender == itsEmptyButton && message.Is(JXButton::kPushed))
-		{
+	{
 		SyGEmptyTrashDirectory();
-		}
+	}
 
 	else if (sender == itsFileTree->GetRootDirInfo() &&
 			 message.Is(JDirInfo::kPathChanged))
-		{
+	{
 		UpdateDisplay(itsFileTree->GetDirectory());
-		}
+	}
 
 	else
-		{
+	{
 		JXWidgetSet::Receive(sender, message);
-		}
+	}
 }
 
 /******************************************************************************
@@ -314,18 +314,18 @@ SyGTreeSet::UpdateDisplay
 	const bool isTrashDir = SyGIsTrashDirectory(s);
 
 	if (JIsRootDirectory(s))
-		{
+	{
 		name = s;
-		}
+	}
 	else if (isTrashDir)
-		{
+	{
 		name = JGetString("TrashName::SyGGlobals");
-		}
+	}
 	else
-		{
+	{
 		JString p;
 		JSplitPathAndName(s, &p, &name);
-		}
+	}
 	GetWindow()->SetTitle(name);
 
 	// path input
@@ -338,7 +338,7 @@ SyGTreeSet::UpdateDisplay
 	JXContainer* encl   = itsMenuBar->GetEnclosure();
 	const JCoordinate w = encl->GetBoundsWidth();
 	if (isTrashDir && itsEmptyButton == nullptr)
-		{
+	{
 		itsMenuBar->SetSize(w - kEmptyButtonWidth, kJXDefaultMenuBarHeight);
 
 		itsEmptyButton =
@@ -347,14 +347,14 @@ SyGTreeSet::UpdateDisplay
 							 kEmptyButtonWidth, kJXDefaultMenuBarHeight);
 		assert( itsEmptyButton != nullptr );
 		ListenTo(itsEmptyButton);
-		}
+	}
 	else if (!isTrashDir && itsEmptyButton != nullptr)
-		{
+	{
 		itsMenuBar->SetSize(w, kJXDefaultMenuBarHeight);
 
 		jdelete itsEmptyButton;
 		itsEmptyButton = nullptr;
-		}
+	}
 }
 
 /******************************************************************************
@@ -368,10 +368,10 @@ SyGTreeSet::GoToItsPath()
 	JString path;
 	if (itsPathInput->GetPath(&path) &&
 		!JSameDirEntry(path, itsFileTree->GetDirectory()))
-		{
+	{
 		const JError err = (itsFileTree->GetSyGRoot())->GoTo(path);
 		err.ReportIfError();
-		}
+	}
 }
 
 /******************************************************************************
@@ -447,7 +447,7 @@ SyGTreeSet::ShowFilter
 	const JCoordinate filterHeight = itsFilterInput->GetFrameHeight();
 
 	if (show && !itsFilterInput->WouldBeVisible())
-		{
+	{
 		itsFilterInput->Show();
 		itsFilterInput->Focus();
 		itsFilterLabel->Show();
@@ -455,13 +455,13 @@ SyGTreeSet::ShowFilter
 		itsScrollbarSet->Place(0, filterHeight);
 		itsScrollbarSet->AdjustSize(0, -filterHeight);
 		SetWildcardFilter(itsFilterInput->GetText()->GetText());
-		}
+	}
 	else if (!show && itsFilterInput->WouldBeVisible())
-		{
+	{
 		if (itsFilterInput->HasFocus())
-			{
+		{
 			itsTable->Focus();
-			}
+		}
 
 		itsFilterInput->Hide();
 		itsFilterLabel->Hide();
@@ -469,7 +469,7 @@ SyGTreeSet::ShowFilter
 		itsScrollbarSet->Place(0, 0);
 		itsScrollbarSet->AdjustSize(0,filterHeight);
 		itsFileTree->ClearWildcardFilter();
-		}
+	}
 }
 
 /******************************************************************************

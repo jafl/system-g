@@ -12,7 +12,7 @@
 #ifndef _H_SyGMDIServer
 #define _H_SyGMDIServer
 
-#include <JXMDIServer.h>
+#include <jx-af/jx/JXMDIServer.h>
 
 class SyGMDIServer : public JXMDIServer
 {

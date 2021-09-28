@@ -16,14 +16,14 @@
 #include "SyGChooseSaveFile.h"
 #include "SyGStringData.h"
 #include "SyGGlobals.h"
-#include <JXWindow.h>
-#include <JXTextMenu.h>
-#include <JXToolBar.h>
-#include <JFSFileTreeNode.h>
-#include <JSimpleProcess.h>
-#include <JStringIterator.h>
-#include <jFileUtil.h>
-#include <jAssert.h>
+#include <jx-af/jx/JXWindow.h>
+#include <jx-af/jx/JXTextMenu.h>
+#include <jx-af/jx/JXToolBar.h>
+#include <jx-af/jfs/JFSFileTreeNode.h>
+#include <jx-af/jcore/JSimpleProcess.h>
+#include <jx-af/jcore/JStringIterator.h>
+#include <jx-af/jcore/jFileUtil.h>
+#include <jx-af/jcore/jAssert.h>
 
 static const JUtf8Byte* kAppSignature = "systemg";
 
@@ -85,21 +85,21 @@ SyGApplication::SyGApplication
 	*displayAbout = SyGCreateGlobals(this);
 
 	if (!*displayAbout)
-		{
+	{
 		*prevVersStr = (SyGGetPrefsMgr())->GetSystemGVersionStr();
 		if (*prevVersStr == SyGGetVersionNumberStr())
-			{
-			prevVersStr->Clear();
-			}
-		else
-			{
-			*displayAbout = true;
-			}
-		}
-	else
 		{
-		prevVersStr->Clear();
+			prevVersStr->Clear();
 		}
+		else
+		{
+			*displayAbout = true;
+		}
+	}
+	else
+	{
+		prevVersStr->Clear();
+	}
 
 	itsMountPointList = jnew JMountPointList(JPtrArrayT::kDeleteAll);
 	assert( itsMountPointList != nullptr );
@@ -150,13 +150,13 @@ SyGApplication::OpenDirectory()
 	if (SyGGetChooseSaveFile()->ChooseRPath(
 			JGetString("OpenDirectoryPrompt::SyGApplication"),
 			JString::empty, JString::empty, &path))
-		{
+	{
 		return OpenDirectory(path);
-		}
+	}
 	else
-		{
+	{
 		return false;
-		}
+	}
 }
 
 bool
@@ -172,56 +172,56 @@ SyGApplication::OpenDirectory
 	)
 {
 	if (dir != nullptr)
-		{
+	{
 		*dir = nullptr;
-		}
+	}
 
 	if (row != nullptr)
-		{
+	{
 		*row = 0;
-		}
+	}
 
 	JString fixedName, trueName;
 	if (!JExpandHomeDirShortcut(pathName, &fixedName) ||
 		!JConvertToAbsolutePath(fixedName, JString::empty, &trueName))
-		{
+	{
 		if (reportError)
-			{
+		{
 			const JUtf8Byte* map[] =
-			{
+		{
 				"name", pathName.GetBytes()
-			};
+		};
 			JGetUserNotification()->ReportError(JGetString("PathDoesNotExist::SyGApplication", map, sizeof(map)));
-			}
-		return false;
 		}
+		return false;
+	}
 
 	// if file, select it after opening the window
 
 	JString selectName;
 	if (JFileExists(trueName) ||
 		!JDirectoryExists(trueName))	// broken link
-		{
+	{
 		JStripTrailingDirSeparator(&trueName);
 		JString path;
 		JSplitPathAndName(trueName, &path, &selectName);
 		trueName = path;
-		}
+	}
 
 	// can't check this until after making sure that trueName is directory
 
 	if (!JFSFileTreeNode::CanHaveChildren(trueName))
-		{
+	{
 		if (reportError)
-			{
+		{
 			const JUtf8Byte* map[] =
-			{
+		{
 				"name", pathName.GetBytes()
-			};
+		};
 			JGetUserNotification()->ReportError(JGetString("Unreadable::SyGApplication", map, sizeof(map)));
-			}
-		return false;
 		}
+		return false;
+	}
 
 	// resolve all .. in path
 
@@ -230,26 +230,26 @@ SyGApplication::OpenDirectory
 	JStringIterator iter(&trueName);
 	iter.BeginMatch();
 	while (iter.Next(".."))
-		{
+	{
 		const JString p = iter.FinishMatch(true).GetString();
 		if (!JGetTrueName(p, &p1))
-			{
+		{
 			if (reportError)
-				{
+			{
 				const JUtf8Byte* map[] =
-				{
+			{
 					"name", p.GetBytes()
-				};
+			};
 				const JString msg = JGetString("PathDoesNotExist::SyGApplication", map, sizeof(map));
 				JGetUserNotification()->ReportError(msg);
-				}
-			return false;
 			}
+			return false;
+		}
 
 		iter.ReplaceLastMatch(p1);
 		iter.MoveTo(kJIteratorStartAtBeginning, 0);
 		iter.BeginMatch();
-		}
+	}
 	iter.Invalidate();
 
 	JCleanPath(&trueName);
@@ -261,41 +261,41 @@ SyGApplication::OpenDirectory
 	JString ancestor = trueName, n;
 	JPtrArray<JString> pathList(JPtrArrayT::kDeleteAll);
 	while (!JIsRootDirectory(ancestor))
-		{
+	{
 		const JIndex count = itsWindowList->GetElementCount();
 		for (JIndex i=1; i<=count; i++)
-			{
+		{
 			const JString name = (itsWindowList->GetElement(i))->GetDirectory();
 			if (JSameDirEntry(name, ancestor))
-				{
+			{
 				SyGTreeDir* childDir = itsWindowList->GetElement(i);
 				childDir->Activate();
 				if (dir != nullptr)
-					{
+				{
 					*dir = childDir;
-					}
+				}
 
 				JPoint cell;
 				(childDir->GetTable())->SelectName(pathList, selectName, &cell, clearSelection);
 				if (row != nullptr)
-					{
+				{
 					*row = cell.y;
-					}
+				}
 
 				return true;
-				}
 			}
+		}
 
 		if (forceNew)
-			{
+		{
 			break;
-			}
+		}
 
 		JStripTrailingDirSeparator(&ancestor);
 		JSplitPathAndName(ancestor, &p, &n);
 		ancestor = p;
 		pathList.Prepend(n);
-		}
+	}
 
 	// create new window
 
@@ -306,24 +306,24 @@ SyGApplication::OpenDirectory
 	assert( childDir != nullptr );
 
 	if (deiconify)
-		{
+	{
 		childDir->GetWindow()->Deiconify();
-		}
+	}
 	childDir->Activate();
 
 	JPoint cell;
 	(childDir->GetTable())->SelectName(selectName, nullptr, &cell);
 	if (row != nullptr)
-		{
+	{
 		*row = cell.y;
-		}
+	}
 
 	itsWindowList->Append(childDir);
 
 	if (dir != nullptr)
-		{
+	{
 		*dir = childDir;
-		}
+	}
 	return true;
 }
 
@@ -341,11 +341,11 @@ SyGApplication::GetWindowNames
 	const JIndex count = itsWindowList->GetElementCount();
 	JString name;
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		name = JConvertToHomeDirShortcut(
 					(itsWindowList->GetElement(i))->GetDirectory());
 		names->Append(name);
-		}
+	}
 }
 
 /******************************************************************************
@@ -379,13 +379,13 @@ SyGApplication::Receive
 	)
 {
 	if (sender == itsShortcutList)
-		{
+	{
 		Broadcast(ShortcutsChanged());
-		}
+	}
 	else
-		{
+	{
 		JXApplication::Receive(sender, message);
-		}
+	}
 }
 
 /******************************************************************************
@@ -398,9 +398,9 @@ SyGApplication::UpdateMountPointList()
 	const
 {
 	if (JGetUserMountPointList(itsMountPointList, &itsMountPointState))
-		{
+	{
 		const_cast<SyGApplication*>(this)->Broadcast(ShortcutsChanged());
-		}
+	}
 }
 
 /******************************************************************************
@@ -421,25 +421,25 @@ SyGApplication::UpdateShortcutMenu
 
 	JSize count = itsMountPointList->GetElementCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		const JMountPoint mp = itsMountPointList->GetElement(i);
 		menu->AppendItem(*(mp.path), JXMenu::kPlainType, JString::empty,
 						 GetNMShortcut(&shortcutIndex), *(mp.path));
 
 		JXImage* image;
 		if (SyGGetMountPointSmallIcon(mp.type, &image))
-			{
+		{
 			menu->SetItemImage(menu->GetItemCount(), image, false);
-			}
 		}
+	}
 
 	JString trashDir;
 	if (SyGGetTrashDirectory(&trashDir, false))
-		{
+	{
 		menu->AppendItem(JGetString("TrashName::SyGGlobals"), JXMenu::kPlainType, JString::empty,
 						 GetNMShortcut(&shortcutIndex), trashDir);
 		menu->SetItemImage(menu->GetItemCount(), SyGGetTrashSmallIcon(), false);
-		}
+	}
 
 	menu->ShowSeparatorAfter(menu->GetItemCount());
 
@@ -447,12 +447,12 @@ SyGApplication::UpdateShortcutMenu
 
 	count = itsShortcutList->GetElementCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		const JString* path = itsShortcutList->GetElement(i);
 		menu->AppendItem(*path, JXMenu::kPlainType, JString::empty,
 						 GetNMShortcut(&shortcutIndex), *path);
 		menu->SetItemImage(menu->GetItemCount(), folderIcon, false);
-		}
+	}
 }
 
 /******************************************************************************
@@ -477,15 +477,15 @@ SyGApplication::GetNMShortcut
 	const
 {
 	if (*i <= kShortcutKeyCount)
-		{
+	{
 		JString s = kShortcutPrefix;
 		s += kShortcutKey[(*i)++ - 1];
 		return s;
-		}
+	}
 	else
-		{
+	{
 		return JString::empty;
-		}
+	}
 }
 
 /******************************************************************************
@@ -503,9 +503,9 @@ SyGApplication::LoadToolBarDefaults
 {
 	const JSize count = itsMountPointList->GetElementCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		toolBar->AppendButton(shorcutMenu, firstIndex + i-1);
-		}
+	}
 }
 
 /******************************************************************************
@@ -527,30 +527,30 @@ SyGApplication::OpenShortcut
 	const JSize mpCount         = itsMountPointList->GetElementCount();
 	const JIndex shortcutOffset = mpCount + (hasTrashDir ? 1 : 0);
 	if (index <= mpCount)
-		{
+	{
 		path = (itsMountPointList->GetElement(index)).path;
-		}
+	}
 	else if (hasTrashDir && index == mpCount+1)
-		{
+	{
 		path = &trashDir;
-		}
+	}
 	else
-		{
+	{
 		path = itsShortcutList->GetElement(index - shortcutOffset);
-		}
+	}
 
 	if (!OpenDirectory(*path, nullptr, nullptr, true, false) && index > shortcutOffset)
-		{
+	{
 		const JUtf8Byte* map[] =
-		{
+	{
 			"name", path->GetBytes()
-		};
+	};
 		const JString msg = JGetString("InvalidShortcut::SyGApplication", map, sizeof(map));
 		if (JGetUserNotification()->AskUserYes(msg))
-			{
+		{
 			itsShortcutList->DeleteElement(index - shortcutOffset);
-			}
 		}
+	}
 }
 
 /******************************************************************************
@@ -567,9 +567,9 @@ SyGApplication::AddShortcut
 	auto* s = jnew JString(JConvertToHomeDirShortcut(shortcut));
 	assert( s != nullptr );
 	if (!itsShortcutList->InsertSorted(s, false))
-		{
+	{
 		jdelete s;
-		}
+	}
 }
 
 /******************************************************************************
@@ -586,9 +586,9 @@ SyGApplication::RemoveShortcut
 	JString s = JConvertToHomeDirShortcut(shortcut);
 	JIndex i;
 	if (itsShortcutList->SearchSorted(&s, JListT::kAnyMatch, &i))
-		{
+	{
 		itsShortcutList->DeleteElement(i);
-		}
+	}
 }
 
 /******************************************************************************
@@ -607,25 +607,25 @@ SyGApplication::IsMountPoint
 	const
 {
 	if (!JNameUsed(path))
-		{
+	{
 		return false;
-		}
+	}
 
 	UpdateMountPointList();
 
 	const JSize count = itsMountPointList->GetElementCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		const JMountPoint info = itsMountPointList->GetElement(i);
 		if (JSameDirEntry(path, *(info.path)))
-			{
+		{
 			if (type != nullptr)
-				{
+			{
 				*type = info.type;
-				}
-			return true;
 			}
+			return true;
 		}
+	}
 
 	return false;
 }
@@ -703,26 +703,26 @@ SyGApplication::RestoreProgramState()
 {
 	JPtrArray<JString> children(JPtrArrayT::kDeleteAll);
 	if (!(SyGGetPrefsMgr())->RestoreProgramState(&children))
-		{
+	{
 		return false;
-		}
+	}
 
 	const JSize count = children.GetElementCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		const JString* str = children.GetElement(i);
 		OpenDirectory(*str, nullptr, nullptr, false, false);
-		}
+	}
 
 	if (itsWindowList->IsEmpty())
-		{
+	{
 		JString path;
 		if (!JGetHomeDirectory(&path) || !JFSFileTreeNode::CanHaveChildren(path))
-			{
+		{
 			path = JGetRootDirectory();
-			}
-		OpenDirectory(path);
 		}
+		OpenDirectory(path);
+	}
 
 	return true;
 }
@@ -738,9 +738,9 @@ SyGApplication::SaveProgramState()
 	JPtrArray<JString> children(JPtrArrayT::kDeleteAll);
 	const JSize count = itsWindowList->GetElementCount();
 	for (JIndex i=1; i<=count; i++)
-		{
+	{
 		children.Append((itsWindowList->GetElement(i))->GetDirectory());
-		}
+	}
 	(SyGGetPrefsMgr())->SaveProgramState(children);
 }
 
@@ -758,36 +758,36 @@ SyGApplication::ReadPrefs
 	JFileVersion vers;
 	input >> vers;
 	if (vers > kCurrentPrefsVersion)
-		{
+	{
 		return;
-		}
+	}
 
 	input >> *itsShortcutList;
 
 	if (vers >= 1)
-		{
+	{
 		input >> *itsMountPointPrefs;
-		}
+	}
 
 	if (vers >= 2)
-		{
+	{
 		input >> itsTermCmd;
-		}
+	}
 
 	if (vers >= 3)
-		{
+	{
 		input >> itsPostCheckoutCmd;
-		}
+	}
 
 	if (vers >= 4)
-		{
+	{
 		input >> itsGitStatusCmd;
-		}
+	}
 
 	if (vers >= 5)
-		{
+	{
 		input >> itsGitHistoryCmd;
-		}
+	}
 }
 
 /******************************************************************************
@@ -809,33 +809,33 @@ SyGApplication::WritePrefs
 
 	bool changed;
 	do
-		{
+	{
 		changed = false;
 
 		cursor.Reset();
 		while (cursor.Next())
-			{
+		{
 			bool found = false;
 
 			const JString& key = cursor.GetKey();
 			for (JIndex i=1; i<=mpCount; i++)
-				{
+			{
 				const JMountPoint info = itsMountPointList->GetElement(i);
 				if (JSameDirEntry(*(info.path), key))
-					{
+				{
 					found = true;
 					break;
-					}
 				}
+			}
 
 			if (!found)
-				{
+			{
 				itsMountPointPrefs->DeleteElement(key);
 				changed = true;
 				break;
-				}
 			}
 		}
+	}
 		while (changed);
 
 	// write data
@@ -884,15 +884,15 @@ SyGApplication::OpenTerminal
 
 	JStringIterator iter(&cmd);
 	while (iter.Next("$n"))
-		{
+	{
 		iter.ReplaceLastMatch(n);
-		}
+	}
 
 	iter.MoveTo(kJIteratorStartAtBeginning, 0);
 	while (iter.Next("$p"))
-		{
+	{
 		iter.ReplaceLastMatch(fullName);
-		}
+	}
 	iter.Invalidate();
 
 	const JError err = JSimpleProcess::Create(path, cmd, true);
@@ -938,16 +938,16 @@ SyGApplication::CleanUpBeforeSuddenDeath
 	JXApplication::CleanUpBeforeSuddenDeath(reason);
 
 	if (reason != JXDocumentManager::kAssertFired)
-		{
+	{
 		JPrefObject::WritePrefs();
 		SaveProgramState();
 
 		const JSize count = itsWindowList->GetElementCount();
 		for (JIndex i=1; i<=count; i++)
-			{
+		{
 			(itsWindowList->GetElement(i))->SaveState();
-			}
 		}
+	}
 
 	SyGCleanUpBeforeSuddenDeath(reason);		// must be last call
 }
@@ -992,15 +992,15 @@ SyGApplication::CompareShortcuts
 	const bool h1 = s1->BeginsWith("~");
 	const bool h2 = s2->BeginsWith("~");
 	if (h1 && !h2)
-		{
+	{
 		return JListT::kFirstLessSecond;
-		}
+	}
 	else if (!h1 && h2)
-		{
+	{
 		return JListT::kFirstGreaterSecond;
-		}
+	}
 	else
-		{
+	{
 		return JCompareStringsCaseInsensitive(s1, s2);
-		}
+	}
 }

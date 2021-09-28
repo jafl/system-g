@@ -16,17 +16,17 @@
 #include "SyGFileTreeTable.h"
 #include "SyGFileTreeList.h"
 #include "SyGFileTree.h"
-#include <JXDisplay.h>
-#include <JXImageCache.h>
-#include <JXImage.h>
-#include <JXDNDManager.h>
-#include <JXWDManager.h>
-#include <JXFSBindingManager.h>
-#include <JSimpleProcess.h>
-#include <JDirInfo.h>
-#include <jDirUtil.h>
-#include <jFileUtil.h>
-#include <jAssert.h>
+#include <jx-af/jx/JXDisplay.h>
+#include <jx-af/jx/JXImageCache.h>
+#include <jx-af/jx/JXImage.h>
+#include <jx-af/jx/JXDNDManager.h>
+#include <jx-af/jx/JXWDManager.h>
+#include <jx-af/jfs/JXFSBindingManager.h>
+#include <jx-af/jcore/JSimpleProcess.h>
+#include <jx-af/jcore/JDirInfo.h>
+#include <jx-af/jcore/jDirUtil.h>
+#include <jx-af/jcore/jFileUtil.h>
+#include <jx-af/jcore/jAssert.h>
 
 static SyGApplication*			theApplication       = nullptr;	// owns itself
 static SyGPrefsMgr*				thePrefsMgr          = nullptr;
@@ -99,15 +99,15 @@ SyGCreateGlobals
 
 	JString oldPrefsFile, newPrefsFile;
 	if (JGetPrefsDirectory(&oldPrefsFile))
-		{
+	{
 		oldPrefsFile = JCombinePathAndName(oldPrefsFile, JString(".gSystemG.pref", JString::kNoCopy));
 		if (JFileExists(oldPrefsFile) &&
 			(JPrefsFile::GetFullName(app->GetSignature(), &newPrefsFile)).OK() &&
 			!JFileExists(newPrefsFile))
-			{
+		{
 			JRenameFile(oldPrefsFile, newPrefsFile);
-			}
 		}
+	}
 
 	bool isNew;
 	thePrefsMgr = jnew SyGPrefsMgr(&isNew);
@@ -192,11 +192,11 @@ SyGCleanUpBeforeSuddenDeath
 	)
 {
 	if (reason != JXDocumentManager::kAssertFired)
-		{
+	{
 		theAltChooseSaveFile->JPrefObject::WritePrefs();
 		theManPageDialog->JPrefObject::WritePrefs();
 		theFindFileDialog->JPrefObject::WritePrefs();
-		}
+	}
 
 	// must be last to save everything
 
@@ -268,54 +268,54 @@ SyGGetTrashDirectory
 	)
 {
 	if (!theTrashDir.IsEmpty())
-		{
+	{
 		*path = theTrashDir;
 		return true;
-		}
+	}
 
 	if (!JGetPrefsDirectory(path))
-		{
+	{
 		if (reportErrors)
-			{
+		{
 			JGetUserNotification()->ReportError(JGetString("NoPrefsDir::SyGGlobals"));
-			}
-		return false;
 		}
+		return false;
+	}
 
 	*path = JCombinePathAndName(*path, kTrashDirName);
 
 	JError err = JNoError();
 	if (!JDirectoryExists(*path))
-		{
+	{
 		err = JCreateDirectory(*path, kTrashCanPerms);
-		}
+	}
 	else
-		{
+	{
 		err = JSetPermissions(*path, kTrashCanPerms);
-		}
+	}
 
 	if (err.OK())
-		{
+	{
 		theTrashDir       = *path;
 		const bool ok = JDirInfo::Create(theTrashDir, &theTrashDirInfo);
 		assert( ok );
 		return true;
-		}
+	}
 	else
-		{
+	{
 		path->Clear();
 		if (reportErrors)
-			{
+		{
 			const JUtf8Byte* map[] =
-			{
+		{
 				"name", kTrashDirName.GetBytes(),
 				"err",  err.GetMessage().GetBytes()
-			};
+		};
 			const JString msg = JGetString("CreatePrefsDirError::SyGGlobals", map, sizeof(map));
 			JGetUserNotification()->ReportError(msg);
-			}
-		return false;
 		}
+		return false;
+	}
 }
 
 /******************************************************************************
@@ -327,14 +327,14 @@ bool
 SyGTrashDirectoryIsEmpty()
 {
 	if (theTrashDirInfo != nullptr)
-		{
+	{
 		theTrashDirInfo->Update();
 		return theTrashDirInfo->IsEmpty();
-		}
+	}
 	else
-		{
+	{
 		return true;
-		}
+	}
 }
 
 /******************************************************************************
@@ -346,10 +346,10 @@ void
 SyGUpdateTrash()
 {
 	if (theTrashDirInfo != nullptr)
-		{
+	{
 		theTrashDirInfo->ForceUpdate();
 		(SyGGetApplication())->UpdateTrash();
-		}
+	}
 }
 
 /******************************************************************************
@@ -363,20 +363,20 @@ SyGEmptyTrashDirectory()
 	JString trashDir;
 	const bool hasTrash = SyGGetTrashDirectory(&trashDir, false);
 	if (hasTrash && JKillDirectory(trashDir))
-		{
+	{
 		JCreateDirectory(trashDir, kTrashCanPerms);
 		SyGUpdateTrash();
 		return true;
-		}
+	}
 	else if (hasTrash)
-		{
+	{
 		JGetUserNotification()->ReportError(JGetString("EmptyTrashError::SyGGlobals"));
 		return false;
-		}
+	}
 	else
-		{
+	{
 		return true;
-		}
+	}
 }
 
 /******************************************************************************
@@ -413,9 +413,9 @@ SyGExec
 	JString errOutput;
 	const JError err = JRunProgram(cmd, &errOutput);
 	if (!err.OK() && report)
-		{
+	{
 		JGetUserNotification()->ReportError(err.GetMessage());
-		}
+	}
 	return err.OK();
 }
 
@@ -470,9 +470,9 @@ SyGGetDNDSource
 	)
 {
 	if (dndSource != theDNDSource)
-		{
+	{
 		theDNDSource = nullptr;
-		}
+	}
 
 	*widget = theDNDSource;
 	return theDNDSource != nullptr;
@@ -593,10 +593,10 @@ JString
 SyGGetVersionStr()
 {
 	const JUtf8Byte* map[] =
-		{
+	{
 		"version",   JGetString("VERSION").GetBytes(),
 		"copyright", JGetString("COPYRIGHT").GetBytes()
-		};
+	};
 	return JGetString("Description::SyGGlobals", map, sizeof(map));
 }
 
@@ -755,25 +755,25 @@ SyGGetDirectorySmallIcon
 	JXImage* image;
 	if ((SyGGetApplication())->IsMountPoint(path, &type) &&
 		SyGGetMountPointSmallIcon(type, &image))
-		{
+	{
 		return image;
-		}
+	}
 	else if (SyGIsTrashDirectory(path))
-		{
+	{
 		return SyGGetTrashSmallIcon();
-		}
+	}
 	else if (!JFSFileTreeNode::CanHaveChildren(path))
-		{
+	{
 		return SyGGetLockedFolderSmallIcon();
-		}
+	}
 	else if (!JDirectoryWritable(path))
-		{
+	{
 		return SyGGetReadOnlyFolderSmallIcon();
-		}
+	}
 	else
-		{
+	{
 		return SyGGetFolderSmallIcon();
-		}
+	}
 }
 
 JXImage*
@@ -787,13 +787,13 @@ SyGGetTrashSmallIcon
 #elif defined JX_FVWM2_TASKBAR
 	if (SyGTBTrashDirectoryIsEmpty())
 #endif
-		{
+	{
 		return selected ? theTrashEmptySelectedSmallIcon : theTrashEmptySmallIcon;
-		}
+	}
 	else
-		{
+	{
 		return selected ? theTrashFullSelectedSmallIcon : theTrashFullSmallIcon;
-		}
+	}
 }
 
 bool
@@ -804,21 +804,21 @@ SyGGetMountPointSmallIcon
 	)
 {
 	if (type == kJHardDisk)
-		{
+	{
 		*image = theHDSmallIcon;
-		}
+	}
 	else if (type == kJFloppyDisk)
-		{
+	{
 		*image = theFDSmallIcon;
-		}
+	}
 	else if (type == kJCDROM)
-		{
+	{
 		*image = theCDSmallIcon;
-		}
+	}
 	else
-		{
+	{
 		*image = nullptr;
-		}
+	}
 	return *image != nullptr;
 }
 
@@ -838,99 +838,99 @@ SyGGetMountPointLargeIcon
 	const bool isMP = theApplication->IsMountPoint(path, &type);
 
 	if (!isMP)
-		{
+	{
 		bool writable, isTop;
 		JString device, fsTypeString;
 		JFileSystemType fsType;
 		if (JIsMounted(path, &writable, &isTop, &device, &fsType, &fsTypeString))
-			{
+		{
 			type = JGetUserMountPointType(path, device, fsTypeString);
-			}
-		else
-			{
-			type = kJHardDisk;
-			}
 		}
+		else
+		{
+			type = kJHardDisk;
+		}
+	}
 
 	const bool writable = JDirectoryWritable(path);
 
 	JString dir;
 	if (JGetHomeDirectory(&dir) && JSameDirEntry(dir, path))
-		{
+	{
 		*plainIcon    = syg_home_folder_large;
 		*selectedIcon = syg_home_folder_selected_large;
 		return 1;
-		}
+	}
 	else if (SyGIsTrashDirectory(path))
-		{
+	{
 		(fileList->GetSyGFileTree())->Update();
 		if (fileList->IsEmpty())
-			{
+		{
 			*plainIcon    = jx_trash_can_empty_large;
 			*selectedIcon = jx_trash_can_empty_selected_large;
 			return 2;
-			}
+		}
 		else
-			{
+		{
 			*plainIcon    = jx_trash_can_full_large;
 			*selectedIcon = jx_trash_can_full_selected_large;
 			return 3;
-			}
 		}
+	}
 	else if (!isMP && type == kJFloppyDisk && !writable)
-		{
+	{
 		*plainIcon    = syg_floppy_folder_read_only_large;
 		*selectedIcon = syg_floppy_folder_read_only_large;
 		return 4;
-		}
+	}
 	else if (!isMP && type == kJFloppyDisk)
-		{
+	{
 		*plainIcon    = syg_floppy_folder_large;
 		*selectedIcon = syg_floppy_folder_large;
 		return 5;
-		}
+	}
 	else if (!isMP && type == kJCDROM && !writable)
-		{
+	{
 		*plainIcon    = syg_cdrom_folder_read_only_large;
 		*selectedIcon = syg_cdrom_folder_read_only_large;
 		return 4;
-		}
+	}
 	else if (!isMP && type == kJCDROM)
-		{
+	{
 		*plainIcon    = syg_cdrom_folder_large;
 		*selectedIcon = syg_cdrom_folder_large;
 		return 5;
-		}
+	}
 	else if (!isMP && !writable)
-		{
+	{
 		*plainIcon    = jx_folder_read_only_large;
 		*selectedIcon = jx_folder_read_only_selected_large;
 		return 6;
-		}
+	}
 	else if (!isMP)
-		{
+	{
 		*plainIcon    = jx_folder_large;
 		*selectedIcon = jx_folder_selected_large;
 		return 7;
-		}
+	}
 	else if (type == kJFloppyDisk)
-		{
+	{
 		*plainIcon    = jx_floppy_disk_large;
 		*selectedIcon = jx_floppy_disk_selected_large;
 		return 8;
-		}
+	}
 	else if (type == kJCDROM)
-		{
+	{
 		*plainIcon    = jx_cdrom_disk_large;
 		*selectedIcon = jx_cdrom_disk_selected_large;
 		return 9;
-		}
+	}
 	else
-		{
+	{
 		*plainIcon    = jx_hard_disk_large;
 		*selectedIcon = jx_hard_disk_selected_large;
 		return 11;
-		}
+	}
 }
 
 /******************************************************************************
@@ -946,52 +946,52 @@ SyGGetRecentFileDirectory
 	)
 {
 	if (!theRecentFileDir.IsEmpty())
-		{
+	{
 		*path = theRecentFileDir;
 		return true;
-		}
+	}
 
 	if (!JGetPrefsDirectory(path))
-		{
+	{
 		if (reportErrors)
-			{
+		{
 			JGetUserNotification()->ReportError(JGetString("NoPrefsDir::SyGGlobals"));
-			}
-		return false;
 		}
+		return false;
+	}
 
 	*path = JCombinePathAndName(*path, kRecentFileDirName);
 
 	JError err = JNoError();
 	if (!JDirectoryExists(*path))
-		{
+	{
 		err = JCreateDirectory(*path, kRecentFileDirPerms);
-		}
+	}
 	else
-		{
+	{
 		err = JSetPermissions(*path, kRecentFileDirPerms);
-		}
+	}
 
 	if (err.OK())
-		{
+	{
 		theRecentFileDir = *path;
 		return true;
-		}
+	}
 	else
-		{
+	{
 		path->Clear();
 		if (reportErrors)
-			{
+		{
 			const JUtf8Byte* map[] =
-			{
+		{
 				"name", kRecentFileDirName.GetBytes(),
 				"err",  err.GetMessage().GetBytes()
-			};
+		};
 			const JString msg = JGetString("CreatePrefsDirError::SyGGlobals", map, sizeof(map));
 			JGetUserNotification()->ReportError(msg);
-			}
-		return false;
 		}
+		return false;
+	}
 }
 
 /******************************************************************************
@@ -1010,50 +1010,50 @@ SyGAddRecentFile
 	JString path;
 	if (SyGGetRecentFileDirectory(&recentDir) &&
 		JSplitPathAndName(fullname, &path, &filename))
-		{
+	{
 		const JString recentFile = JCombinePathAndName(recentDir, filename);
 		if (JNameUsed(recentFile))
-			{
+		{
 			JRemoveFile(recentFile);
 			JCreateSymbolicLink(fullname, recentFile);
 			return;
-			}
+		}
 
 		// remove oldest links such that only kRecentFileCount - 1 remain
 
 		JDirInfo* info;
 		if (JDirInfo::Create(recentDir, &info))
-			{
+		{
 			bool changed = false;
 
 			JSize count = info->GetEntryCount();
 			for (JIndex i=1; i<=count; i++)
-				{
+			{
 				if (info->GetEntry(i).IsBrokenLink())
-					{
+				{
 					JRemoveFile(info->GetEntry(i).GetFullName());
 					changed = true;
-					}
 				}
+			}
 
 			if (changed)
-				{
+			{
 				info->ForceUpdate();
-				}
+			}
 
 			count = info->GetEntryCount();
 			if (count >= kRecentFileCount)
-				{
+			{
 				info->ChangeSort(JDirEntry::CompareModTimes, JListT::kSortDescending);
 				for (JIndex i=count; i>=kRecentFileCount; i--)
-					{
+				{
 					JRemoveFile(info->GetEntry(i).GetFullName());
-					}
 				}
+			}
 
 			// add new entry
 
 			JCreateSymbolicLink(fullname, recentFile);
-			}
 		}
+	}
 }

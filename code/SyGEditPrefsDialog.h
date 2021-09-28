@@ -8,8 +8,8 @@
 #ifndef _H_SyGEditPrefsDialog
 #define _H_SyGEditPrefsDialog
 
-#include <JXDialogDirector.h>
-#include <JPtrArray-JString.h>
+#include <jx-af/jx/JXDialogDirector.h>
+#include <jx-af/jcore/JPtrArray-JString.h>
 
 class JXInputField;
 class JXRadioGroup;

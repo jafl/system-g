@@ -10,7 +10,7 @@
 #ifndef _H_SyGFileVersions
 #define _H_SyGFileVersions
 
-#include <jTypes.h>
+#include <jx-af/jcore/jTypes.h>
 
 const JFileVersion kSyGCurrentDirSetupVersion = 4;
 

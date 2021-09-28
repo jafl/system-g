@@ -8,12 +8,12 @@
  ******************************************************************************/
 
 #include <SyGNewGitRemoteDialog.h>
-#include <JXWindow.h>
-#include <JXStaticText.h>
-#include <JXTextButton.h>
-#include <JXInputField.h>
-#include <jXGlobals.h>
-#include <jAssert.h>
+#include <jx-af/jx/JXWindow.h>
+#include <jx-af/jx/JXStaticText.h>
+#include <jx-af/jx/JXTextButton.h>
+#include <jx-af/jx/JXInputField.h>
+#include <jx-af/jx/jXGlobals.h>
+#include <jx-af/jcore/jAssert.h>
 
 /******************************************************************************
  Constructor

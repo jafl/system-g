@@ -4,9 +4,9 @@ jx_browser_data 89
 T
 1 "top level"
 T
-2 "systemg.cpp"
+2 "main.cpp"
 F
-"./code/systemg.cpp"
+"./code/main.cpp"
 T
 2 "SyGApplication.cpp"
 F
@@ -171,9 +171,10 @@ F
 "${LIB_DEPS}"
 "make -k all"
 # search paths
-T "../JX/include/jcore" T
-T "../JX/include/jfs" T
-T "../JX/include/jx" T
+T "../JX/include" T
+T "../JX/include/jx-af/jcore" T
+T "../JX/include/jx-af/jfs" T
+T "../JX/include/jx-af/jx" T
 T "./code/" T
 F
 # C preprocessor

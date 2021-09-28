@@ -9,8 +9,8 @@
 
 #include "SyGFileTreeNode.h"
 #include "SyGFileTree.h"
-#include <JDirInfo.h>
-#include <jAssert.h>
+#include <jx-af/jcore/JDirInfo.h>
+#include <jx-af/jcore/jAssert.h>
 
 /******************************************************************************
  Constructor
@@ -63,25 +63,25 @@ SyGFileTreeNode::SetChildCompareFunction
 	)
 {
 	if (type == kGFMUID)
-		{
+	{
 		JFSFileTreeNode::SetChildCompareFunction(JFSFileTreeNode::CompareUserName, JListT::kSortAscending, true);
-		}
+	}
 	else if (type == kGFMGID)
-		{
+	{
 		JFSFileTreeNode::SetChildCompareFunction(JFSFileTreeNode::CompareGroupName, JListT::kSortAscending, true);
-		}
+	}
 	else if (type == kGFMSize)
-		{
+	{
 		JFSFileTreeNode::SetChildCompareFunction(JFSFileTreeNode::CompareSize, JListT::kSortDescending, true);
-		}
+	}
 	else if (type == kGFMDate)
-		{
+	{
 		JFSFileTreeNode::SetChildCompareFunction(JFSFileTreeNode::CompareDate, JListT::kSortDescending, true);
-		}
+	}
 	else
-		{
+	{
 		JFSFileTreeNode::SetChildCompareFunction(JNamedTreeNode::DynamicCastCompareNames, JListT::kSortAscending, true);
-		}
+	}
 }
 
 /******************************************************************************
@@ -138,16 +138,16 @@ SyGFileTreeNode::GetSyGParent
 {
 	JTreeNode* p;
 	if (GetParent(&p))
-		{
+	{
 		*parent = dynamic_cast<SyGFileTreeNode*>(p);
 		assert( *parent != nullptr );
 		return true;
-		}
+	}
 	else
-		{
+	{
 		*parent = nullptr;
 		return false;
-		}
+	}
 }
 
 bool
@@ -159,16 +159,16 @@ SyGFileTreeNode::GetSyGParent
 {
 	const JTreeNode* p;
 	if (GetParent(&p))
-		{
+	{
 		*parent = dynamic_cast<const SyGFileTreeNode*>(p);
 		assert( *parent != nullptr );
 		return true;
-		}
+	}
 	else
-		{
+	{
 		*parent = nullptr;
 		return false;
-		}
+	}
 }
 
 /******************************************************************************

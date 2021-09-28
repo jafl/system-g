@@ -8,8 +8,8 @@
 #ifndef _H_SyGFilterInput
 #define _H_SyGFilterInput
 
-#include <JXInputField.h>
-#include <JString.h>
+#include <jx-af/jx/JXInputField.h>
+#include <jx-af/jcore/JString.h>
 
 class SyGFilterInput : public JXInputField
 {

@@ -8,7 +8,7 @@
 #ifndef _H_SyGNewGitRemoteDialog
 #define _H_SyGNewGitRemoteDialog
 
-#include <JXDialogDirector.h>
+#include <jx-af/jx/JXDialogDirector.h>
 
 class JXInputField;
 

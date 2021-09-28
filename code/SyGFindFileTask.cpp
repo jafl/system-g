@@ -12,10 +12,10 @@
 #include "SyGFileTreeTable.h"
 #include "SyGFileTree.h"
 #include "SyGGlobals.h"
-#include <JProcess.h>
-#include <JStringIterator.h>
-#include <jDirUtil.h>
-#include <jAssert.h>
+#include <jx-af/jcore/JProcess.h>
+#include <jx-af/jcore/JStringIterator.h>
+#include <jx-af/jcore/jDirUtil.h>
+#include <jx-af/jcore/jAssert.h>
 
 /******************************************************************************
  Create (static)
@@ -41,7 +41,7 @@ SyGFindFileTask::Create
 										kJCreatePipe, &outFD,
 										kJCreatePipe, &errFD);
 	if (err.OK())
-		{
+	{
 		JString relPath = path;
 		JStringIterator iter(&relPath);
 		iter.SkipNext(dir->GetDirectory().GetCharacterCount());
@@ -51,13 +51,13 @@ SyGFindFileTask::Create
 		*task = jnew SyGFindFileTask(dir, relPath, p, outFD, errFD);
 		assert( *task != nullptr );
 		return true;
-		}
+	}
 	else
-		{
+	{
 		err.ReportIfError();
 		*task = nullptr;
 		return false;
-		}
+	}
 }
 
 /******************************************************************************
@@ -106,10 +106,10 @@ SyGFindFileTask::SyGFindFileTask
 SyGFindFileTask::~SyGFindFileTask()
 {
 	if (itsProcess != nullptr)
-		{
+	{
 		StopListening(itsProcess);
 		itsProcess->Kill();
-		}
+	}
 	jdelete itsProcess;
 
 	jdelete itsPathList;
@@ -130,17 +130,17 @@ SyGFindFileTask::Receive
 	)
 {
 	if (sender == itsMessageLink && message.Is(JMessageProtocolT::kMessageReady))
-		{
+	{
 		ReceiveMessageLine();
-		}
+	}
 	else if (sender == itsErrorLink && message.Is(JMessageProtocolT::kMessageReady))
-		{
+	{
 		ReceiveErrorLine();
-		}
+	}
 	else
-		{
+	{
 		JBroadcaster::Receive(sender, message);
-		}
+	}
 }
 
 /******************************************************************************
@@ -155,19 +155,19 @@ SyGFindFileTask::ReceiveGoingAway
 	)
 {
 	if (sender == itsDirector)
-		{
+	{
 		jdelete this;
-		}
+	}
 	else if (sender == itsProcess)
-		{
+	{
 		itsProcess = nullptr;
 		DisplayErrors();
 		jdelete this;
-		}
+	}
 	else
-		{
+	{
 		JBroadcaster::ReceiveGoingAway(sender);
-		}
+	}
 }
 
 /******************************************************************************
@@ -185,9 +185,9 @@ SyGFindFileTask::ReceiveMessageLine()
 	assert( ok );
 
 	if (!path.BeginsWith("." ACE_DIRECTORY_SEPARATOR_STR))
-		{
+	{
 		return;
-		}
+	}
 
 	JStringIterator iter(&path);
 	iter.SkipNext(2);
@@ -201,9 +201,9 @@ SyGFindFileTask::ReceiveMessageLine()
 	pathList.RemoveElement(pathList.GetElementCount());
 
 	for (JIndex i=itsPathList->GetElementCount(); i>=1; i--)
-		{
+	{
 		pathList.Prepend(*(itsPathList->GetElement(i)));
-		}
+	}
 
 	JPoint cell;
 	(itsDirector->GetTable())->SelectName(pathList, *name, &cell, false, false);
@@ -227,9 +227,9 @@ SyGFindFileTask::ReceiveErrorLine()
 	assert( ok );
 
 	if (!itsErrors.IsEmpty())
-		{
+	{
 		itsErrors += "\n";
-		}
+	}
 	itsErrors += line;
 }
 
@@ -242,13 +242,13 @@ void
 SyGFindFileTask::DisplayErrors()
 {
 	if (!itsErrors.IsEmpty())
-		{
+	{
 		JGetUserNotification()->ReportError(itsErrors);
-		}
+	}
 	else if (!itsFoundFilesFlag)
-		{
+	{
 		JGetUserNotification()->DisplayMessage(JGetString("NoMatch::SyGFindFileTask"));
-		}
+	}
 }
 
 /******************************************************************************
@@ -265,30 +265,30 @@ SyGFindFileTask::SplitPath
 {
 	pathList->CleanOut();
 	if (origRelPath.IsEmpty())
-		{
+	{
 		return;
-		}
+	}
 
 	JString relPath = origRelPath;
 	JStringIterator iter(&relPath);
 	JUtf8Character c;
 	while (iter.Next(&c) && c == ACE_DIRECTORY_SEPARATOR_CHAR)
-		{
+	{
 		iter.RemovePrev();
-		}
+	}
 	iter.Invalidate();
 
 	JStripTrailingDirSeparator(&relPath);
 
 	JString p, n;
 	while (relPath.Contains(ACE_DIRECTORY_SEPARATOR_STR))
-		{
+	{
 		JSplitPathAndName(relPath, &p, &n);
 		pathList->Prepend(n);
 
 		JStripTrailingDirSeparator(&p);
 		relPath = p;
-		}
+	}
 
 	pathList->Prepend(relPath);
 }

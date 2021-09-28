@@ -10,11 +10,11 @@
  ******************************************************************************/
 
 #include <SyGPathInput.h>
-#include <JString.h>
-#include <JXWindow.h>
-#include <jASCIIConstants.h>
+#include <jx-af/jcore/JString.h>
+#include <jx-af/jx/JXWindow.h>
+#include <jx-af/jcore/jASCIIConstants.h>
 
-#include <jAssert.h>
+#include <jx-af/jcore/jAssert.h>
 
 /******************************************************************************
  Constructor
@@ -82,20 +82,20 @@ SyGPathInput::HandleKeyPress
 	)
 {
 	if (c == kJReturnKey)
-		{
+	{
 		itsDirList->Focus();
-		}
+	}
 
 	else if (c == kJEscapeKey)
-		{
+	{
 		GetText()->SetText(itsInitialText);
 		itsDirList->Focus();
-		}
+	}
 
 	else
-		{
+	{
 		JXPathInput::HandleKeyPress(c, keySym, modifiers);
-		}
+	}
 }
 
 /******************************************************************************

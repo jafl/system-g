@@ -8,10 +8,10 @@
 #ifndef _H_SyGApplication
 #define _H_SyGApplication
 
-#include <JXApplication.h>
-#include <JPrefObject.h>
-#include <JStringPtrMap.h>
-#include <jMountUtil.h>
+#include <jx-af/jx/JXApplication.h>
+#include <jx-af/jcore/JPrefObject.h>
+#include <jx-af/jcore/JStringPtrMap.h>
+#include <jx-af/jcore/jMountUtil.h>
 
 class JMountPointList;
 class JXWindowDirector;

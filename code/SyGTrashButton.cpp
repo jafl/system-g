@@ -14,13 +14,13 @@
 #include "SyGFileTreeTable.h"
 #include "SyGFileTree.h"
 #include "SyGGlobals.h"
-#include <JXDisplay.h>
-#include <JXSelectionManager.h>
-#include <JXDNDManager.h>
-#include <JXWindowPainter.h>
-#include <jXPainterUtil.h>
-#include <jXUtil.h>
-#include <jAssert.h>
+#include <jx-af/jx/JXDisplay.h>
+#include <jx-af/jx/JXSelectionManager.h>
+#include <jx-af/jx/JXDNDManager.h>
+#include <jx-af/jx/JXWindowPainter.h>
+#include <jx-af/jx/jXPainterUtil.h>
+#include <jx-af/jx/jXUtil.h>
+#include <jx-af/jcore/jAssert.h>
 
 /******************************************************************************
  Constructor
@@ -46,9 +46,9 @@ SyGTrashButton::SyGTrashButton
 
 	JString trashDir;
 	if (!SyGGetTrashDirectory(&trashDir, false))
-		{
+	{
 		Deactivate();
-		}
+	}
 }
 
 /******************************************************************************
@@ -73,13 +73,13 @@ SyGTrashButton::DrawBorder
 	)
 {
 	if (IsDNDTarget())
-		{
+	{
 		JXDrawDNDBorder(p, frame, GetBorderWidth());
-		}
+	}
 	else
-		{
+	{
 		JXImageButton::DrawBorder(p, frame);
-		}
+	}
 }
 
 /******************************************************************************
@@ -106,23 +106,23 @@ SyGTrashButton::Receive
 	)
 {
 	if (sender == SyGGetApplication() && message.Is(SyGApplication::kTrashNeedsUpdate))
-		{
+	{
 		UpdateDisplay();
-		}
+	}
 
 	else
-		{
+	{
 		if (sender == this && message.Is(JXButton::kPushed))
-			{
+		{
 			JString trashDir;
 			if (SyGGetTrashDirectory(&trashDir))
-				{
+			{
 				SyGGetApplication()->OpenDirectory(trashDir);
-				}
 			}
+		}
 
 		JXImageButton::Receive(sender, message);
-		}
+	}
 }
 
 /******************************************************************************
@@ -142,22 +142,22 @@ SyGTrashButton::WillAcceptDrop
 {
 	JString trashDir;
 	if (!SyGGetTrashDirectory(&trashDir, false))
-		{
+	{
 		return false;
-		}
+	}
 
 	const Atom urlXAtom = GetSelectionManager()->GetURLXAtom();
 
 	const JSize typeCount = typeList.GetElementCount();
 	for (JIndex i=1; i<=typeCount; i++)
-		{
+	{
 		const Atom a = typeList.GetElement(i);
 		if (a == urlXAtom)
-			{
+		{
 			*action = GetDNDManager()->GetDNDActionPrivateXAtom();
 			return true;
-			}
 		}
+	}
 
 	return false;
 }
@@ -220,9 +220,9 @@ SyGTrashButton::MoveFilesToTrash
 	SyGFileTreeTable* srcTable = nullptr;
 	if (SyGGetDNDSource(source, &srcTable) &&
 		SyGIsTrashDirectory((srcTable->GetFileTree())->GetDirectory()))
-		{
+	{
 		return;
-		}
+	}
 
 	JXDisplay* display             = JXGetApplication()->GetCurrentDisplay();
 	JXSelectionManager* selManager = display->GetSelectionManager();
@@ -235,9 +235,9 @@ SyGTrashButton::MoveFilesToTrash
 	JXSelectionManager::DeleteMethod delMethod;
 	if (selManager->GetData(dndSelectionName, time, selManager->GetURLXAtom(),
 							&returnType, &data, &dataLength, &delMethod))
-		{
+	{
 		if (returnType == selManager->GetURLXAtom())
-			{
+		{
 			auto* fileNameList = jnew JPtrArray<JString>(JPtrArrayT::kDeleteAll);
 			assert( fileNameList != nullptr );
 			JPtrArray<JString> urlList(JPtrArrayT::kDeleteAll);
@@ -245,10 +245,10 @@ SyGTrashButton::MoveFilesToTrash
 
 			SyGMoveToTrashProcess::Move(srcTable, fileNameList);
 			JXReportUnreachableHosts(urlList);
-			}
+		}
 
 		selManager->DeleteData(&data, delMethod);
-		}
+	}
 
 	SyGSetDNDSource(nullptr);
 }

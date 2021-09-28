@@ -10,10 +10,10 @@
  ******************************************************************************/
 
 #include <SyGFilterInput.h>
-#include <JString.h>
-#include <JXWindow.h>
-#include <jASCIIConstants.h>
-#include <jAssert.h>
+#include <jx-af/jcore/JString.h>
+#include <jx-af/jx/JXWindow.h>
+#include <jx-af/jcore/jASCIIConstants.h>
+#include <jx-af/jcore/jAssert.h>
 
 /******************************************************************************
  Constructor
@@ -60,20 +60,20 @@ SyGFilterInput::HandleKeyPress
 	)
 {
 	if (c == kJReturnKey)
-		{
+	{
 		itsDirList->Focus();
-		}
+	}
 
 	else if (c == kJEscapeKey)
-		{
+	{
 		GetText()->SetText(itsInitialText);
 		itsDirList->Focus();
-		}
+	}
 
 	else
-		{
+	{
 		JXInputField::HandleKeyPress(c, keySym, modifiers);
-		}
+	}
 }
 
 /******************************************************************************

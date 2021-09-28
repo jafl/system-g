@@ -13,19 +13,19 @@
 #include "SyGPrefsMgr.h"
 #include "SyGGlobals.h"
 
-#include <JXWindow.h>
-#include <JXStaticText.h>
-#include <JXTextButton.h>
-#include <JXTextCheckbox.h>
-#include <JXRadioGroup.h>
-#include <JXTextRadioButton.h>
-#include <JXPathInput.h>
-#include <JXChooseSaveFile.h>
-#include <JXFontManager.h>
+#include <jx-af/jx/JXWindow.h>
+#include <jx-af/jx/JXStaticText.h>
+#include <jx-af/jx/JXTextButton.h>
+#include <jx-af/jx/JXTextCheckbox.h>
+#include <jx-af/jx/JXRadioGroup.h>
+#include <jx-af/jx/JXTextRadioButton.h>
+#include <jx-af/jx/JXPathInput.h>
+#include <jx-af/jx/JXChooseSaveFile.h>
+#include <jx-af/jx/JXFontManager.h>
 
-#include <jProcessUtil.h>
-#include <jVCSUtil.h>
-#include <jAssert.h>
+#include <jx-af/jcore/jProcessUtil.h>
+#include <jx-af/jcore/jVCSUtil.h>
+#include <jx-af/jcore/jAssert.h>
 
 enum
 {
@@ -75,15 +75,15 @@ SyGFindFileDialog::Activate()
 	JXWindowDirector::Activate();
 
 	if (IsActive() && itsFileInput->IsActive())
-		{
+	{
 		itsFileInput->Focus();
 		itsFileInput->SelectAll();
-		}
+	}
 	else if (IsActive() && itsExprInput->IsActive())
-		{
+	{
 		itsExprInput->Focus();
 		itsExprInput->SelectAll();
-		}
+	}
 }
 
 /******************************************************************************
@@ -208,19 +208,19 @@ SyGFindFileDialog::UpdateDisplay()
 {
 	const JIndex action = itsActionRG->GetSelectedItem();
 	if (action == kFindFileAction)
-		{
+	{
 		itsExprInput->Deactivate();
 		itsFileInput->Activate();
 		itsFileInput->Focus();
 		itsFileInput->SelectAll();
-		}
+	}
 	else if (action == kFindExprAction)
-		{
+	{
 		itsFileInput->Deactivate();
 		itsExprInput->Activate();
 		itsExprInput->Focus();
 		itsExprInput->SelectAll();
-		}
+	}
 
 	UpdateButtons();
 }
@@ -237,23 +237,23 @@ SyGFindFileDialog::UpdateButtons()
 
 	const JIndex action = itsActionRG->GetSelectedItem();
 	if (action == kFindFileAction)
-		{
+	{
 		field = itsFileInput;
-		}
+	}
 	else if (action == kFindExprAction)
-		{
+	{
 		field = itsExprInput;
-		}
+	}
 
 	assert( field != nullptr );
 	if (field->GetText()->IsEmpty())
-		{
+	{
 		itsSearchButton->Deactivate();
-		}
+	}
 	else
-		{
+	{
 		itsSearchButton->Activate();
-		}
+	}
 }
 
 /******************************************************************************
@@ -269,43 +269,43 @@ SyGFindFileDialog::Receive
 	)
 {
 	if (sender == itsSearchButton && message.Is(JXButton::kPushed))
-		{
+	{
 		if (Search() && !itsStayOpenCB->IsChecked())
-			{
-			Deactivate();
-			}
-		}
-	else if (sender == itsCloseButton && message.Is(JXButton::kPushed))
 		{
+			Deactivate();
+		}
+	}
+	else if (sender == itsCloseButton && message.Is(JXButton::kPushed))
+	{
 		GetWindow()->KillFocus();
 		Deactivate();
-		}
+	}
 	else if (sender == itsHelpButton && message.Is(JXButton::kPushed))
-		{
+	{
 		(SyGGetManPageDialog())->ViewManPage(JString("find", JString::kNoCopy));
-		}
+	}
 
 	else if (sender == itsChoosePathButton && message.Is(JXButton::kPushed))
-		{
+	{
 		itsPathInput->ChoosePath(JString::empty);
-		}
+	}
 
 	else if (sender == itsActionRG && message.Is(JXRadioGroup::kSelectionChanged))
-		{
+	{
 		UpdateDisplay();
-		}
+	}
 
 	else if ((sender == itsFileInput || sender == itsExprInput) &&
 			 (message.Is(JStyledText::kTextSet) ||
 			  message.Is(JStyledText::kTextChanged)))
-		{
+	{
 		UpdateButtons();
-		}
+	}
 
 	else
-		{
+	{
 		JXWindowDirector::Receive(sender, message);
-		}
+	}
 }
 
 /******************************************************************************
@@ -318,11 +318,11 @@ SyGFindFileDialog::Search()
 {
 	itsPathInput->ShouldAllowInvalidPath(false);
 	if (!itsPathInput->InputValid())
-		{
+	{
 		itsPathInput->ShouldAllowInvalidPath(true);
 		itsPathInput->Focus();
 		return false;
-		}
+	}
 	itsPathInput->ShouldAllowInvalidPath(true);
 
 	JString path;
@@ -331,13 +331,13 @@ SyGFindFileDialog::Search()
 
 	const JIndex action = itsActionRG->GetSelectedItem();
 	if (action == kFindFileAction && itsFileInput->InputValid())
-		{
+	{
 		SearchFileName(path, itsFileInput->GetText()->GetText());
-		}
+	}
 	else if (action == kFindExprAction && itsExprInput->InputValid())
-		{
+	{
 		SearchExpr(path, itsExprInput->GetText()->GetText());
-		}
+	}
 
 	return true;
 }
@@ -394,18 +394,18 @@ SyGFindFileDialog::SearchExpr
 	const JUtf8Byte** vcsDirName;
 	const JSize vcsDirNameCount = JGetVCSDirectoryNames(&vcsDirName);
 	for (JUnsignedOffset i=0; i<vcsDirNameCount; i++)
-		{
+	{
 		e += " -a ! -path */";
 		e += vcsDirName[i];
 		e += "/*";
-		}
+	}
 
 	SyGTreeDir* dir;
 	if ((SyGGetApplication())->OpenDirectory(path, &dir, nullptr, true, true, false, true))
-		{
+	{
 		SyGFindFileTask* task;
 		SyGFindFileTask::Create(dir, path, e, &task);
-		}
+	}
 }
 
 /******************************************************************************
@@ -422,9 +422,9 @@ SyGFindFileDialog::ReadPrefs
 	JFileVersion vers;
 	input >> vers;
 	if (vers > kCurrentSetupVersion)
-		{
+	{
 		return;
-		}
+	}
 
 	JXWindow* window = GetWindow();
 	window->ReadGeometry(input);

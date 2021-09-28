@@ -8,8 +8,8 @@
 #ifndef _H_SyGBeginEditingTask
 #define _H_SyGBeginEditingTask
 
-#include <JXIdleTask.h>
-#include <JBroadcaster.h>
+#include <jx-af/jx/JXIdleTask.h>
+#include <jx-af/jcore/JBroadcaster.h>
 
 class JPoint;
 class SyGFileTreeTable;

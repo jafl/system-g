@@ -10,7 +10,7 @@
 #ifndef _H_SyGTreeSet
 #define _H_SyGTreeSet
 
-#include <JXWidgetSet.h>
+#include <jx-af/jx/JXWidgetSet.h>
 
 class JString;
 class JXMenuBar;

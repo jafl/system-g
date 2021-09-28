@@ -8,10 +8,10 @@
 #ifndef _H_SyGFileTreeTable
 #define _H_SyGFileTreeTable
 
-#include <JXNamedTreeListWidget.h>
+#include <jx-af/jx/JXNamedTreeListWidget.h>
 #include "SyGFileTreeNode.h"
 #include "SyGColUtils.h"
-#include <JXCursor.h>
+#include <jx-af/jx/JXCursor.h>
 
 class JProcess;
 class JXMenuBar;

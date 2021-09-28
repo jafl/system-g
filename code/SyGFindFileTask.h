@@ -10,7 +10,7 @@
 
 #include <ace/LSOCK_Stream.h>
 #include <ace/UNIX_Addr.h>
-#include <JMessageProtocol.h>	// template; requires ace includes
+#include <jx-af/jcore/JMessageProtocol.h>	// template; requires ace includes
 
 class JProcess;
 class SyGTreeDir;

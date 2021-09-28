@@ -8,7 +8,7 @@
 #ifndef _H_SyGDuplicateProcess
 #define _H_SyGDuplicateProcess
 
-#include <JPtrArray-JString.h>
+#include <jx-af/jcore/JPtrArray-JString.h>
 
 class JSimpleProcess;
 class SyGFileTreeTable;

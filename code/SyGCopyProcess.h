@@ -8,8 +8,8 @@
 #ifndef _H_SyGCopyProcess
 #define _H_SyGCopyProcess
 
-#include <JPtrArray-JString.h>
-#include <jVCSUtil.h>
+#include <jx-af/jcore/JPtrArray-JString.h>
+#include <jx-af/jcore/jVCSUtil.h>
 
 class JSimpleProcess;
 class SyGFileTreeTable;
