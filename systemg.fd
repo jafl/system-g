@@ -7,7 +7,7 @@ Number of forms: 7
 Unit of measure: FL_COORD_PIXEL
 
 =============== FORM ===============
-Name: SyGEditPrefsDialog
+Name: EditPrefsDialog
 Width: 470
 Height: 380
 Number of Objects: 21
@@ -391,7 +391,7 @@ callback:
 argument: 
 
 =============== FORM ===============
-Name: SyGViewManPageDialog
+Name: ViewManPageDialog
 Width: 360
 Height: 150
 Number of Objects: 11
@@ -595,7 +595,7 @@ callback:
 argument: 
 
 =============== FORM ===============
-Name: SyGChoosePathDialog
+Name: ChoosePathDialog
 Width: 310
 Height: 400
 Number of Objects: 19
@@ -943,7 +943,7 @@ callback:
 argument: 
 
 =============== FORM ===============
-Name: SyGAboutDialog
+Name: AboutDialog
 Width: 430
 Height: 180
 Number of Objects: 7
@@ -1075,7 +1075,7 @@ callback:
 argument: 
 
 =============== FORM ===============
-Name: SyGTreeDir
+Name: TreeDir
 Width: 420
 Height: 500
 Number of Objects: 7
@@ -1132,7 +1132,7 @@ resize: FL_RESIZE_NONE
 gravity: FL_NoGravity FL_NoGravity
 name: itsToolBar
 callback: 
-argument: SyGGetPrefsMgr(), kSMainToolBarID, menuBar,
+argument: GetPrefsMgr(), kSMainToolBarID, menuBar,
 
 --------------------
 class: FL_BOX
@@ -1144,7 +1144,7 @@ alignment: FL_ALIGN_CENTER
 style: FL_NORMAL_STYLE
 size: FL_NORMAL_SIZE
 lcol: FL_BLACK
-label: SyGPathInput
+label: PathInput
 shortcut: 
 resize: FL_RESIZE_NONE
 gravity: FL_South FL_NoGravity
@@ -1162,7 +1162,7 @@ alignment: FL_ALIGN_CENTER
 style: FL_NORMAL_STYLE
 size: FL_NORMAL_SIZE
 lcol: FL_BLACK
-label: SyGTrashButton
+label: TrashButton
 shortcut: 
 resize: FL_RESIZE_NONE
 gravity: FL_SouthEast FL_NoGravity
@@ -1180,7 +1180,7 @@ alignment: FL_ALIGN_CENTER
 style: FL_NORMAL_STYLE
 size: FL_NORMAL_SIZE
 lcol: FL_BLACK
-label: SyGFolderDragSource
+label: FolderDragSource
 shortcut: 
 resize: FL_RESIZE_NONE
 gravity: FL_SouthWest FL_NoGravity
@@ -1207,7 +1207,7 @@ callback:
 argument: 
 
 =============== FORM ===============
-Name: SyGFindFileDialog
+Name: FindFileDialog
 Width: 360
 Height: 220
 Number of Objects: 13
@@ -1447,7 +1447,7 @@ callback:
 argument: 
 
 =============== FORM ===============
-Name: SyGNewGitRemoteDialog
+Name: NewGitRemoteDialog
 Width: 310
 Height: 160
 Number of Objects: 7

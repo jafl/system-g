@@ -1,0 +1,7 @@
+0
+cancelButton::NewGitRemoteDialog::shortcuts::JXLayout "^["
+okButton::NewGitRemoteDialog::shortcuts::JXLayout "^M"
+localLabel::NewGitRemoteDialog::JXLayout "Local Name:"
+okButton::NewGitRemoteDialog::JXLayout "OK"
+cancelButton::NewGitRemoteDialog::JXLayout "Cancel"
+remoteLabel::NewGitRemoteDialog::JXLayout "Remote URL:"

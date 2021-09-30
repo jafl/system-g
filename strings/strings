@@ -1,0 +1,257 @@
+0
+
+# Copyright (C) 2000-15 by John Lindal.
+
+# main
+
+COPYRIGHT
+"Copyright (C) 1997-2018 John Lindal.
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+System G is trademark of Glenn Bach.
+
+https://sourceforge.net/projects/nps-systemg/"
+
+Name		"System G"
+
+HELP_URL		"http://nps-systemg.sourceforge.net/help.html"
+CHANGE_LOG_URL	"http://nps-systemg.sourceforge.net/ChangeLog.html"
+VERSION_URL		"http://nps-systemg.sourceforge.net/VERSION"
+DOWNLOAD_URL	"https://sourceforge.net/projects/nps-systemg/"
+
+# globals
+
+Description::globals
+"System G $version
+
+Graphical interface to the file system.
+
+$copyright"
+
+EmptyTrashError::globals
+"Unable to empty the trash can.
+
+Please check the ownership and write permissions of the remaining files."
+
+CreatePrefsDirError::globals
+"Unable to create a directory ~/$name because:
+
+$err"
+
+NoPrefsDir::globals
+"Unable to save preferences because you do not have a home directory."
+
+DNDCopyDescription::globals	"copy the items"
+DNDMoveDescription::globals	"move the items"
+DNDLinkDescription::globals	"create aliases for the items"
+
+TrashName::globals	"Trash"
+
+# Application
+
+OpenDirectoryPrompt::Application	"Select path"
+PathDoesNotExist::Application		"\"$name\" does not exist."
+Unreadable::Application				"Unable to read contents of \"$name\"."
+InvalidShortcut::Application		"\"$name\" does not exist or is unreadable.  Do you want to remove this shortcut?"
+
+# EditPrefsDialog
+
+WindowTitle::EditPrefsDialog		"Edit preferences"
+OpenFilesPrompt::EditPrefsDialog	"Open files"
+
+# TreeDir
+
+TrashButtonHint::TreeDir
+"Click here to open the trash or drag here to drop in the trash."
+
+# TreeSet
+
+FilterLabel::TreeSet		"Filter:"
+EmptyTrashLabel::TreeSet	"Empty"
+
+# FileTreeTable
+
+ViewMenuTitle::FileTreeTable		"View"
+GitMenuTitle::FileTreeTable			"Git"
+ShortcutsMenuTitle::FileTreeTable	"Shortcuts"
+
+BranchIndicator::FileTreeTable		"On $branch$stash"
+
+FormatWindowTitle::FileTreeTable	"Erase disk"
+FormatPrompt::FileTreeTable			"Choose the type of disk to create:"
+
+MountLabel::FileTreeTable	"Mount"
+UnmountLabel::FileTreeTable	"Unmount"
+
+NewNamePrefix::FileTreeTable	"Untitled"
+
+SelectDirectory::FileTreeTable	"Select path"
+
+WarnDeleteSingleFile::FileTreeTable
+"Are you sure you want to permanently delete \"$name\"?"
+
+WarnDeleteSingleDir::FileTreeTable
+"Are you sure you want to permanently delete \"$name\" and its contents?"
+
+WarnDeleteMultipleFile::FileTreeTable
+"Are you sure you want to permanently delete these $count selected items?"
+
+WarnDeleteMultipleDir::FileTreeTable
+"Are you sure you want to permanently delete these $count selected items and their contents?"
+
+CreateFolderError::FileTreeTable
+"A new folder could not created because:
+
+$err"
+
+CreateTextFileError::FileTreeTable
+"A new text file could not be created.  Please check that you have write access to the folder and that the disk is not full."
+
+CreateAliasError::FileTreeTable
+"An alias could not created because:
+
+$err"
+
+WarnEraseDisk::FileTreeTable
+"This will erase all information on this disk!
+
+Are you sure want to do this?"
+
+RenameError::FileTreeTable
+"The name of this item could not be changed because:
+
+$err"
+
+CurrentGitBranch::FileTreeTable		"Branch: $name"
+NoBranchInfo::FileTreeTable			"No branch information"
+CreateBranchTitle::FileTreeTable	"Create Branch"
+CreateBranchPrompt::FileTreeTable	"Name of new branch:"
+FetchBranchTitle::FileTreeTable		"Fetch Remote Branch"
+FetchBranchPrompt::FileTreeTable	"Local name of branch:"
+CommitBranchTitle::FileTreeTable	"Commit Branch"
+CommitBranchPrompt::FileTreeTable	"Commit log message:"
+WarnRevertBranch::FileTreeTable		"Are you sure you want to discard all changes?"
+WarnRemoveBranch::FileTreeTable		"Are you sure you want to remove the $name branch?"
+NoStashes::FileTreeTable			"No stashed changes"
+StashTitle::FileTreeTable			"Stash Changes"
+StashPrompt::FileTreeTable			"Stash name:"
+WarnRemoveRemote::FileTreeTable		"Are you sure you want to remove the connection to $name?"
+
+AskRelativeAlias::FileTreeTable	"Do you want the alias for $name to be a relative symlink?"
+
+DeletePrunedBranchesTitle::FileTreeTable	"Prune Local Git Branches"
+DeletePrunedBranchesPrompt::FileTreeTable	"Select the local branches that you would like to prune:"
+
+RemoteSavingUnusupported::FileTreeTable	"Remote saving is not yet supported."
+
+# NewGitRemoteDialog
+
+WindowTitle::NewGitRemoteDialog "Link to Remote Repo"
+
+# FindFileTask
+
+NoMatch::FindFileTask	"No matching files or directories were found."
+
+# CopyProcess
+
+MixedVCSMove::CopyProcess
+"The items you are moving and/or the destination are managed by different version control systems.
+
+If you move all the items at the same time, you may corrupt your working copies.
+
+Do you want to continue?"
+
+SomeVCSMove::CopyProcess
+"Some of the items you are moving and/or the destination are managed by a version control system.  Other items are not managed.
+
+If you move all the items at the same time, you may corrupt your working copy.
+
+Do you want to continue?"
+
+NoTargetVCSMove::CopyProcess
+"The items you are moving are managed by a version control system.  The destination is not managed.
+
+If you move the items, you may corrupt your working copy.
+
+Do you want to continue?"
+
+AskAutoReplace::CopyProcess
+"Do you wish to replace the existing items automatically?"
+
+AskReplace::CopyProcess
+"Do you wish to replace the existing item \"$name\"?"
+
+OnlyReplaceSameType::CopyProcess
+"You cannot replace the $dest_type \"$dest\" with a $src_type."
+
+NoMoveIntoSelf::CopyProcess
+"You cannot move the directory \"$src\" into itself."
+
+NoReplaceWithContents::CopyProcess
+"You cannot replace the directory \"$dest\" with something that it contains."
+
+UseVCSCopy::CopyProcess
+"Do you want to place the copy under version control?"
+
+AskPlainVCSMove::CopyProcess	"Do you want to move without using version control?"
+
+# MDIServer
+#2345678901234567890123456789012345678901234567890123456789012345678901234567890
+
+CommandLineHelp::MDIServer
+
+"System G $version
+
+$copyright
+
+This X application provides a graphical interface to the file system.
+It can be safely invoked from the command line as often as you like.
+
+Usage:  systemg [--choose | --open | --run | (path|file) [...]]
+
+--help          prints this help
+--version       prints version information
+--choose        opens Choose Directory dialog
+--open          opens Choose Files dialog
+--run           opens Run Command dialog
+--force-new     all following paths will open in new windows
+--no-force-new  all following paths will open in existing windows, if possible"
+
+#2345678901234567890123456789012345678901234567890123456789012345678901234567890
+
+# AboutDialog
+
+WindowTitle::AboutDialog		"About"
+ChangeButtonLabel::AboutDialog	"Changes"
+
+UpgradeNotice::AboutDialog
+"
+
+
+You have just upgraded from version $vers"
+
+# ViewManPageDialog
+
+WindowTitle::ViewManPageDialog	"Man pages"
+
+# FindFileDialog
+
+WindowTitle::FindFileDialog	"Find files"
+
+# ColUtils
+
+NameColumnTitle::ColUtils			"Name"
+UIDColumnTitle::ColUtils			"User"
+GIDColumnTitle::ColUtils			"Group"
+SizeColumnTitle::ColUtils			"Size"
+PermissionsColumnTitle::ColUtils	"Permissions"
+DateColumnTitle::ColUtils			"Date"
+
+# FolderDragSource
+
+Hint::FolderDragSource	"Drag this to drag the URL for this folder, or click and hold for a menu."

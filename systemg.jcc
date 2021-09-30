@@ -8,126 +8,126 @@ T
 F
 "./code/main.cpp"
 T
-2 "SyGApplication.cpp"
+2 "Application.cpp"
 F
-"./code/SyGApplication.cpp"
+"./code/Application.cpp"
 T
-2 "SyGGlobals.cpp"
+2 "globals.cpp"
 F
-"./code/SyGGlobals.cpp"
+"./code/globals.cpp"
 T
-2 "SyGPrefsMgr.cpp"
+2 "PrefsMgr.cpp"
 F
-"./code/SyGPrefsMgr.cpp"
+"./code/PrefsMgr.cpp"
 T
-2 "SyGEditPrefsDialog.cpp"
+2 "EditPrefsDialog.cpp"
 F
-"./code/SyGEditPrefsDialog.cpp"
+"./code/EditPrefsDialog.cpp"
 T
-2 "SyGMDIServer.cpp"
+2 "MDIServer.cpp"
 F
-"./code/SyGMDIServer.cpp"
+"./code/MDIServer.cpp"
 T
-2 "SyGAboutDialog.cpp"
+2 "AboutDialog.cpp"
 F
-"./code/SyGAboutDialog.cpp"
+"./code/AboutDialog.cpp"
 F
 T
 1 "tree"
 T
-2 "SyGTreeDir.cpp"
+2 "TreeDir.cpp"
 F
-"./code/SyGTreeDir.cpp"
+"./code/TreeDir.cpp"
 T
-2 "SyGTreeSet.cpp"
+2 "TreeSet.cpp"
 F
-"./code/SyGTreeSet.cpp"
+"./code/TreeSet.cpp"
 T
-2 "SyGFileTreeTable.cpp"
+2 "FileTreeTable.cpp"
 F
-"./code/SyGFileTreeTable.cpp"
+"./code/FileTreeTable.cpp"
 T
-2 "SyGFileTreeList.cpp"
+2 "FileTreeList.cpp"
 F
-"./code/SyGFileTreeList.cpp"
+"./code/FileTreeList.cpp"
 T
-2 "SyGFileTree.cpp"
+2 "FileTree.cpp"
 F
-"./code/SyGFileTree.cpp"
+"./code/FileTree.cpp"
 T
-2 "SyGFileTreeNode.cpp"
+2 "FileTreeNode.cpp"
 F
-"./code/SyGFileTreeNode.cpp"
+"./code/FileTreeNode.cpp"
 T
-2 "SyGColUtils.cpp"
+2 "ColUtils.cpp"
 F
-"./code/SyGColUtils.cpp"
+"./code/ColUtils.cpp"
 T
-2 "SyGHeaderWidget.cpp"
+2 "HeaderWidget.cpp"
 F
-"./code/SyGHeaderWidget.cpp"
+"./code/HeaderWidget.cpp"
 T
-2 "SyGFilterInput.cpp"
+2 "FilterInput.cpp"
 F
-"./code/SyGFilterInput.cpp"
+"./code/FilterInput.cpp"
 T
-2 "SyGPathInput.cpp"
+2 "PathInput.cpp"
 F
-"./code/SyGPathInput.cpp"
+"./code/PathInput.cpp"
 T
-2 "SyGFolderDragSource.cpp"
+2 "FolderDragSource.cpp"
 F
-"./code/SyGFolderDragSource.cpp"
+"./code/FolderDragSource.cpp"
 T
-2 "SyGTrashButton.cpp"
+2 "TrashButton.cpp"
 F
-"./code/SyGTrashButton.cpp"
+"./code/TrashButton.cpp"
 F
 T
 1 "tasks"
 T
-2 "SyGCopyProcess.cpp"
+2 "CopyProcess.cpp"
 F
-"./code/SyGCopyProcess.cpp"
+"./code/CopyProcess.cpp"
 T
-2 "SyGMoveToTrashProcess.cpp"
+2 "MoveToTrashProcess.cpp"
 F
-"./code/SyGMoveToTrashProcess.cpp"
+"./code/MoveToTrashProcess.cpp"
 T
-2 "SyGDuplicateProcess.cpp"
+2 "DuplicateProcess.cpp"
 F
-"./code/SyGDuplicateProcess.cpp"
+"./code/DuplicateProcess.cpp"
 T
-2 "SyGBeginEditingTask.cpp"
+2 "BeginEditingTask.cpp"
 F
-"./code/SyGBeginEditingTask.cpp"
+"./code/BeginEditingTask.cpp"
 T
-2 "SyGFindFileTask.cpp"
+2 "FindFileTask.cpp"
 F
-"./code/SyGFindFileTask.cpp"
+"./code/FindFileTask.cpp"
 F
 T
 1 "misc"
 T
-2 "SyGFindFileDialog.cpp"
+2 "FindFileDialog.cpp"
 F
-"./code/SyGFindFileDialog.cpp"
+"./code/FindFileDialog.cpp"
 T
-2 "SyGViewManPageDialog.cpp"
+2 "ViewManPageDialog.cpp"
 F
-"./code/SyGViewManPageDialog.cpp"
+"./code/ViewManPageDialog.cpp"
 T
-2 "SyGChooseSaveFile.cpp"
+2 "ChooseSaveFile.cpp"
 F
-"./code/SyGChooseSaveFile.cpp"
+"./code/ChooseSaveFile.cpp"
 T
-2 "SyGChoosePathDialog.cpp"
+2 "ChoosePathDialog.cpp"
 F
-"./code/SyGChoosePathDialog.cpp"
+"./code/ChoosePathDialog.cpp"
 T
-2 "SyGNewGitRemoteDialog.cpp"
+2 "NewGitRemoteDialog.cpp"
 F
-"./code/SyGNewGitRemoteDialog.cpp"
+"./code/NewGitRemoteDialog.cpp"
 F
 T
 1 "layouts"
@@ -139,9 +139,9 @@ F
 T
 1 "strings"
 T
-2 "systemg_strings"
+2 "strings"
 F
-"./strings/systemg_strings"
+"./strings/strings"
 F
 T
 1 "release"
