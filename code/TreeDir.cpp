@@ -474,11 +474,11 @@ TreeDir::HandlePrefsMenu
 {
 	if (index == kEditPrefsCmd)
 	{
-		(GetPrefsMgr())->EditPrefs();
+		GetPrefsMgr()->EditPrefs();
 	}
 	else if (index == kEditBindings)
 	{
-		(JXFSBindingManager::Instance())->EditBindings();
+		JXFSBindingManager::Instance()->EditBindings();
 	}
 	else if (index == kEditToolBarCmd)
 	{
@@ -508,22 +508,22 @@ TreeDir::HandleHelpMenu
 {
 	if (index == kAboutCmd)
 	{
-		(GetApplication())->DisplayAbout();
+		GetApplication()->DisplayAbout();
 	}
 	else if (index == kTOCCmd)
 	{
-		(JXGetHelpManager())->ShowTOC();
+		JXGetHelpManager()->ShowTOC();
 	}
 	else if (index == kOverviewCmd)
 	{
-		(JXGetHelpManager())->ShowSection("GettingStartedHelp");
+		JXGetHelpManager()->ShowSection("GettingStartedHelp");
 	}
 	else if (index == kChangesCmd)
 	{
-		(JXGetHelpManager())->ShowChangeLog();
+		JXGetHelpManager()->ShowChangeLog();
 	}
 	else if (index == kCreditsCmd)
 	{
-		(JXGetHelpManager())->ShowCredits();
+		JXGetHelpManager()->ShowCredits();
 	}
 }

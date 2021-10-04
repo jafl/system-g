@@ -1,0 +1,84 @@
+#!/bin/bash
+
+set -e;
+
+#
+# main script
+#
+
+SYS=`uname -o || uname -s`;		# Darwin doesn't support -o
+
+if [[ $UID != 0 ]]; then
+	SUDO="sudo";
+fi
+
+if [[ $SYS == Darwin ]]; then
+
+	if [[ -z $HOMEBREW_VERSION ]]; then
+		if ! command -v brew; then
+			echo Installing Homebrew...;
+			sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)";
+		else
+			echo Updating Homebrew...;
+			brew update;
+		fi
+
+		brew bundle;
+	fi
+
+elif command -v apt-get; then
+
+	# debian
+
+	if [[ -z $LGTM_SRC ]]; then
+		$SUDO apt update;
+		$SUDO apt -y install git-gui;
+	fi
+
+elif command -v dnf; then
+
+	# redhat
+
+	$SUDO dnf -y git-gui xterm;
+
+elif command -v yum; then
+
+	# redhat
+
+	$SUDO yum -y install git-gui xterm;
+
+elif command -v zypper; then
+
+	# openSUSE
+
+	$SUDO zypper -in install git-gui xterm;
+
+	# lldb-devel is missing
+	rm -f code_medic/lldb-include;
+	ln -sf ../misc/lldb-include code_medic;
+
+elif [[ $SYS == Cygwin ]]; then
+
+	ARCH=`uname -i`;
+	if [[ $ARCH == x86_64 ]]; then
+		SETUP=setup-x86_64.exe;
+		echo "Unsupported architecture '$ARCH'.  Please file an issue on github.";
+		exit 1;
+	elif [[ ${ARCH:0:1} == i ]]; then
+		SETUP=setup-x86.exe;
+		SYS_CONFIG=sys/Linux-Intel-cygwin32;
+		ACE_CONFIG=config-cygwin32.h;
+		ACE_MAKE_CONFIG=platform_cygwin32.GNU;
+	else
+		echo "Unknown architecture '$ARCH'.  Please file an issue on github.";
+		exit 1;
+	fi
+
+	$SETUP -q -P git-gui,xterm;
+
+else
+
+	echo "Unrecognized system!  Please file an issue on github.";
+	exit 1;
+
+fi
