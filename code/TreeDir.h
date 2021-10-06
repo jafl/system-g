@@ -30,9 +30,9 @@ public:
 
 	virtual ~TreeDir();
 
-	virtual bool			Close() override;
-	virtual const JString&	GetName() const override;
-	virtual bool			GetMenuIcon(const JXImage** icon) const override;
+	bool			Close() override;
+	const JString&	GetName() const override;
+	bool			GetMenuIcon(const JXImage** icon) const override;
 
 	const JString&		GetDirectory() const;
 	TreeSet*			GetTreeSet() const;
@@ -42,7 +42,7 @@ public:
 
 protected:
 
-	virtual void	Receive(JBroadcaster* sender, const Message& message) override;
+	void	Receive(JBroadcaster* sender, const Message& message) override;
 
 private:
 

@@ -27,7 +27,7 @@ protected:
 	MoveToTrashProcess(FileTreeTable* table, JPtrArray<JString>* fullNameList,
 						  const JString& trashDir);
 
-	virtual void	Receive(JBroadcaster* sender, const Message& message) override;
+	void	Receive(JBroadcaster* sender, const Message& message) override;
 
 private:
 

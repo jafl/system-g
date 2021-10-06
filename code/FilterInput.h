@@ -22,12 +22,12 @@ public:
 
 	virtual ~FilterInput();
 
-	virtual void	HandleKeyPress(const JUtf8Character& c, const int keySym,
+	void	HandleKeyPress(const JUtf8Character& c, const int keySym,
 								   const JXKeyModifiers& modifiers) override;
 
 protected:
 
-	virtual void	HandleFocusEvent() override;			// must call inherited
+	void	HandleFocusEvent() override;			// must call inherited
 
 private:
 

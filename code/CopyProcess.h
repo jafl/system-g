@@ -32,7 +32,7 @@ protected:
 				   FileTreeTable* destTable, FileTreeNode* destNode,
 				   const bool isCopy);
 
-	virtual void	Receive(JBroadcaster* sender, const Message& message) override;
+	void	Receive(JBroadcaster* sender, const Message& message) override;
 
 private:
 

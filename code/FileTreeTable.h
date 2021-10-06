@@ -91,64 +91,64 @@ public:
 	void		SetCurrentColIndex(const JIndex index);
 	void		SetCurrentColType(const GFMColType type);
 
-	virtual bool	IsEditable(const JPoint& cell) const override;
-	virtual void		HandleKeyPress(const JUtf8Character& c, const int keySym,
+	bool	IsEditable(const JPoint& cell) const override;
+	void		HandleKeyPress(const JUtf8Character& c, const int keySym,
 									   const JXKeyModifiers& modifiers) override;
-	virtual void		HandleShortcut(const int key, const JXKeyModifiers& modifiers) override;
+	void		HandleShortcut(const int key, const JXKeyModifiers& modifiers) override;
 
 	static Atom	GetDNDAction(const JXWidget* source, const JString& sourcePath,
 							 const JXContainer* target, const JXKeyModifiers& modifiers);
 
 protected:
 
-	virtual void		AdjustToTree() override;
-	virtual JSize		GetMinCellWidth(const JPoint& cell) const override;
-	virtual void		TableDrawCell(JPainter &p, const JPoint& cell, const JRect& rect) override;
-	virtual bool	GetImage(const JIndex index, const JXImage** image) const override;
+	void		AdjustToTree() override;
+	JSize		GetMinCellWidth(const JPoint& cell) const override;
+	void		TableDrawCell(JPainter &p, const JPoint& cell, const JRect& rect) override;
+	bool	GetImage(const JIndex index, const JXImage** image) const override;
 
-	virtual void	HandleMouseHere(const JPoint& pt, const JXKeyModifiers& modifiers) override;
-	virtual void	HandleMouseDown(const JPoint& pt, const JXMouseButton button,
+	void	HandleMouseHere(const JPoint& pt, const JXKeyModifiers& modifiers) override;
+	void	HandleMouseDown(const JPoint& pt, const JXMouseButton button,
 									const JSize clickCount,
 									const JXButtonStates& buttonStates,
 									const JXKeyModifiers& modifiers) override;
-	virtual void	HandleMouseDrag(const JPoint& pt, const JXButtonStates& buttonStates,
+	void	HandleMouseDrag(const JPoint& pt, const JXButtonStates& buttonStates,
 									const JXKeyModifiers& modifiers) override;
-	virtual void	HandleMouseUp(const JPoint& pt, const JXMouseButton button,
+	void	HandleMouseUp(const JPoint& pt, const JXMouseButton button,
 								  const JXButtonStates& buttonStates,
 								  const JXKeyModifiers& modifiers) override;
 
-	virtual bool	WillAcceptDrop(const JArray<Atom>& typeList, Atom* action,
+	bool	WillAcceptDrop(const JArray<Atom>& typeList, Atom* action,
 									   const JPoint& pt, const Time time,
 									   const JXWidget* source) override;
-	virtual void		HandleDNDEnter() override;
-	virtual void		HandleDNDHere(const JPoint& pt, const JXWidget* source) override;
-	virtual void		HandleDNDLeave() override;
-	virtual void		HandleDNDDrop(const JPoint& pt, const JArray<Atom>& typeList,
+	void		HandleDNDEnter() override;
+	void		HandleDNDHere(const JPoint& pt, const JXWidget* source) override;
+	void		HandleDNDLeave() override;
+	void		HandleDNDDrop(const JPoint& pt, const JArray<Atom>& typeList,
 									  const Atom action, const Time time,
 									  const JXWidget* source) override;
 
-	virtual void		GetSelectionData(JXSelectionData* data,
+	void		GetSelectionData(JXSelectionData* data,
 										 const JString& id) override;
-	virtual Atom		GetDNDAction(const JXContainer* target,
+	Atom		GetDNDAction(const JXContainer* target,
 									  const JXButtonStates& buttonStates,
 									  const JXKeyModifiers& modifiers) override;
-	virtual void		GetDNDAskActions(const JXButtonStates& buttonStates,
+	void		GetDNDAskActions(const JXButtonStates& buttonStates,
 									  const JXKeyModifiers& modifiers,
 									  JArray<Atom>* askActionList,
 									  JPtrArray<JString>* askDescriptionList) override;
-	virtual void		HandleDNDResponse(const JXContainer* target,
+	void		HandleDNDResponse(const JXContainer* target,
 									  const bool dropAccepted, const Atom action) override;
 
-	virtual JXInputField*
+	JXInputField*
 		CreateTreeListInput(const JPoint& cell, JXContainer* enclosure,
 							const HSizingOption hSizing, const VSizingOption vSizing,
 							const JCoordinate x, const JCoordinate y,
 							const JCoordinate w, const JCoordinate h) override;
 
-	virtual bool	ExtractInputData(const JPoint& cell) override;
+	bool	ExtractInputData(const JPoint& cell) override;
 
-	virtual void	Receive(JBroadcaster* sender, const Message& message) override;
-	virtual void	ReceiveWithFeedback(JBroadcaster* sender, Message* message) override;
+	void	Receive(JBroadcaster* sender, const Message& message) override;
+	void	ReceiveWithFeedback(JBroadcaster* sender, Message* message) override;
 
 private:
 
