@@ -21,12 +21,12 @@ public:
 	static void	Duplicate(FileTreeTable* table,
 						  const JPtrArray<FileTreeNode>& nodeList);
 
-	virtual ~DuplicateProcess();
+	~DuplicateProcess() override;
 
 protected:
 
 	DuplicateProcess(FileTreeTable* table,
-						const JPtrArray<FileTreeNode>& nodeList);
+					 const JPtrArray<FileTreeNode>& nodeList);
 
 	void	Receive(JBroadcaster* sender, const Message& message) override;
 	void	ReceiveGoingAway(JBroadcaster* sender) override;
@@ -35,9 +35,9 @@ private:
 
 	FileTreeTable*			itsTable;			// not owned; can be nullptr
 	JPtrArray<FileTreeNode>	itsNodeList;		// contents not owned
-	JPtrArray<JString>			itsFullNameList;	// store strings so don't need table
-	JSimpleProcess*				itsProcess;
-	JString						itsCurrentName;
+	JPtrArray<JString>		itsFullNameList;	// store strings so don't need table
+	JSimpleProcess*			itsProcess;
+	JString					itsCurrentName;
 	const bool				itsShouldEditFlag;	// BeginEditing() after process finishes
 
 private:

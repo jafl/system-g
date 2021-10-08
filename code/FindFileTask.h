@@ -19,19 +19,19 @@ class FindFileTask : public JBroadcaster
 {
 public:
 
-	typedef JMessageProtocol<ACE_LSOCK_STREAM>	RecordLink;
+	using RecordLink = JMessageProtocol<ACE_LSOCK_STREAM>;
 
 public:
 
 	static bool	Create(TreeDir* dir, const JString& path,
 					   const JString& expr, FindFileTask** task);
 
-	virtual ~FindFileTask();
+	~FindFileTask() override;
 
 protected:
 
 	FindFileTask(TreeDir* dir, const JString& relPath,
-					JProcess* p, int outFD, int errFD);
+				 JProcess* p, int outFD, int errFD);
 
 	void	Receive(JBroadcaster* sender, const Message& message) override;
 	void	ReceiveGoingAway(JBroadcaster* sender) override;

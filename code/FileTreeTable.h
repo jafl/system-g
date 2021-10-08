@@ -44,7 +44,7 @@ public:
 					const JCoordinate x, const JCoordinate y,
 					const JCoordinate w, const JCoordinate h);
 
-	virtual ~FileTreeTable();
+	~FileTreeTable() override;
 
 	FileTree*		GetFileTree() const;
 	FileTreeList*	GetFileTreeList() const;
@@ -67,13 +67,13 @@ public:
 	void	GoTo(const JString& path, const bool sameWindow);
 
 	bool	SelectName(const JString& name, const FileTreeNode* parent,
-						   JPoint* cell,
-						   const bool updateContent = true,
-						   const bool updateView = true);
+					   JPoint* cell,
+					   const bool updateContent = true,
+					   const bool updateView = true);
 	bool	SelectName(const JPtrArray<JString>& pathList,
-						   const JString& name, JPoint* cell,
-						   const bool clearSelection = true,
-						   const bool updateContent = true);
+					   const JString& name, JPoint* cell,
+					   const bool clearSelection = true,
+					   const bool updateContent = true);
 
 	void	LoadToolBarDefaults(JXToolBar* toolBar);
 
@@ -87,13 +87,13 @@ public:
 
 	JString		GetColTitle(const JIndex index) const;
 	JCoordinate	GetBufferWidth(const JIndex index) const;
-	bool	IsCurrentCol(const JIndex index) const;
+	bool		IsCurrentCol(const JIndex index) const;
 	void		SetCurrentColIndex(const JIndex index);
 	void		SetCurrentColType(const GFMColType type);
 
-	bool	IsEditable(const JPoint& cell) const override;
+	bool		IsEditable(const JPoint& cell) const override;
 	void		HandleKeyPress(const JUtf8Character& c, const int keySym,
-									   const JXKeyModifiers& modifiers) override;
+							   const JXKeyModifiers& modifiers) override;
 	void		HandleShortcut(const int key, const JXKeyModifiers& modifiers) override;
 
 	static Atom	GetDNDAction(const JXWidget* source, const JString& sourcePath,
@@ -101,43 +101,43 @@ public:
 
 protected:
 
-	void		AdjustToTree() override;
-	JSize		GetMinCellWidth(const JPoint& cell) const override;
-	void		TableDrawCell(JPainter &p, const JPoint& cell, const JRect& rect) override;
+	void	AdjustToTree() override;
+	JSize	GetMinCellWidth(const JPoint& cell) const override;
+	void	TableDrawCell(JPainter &p, const JPoint& cell, const JRect& rect) override;
 	bool	GetImage(const JIndex index, const JXImage** image) const override;
 
 	void	HandleMouseHere(const JPoint& pt, const JXKeyModifiers& modifiers) override;
 	void	HandleMouseDown(const JPoint& pt, const JXMouseButton button,
-									const JSize clickCount,
-									const JXButtonStates& buttonStates,
-									const JXKeyModifiers& modifiers) override;
+							const JSize clickCount,
+							const JXButtonStates& buttonStates,
+							const JXKeyModifiers& modifiers) override;
 	void	HandleMouseDrag(const JPoint& pt, const JXButtonStates& buttonStates,
-									const JXKeyModifiers& modifiers) override;
+							const JXKeyModifiers& modifiers) override;
 	void	HandleMouseUp(const JPoint& pt, const JXMouseButton button,
-								  const JXButtonStates& buttonStates,
-								  const JXKeyModifiers& modifiers) override;
+						  const JXButtonStates& buttonStates,
+						  const JXKeyModifiers& modifiers) override;
 
 	bool	WillAcceptDrop(const JArray<Atom>& typeList, Atom* action,
-									   const JPoint& pt, const Time time,
-									   const JXWidget* source) override;
+						   const JPoint& pt, const Time time,
+						   const JXWidget* source) override;
 	void		HandleDNDEnter() override;
 	void		HandleDNDHere(const JPoint& pt, const JXWidget* source) override;
 	void		HandleDNDLeave() override;
 	void		HandleDNDDrop(const JPoint& pt, const JArray<Atom>& typeList,
-									  const Atom action, const Time time,
-									  const JXWidget* source) override;
+							  const Atom action, const Time time,
+							  const JXWidget* source) override;
 
 	void		GetSelectionData(JXSelectionData* data,
-										 const JString& id) override;
+								 const JString& id) override;
 	Atom		GetDNDAction(const JXContainer* target,
-									  const JXButtonStates& buttonStates,
-									  const JXKeyModifiers& modifiers) override;
+							 const JXButtonStates& buttonStates,
+							 const JXKeyModifiers& modifiers) override;
 	void		GetDNDAskActions(const JXButtonStates& buttonStates,
-									  const JXKeyModifiers& modifiers,
-									  JArray<Atom>* askActionList,
-									  JPtrArray<JString>* askDescriptionList) override;
+								 const JXKeyModifiers& modifiers,
+								 JArray<Atom>* askActionList,
+								 JPtrArray<JString>* askDescriptionList) override;
 	void		HandleDNDResponse(const JXContainer* target,
-									  const bool dropAccepted, const Atom action) override;
+								  const bool dropAccepted, const Atom action) override;
 
 	JXInputField*
 		CreateTreeListInput(const JPoint& cell, JXContainer* enclosure,
@@ -152,18 +152,18 @@ protected:
 
 private:
 
-	FileTree*		itsFileTree;
-	FileTreeList*	itsFileTreeList;	// owned by base class
+	FileTree*			itsFileTree;
+	FileTreeList*		itsFileTreeList;	// owned by base class
 	TreeSet*			itsTreeSet;
 	TrashButton*		itsTrashButton;
 	JXTimerTask*		itsUpdateTask;
 	JFSFileTreeNodeBase*itsUpdateNode;
 
-	bool			itsVisibleCols[5];
+	bool				itsVisibleCols[5];
 	GFMColType			itsCurrentColType;
 	JColorID			itsAltRowColor;
 	JCoordinate			itsPermCharWidth;
-	bool			itsIgnoreExecPermFlag;
+	bool				itsIgnoreExecPermFlag;
 
 	JXMenuBar*			itsMenuBar;
 	JXTextMenu*			itsFileMenu;
@@ -197,7 +197,7 @@ private:
 	JXGetStringDialog*	itsGitStashDialog;			// nullptr unless stashing
 	JProcess*			itsGitProcess;				// nullptr unless waiting for git
 
-	NewGitRemoteDialog*	itsAddGitRemoteDialog;	// nullptr unless adding remote
+	NewGitRemoteDialog*		itsAddGitRemoteDialog;	// nullptr unless adding remote
 	JXCheckboxListDialog*	itsPruneBranchesDialog;	// nullptr unless pruning local branches
 	JPtrArray<JString>*		itsPruneBranchList;		// nullptr unless pruning local branches
 

@@ -19,7 +19,7 @@ public:
 				   const JCoordinate x, const JCoordinate y,
 				   const JCoordinate w, const JCoordinate h);
 
-	virtual ~TrashButton();
+	~TrashButton() override;
 
 	void	UpdateDisplay();
 
@@ -30,13 +30,13 @@ protected:
 	void	DrawBorder(JXWindowPainter& p, const JRect& frame) override;
 
 	bool	WillAcceptDrop(const JArray<Atom>& typeList, Atom* action,
-								   const JPoint& pt, const Time time,
-								   const JXWidget* source) override;
+						   const JPoint& pt, const Time time,
+						   const JXWidget* source) override;
 	void	HandleDNDEnter() override;
 	void	HandleDNDLeave() override;
 	void	HandleDNDDrop(const JPoint& pt, const JArray<Atom>& typeList,
-								  const Atom action, const Time time,
-								  const JXWidget* source) override;
+						  const Atom action, const Time time,
+						  const JXWidget* source) override;
 
 	void Receive(JBroadcaster* sender, const Message& message) override;
 };

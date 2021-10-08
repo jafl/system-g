@@ -20,7 +20,7 @@ public:
 
 	FileTree(FileTreeNode* root);
 
-	virtual ~FileTree();
+	~FileTree() override;
 
 	const JString&	GetDirectory() const;
 	bool			Update(const bool force = false,

@@ -46,7 +46,7 @@ public:
 			   const JCoordinate x, const JCoordinate y,
 			   const JCoordinate w, const JCoordinate h);
 
-	virtual	~TreeSet();
+	~TreeSet() override;
 
 	FileTreeTable* GetTable() const;
 
@@ -63,19 +63,19 @@ public:
 
 protected:
 
-	virtual void Receive(JBroadcaster* sender, const Message& message);
+	void	Receive(JBroadcaster* sender, const Message& message) override;
 
 private:
 
-	FileTree*			itsFileTree;
+	FileTree*				itsFileTree;
 	JXMenuBar*				itsMenuBar;
 	JXTextButton*			itsEmptyButton;		// nullptr unless is trash can
 	JXStaticText*			itsFilterLabel;
 	FilterInput*			itsFilterInput;
 	JXStringHistoryMenu*	itsFilterHistory;
 	JXScrollbarSet*			itsScrollbarSet;
-	FileTreeTable*		itsTable;
-	PathInput*			itsPathInput;
+	FileTreeTable*			itsTable;
+	PathInput*				itsPathInput;
 	JXCurrentPathMenu*		itsPathMenu;
 
 private:

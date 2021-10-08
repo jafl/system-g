@@ -20,10 +20,10 @@ public:
 					const JCoordinate x, const JCoordinate y,
 					const JCoordinate w, const JCoordinate h);
 
-	virtual ~FilterInput();
+	~FilterInput() override;
 
 	void	HandleKeyPress(const JUtf8Character& c, const int keySym,
-								   const JXKeyModifiers& modifiers) override;
+						   const JXKeyModifiers& modifiers) override;
 
 protected:
 

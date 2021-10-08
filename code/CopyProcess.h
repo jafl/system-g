@@ -24,7 +24,7 @@ public:
 	static void	Move(FileTreeTable* srcTable, JPtrArray<JString>* srcNameList,
 					 FileTreeTable* destTable, FileTreeNode* destNode);
 
-	virtual ~CopyProcess();
+	~CopyProcess() override;
 
 protected:
 
@@ -36,13 +36,13 @@ protected:
 
 private:
 
-	FileTreeTable*			itsSrcTable;		// not owned; can be nullptr
-	JPtrArray<JString>*			itsSrcNameList;		// usually from DND data
-	FileTreeTable*			itsDestTable;		// not owned; can be nullptr
-	FileTreeNode*			itsDestNode;		// not owned; can be nullptr
-	JVCSType					itsVCSType;
-	const bool				itsIsMoveFlag;
-	JSimpleProcess*				itsProcess;
+	FileTreeTable*		itsSrcTable;		// not owned; can be nullptr
+	JPtrArray<JString>*	itsSrcNameList;		// usually from DND data
+	FileTreeTable*		itsDestTable;		// not owned; can be nullptr
+	FileTreeNode*		itsDestNode;		// not owned; can be nullptr
+	JVCSType			itsVCSType;
+	const bool			itsIsMoveFlag;
+	JSimpleProcess*		itsProcess;
 
 private:
 
@@ -51,11 +51,11 @@ private:
 									 const JString& destPath);
 
 	static bool	CleanSrcList(JPtrArray<JString>* srcNameList,
-								 FileTreeNode* destNode);
+							 FileTreeNode* destNode);
 	static bool	ActionIsUseful(const JString& srcName, const JString& destPath,
-								   JString* destName);
+							   JString* destName);
 	static bool	OKToReplace(const JString& srcName, const JString& destName,
-								bool* ask, bool* first);
+							bool* ask, bool* first);
 
 	// not allowed
 

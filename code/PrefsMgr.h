@@ -52,7 +52,7 @@ public:
 
 	PrefsMgr(bool* isNew);
 
-	virtual	~PrefsMgr();
+	~PrefsMgr() override;
 
 	JString	GetSystemGVersionStr() const;
 

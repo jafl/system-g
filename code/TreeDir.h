@@ -28,14 +28,14 @@ public:
 
 	TreeDir(const JString& startPath);
 
-	virtual ~TreeDir();
+	~TreeDir() override;
 
 	bool			Close() override;
 	const JString&	GetName() const override;
 	bool			GetMenuIcon(const JXImage** icon) const override;
 
-	const JString&		GetDirectory() const;
-	TreeSet*			GetTreeSet() const;
+	const JString&	GetDirectory() const;
+	TreeSet*		GetTreeSet() const;
 	FileTreeTable*	GetTable() const;
 
 	void	SaveState();
@@ -47,7 +47,7 @@ protected:
 private:
 
 	TreeSet*	itsTreeSet;
-	bool	itsAutoMountFlag;	// true => unmount when close
+	bool		itsAutoMountFlag;	// true => unmount when close
 
 	JXTextMenu*	itsPrefsMenu;
 	JXTextMenu*	itsHelpMenu;

@@ -20,18 +20,18 @@ public:
 
 	static void	Move(FileTreeTable* table, JPtrArray<JString>* fullNameList);
 
-	virtual ~MoveToTrashProcess();
+	~MoveToTrashProcess() override;
 
 protected:
 
 	MoveToTrashProcess(FileTreeTable* table, JPtrArray<JString>* fullNameList,
-						  const JString& trashDir);
+					   const JString& trashDir);
 
 	void	Receive(JBroadcaster* sender, const Message& message) override;
 
 private:
 
-	FileTreeTable*	itsTable;			// not owned; can be nullptr
+	FileTreeTable*		itsTable;			// not owned; can be nullptr
 	JPtrArray<JString>*	itsFullNameList;	// store strings so don't need table
 	JString				itsTrashDir;
 	JSimpleProcess*		itsProcess;

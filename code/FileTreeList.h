@@ -20,7 +20,7 @@ public:
 
 	FileTreeList(FileTree* tree);
 
-	virtual ~FileTreeList();
+	~FileTreeList() override;
 
 	FileTree*		GetFileTree();
 	const FileTree*	GetFileTree() const;
@@ -33,8 +33,8 @@ public:
 
 protected:
 
-	virtual bool	ShouldOpenSibling(const JTreeNode* node);
-	virtual bool	ShouldOpenDescendant(const JTreeNode* node);
+	bool	ShouldOpenSibling(const JTreeNode* node) override;
+	bool	ShouldOpenDescendant(const JTreeNode* node) override;
 };
 
 #endif

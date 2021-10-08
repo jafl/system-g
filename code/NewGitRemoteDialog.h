@@ -18,7 +18,7 @@ public:
 
 	NewGitRemoteDialog(JXDirector* supervisor);
 
-	virtual ~NewGitRemoteDialog();
+	~NewGitRemoteDialog() override;
 
 	const JString&	GetRepoURL() const;
 	const JString&	GetLocalName() const;

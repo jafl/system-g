@@ -21,10 +21,10 @@ public:
 
 	BeginEditingTask(FileTreeTable* table, const JPoint& cell);
 
-	virtual ~BeginEditingTask();
+	~BeginEditingTask() override;
 
-	void			Perform();
-	virtual void	Perform(const Time delta, Time* maxSleepTime);
+	void	Perform();
+	void	Perform(const Time delta, Time* maxSleepTime) override;
 
 private:
 

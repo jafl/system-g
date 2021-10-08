@@ -26,17 +26,17 @@ public:
 	Application(int* argc, char* argv[], bool* displayAbout,
 				   JString* prevVersStr);
 
-	virtual ~Application();
+	~Application() override;
 
 	bool	Close() override;
 
 	bool	OpenDirectory();
 	bool	OpenDirectory(const JString& pathName,
-							  TreeDir** dir = nullptr, JIndex* row = nullptr,
-							  const bool deiconify = true,
-							  const bool reportError = true,
-							  const bool forceNew = true,
-							  const bool clearSelection = true);
+						  TreeDir** dir = nullptr, JIndex* row = nullptr,
+						  const bool deiconify = true,
+						  const bool reportError = true,
+						  const bool forceNew = true,
+						  const bool clearSelection = true);
 
 	JSize	GetWindowCount() const;
 	void	GetWindowNames(JPtrArray<JString>* names);
@@ -51,7 +51,7 @@ public:
 
 	bool	IsMountPoint(const JString& path, JMountType* type = nullptr) const;
 	bool	GetMountPointPrefs(const JString& path, const JString** prefs) const;
-	void		SetMountPointPrefs(const JString& path, const JString& prefs);
+	void	SetMountPointPrefs(const JString& path, const JString& prefs);
 
 	void	DirectoryRenamed(const Message& message);
 	void	UpdateTrash();
@@ -72,7 +72,7 @@ public:
 	void	DisplayAbout(const JString& prevVersStr = JString::empty);
 
 	bool	RestoreProgramState();
-	void		SaveProgramState();
+	void	SaveProgramState();
 
 	static const JUtf8Byte*	GetAppSignature();
 	static void				InitStrings();

@@ -20,15 +20,14 @@ public:
 					   const JString& fileFilter,
 					   const bool selectOnlyWritable);
 
-	virtual ~ChoosePathDialog();
+	~ChoosePathDialog() override;
 
-	void		BuildWindow(const bool newWindow, const JString& message = JString::empty);
-
+	void	BuildWindow(const bool newWindow, const JString& message = JString::empty);
 	bool	OpenInNewWindow() const;
 
 protected:
 
-	void		Receive(JBroadcaster* sender, const Message& message) override;
+	void	Receive(JBroadcaster* sender, const Message& message) override;
 
 private:
 

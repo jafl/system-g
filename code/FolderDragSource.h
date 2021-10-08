@@ -23,26 +23,26 @@ public:
 						const JCoordinate x, const JCoordinate y,
 						const JCoordinate w, const JCoordinate h);
 
-	virtual ~FolderDragSource();
+	~FolderDragSource() override;
 
 protected:
 
 	void	HandleMouseDown(const JPoint& pt, const JXMouseButton button,
-									const JSize clickCount,
-									const JXButtonStates& buttonStates,
-									const JXKeyModifiers& modifiers) override;
+							const JSize clickCount,
+							const JXButtonStates& buttonStates,
+							const JXKeyModifiers& modifiers) override;
 	void	HandleMouseDrag(const JPoint& pt, const JXButtonStates& buttonStates,
-									const JXKeyModifiers& modifiers) override;
+							const JXKeyModifiers& modifiers) override;
 
 	Atom	GetDNDAction(const JXContainer* target,
-								 const JXButtonStates& buttonStates,
-								 const JXKeyModifiers& modifiers) override;
+						 const JXButtonStates& buttonStates,
+						 const JXKeyModifiers& modifiers) override;
 	void	GetDNDAskActions(const JXButtonStates& buttonStates,
-								  const JXKeyModifiers& modifiers,
-								  JArray<Atom>* askActionList,
-								  JPtrArray<JString>* askDescriptionList) override;
+							  const JXKeyModifiers& modifiers,
+							  JArray<Atom>* askActionList,
+							  JPtrArray<JString>* askDescriptionList) override;
 	void	HandleDNDResponse(const JXContainer* target,
-									  const bool dropAccepted, const Atom action) override;
+								  const bool dropAccepted, const Atom action) override;
 
 private:
 

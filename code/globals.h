@@ -26,7 +26,7 @@ class ChooseSaveFile;
 class FileTreeTable;
 class FileTreeList;
 
-Application*			GetApplication();
+Application*		GetApplication();
 PrefsMgr*			GetPrefsMgr();
 MDIServer*			GetMDIServer();
 ViewManPageDialog*	GetManPageDialog();
@@ -36,7 +36,7 @@ ChooseSaveFile*		GetChooseSaveFile();
 bool	IsTrashDirectory(const JString& path);
 bool	GetTrashDirectory(JString* path, const bool reportErrors = true);
 bool	TrashDirectoryIsEmpty();
-void		UpdateTrash();
+void	UpdateTrash();
 bool	EmptyTrashDirectory();
 
 bool	DeleteDirEntry(const JString& fullName);
@@ -45,24 +45,24 @@ bool	Exec(const JString& cmd, const bool report = true);
 	// called by Application
 
 bool	CreateGlobals(Application* app);
-void		DeleteGlobals();
-void		CleanUpBeforeSuddenDeath(const JXDocumentManager::SafetySaveReason reason);
+void	DeleteGlobals();
+void	CleanUpBeforeSuddenDeath(const JXDocumentManager::SafetySaveReason reason);
 
 	// called by RecentFileMenu
 
 bool	GetRecentFileDirectory(JString* path, const bool reportErrors = true);
-void		AddRecentFile(const JString& fullname);
+void	AddRecentFile(const JString& fullname);
 
 	// used during intra-app DND
 
 bool	GetDNDSource(const JXWidget* dndSource, FileTreeTable** widget);
-void		SetDNDSource(FileTreeTable* widget);
+void	SetDNDSource(FileTreeTable* widget);
 
 bool	GetDNDTarget(const JXContainer* dndTarget, FileTreeTable** widget);
-void		SetDNDTarget(FileTreeTable* widget);
+void	SetDNDTarget(FileTreeTable* widget);
 
-void		GetDNDAskActions(JArray<Atom>* actionList,
-								JPtrArray<JString>* descriptionList);
+void	GetDNDAskActions(JArray<Atom>* actionList,
+						 JPtrArray<JString>* descriptionList);
 
 	// icons
 
@@ -74,9 +74,9 @@ JXImage*	GetExecSmallIcon(const bool selected = false);
 JXImage*	GetUnknownSmallIcon(const bool selected = false);
 JXImage*	GetDirectorySmallIcon(const JString& path);
 JIndex		GetMountPointLargeIcon(const JString& path, FileTreeList* fileList,
-									  JXPM* plainIcon, JXPM* selectedIcon);
+								   JXPM* plainIcon, JXPM* selectedIcon);
 
-bool	GetMountPointSmallIcon(const JMountType type, JXImage** image);
+bool		GetMountPointSmallIcon(const JMountType type, JXImage** image);
 JXImage*	GetTrashSmallIcon(const bool selected = false);
 
 	// version info

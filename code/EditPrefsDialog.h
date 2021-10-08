@@ -27,7 +27,7 @@ public:
 					   const bool del, const bool newWindows,
 					   const bool perFolderPrefs);
 
-	virtual ~EditPrefsDialog();
+	~EditPrefsDialog() override;
 
 	void	GetPrefs(JString* terminalCmd, JString* manViewCmd,
 					 JString* gitStatusCmd, JString* gitHistoryCmd,

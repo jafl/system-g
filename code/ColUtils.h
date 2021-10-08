@@ -24,11 +24,11 @@ enum GFMColType
 };
 
 bool	InsertFMCol(JXTable* table, bool visibleCols[],
-						const JIndex leadingCols, const GFMColType type,
-						JIndex* index, JCoordinate* retWidth);
+					const JIndex leadingCols, const GFMColType type,
+					JIndex* index, JCoordinate* retWidth);
 bool	RemoveFMCol(JXTable* table, bool visibleCols[],
-						const JIndex leadingCols, const GFMColType type,
-						JIndex* index);
+					const JIndex leadingCols, const GFMColType type,
+					JIndex* index);
 
 JSize		GetFMColCount(const bool visibleCols[], const JIndex leadingCols);
 JSize		GetFMColWidth(const bool visibleCols[], const JIndex leadingCols, const JIndex index);
@@ -38,7 +38,7 @@ void		GetFMCols(bool* kShowUID, bool* kShowGID, bool* kShowSize,
 					  bool* kShowMode, bool* kShowDate);
 GFMColType	GetFMColType(const JIndex index, const JIndex leadingCols,
 						 const bool visibleCols[]);
-bool	GFMTypeVisible(const bool visibleCols[],const GFMColType type);
+bool		GFMTypeVisible(const bool visibleCols[],const GFMColType type);
 void		GetFMColTitle(const bool visibleCols[], const JIndex leadingCols,
 						  const JIndex index, JString* str);
 JCoordinate GetFMBufferWidth(const bool visibleCols[], const JIndex leadingCols, const JIndex index);

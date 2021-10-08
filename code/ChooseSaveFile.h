@@ -21,13 +21,13 @@ public:
 
 	ChooseSaveFile(JPrefsManager* prefsMgr, const JPrefID& id);
 
-	virtual ~ChooseSaveFile();
+	~ChooseSaveFile() override;
 
-	void		ShouldOpenInNewWindow(const bool newWindow);
+	void	ShouldOpenInNewWindow(const bool newWindow);
 	bool	IsOpeningInNewWindow() const;
 
-	void		SGReadSetup(std::istream& input);
-	void		SGWriteSetup(std::ostream& output) const;
+	void	SGReadSetup(std::istream& input);
+	void	SGWriteSetup(std::ostream& output) const;
 
 protected:
 
@@ -55,7 +55,7 @@ protected:
 private:
 
 	ChoosePathDialog*	itsPathDialog;
-	bool					itsOpenInNewWindow;
+	bool				itsOpenInNewWindow;
 };
 
 #endif

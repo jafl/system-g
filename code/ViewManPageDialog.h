@@ -26,7 +26,7 @@ public:
 
 	ViewManPageDialog(JXDirector* supervisor);
 
-	virtual ~ViewManPageDialog();
+	~ViewManPageDialog() override;
 
 	void	Activate() override;
 

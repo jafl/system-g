@@ -21,7 +21,7 @@ public:
 
 	FileTreeNode(JDirEntry* entry);
 
-	virtual ~FileTreeNode();
+	~FileTreeNode() override;
 
 	void	Init();
 	void	SetChildCompareFunction(const GFMColType type);
@@ -39,7 +39,7 @@ public:
 
 protected:
 
-	virtual JFSFileTreeNode*	CreateChild(JDirEntry* entry);
+	JFSFileTreeNode*	CreateChild(JDirEntry* entry) override;
 };
 
 /******************************************************************************
