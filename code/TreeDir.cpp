@@ -36,7 +36,7 @@
 #include <sstream>
 #include <jx-af/jcore/jAssert.h>
 
-#include <jx_help_toc.xpm>
+#include <jx-af/image/jx/jx_help_toc.xpm>
 
 const JString kDirPrefsName    (".systemg_folder_prefs_", JString::kNoCopy);
 const JString kOrigDirPrefsName(".systemG.Desktop", JString::kNoCopy);

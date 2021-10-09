@@ -605,49 +605,49 @@ GetVersionStr()
 
  ******************************************************************************/
 
-#include <jx_hard_disk_small.xpm>
-#include <jx_zip_disk_small.xpm>
-#include <jx_floppy_disk_small.xpm>
-#include <jx_cdrom_disk_small.xpm>
+#include <jx-af/image/jx/jx_hard_disk_small.xpm>
+#include <jx-af/image/jx/jx_zip_disk_small.xpm>
+#include <jx-af/image/jx/jx_floppy_disk_small.xpm>
+#include <jx-af/image/jx/jx_cdrom_disk_small.xpm>
 
-#include <jx_trash_can_empty_small.xpm>
-#include <jx_trash_can_empty_selected_small.xpm>
-#include <jx_trash_can_full_small.xpm>
-#include <jx_trash_can_full_selected_small.xpm>
+#include <jx-af/image/jx/jx_trash_can_empty_small.xpm>
+#include <jx-af/image/jx/jx_trash_can_empty_selected_small.xpm>
+#include <jx-af/image/jx/jx_trash_can_full_small.xpm>
+#include <jx-af/image/jx/jx_trash_can_full_selected_small.xpm>
 
-#include <jx_folder_large.xpm>
-#include <jx_folder_selected_large.xpm>
-#include <jx_folder_read_only_large.xpm>
-#include <jx_folder_read_only_selected_large.xpm>
+#include <jx-af/image/jx/jx_folder_large.xpm>
+#include <jx-af/image/jx/jx_folder_selected_large.xpm>
+#include <jx-af/image/jx/jx_folder_read_only_large.xpm>
+#include <jx-af/image/jx/jx_folder_read_only_selected_large.xpm>
 #include "syg_home_folder_large.xpm"
 #include "syg_home_folder_selected_large.xpm"
 #include "syg_floppy_folder_large.xpm"
 #include "syg_floppy_folder_read_only_large.xpm"
 #include "syg_cdrom_folder_large.xpm"
 #include "syg_cdrom_folder_read_only_large.xpm"
-#include <jx_trash_can_empty_large.xpm>
-#include <jx_trash_can_empty_selected_large.xpm>
-#include <jx_trash_can_full_large.xpm>
-#include <jx_trash_can_full_selected_large.xpm>
-#include <jx_hard_disk_large.xpm>
-#include <jx_hard_disk_selected_large.xpm>
-#include <jx_floppy_disk_large.xpm>
-#include <jx_floppy_disk_selected_large.xpm>
-#include <jx_cdrom_disk_large.xpm>
-#include <jx_cdrom_disk_selected_large.xpm>
+#include <jx-af/image/jx/jx_trash_can_empty_large.xpm>
+#include <jx-af/image/jx/jx_trash_can_empty_selected_large.xpm>
+#include <jx-af/image/jx/jx_trash_can_full_large.xpm>
+#include <jx-af/image/jx/jx_trash_can_full_selected_large.xpm>
+#include <jx-af/image/jx/jx_hard_disk_large.xpm>
+#include <jx-af/image/jx/jx_hard_disk_selected_large.xpm>
+#include <jx-af/image/jx/jx_floppy_disk_large.xpm>
+#include <jx-af/image/jx/jx_floppy_disk_selected_large.xpm>
+#include <jx-af/image/jx/jx_cdrom_disk_large.xpm>
+#include <jx-af/image/jx/jx_cdrom_disk_selected_large.xpm>
 
-#include <jx_plain_file_small.xpm>
-#include <jx_plain_file_selected_small.xpm>
-#include <jx_folder_small.xpm>
-#include <jx_folder_selected_small.xpm>
-#include <jx_folder_read_only_small.xpm>
-#include <jx_folder_read_only_selected_small.xpm>
-#include <jx_folder_locked_small.xpm>
-#include <jx_folder_locked_selected_small.xpm>
-#include <jx_executable_small.xpm>
-#include <jx_executable_selected_small.xpm>
-#include <jx_unknown_file_small.xpm>
-#include <jx_unknown_file_selected_small.xpm>
+#include <jx-af/image/jx/jx_plain_file_small.xpm>
+#include <jx-af/image/jx/jx_plain_file_selected_small.xpm>
+#include <jx-af/image/jx/jx_folder_small.xpm>
+#include <jx-af/image/jx/jx_folder_selected_small.xpm>
+#include <jx-af/image/jx/jx_folder_read_only_small.xpm>
+#include <jx-af/image/jx/jx_folder_read_only_selected_small.xpm>
+#include <jx-af/image/jx/jx_folder_locked_small.xpm>
+#include <jx-af/image/jx/jx_folder_locked_selected_small.xpm>
+#include <jx-af/image/jx/jx_executable_small.xpm>
+#include <jx-af/image/jx/jx_executable_selected_small.xpm>
+#include <jx-af/image/jx/jx_unknown_file_small.xpm>
+#include <jx-af/image/jx/jx_unknown_file_selected_small.xpm>
 
 void
 CreateIcons()

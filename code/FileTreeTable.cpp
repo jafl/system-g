@@ -71,10 +71,10 @@
 #include <jx-af/jcore/jASCIIConstants.h>
 #include <jx-af/jcore/jAssert.h>
 
-#include <jx_file_new.xpm>
-#include <jx_file_open.xpm>
-#include <jx_folder_small.xpm>
-#include <jx_find.xpm>
+#include <jx-af/image/jx/jx_file_new.xpm>
+#include <jx-af/image/jx/jx_file_open.xpm>
+#include <jx-af/image/jx/jx_folder_small.xpm>
+#include <jx-af/image/jx/jx_find.xpm>
 #include "mini_term.xpm"
 #include "man.xpm"
 #include "home.xpm"
