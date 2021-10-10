@@ -12,6 +12,10 @@ if [[ $UID != 0 ]]; then
 	SUDO="sudo";
 fi
 
+if [[ $1 == release ]]; then
+	echo -n 1 >| 0-RELEASE;
+fi
+
 if [[ $SYS == Darwin ]]; then
 
 	if [[ -z $HOMEBREW_VERSION ]]; then

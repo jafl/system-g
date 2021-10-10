@@ -4,9 +4,8 @@ Maintainer: John Lindal <https://about.me/johnlindal>
 Homepage: https://github.com/jafl/system-g
 Section: contrib/utils
 Priority: optional
-Architecture: i386
+Architecture: %ARCH%
 Essential: no
-Depends: libx11, libxinerama, libxpm, libxft, libxml2, libgd, libjpeg, libpng, libace, libicu, libpcre3, xterm, git-gui
+Depends: ${shlibs:Depends}, xterm, git-gui
 Suggests: code-crusader
 Description: System G provides a graphical interface to UNIX file system.
- System G provides a graphical interface to UNIX file system, similar to Mac OS 7.
