@@ -16,7 +16,7 @@
 #include "FileTreeTable.h"
 #include "FileTreeList.h"
 #include "FileTree.h"
-#include <jx-af/jx/JXDisplay.h>
+#include "jx-af/jx/JXDisplay.h"
 #include <jx-af/jx/JXImageCache.h>
 #include <jx-af/jx/JXImage.h>
 #include <jx-af/jx/JXDNDManager.h>
