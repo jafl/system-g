@@ -16,7 +16,7 @@
 #include "FileTreeTable.h"
 #include "FileTreeList.h"
 #include "FileTree.h"
-#include "jx-af/jx/JXDisplay.h"
+#include <jx-af/jx/JXDisplay.h>
 #include <jx-af/jx/JXImageCache.h>
 #include <jx-af/jx/JXImage.h>
 #include <jx-af/jx/JXDNDManager.h>
@@ -29,7 +29,7 @@
 #include <jx-af/jcore/jAssert.h>
 
 static Application*			theApplication       = nullptr;	// owns itself
-static PrefsMgr*				thePrefsMgr          = nullptr;
+static PrefsMgr*			thePrefsMgr          = nullptr;
 static MDIServer*			theMDIServer         = nullptr;	// owned by JX
 
 static ViewManPageDialog*	theManPageDialog     = nullptr;	// not owned
