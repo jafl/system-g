@@ -8,6 +8,7 @@ Since we use System G extensively, we guarantee that it will continue to improve
 ## Building from source
 
 1. Install the [JX Application Framework](https://github.com/jafl/jx_application_framework),  and set the `JX_ROOT` environment variable to point to its `include` directory.
+1. `./configure`
 1. `makemake`
 1. `make`
 
