@@ -25,7 +25,7 @@ if [[ $SYS == Darwin ]]; then
 		else
 			echo Updating Homebrew...;
 			brew update;
-		fi
+		fi;
 
 		brew bundle;
 	fi
@@ -36,7 +36,9 @@ elif command -v apt-get; then
 
 	if [[ -z $LGTM_SRC ]]; then
 		$SUDO apt update;
-		$SUDO apt -y install git-gui;
+		if [[ -z $CODEQL_ACTION_VERSION ]]; then
+			$SUDO apt -y install git-gui;
+		fi;
 	fi
 
 elif command -v dnf; then
