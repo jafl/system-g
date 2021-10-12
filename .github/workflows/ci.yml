@@ -60,6 +60,7 @@ jobs:
         run: |
           ./configure release
           curl -O http://libjx.sourceforge.net/ci/jx-application-framework.deb
+          sudo apt install gdebi
           sudo gdebi ./jx-application-framework.deb
 
       - name: Build
