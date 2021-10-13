@@ -2768,32 +2768,10 @@ FileTreeTable::CreateNewDirectory()
 	{
 		return;
 	}
-	ClearIncrementalSearchBuffer();
 
-	FileTreeNode* node = nullptr;
+	FileTreeNode* node = PrepareToCreateNew();
 
-	JTableSelection& s = GetTableSelection();
-	JPoint cell;
-	if (s.GetFirstSelectedCell(&cell))
-	{
-		const JIndex index = GetNearestDirIndex(cell.y, true);
-		if (index == 0)
-		{
-			node = itsFileTree->GetFileRoot();
-		}
-		else
-		{
-			node = itsFileTreeList->GetFileNode(index);
-			GetTreeList()->Open(node);
-		}
-	}
-	else
-	{
-		node = itsFileTree->GetFileRoot();
-	}
-	assert( node != nullptr );
-
-	JString dirName  = (node->GetDirEntry())->GetFullName();
+	JString dirName  = node->GetDirEntry()->GetFullName();
 	dirName          = JGetUniqueDirEntryName(dirName, JGetString("NewNamePrefix::FileTreeTable"));
 	const JError err = JCreateDirectory(dirName);
 	if (err.OK())
@@ -2824,36 +2802,14 @@ FileTreeTable::CreateNewTextFile()
 	{
 		return;
 	}
-	ClearIncrementalSearchBuffer();
 
-	FileTreeNode* node = nullptr;
+	FileTreeNode* node = PrepareToCreateNew();
 
-	JTableSelection& s = GetTableSelection();
-	JPoint cell;
-	if (s.GetFirstSelectedCell(&cell))
-	{
-		const JIndex index = GetNearestDirIndex(cell.y, true);
-		if (index == 0)
-		{
-			node = itsFileTree->GetFileRoot();
-		}
-		else
-		{
-			node = itsFileTreeList->GetFileNode(index);
-			GetTreeList()->Open(node);
-		}
-	}
-	else
-	{
-		node = itsFileTree->GetFileRoot();
-	}
-	assert( node != nullptr );
-
-	JString name = (node->GetDirEntry())->GetFullName();
+	JString name = node->GetDirEntry()->GetFullName();
 	name         = JGetUniqueDirEntryName(name, JGetString("NewNamePrefix::FileTreeTable"), ".txt");
-{
+	{
 	std::ofstream output(name.GetBytes());
-}
+	}
 	if (JFileExists(name))
 	{
 		JString p, n;
@@ -2867,6 +2823,38 @@ FileTreeTable::CreateNewTextFile()
 	else
 	{
 		JGetUserNotification()->ReportError(JGetString("CreateTextFileError::FileTreeTable"));
+	}
+}
+
+/******************************************************************************
+ PrepareToCreateNew (private)
+
+ ******************************************************************************/
+
+FileTreeNode*
+FileTreeTable::PrepareToCreateNew()
+{
+	ClearIncrementalSearchBuffer();
+
+	JTableSelection& s = GetTableSelection();
+	JPoint cell;
+	if (s.GetFirstSelectedCell(&cell))
+	{
+		const JIndex index = GetNearestDirIndex(cell.y, true);
+		if (index == 0)
+		{
+			return itsFileTree->GetFileRoot();
+		}
+		else
+		{
+			FileTreeNode* node = itsFileTreeList->GetFileNode(index);
+			GetTreeList()->Open(node);
+			return node;
+		}
+	}
+	else
+	{
+		return itsFileTree->GetFileRoot();
 	}
 }
 

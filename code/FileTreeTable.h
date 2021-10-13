@@ -246,6 +246,8 @@ private:
 	void	UpdateFileMenu();
 	void	HandleFileMenu(const JIndex index);
 
+	FileTreeNode*	PrepareToCreateNew();
+
 	void	OpenSelection(const bool alternate, const bool alwaysRunCmd,
 						  const bool iconifyAfter, const bool closeAfter);
 
