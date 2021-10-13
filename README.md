@@ -1,3 +1,12 @@
+[![Github CI](https://github.com/jafl/systemg-g/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jafl/systemg-g/actions/workflows/ci.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=main&project=jafl_system-g&metric=alert_status)](https://sonarcloud.io/dashboard?id=jafl_system-g&branch=main)
+
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?branch=main&project=jafl_system-g&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jafl_system-g&branch=main)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?branch=main&project=jafl_system-g&metric=security_rating)](https://sonarcloud.io/dashboard?id=jafl_system-g&branch=main)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?branch=main&project=jafl_system-g&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=jafl_system-g&branch=main)
+
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?branch=main&project=jafl_system-g&metric=ncloc)](https://sonarcloud.io/dashboard?id=jafl_system-g&branch=main)
+
 # System G
 
 System G provides a graphical interface to the UNIX file system.  The on-line help explains all the features of the program.
