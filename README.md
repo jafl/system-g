@@ -1,4 +1,4 @@
-[![Github CI](https://github.com/jafl/systemg-g/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jafl/systemg-g/actions/workflows/ci.yml)
+[![Github CI](https://github.com/jafl/system-g/actions/workflows/ci.yml/badge.svg)](https://github.com/jafl/system-g/actions/workflows/ci.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?branch=main&project=jafl_system-g&metric=alert_status)](https://sonarcloud.io/dashboard?id=jafl_system-g&branch=main)
 
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?branch=main&project=jafl_system-g&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=jafl_system-g&branch=main)
