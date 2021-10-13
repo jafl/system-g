@@ -59,8 +59,7 @@ jobs:
       - name: Configure
         run: |
           curl -O http://libjx.sourceforge.net/ci/jx-application-framework.deb
-          sudo apt install gdebi
-          sudo gdebi --non-interactive ./jx-application-framework.deb
+          sudo apt install ./jx-application-framework.deb
           ./configure release
           makemake
 
