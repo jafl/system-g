@@ -54,12 +54,10 @@ DuplicateProcess::DuplicateProcess
 	itsTable->GetTableSelection().ClearSelection();
 	ClearWhenGoingAway(itsTable, &itsTable);
 
-	const JSize count = nodeList.GetElementCount();
-	for (JIndex i=1; i<=count; i++)
+	for (auto* node : nodeList)
 	{
-		auto* node = const_cast<FileTreeNode*>(nodeList.GetElement(i));
 		itsNodeList.Append(node);
-		itsFullNameList.Append((node->GetDirEntry())->GetFullName());
+		itsFullNameList.Append(node->GetDirEntry()->GetFullName());
 		ListenTo(node);
 	}
 
@@ -90,8 +88,7 @@ DuplicateProcess::Receive
 {
 	if (sender == itsProcess && message.Is(JProcess::kFinished))
 	{
-		const auto* info =
-			dynamic_cast<const JProcess::Finished*>(&message);
+		const auto* info = dynamic_cast<const JProcess::Finished*>(&message);
 		if (info->Successful() && itsTable != nullptr && !itsTable->IsEditing())
 		{
 			FileTreeNode* node   = itsNodeList.GetFirstElement();

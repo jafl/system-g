@@ -32,10 +32,6 @@ bool	RemoveFMCol(JXTable* table, bool visibleCols[],
 
 JSize		GetFMColCount(const bool visibleCols[], const JIndex leadingCols);
 JSize		GetFMColWidth(const bool visibleCols[], const JIndex leadingCols, const JIndex index);
-void		SetFMCols(bool kShowUID, bool kShowGID, bool kShowSize,
-					  bool kShowMode, bool kShowDate);
-void		GetFMCols(bool* kShowUID, bool* kShowGID, bool* kShowSize,
-					  bool* kShowMode, bool* kShowDate);
 GFMColType	GetFMColType(const JIndex index, const JIndex leadingCols,
 						 const bool visibleCols[]);
 bool		GFMTypeVisible(const bool visibleCols[],const GFMColType type);

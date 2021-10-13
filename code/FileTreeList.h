@@ -28,7 +28,6 @@ public:
 	FileTreeNode*		GetFileNode(const JIndex index);
 	const FileTreeNode*	GetFileNode(const JIndex index) const;
 
-//	JDirEntry*			GetDirEntry(const JIndex index);
 	const JDirEntry*	GetDirEntry(const JIndex index) const;
 
 protected:

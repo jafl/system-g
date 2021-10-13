@@ -260,8 +260,6 @@ static const JString kFormatType[] =
 	JString("msdos", JString::kNoCopy)
 };
 
-const JSize kFormatCount = sizeof(kFormatName) / sizeof(JString);
-
 // Context menu
 
 static const JUtf8Byte* kContextMenuStr =
@@ -343,7 +341,7 @@ FileTreeTable::FileTreeTable
 	ShouldHilightTextOnly(true);
 	WantInput(true);
 
-	itsAltRowColor = GetDisplay()->GetColorManager()->GetGrayColor(95);
+	itsAltRowColor = JColorManager::GetGrayColor(95);
 
 	itsPermCharWidth =
 		JFontManager::GetDefaultFont().GetCharWidth(GetFontManager(), kPermTestChar);
@@ -1175,7 +1173,7 @@ FileTreeTable::HandleMouseUp
 	JPainter* p = nullptr;
 	if (GetDragPainter(&p))
 	{
-		const JRect selRect = JRect(itsStartPt, itsPrevPt);
+		const JRect selRect(itsStartPt, itsPrevPt);
 		p->Rect(selRect);		// erase rectangle
 
 		// Pin in bounds so points below bounds don't change but points
@@ -3195,9 +3193,9 @@ FileTreeTable::FormatDisk()
 		assert( itsChooseDiskFormatDialog == nullptr );
 
 		JPtrArray<JString> choiceList(JPtrArrayT::kDeleteAll);
-		for (JUnsignedOffset i=0; i<kFormatCount; i++)
+		for (const auto& name : kFormatName)
 		{
-			choiceList.Append(kFormatName[i]);
+			choiceList.Append(name);
 		}
 
 		itsChooseDiskFormatDialog =
@@ -4267,6 +4265,8 @@ FileTreeTable::GetGitBranches
 	JPtrArray<JString>*	repoList
 	)
 {
+	*currentIndex = 0;
+
 	int fromFD;
 	const JError err = JExecute(itsFileTree->GetDirectory(), JString(cmd, JString::kNoCopy), nullptr,
 								kJIgnoreConnection, nullptr,
@@ -4274,7 +4274,6 @@ FileTreeTable::GetGitBranches
 	if (!err.OK())
 	{
 		branchList->Append(JGetString("NoBranchInfo::FileTreeTable"));
-		*currentIndex = 0;
 		itsCurrentGitBranch.Clear();
 		return false;
 	}
@@ -4318,7 +4317,7 @@ FileTreeTable::GetGitBranches
 	}
 
 	::close(fromFD);
-	return true;
+	return *currentIndex > 0;
 }
 
 /******************************************************************************
@@ -5159,7 +5158,7 @@ void
 FileTreeTable::AdjustToTree()
 {
 	const JFontStyle workingLink(false, true, 0, false);
-	const JFontStyle brokenLink(false, true, 0, false, GetDisplay()->GetColorManager()->GetGrayColor(60));
+	const JFontStyle brokenLink(false, true, 0, false, JColorManager::GetGrayColor(60));
 
 	const JSize count = GetRowCount();
 	for (JIndex i=1; i<=count; i++)

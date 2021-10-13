@@ -683,6 +683,7 @@ CreateIcons()
 void
 DeleteIcons()
 {
+	// placeholder in case we need to do something in the future
 }
 
 JXImage*

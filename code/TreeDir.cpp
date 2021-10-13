@@ -478,7 +478,7 @@ TreeDir::HandlePrefsMenu
 	}
 	else if (index == kEditBindings)
 	{
-		JXFSBindingManager::Instance()->EditBindings();
+		JXFSBindingManager::EditBindings();
 	}
 	else if (index == kEditToolBarCmd)
 	{

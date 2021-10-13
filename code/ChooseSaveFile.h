@@ -31,16 +31,6 @@ public:
 
 protected:
 
-//	JXSaveFileDialog*
-//	CreateSaveFileDialog(JXDirector* supervisor, JDirInfo* dirInfo,
-//						 const JString& fileFilter, const JString& origName,
-//						 const JString& prompt, const JString& message) override;
-
-//	JXChooseFileDialog*
-//	CreateChooseFileDialog(JXDirector* supervisor, JDirInfo* dirInfo,
-//						   const JString& fileFilter, const JString& origName,
-//						   const bool allowSelectMultiple, const JString& message) override;
-
 	JXChoosePathDialog*
 	CreateChoosePathDialog(JXDirector* supervisor, JDirInfo* dirInfo,
 						   const JString& fileFilter,

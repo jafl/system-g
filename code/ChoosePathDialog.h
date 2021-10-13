@@ -25,10 +25,6 @@ public:
 	void	BuildWindow(const bool newWindow, const JString& message = JString::empty);
 	bool	OpenInNewWindow() const;
 
-protected:
-
-	void	Receive(JBroadcaster* sender, const Message& message) override;
-
 private:
 
 // begin JXLayout

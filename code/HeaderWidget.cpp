@@ -11,7 +11,6 @@
 
 #include "HeaderWidget.h"
 #include "FileTreeTable.h"
-#include <jx-af/jx/JXDisplay.h>
 #include <jx-af/jx/JXWindow.h>
 #include <jx-af/jcore/JFontManager.h>
 #include <jx-af/jx/JXColorManager.h>
@@ -42,13 +41,11 @@ HeaderWidget::HeaderWidget
 	JXColHeaderWidget(table, scrollbarSet, enclosure, hSizing,vSizing, x,y, w,h),
 	itsTable(table)
 {
-	JColorManager* mgr = GetDisplay()->GetColorManager();
-
-	SetRowBorderInfo(0, mgr->GetBlackColor());
-	SetColBorderInfo(0, mgr->GetBlackColor());
+	SetRowBorderInfo(0, JColorManager::GetBlackColor());
+	SetColBorderInfo(0, JColorManager::GetBlackColor());
 
 	WantInput(false,false);	// we don't want focus
-	SetBackColor(mgr->GetWhiteColor());
+	SetBackColor(JColorManager::GetWhiteColor());
 }
 
 /******************************************************************************

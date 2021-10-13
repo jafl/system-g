@@ -180,21 +180,6 @@ ChoosePathDialog::BuildWindow
 }
 
 /******************************************************************************
- Receive (virtual protected)
-
- ******************************************************************************/
-
-void
-ChoosePathDialog::Receive
-	(
-	JBroadcaster*	sender,
-	const Message&	message
-	)
-{
-	JXChoosePathDialog::Receive(sender, message);
-}
-
-/******************************************************************************
  OpenInNewWindow (public)
 
  ******************************************************************************/

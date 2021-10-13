@@ -44,53 +44,6 @@ ChooseSaveFile::~ChooseSaveFile()
 }
 
 /******************************************************************************
- CreateSaveFileDialog (virtual protected)
-
- ******************************************************************************/
-/*
-JXSaveFileDialog*
-ChooseSaveFile::CreateSaveFileDialog
-	(
-	JXDirector*		supervisor,
-	JDirInfo*		dirInfo,
-	const JString&	fileFilter,
-	const JString&	origName,
-	const JString&	prompt,
-	const JString&	message
-	)
-{
-	itsSaveDialog =
-		jnew GMSaveFileDialog(supervisor, dirInfo, fileFilter, origName, prompt, message);
-	assert( itsSaveDialog != nullptr );
-	itsSaveDialog->ShouldSaveHeaders(itsSaveHeaders);
-	return itsSaveDialog;
-}
-*/
-/******************************************************************************
- CreateChooseFileDialog (virtual protected)
-
- ******************************************************************************/
-/*
-JXChooseFileDialog*
-ChooseSaveFile::CreateChooseFileDialog
-	(
-	JXDirector*		supervisor,
-	JDirInfo*		dirInfo,
-	const JString&	fileFilter,
-	const JString&	origName,
-	const bool	allowSelectMultiple,
-	const JString&	message
-	)
-{
-	itsChooseDialog =
-		jnew GMChooseFileDialog(supervisor, dirInfo, fileFilter, allowSelectMultiple);
-	assert( itsChooseDialog != nullptr );
-	itsChooseDialog->BuildWindow(origName, message);
-	itsChooseDialog->ShouldSaveHeaders(itsSaveHeaders);
-	return itsChooseDialog;
-}
-*/
-/******************************************************************************
  CreateChoosePathDialog (virtual protected)
 
  ******************************************************************************/
