@@ -90,7 +90,7 @@ else
 
 fi
 
-if [[ ! -d /usr/local/include/jx-af/ && -z $JX_ROOT ]];
+if [[ ! -d /usr/local/include/jx-af/ && -z $JX_ROOT ]]; then
 
 	echo "Please install jx-application-framework.";
 	exit 1;
