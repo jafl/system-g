@@ -2,10 +2,6 @@
 
 set -e;
 
-#
-# main script
-#
-
 SYS=`uname -o || uname -s`;		# Darwin doesn't support -o
 
 if [[ $UID != 0 ]]; then

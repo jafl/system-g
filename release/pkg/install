@@ -13,8 +13,6 @@ if [[ ! -z $PRE ]]; then
 	mkdir -p $BIN $APP $ICON;
 fi
 
-# systemg
-
 install -m755 systemg $BIN
 
 mkdir -p $DOC
