@@ -1,7 +1,8 @@
-name: Github CI
+name: CI
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 jobs:
   build:
     name: Build
@@ -78,3 +79,16 @@ jobs:
 
       - name: Perform CodeQL analysis
         uses: github/codeql-action/analyze@v1
+
+      - name: Build release artifacts
+        run: |
+          make VERBOSE=1 release
+          mv ../systemg_*.tar.gz ../systemg_*.deb .
+
+      - name: Store release artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: release
+          path: |
+            systemg_*.tar.gz
+            systemg_*.deb
