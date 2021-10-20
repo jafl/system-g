@@ -82,7 +82,7 @@ jobs:
 
       - name: Build release artifacts
         run: |
-          make VERBOSE=1 release
+          make release
           mv ../systemg_*.tar.gz ../systemg_*.deb .
 
       - name: Store release artifacts
