@@ -1054,7 +1054,7 @@ FileTreeTable::HandleMouseDown
 	{
 		// after checking for double-click, since this inverts selection
 
-		// does not use meta on osx, because meta-dbl-click used in too many places
+		// does not use meta on MacOS, because meta-dbl-click used in too many places
 
 		s.InvertCell(cell.y, GetNodeColIndex());
 		itsWaitingForDragFlag = s.IsSelected(cell.y, GetNodeColIndex());

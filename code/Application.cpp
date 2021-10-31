@@ -27,7 +27,7 @@
 
 static const JUtf8Byte* kAppSignature = "systemg";
 
-#ifdef _J_OSX
+#ifdef _J_MACOS
 static const JString kDefaultTermCmd       ("open -a Terminal $p", JString::kNoCopy);
 static const JString kDefaultGitStatusCmd  ("git gui", JString::kNoCopy);
 static const JString kDefaultGitHistoryCmd ("gitk --all", JString::kNoCopy);
