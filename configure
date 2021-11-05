@@ -8,21 +8,19 @@ if [[ $UID != 0 ]]; then
 	SUDO="sudo";
 fi
 
-if [[ $1 == release ]]; then
+if [[ $1 == release || $1 == ci ]]; then
 	echo -n 1 >| 0-RELEASE;
 fi
 
 if [[ $SYS == Darwin ]]; then
 
-	if [[ -z $HOMEBREW_VERSION ]]; then
-		if ! command -v brew; then
-			echo Installing Homebrew...;
-			sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)";
-		else
-			echo Updating Homebrew...;
-			brew update;
-		fi;
+	if ! command -v brew; then
+		echo Installing Homebrew...;
+		sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)";
+	fi;
 
+	if [[ $1 != ci ]]; then
+		brew tap jafl/jx;
 		brew bundle;
 	fi
 
@@ -30,7 +28,7 @@ elif command -v apt-get; then
 
 	# debian
 
-	if [[ -z $CODEQL_ACTION_VERSION ]]; then
+	if [[ $1 != ci ]]; then
 		$SUDO apt update;
 		$SUDO apt -y install git-gui;
 
@@ -57,10 +55,6 @@ elif command -v zypper; then
 	# openSUSE
 
 	$SUDO zypper -in install git-gui xterm;
-
-	# lldb-devel is missing
-	rm -f code_medic/lldb-include;
-	ln -sf ../misc/lldb-include code_medic;
 
 elif [[ $SYS == Cygwin ]]; then
 

@@ -7,11 +7,7 @@ else
   JX_ROOT := /usr/local
 endif
 
-APP_NAME  := systemg
-SIGNATURE := ${APP_NAME}
-
-J_STRING_FILES := $(filter-out %/${APP_NAME}_menu_strings, \
-                    $(shell echo strings/*)) strings/version
+APP_NAME := systemg
 
 MAKE_INCLUDE := ${JX_ROOT}/include/jx-af/make
 include ${MAKE_INCLUDE}/jx_config
@@ -41,8 +37,6 @@ EXTRA_MENU_STRING_FILES := \
     ${JX_INCLUDE_ROOT}/jx-af/jfs/*.cpp
 
 include ${MAKE_INCLUDE}/app_targets
-
-${APP_NAME}:: strings
 
 # DO NOT DELETE THIS LINE -- Code Crusader depends on it.
 
