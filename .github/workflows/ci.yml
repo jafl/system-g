@@ -2,6 +2,7 @@ name: CI
 on:
   push:
     branches: [ main ]
+    tags: [ v* ]
   workflow_dispatch:
 jobs:
   build-ubuntu:
