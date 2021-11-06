@@ -1094,7 +1094,7 @@ FileTreeTable::StartDragRect
 	{
 		if (!modifiers.shift())
 		{
-			(GetTableSelection()).ClearSelection();
+			GetTableSelection().ClearSelection();
 		}
 
 		JPainter* p = CreateDragInsidePainter();
@@ -1181,7 +1181,7 @@ FileTreeTable::HandleMouseUp
 
 		JPoint startCell, endCell;
 		const bool startOK = GetCell(JPinInRect(itsStartPt, GetBounds()), &startCell);
-		const bool endOK = GetCell(JPinInRect(itsPrevPt, GetBounds()), &endCell);
+		const bool endOK   = GetCell(JPinInRect(itsPrevPt, GetBounds()), &endCell);
 
 		const JIndex start = JMin(startCell.y, endCell.y);
 		const JIndex end   = JMax(startCell.y, endCell.y);
