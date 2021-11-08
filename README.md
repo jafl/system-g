@@ -24,11 +24,20 @@ Since we use System G extensively, we guarantee that it will continue to improve
 
 ## Installing a binary
 
-http://sourceforge.net/p/nps-systemg/
+For macOS, the easiest way to install is via [Homebrew](https://brew.sh):
 
-The easiest way to install from the binary package is to run `sudo ./install`
+* `brew install --cask xquartz`
+* `brew tap jafl/jx`
+* `brew install jafl/jx/systemg`
 
-Otherwise, the program (systemg) should be placed in a directory that is on your execution path.  `/usr/bin` or `~/bin` are usually good choices.  Copy the libraries in `lib/` to a directory on your `LD_LIBRARY_PATH`.
+For all other systems, download a package from:
+
+* https://github.com/jafl/system-g/releases
+* http://sourceforge.net/p/nps-systemg
+
+If you download the tar, unpack it, cd into the directory, and run `sudo ./install`.
+
+Otherwise, put the program (`systemg`) in a directory that is on your execution path.  `~/bin` is typically good choices.
 
 ### Requirements
 
