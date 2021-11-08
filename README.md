@@ -26,9 +26,9 @@ Since we use System G extensively, we guarantee that it will continue to improve
 
 For macOS, the easiest way to install is via [Homebrew](https://brew.sh):
 
-* `brew install --cask xquartz`
-* `brew tap jafl/jx`
-* `brew install jafl/jx/systemg`
+    brew install --cask xquartz
+    brew tap jafl/jx
+    brew install jafl/jx/systemg
 
 For all other systems, download a package from:
 
