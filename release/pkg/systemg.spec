@@ -1,5 +1,5 @@
 Summary: System G provides a graphical interface to UNIX file system.
-Name: System_G
+Name: %app_name
 Version: %pkg_version
 Release: 1
 License: GPL
@@ -18,24 +18,16 @@ similar to Mac OS 7.
 %install
 
 %define systemg_doc_dir /usr/share/doc/systemg
-%define systemg_lib_dir /usr/lib/systemg
 %define gnome_app_path  /usr/share/applications
 %define gnome_icon_path /usr/share/pixmaps
 
-./install "$RPM_BUILD_ROOT"
-
-%post
-gunzip %systemg_lib_dir/*.gz
-
-%postun
-rm -rf %systemg_lib_dir
+./install "$RPM_BUILD_ROOT"/usr
 
 %files
 
 %docdir %systemg_doc_dir
 
 /usr/bin/systemg
-%systemg_lib_dir
 %systemg_doc_dir
 
 %gnome_app_path/systemg.desktop

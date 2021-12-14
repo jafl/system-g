@@ -3975,7 +3975,7 @@ FileTreeTable::UpdateGitMenus
 			}
 		}
 	}
-	else
+	else if (!localList.IsEmpty())
 	{
 		const JString* s = localList.GetFirstElement();
 		itsGitLocalBranchMenu->AppendItem(*s);
@@ -4003,7 +4003,7 @@ FileTreeTable::UpdateGitMenus
 			itsGitMergeBranchMenu->AppendItem(*(remoteList.GetElement(i)));
 		}
 	}
-	else
+	else if (!remoteList.IsEmpty())
 	{
 		itsGitRemoteBranchMenu->AppendItem(*remoteList.GetFirstElement());
 		itsGitRemoteBranchMenu->DisableItem(1);
