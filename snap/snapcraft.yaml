@@ -1,7 +1,7 @@
 name: systemg
 title: System G
 base: core20
-version: "1.2.0"
+version: "3.0.1"
 #source-code: https://github.com/jafl/system-g
 #issues: https://github.com/jafl/system-g/issues
 #contact: https://johnlindal.wixsite.com/aboutme/contact-me
@@ -22,7 +22,12 @@ parts:
     source-type: git
     source: https://github.com/jafl/system-g
     disable-parallel: true
+    build-environment:
+      - JX_ROOT: /snap/jx-application-framework/current
+      - PATH: $PATH:$JX_ROOT/bin
+      - LD_LIBRARY_PATH: $SNAPCRAFT_PART_INSTALL/lib:$SNAPCRAFT_PART_INSTALL/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAPCRAFT_PART_INSTALL/usr/lib:$SNAPCRAFT_PART_INSTALL/usr/lib/$SNAPCRAFT_ARCH_TRIPLET
     override-build: |
+      env
       ./configure release
       make
     organize:
