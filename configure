@@ -28,7 +28,7 @@ elif command -v apt-get; then
 
 	# debian
 
-	if [[ $1 != ci ]]; then
+	if [[ $1 != ci && -z $SNAPCRAFT_BUILD_ENVIRONMENT ]]; then
 		$SUDO apt update;
 		$SUDO apt -y install git-gui;
 

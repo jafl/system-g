@@ -10,7 +10,6 @@ Requires: libX11, libXinerama, libXpm, libXft, libxml2, gd, libjpeg, libpng, lib
 %description
 System G provides a graphical interface to UNIX file system,
 similar to Mac OS 7.
-(http://www.newplanetsoftware.com/systemg/)
 
 %prep
 %setup

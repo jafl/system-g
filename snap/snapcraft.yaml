@@ -1,0 +1,54 @@
+name: systemg
+title: System G
+base: core20
+version: "1.2.0"
+#source-code: https://github.com/jafl/system-g
+#issues: https://github.com/jafl/system-g/issues
+#contact: https://johnlindal.wixsite.com/aboutme/contact-me
+summary: System G provides a graphical interface to UNIX file system.
+description: |
+  System G provides a graphical interface to UNIX file system.
+
+grade: devel
+confinement: classic
+
+apps:
+  systemg:
+    command: systemg
+
+parts:
+  systemg:
+    plugin: autotools
+    source-type: git
+    source: https://github.com/jafl/system-g
+    disable-parallel: true
+    override-build: |
+      ./configure release
+      make
+    organize:
+      systemg: bin/systemg
+      release/pkg/desktop: snap/gui
+    stage:
+      - bin
+      - snap/gui
+    build-packages:
+      - g++
+      - make
+    build-snaps:
+      - jx-application-framework
+    stage-packages:
+      - libx11-6
+      - libxext6
+      - libxau6
+      - libxinerama1
+      - libxft2
+      - libfreetype6
+      - libgd3
+      - libpng16-16
+      - libjpeg8
+      - libxpm4
+      - libxml2
+      - libace-6.4.5
+      - libicu66
+      - libpcre3
+      - libstdc++6
