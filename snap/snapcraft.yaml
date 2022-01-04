@@ -27,18 +27,35 @@ parts:
       - PATH: $PATH:$JX_ROOT/bin
       - LD_LIBRARY_PATH: $SNAPCRAFT_PART_INSTALL/lib:$SNAPCRAFT_PART_INSTALL/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAPCRAFT_PART_INSTALL/usr/lib:$SNAPCRAFT_PART_INSTALL/usr/lib/$SNAPCRAFT_ARCH_TRIPLET
     override-build: |
-      env
       ./configure release
       make
     organize:
       systemg: bin/systemg
-      release/pkg/desktop: snap/gui
     stage:
       - bin
-      - snap/gui
     build-packages:
       - g++
       - make
+      - pkg-config
+      - libx11-dev
+      - libxinerama-dev
+      - libxft-dev
+      - libxmu-dev
+      - libxi-dev
+      - libx11-xcb-dev
+      - libxcb-xfixes0-dev
+      - libxcb-dri2-0-dev
+      - libxpm-dev
+      - libjpeg-dev
+      - libpng-dev
+      - libgd-dev
+      - libace-dev
+      - libicu-dev
+      - libpcre3-dev
+      - libxml2-dev
+      - xutils-dev
+      - libdrm-dev
+      - aspell
     build-snaps:
       - jx-application-framework
     stage-packages:
