@@ -14,25 +14,21 @@ confinement: classic
 
 apps:
   systemg:
-    command: systemg
+    command: bin/systemg
 
 parts:
   systemg:
     plugin: autotools
-    source-type: git
-    source: https://github.com/jafl/system-g
+    source: .
     disable-parallel: true
     build-environment:
       - JX_ROOT: /snap/jx-application-framework/current
       - PATH: $PATH:$JX_ROOT/bin
       - LD_LIBRARY_PATH: $SNAPCRAFT_PART_INSTALL/lib:$SNAPCRAFT_PART_INSTALL/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAPCRAFT_PART_INSTALL/usr/lib:$SNAPCRAFT_PART_INSTALL/usr/lib/$SNAPCRAFT_ARCH_TRIPLET
-    override-build: |
-      ./configure release
-      make
-    organize:
-      systemg: bin/systemg
+    autotools-configure-parameters:
+      - release
     stage:
-      - bin
+      - bin/systemg
     build-packages:
       - g++
       - make
@@ -59,18 +55,23 @@ parts:
     build-snaps:
       - jx-application-framework
     stage-packages:
-      - libx11-6
-      - libxext6
-      - libxau6
-      - libxinerama1
-      - libxft2
+      - libace-6.4.5
+      - libfontconfig1
       - libfreetype6
       - libgd3
-      - libpng16-16
-      - libjpeg8
-      - libxpm4
-      - libxml2
-      - libace-6.4.5
       - libicu66
-      - libpcre3
-      - libstdc++6
+      - libjbig0
+      - libjpeg-turbo8
+      - libpng16-16
+      - libtiff5
+      - libwebp6
+      - libx11-6
+      - libxau6
+      - libxcb1
+      - libxdmcp6
+      - libxext6
+      - libxft2
+      - libxinerama1
+      - libxml2
+      - libxpm4
+      - libxrender1
