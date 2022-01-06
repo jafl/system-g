@@ -7,6 +7,8 @@
 
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?branch=main&project=jafl_system-g&metric=ncloc)](https://sonarcloud.io/dashboard?id=jafl_system-g&branch=main)
 
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/systemg)
+
 # System G
 
 System G provides a graphical interface to the UNIX file system.  The on-line help explains all the features of the program.
