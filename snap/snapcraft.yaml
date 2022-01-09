@@ -12,9 +12,20 @@ description: |
 grade: devel
 confinement: classic
 
+architectures:
+  - build-on: amd64
+  - build-on: arm64
+  - build-on: ppc64el
+  - build-on: s390x
+
 apps:
   systemg:
     command: bin/systemg
+    environment:
+      XLOCALEDIR: $SNAP/usr/share/X11/locale
+    plugs:
+      - x11
+      - desktop-legacy
 
 parts:
   systemg:
@@ -54,6 +65,8 @@ parts:
       - aspell
     build-snaps:
       - jx-application-framework
+  libs:
+    plugin: nil
     stage-packages:
       - libace-6.4.5
       - libfontconfig1
