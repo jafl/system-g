@@ -5,5 +5,5 @@ Comment=File manager (similar to Mac OS 7)
 Icon=systemg.xpm
 Exec=systemg
 Type=Application
-Terminal=0
+Terminal=false
 MapNotify=true
