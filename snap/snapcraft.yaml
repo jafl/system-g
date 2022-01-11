@@ -26,7 +26,6 @@ parts:
   systemg:
     plugin: autotools
     source: .
-    disable-parallel: true
     build-environment:
       - JX_ROOT: /snap/jx-application-framework/current
       - PATH: $PATH:$JX_ROOT/bin
@@ -60,6 +59,7 @@ parts:
       - aspell
     build-snaps:
       - jx-application-framework
+    after: [ libs ]
   libs:
     plugin: nil
     stage-packages:
