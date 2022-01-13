@@ -20,7 +20,7 @@ similar to Mac OS 7.
 %define gnome_app_path  /usr/share/applications
 %define gnome_icon_path /usr/share/pixmaps
 
-./install "$RPM_BUILD_ROOT"/usr
+./install $RPM_BUILD_ROOT
 
 %files
 

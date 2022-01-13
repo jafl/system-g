@@ -2,6 +2,6 @@
 Categories=Core;System;Filesystem;X-Red-Hat-Base;
 Name=System G file manager
 Comment=File manager (similar to Mac OS 7)
-Icon=systemg
+Icon=${SNAP}/meta/gui/systemg.png
 Exec=systemg
 Type=Application

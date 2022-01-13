@@ -4,7 +4,7 @@ Makefile
 *.bak
 code/stringData.h
 strings/version
-strings/systemg_menu_strings
+strings/menu_strings
 .jcc
 0-RELEASE
 Brewfile.lock.json

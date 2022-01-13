@@ -15,6 +15,12 @@ System G provides a graphical interface to the UNIX file system.  The on-line he
 
 Since we use System G extensively, we guarantee that it will continue to improve.  We have a very long list of features that we intend to implement, so please tell us what features you need, so we will know which ones on our list to implement first.
 
+[![Download from Github](http://libjx.sourceforge.net/github.png)](https://github.com/jafl/system-g/releases/latest)
+
+<a href="https://sourceforge.net/p/nps-systemg/"><img alt="Download System G" src="https://sourceforge.net/sflogo.php?type=17&group_id=170488" width="250"></a>
+
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/systemg)
+
 
 ## Building from source
 

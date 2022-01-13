@@ -1,7 +1,7 @@
 [Desktop Entry]
 Categories=Core;System;Filesystem;X-Red-Hat-Base;
-Name=System G file manager
+Name=System G: open folder
 Comment=File manager (similar to Mac OS 7)
-Icon=systemg
-Exec=systemg
+Icon=${SNAP}/meta/gui/systemg.png
+Exec=systemg --choose
 Type=Application
