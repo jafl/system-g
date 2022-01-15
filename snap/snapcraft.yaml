@@ -10,7 +10,7 @@ description: |
   System G provides a graphical interface to UNIX file system.
 
 grade: stable
-confinement: classic
+confinement: strict
 
 architectures:
   - build-on: amd64
@@ -21,6 +21,11 @@ architectures:
 apps:
   systemg:
     command: bin/desktop-launch systemg
+    plugs:
+      - x11
+      - desktop-legacy
+      - network
+      - home
 
 parts:
   systemg:
@@ -83,3 +88,7 @@ parts:
       - libxml2
       - libxpm4
       - libxrender1
+  launcher:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: glib-only
+    plugin: make
