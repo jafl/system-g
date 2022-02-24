@@ -276,8 +276,8 @@ private:
 
 	void	SwitchToGitBranch(const JString& branch);
 	void	MergeFromGitBranch(const JString& branch);
-	void	FetchRemoteGitBranch1(const JString& branch);
-	void	FetchRemoteGitBranch2(const JString& name);
+	void	FetchRemoteGitBranch(const JString& branch);
+	void	FinishFetchRemoteGitBranch(const JString& name);
 	void	PullBranch(const JString& repo);
 	void	PushBranch(const JString& repo);
 	bool	RemoveGitBranch(const JString& branch, const bool force = false);

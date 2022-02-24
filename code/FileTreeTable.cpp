@@ -2161,7 +2161,7 @@ FileTreeTable::Receive
 		const auto* selection =
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
-		FetchRemoteGitBranch1(itsGitRemoteBranchMenu->GetItemText(selection->GetIndex()));
+		FetchRemoteGitBranch(itsGitRemoteBranchMenu->GetItemText(selection->GetIndex()));
 	}
 	else if (sender == itsGitRemoveBranchMenu && message.Is(JXMenu::kItemSelected))
 	{
@@ -2276,7 +2276,7 @@ FileTreeTable::Receive
 		assert(info != nullptr);
 		if (info->Successful())
 		{
-			FetchRemoteGitBranch2(itsFetchGitBranchDialog->GetString());
+			FinishFetchRemoteGitBranch(itsFetchGitBranchDialog->GetString());
 		}
 		itsFetchGitBranchDialog = nullptr;
 	}
@@ -4423,12 +4423,12 @@ FileTreeTable::MergeFromGitBranch
 }
 
 /******************************************************************************
- FetchRemoteGitBranch1 (private)
+ FetchRemoteGitBranch (private)
 
  ******************************************************************************/
 
 void
-FileTreeTable::FetchRemoteGitBranch1
+FileTreeTable::FetchRemoteGitBranch
 	(
 	const JString& branch
 	)
@@ -4456,12 +4456,12 @@ FileTreeTable::FetchRemoteGitBranch1
 }
 
 /******************************************************************************
- FetchRemoteGitBranch2 (private)
+ FinishFetchRemoteGitBranch (private)
 
  ******************************************************************************/
 
 void
-FileTreeTable::FetchRemoteGitBranch2
+FileTreeTable::FinishFetchRemoteGitBranch
 	(
 	const JString& name
 	)
