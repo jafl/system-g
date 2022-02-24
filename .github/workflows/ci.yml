@@ -8,6 +8,7 @@ jobs:
   build-ubuntu:
     name: Build & Package Ubuntu
     runs-on: ubuntu-latest
+    if: ${{ !startsWith(github.ref, 'refs/tags/') }}
     env:
       SONAR_SCANNER_VERSION: 4.4.0.2170
       SONAR_SERVER_URL: "https://sonarcloud.io"
@@ -79,14 +80,34 @@ jobs:
       - name: Perform CodeQL analysis
         uses: github/codeql-action/analyze@v1
 
+  build-ubuntu-release:
+    name: Build & Package Ubuntu Release
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    env:
+      LC_ALL: en_US.UTF-8
+      LANG: en_US.UTF-8
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Configure
+        run: |
+          curl -O http://libjx.sourceforge.net/ci/jx-application-framework.deb
+          sudo apt install ./jx-application-framework.deb
+          ./configure ci
+          makemake
+
+      - name: Build
+        run: make
+
       - name: Build release packages
-        if: ${{ startsWith(github.ref, 'refs/tags/') }}
         run: |
           make release
           mv ../systemg_* .
 
       - name: Save release packages
-        if: ${{ startsWith(github.ref, 'refs/tags/') }}
         uses: actions/upload-artifact@v2
         with:
           name: release
@@ -136,7 +157,7 @@ jobs:
   release:
     name: Upload releases
     runs-on: ubuntu-latest
-    needs: [ build-ubuntu, build-macos ]
+    needs: [ build-ubuntu-release, build-macos ]
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     steps:
       - uses: actions/download-artifact@v2
