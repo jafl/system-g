@@ -3999,8 +3999,8 @@ FileTreeTable::UpdateGitMenus
 		const JSize remoteCount = remoteList.GetElementCount();
 		for (JIndex i=1; i<=remoteCount; i++)
 		{
-			itsGitRemoteBranchMenu->AppendItem(*(remoteList.GetElement(i)));
-			itsGitMergeBranchMenu->AppendItem(*(remoteList.GetElement(i)));
+			itsGitRemoteBranchMenu->AppendItem(*remoteList.GetElement(i));
+			itsGitMergeBranchMenu->AppendItem(*remoteList.GetElement(i));
 		}
 	}
 	else if (!remoteList.IsEmpty())
@@ -4305,7 +4305,7 @@ FileTreeTable::GetGitBranches
 	}
 
 	::close(fromFD);
-	return *currentIndex > 0;
+	return !branchList->IsEmpty();
 }
 
 /******************************************************************************

@@ -23,7 +23,7 @@
 BeginEditingTask::BeginEditingTask
 	(
 	FileTreeTable*	table,
-	const JPoint&		cell
+	const JPoint&	cell
 	)
 	:
 	JXIdleTask(kJXDoubleClickTime),

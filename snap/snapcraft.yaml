@@ -20,7 +20,7 @@ architectures:
 
 apps:
   systemg:
-    command: systemg
+    command: bin/systemg
 
 parts:
   systemg:
