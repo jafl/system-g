@@ -32,8 +32,7 @@ LIB_DEPS := ${JX_LIB_ROOT}/libjfs.a \
 
 # make variables
 
-LOADLIBES := ${J_STD_LIBS}
-LDFLAGS   := 
+LDLIBS := ${J_STD_LIBS}
 
 #####
 
