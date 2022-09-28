@@ -18,7 +18,7 @@ jobs:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -59,15 +59,12 @@ jobs:
           echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v1
+        uses: github/codeql-action/init@v2
         with:
           languages: cpp
 
       - name: Configure
         run: |
-          sudo apt update;
-          curl -O http://libjx.sourceforge.net/ci/jx-application-framework.deb
-          sudo apt install ./jx-application-framework.deb
           ./configure ci
           makemake
 
@@ -81,7 +78,7 @@ jobs:
         run: sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
 
       - name: Perform CodeQL analysis
-        uses: github/codeql-action/analyze@v1
+        uses: github/codeql-action/analyze@v2
 
   build-ubuntu-release:
     name: Build & Package Ubuntu
@@ -91,14 +88,12 @@ jobs:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Configure
         run: |
-          curl -O http://libjx.sourceforge.net/ci/jx-application-framework.deb
-          sudo apt install ./jx-application-framework.deb
           ./configure ci
           makemake
 
@@ -124,13 +119,13 @@ jobs:
       LC_ALL: en_US.UTF-8
       LANG: en_US.UTF-8
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Configure
         run: |
-          curl -O http://libjx.sourceforge.net/ci/jx-application-framework_darwin.tgz
+          curl -LO https://libjx.sourceforge.net/ci/jx-application-framework_darwin.tgz
           tar -xzf jx-application-framework_darwin.tgz
           pushd jx-application-framework-1ci
           ./install /usr/local
