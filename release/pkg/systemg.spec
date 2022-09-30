@@ -16,17 +16,17 @@ similar to Mac OS 7.
 
 %install
 
-%define systemg_doc_dir /usr/share/doc/systemg
-%define gnome_app_path  /usr/share/applications
-%define gnome_icon_path /usr/share/pixmaps
+%define systemg_doc_dir /usr/local/share/doc/systemg
+%define gnome_app_path  /usr/local/share/applications
+%define gnome_icon_path /usr/local/share/pixmaps
 
-./install $RPM_BUILD_ROOT
+./install $RPM_BUILD_ROOT/usr/local
 
 %files
 
 %docdir %systemg_doc_dir
 
-/usr/bin/systemg
+/usr/local/bin/systemg
 %systemg_doc_dir
 
 %gnome_app_path/systemg.desktop

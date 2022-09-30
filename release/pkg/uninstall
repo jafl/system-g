@@ -1,11 +1,14 @@
 #!/bin/bash
 
 PRE=$1;
+if [[ -z $PRE ]]; then
+	PRE=/usr/local;
+fi
 
-BIN=$PRE/usr/bin;
-DOC=$PRE/usr/share/doc/systemg;
-APP=$PRE/usr/share/applications;
-ICON=$PRE/usr/share/pixmaps;
+BIN=$PRE/bin;
+DOC=$PRE/share/doc/systemg;
+APP=$PRE/share/applications;
+ICON=$PRE/share/pixmaps;
 
 rm -f  $BIN/systemg;
 rm -rf $DOC;
