@@ -2,9 +2,10 @@ name: systemg
 title: System G
 base: core20
 version: "3.0.1"
-#source-code: https://github.com/jafl/system-g
-#issues: https://github.com/jafl/system-g/issues
-#contact: https://johnlindal.wixsite.com/aboutme/contact-me
+license: GPL-3.0-or-later
+source-code: https://github.com/jafl/system-g
+issues: https://github.com/jafl/system-g/issues
+contact: https://johnlindal.wixsite.com/aboutme/contact-me
 summary: System G provides a graphical interface to UNIX file system.
 description: |
   System G provides a graphical interface to UNIX file system.
