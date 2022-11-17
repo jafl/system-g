@@ -19,9 +19,9 @@ https://sourceforge.net/projects/nps-systemg/"
 
 Name	"System G"
 
-HELP_URL		"http://nps-systemg.sourceforge.net/help.html"
-CHANGE_LOG_URL	"http://nps-systemg.sourceforge.net/ChangeLog.html"
-VERSION_URL		"http://nps-systemg.sourceforge.net/VERSION"
+HELP_URL		"https://nps-systemg.sourceforge.net/help.html"
+CHANGE_LOG_URL	"https://nps-systemg.sourceforge.net/ChangeLog.html"
+VERSION_URL		"https://nps-systemg.sourceforge.net/VERSION"
 DOWNLOAD_URL	"https://github.com/jafl/system-g/releases"
 
 # globals
