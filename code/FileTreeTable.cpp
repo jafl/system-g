@@ -2590,10 +2590,10 @@ FileTreeTable::UpdateFileMenu()
 	const bool hasSelection = s.HasSelection();
 
 	JPoint singleCell;
-	itsFileMenu->SetItemEnable(kAltOpenCmd,   hasSelection);
-	itsFileMenu->SetItemEnable(kRunOnSelCmd,  hasSelection);
-	itsFileMenu->SetItemEnable(kRenameCmd,    s.GetSingleSelectedCell(&singleCell));
-	itsFileMenu->SetItemEnable(kDuplicateCmd, hasSelection);
+	itsFileMenu->SetItemEnabled(kAltOpenCmd,   hasSelection);
+	itsFileMenu->SetItemEnabled(kRunOnSelCmd,  hasSelection);
+	itsFileMenu->SetItemEnabled(kRenameCmd,    s.GetSingleSelectedCell(&singleCell));
+	itsFileMenu->SetItemEnabled(kDuplicateCmd, hasSelection);
 
 	// symbolic links
 
@@ -2611,21 +2611,21 @@ FileTreeTable::UpdateFileMenu()
 		}
 	}
 
-	itsFileMenu->SetItemEnable(kMakeAliasCmd,        hasSelection);
-	itsFileMenu->SetItemEnable(kFindOriginalCmd,     findOriginal);
-	itsFileMenu->SetItemEnable(kConvertToFileCmd,    hasSelection);
-	itsFileMenu->SetItemEnable(kConvertToProgramCmd, hasSelection);
+	itsFileMenu->SetItemEnabled(kMakeAliasCmd,        hasSelection);
+	itsFileMenu->SetItemEnabled(kFindOriginalCmd,     findOriginal);
+	itsFileMenu->SetItemEnabled(kConvertToFileCmd,    hasSelection);
+	itsFileMenu->SetItemEnabled(kConvertToProgramCmd, hasSelection);
 
 	// mount point
 
 	const JString& path = itsFileTree->GetDirectory();
-	itsFileMenu->SetItemEnable(kToggleMountCmd,
+	itsFileMenu->SetItemEnabled(kToggleMountCmd,
 		(GetApplication())->IsMountPoint(path));
 	bool writable;
 	if (JIsMounted(path, &writable))
 	{
 		itsFileMenu->SetItemText(kToggleMountCmd, JGetString("UnmountLabel::FileTreeTable"));
-		itsFileMenu->SetItemEnable(kEraseDiskCmd, writable);
+		itsFileMenu->SetItemEnabled(kEraseDiskCmd, writable);
 	}
 	else	// including if not a mount point
 	{
@@ -4989,8 +4989,8 @@ FileTreeTable::UpdateContextMenu()
 	JTableSelection& s          = GetTableSelection();
 	const bool hasSelection = s.HasSelection();
 
-	itsContextMenu->SetItemEnable(kRunOnSelCtxCmd,  hasSelection);
-	itsContextMenu->SetItemEnable(kDuplicateCtxCmd, hasSelection);
+	itsContextMenu->SetItemEnabled(kRunOnSelCtxCmd,  hasSelection);
+	itsContextMenu->SetItemEnabled(kDuplicateCtxCmd, hasSelection);
 
 	// symbolic links
 
@@ -5008,12 +5008,12 @@ FileTreeTable::UpdateContextMenu()
 		}
 	}
 
-	itsContextMenu->SetItemEnable(kMakeAliasCtxCmd,        hasSelection);
-	itsContextMenu->SetItemEnable(kFindOriginalCtxCmd,     findOriginal);
-	itsContextMenu->SetItemEnable(kOpenCloseCtxCmd,        hasSelection);
-	itsContextMenu->SetItemEnable(OpenIconifyCtxCmd,       hasSelection);
-	itsContextMenu->SetItemEnable(kConvertToFileCtxCmd,    hasSelection);
-	itsContextMenu->SetItemEnable(kConvertToProgramCtxCmd, hasSelection);
+	itsContextMenu->SetItemEnabled(kMakeAliasCtxCmd,        hasSelection);
+	itsContextMenu->SetItemEnabled(kFindOriginalCtxCmd,     findOriginal);
+	itsContextMenu->SetItemEnabled(kOpenCloseCtxCmd,        hasSelection);
+	itsContextMenu->SetItemEnabled(OpenIconifyCtxCmd,       hasSelection);
+	itsContextMenu->SetItemEnabled(kConvertToFileCtxCmd,    hasSelection);
+	itsContextMenu->SetItemEnabled(kConvertToProgramCtxCmd, hasSelection);
 }
 
 /******************************************************************************
