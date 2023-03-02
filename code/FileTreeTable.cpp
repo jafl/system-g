@@ -14,9 +14,9 @@
 #include "TreeSet.h"
 #include "TrashButton.h"
 #include "PrefsMgr.h"
+#include "ChoosePathDialog.h"
 #include "ViewManPageDialog.h"
 #include "FindFileDialog.h"
-#include "ChooseSaveFile.h"
 #include "NewGitRemoteDialog.h"
 #include "BeginEditingTask.h"
 #include "CopyProcess.h"
@@ -319,16 +319,8 @@ FileTreeTable::FileTreeTable
 	itsEditTask					= nullptr;
 	itsUpdateNode				= nullptr;
 	itsSortNode					= nullptr;
-	itsChooseDiskFormatDialog	= nullptr;
 	itsFormatProcess			= nullptr;
-	itsCreateGitBranchDialog	= nullptr;
-	itsFetchGitBranchDialog     = nullptr;
-	itsCommitGitBranchDialog	= nullptr;
-	itsGitStashDialog           = nullptr;
 	itsGitProcess				= nullptr;
-	itsAddGitRemoteDialog		= nullptr;
-	itsPruneBranchesDialog		= nullptr;
-	itsPruneBranchList			= nullptr;
 	itsIconWidget				= nullptr;
 	itsWindowIconType			= 0;
 
@@ -551,7 +543,6 @@ FileTreeTable::~FileTreeTable()
 
 	jdelete itsEditTask;
 	jdelete itsUpdateTask;
-	jdelete itsPruneBranchList;
 }
 
 /******************************************************************************
@@ -585,7 +576,7 @@ FileTreeTable::LoadToolBarDefaults
 	toolBar->AppendButton(itsViewMenu, kShowDateCmd);
 	toolBar->NewGroup();
 	GetApplication()->LoadToolBarDefaults(toolBar, itsShortcutMenu,
-											   kShortcutCmdOffset+1);
+										  kShortcutCmdOffset+1);
 }
 
 /******************************************************************************
@@ -633,7 +624,7 @@ FileTreeTable::TableDrawCell
 		JUtf8Character c;
 		while (iter.Next(&c))
 		{
-			p.String(pRect, JString(c), JPainter::kHAlignCenter, JPainter::kVAlignCenter);
+			p.String(pRect, JString(c), JPainter::HAlign::kCenter, JPainter::VAlign::kCenter);
 			pRect.Shift(itsPermCharWidth, 0);
 		}
 	}
@@ -653,8 +644,8 @@ FileTreeTable::TableDrawCell
 		}
 
 		p.String(sRect, str,
-				 type == kGFMSize ? JPainter::kHAlignRight : JPainter::kHAlignLeft,
-				 JPainter::kVAlignCenter);
+				 type == kGFMSize ? JPainter::HAlign::kRight : JPainter::HAlign::kLeft,
+				 JPainter::VAlign::kCenter);
 	}
 }
 
@@ -1441,7 +1432,7 @@ FileTreeTable::GoUp
 {
 	ClearIncrementalSearchBuffer();
 
-	if (sameWindow == (GetPrefsMgr())->WillOpenNewWindows())
+	if (sameWindow == GetPrefsMgr()->WillOpenNewWindows())
 	{
 		FileTreeNode* root    = itsFileTree->GetFileRoot();
 		const JString origDir = root->GetName();
@@ -1459,7 +1450,7 @@ FileTreeTable::GoUp
 	else
 	{
 		const JString path = JCombinePathAndName(itsFileTree->GetDirectory(), JString("..", JString::kNoCopy));
-		(GetApplication())->OpenDirectory(path);
+		GetApplication()->OpenDirectory(path);
 	}
 }
 
@@ -1477,14 +1468,14 @@ FileTreeTable::GoTo
 {
 	ClearIncrementalSearchBuffer();
 
-	if (sameWindow == (GetPrefsMgr())->WillOpenNewWindows())
+	if (sameWindow == GetPrefsMgr()->WillOpenNewWindows())
 	{
 		const JError err = itsFileTree->GetFileRoot()->GoTo(path);
 		err.ReportIfError();
 	}
 	else
 	{
-		(GetApplication())->OpenDirectory(path);
+		GetApplication()->OpenDirectory(path);
 	}
 }
 
@@ -2051,7 +2042,7 @@ FileTreeTable::Receive
 
 	else if (sender == itsRecentFilesMenu && message.Is(JXFSDirMenu::kFileSelected))
 	{
-		const auto* info	= 
+		const auto* info	=
 			dynamic_cast<const JXFSDirMenu::FileSelected*>(&message);
 		assert( info != nullptr );
 
@@ -2226,73 +2217,12 @@ FileTreeTable::Receive
 		HandleContextMenu(selection->GetIndex());
 	}
 
-	else if (sender == itsChooseDiskFormatDialog &&
-			 message.Is(JXDialogDirector::kDeactivated))
-	{
-		const auto* info =
-			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
-		assert(info != nullptr);
-		if (info->Successful())
-		{
-			const JIndex i   = itsChooseDiskFormatDialog->GetSelectedItem();
-			const JError err = JFormatPartition(itsFileTree->GetDirectory(),
-												kFormatType[i-1], &itsFormatProcess);
-			if (err.OK())
-			{
-				itsFormatProcess->ShouldDeleteWhenFinished();
-				ListenTo(itsFormatProcess);
-			}
-			else
-			{
-				err.ReportIfError();
-			}
-		}
-		itsChooseDiskFormatDialog = nullptr;
-	}
 	else if (sender == itsFormatProcess && message.Is(JProcess::kFinished))
 	{
 		JMount(itsFileTree->GetDirectory());
 		itsFormatProcess = nullptr;
 	}
 
-	else if (sender == itsCreateGitBranchDialog &&
-			 message.Is(JXDialogDirector::kDeactivated))
-	{
-		const auto* info =
-			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
-		assert(info != nullptr);
-		if (info->Successful())
-		{
-			CreateGitBranch(itsCreateGitBranchDialog->GetString());
-		}
-		itsCreateGitBranchDialog = nullptr;
-	}
-
-	else if (sender == itsFetchGitBranchDialog &&
-			 message.Is(JXDialogDirector::kDeactivated))
-	{
-		const auto* info =
-			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
-		assert(info != nullptr);
-		if (info->Successful())
-		{
-			FinishFetchRemoteGitBranch(itsFetchGitBranchDialog->GetString());
-		}
-		itsFetchGitBranchDialog = nullptr;
-	}
-
-	else if (sender == itsCommitGitBranchDialog &&
-			 message.Is(JXDialogDirector::kDeactivated))
-	{
-		const auto* info =
-			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
-		assert(info != nullptr);
-		if (info->Successful())
-		{
-			CommitGitBranch(itsCommitGitBranchDialog->GetString());
-		}
-		itsCommitGitBranchDialog = nullptr;
-	}
 	else if (sender == itsGitProcess && message.Is(JProcess::kFinished))
 	{
 		const auto* info =
@@ -2303,49 +2233,6 @@ FileTreeTable::Receive
 			JExecute(itsFileTree->GetDirectory(), (GetApplication())->GetPostCheckoutCommand(), nullptr);
 		}
 		itsGitProcess = nullptr;
-	}
-
-	else if (sender == itsGitStashDialog &&
-			 message.Is(JXDialogDirector::kDeactivated))
-	{
-		const auto* info =
-			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
-		assert(info != nullptr);
-		if (info->Successful())
-		{
-			Stash(itsGitStashDialog->GetString());
-		}
-		itsGitStashDialog = nullptr;
-	}
-
-	else if (sender == itsAddGitRemoteDialog &&
-			 message.Is(JXDialogDirector::kDeactivated))
-	{
-		const auto* info =
-			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
-		assert(info != nullptr);
-		if (info->Successful())
-		{
-			AddGitRemote(itsAddGitRemoteDialog->GetRepoURL(),
-						 itsAddGitRemoteDialog->GetLocalName());
-		}
-		itsAddGitRemoteDialog = nullptr;
-	}
-
-	else if (sender == itsPruneBranchesDialog &&
-			 message.Is(JXDialogDirector::kDeactivated))
-	{
-		const auto* info =
-			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
-		assert(info != nullptr);
-		if (info->Successful())
-		{
-			PruneLocalBranches();
-		}
-		itsPruneBranchesDialog = nullptr;
-
-		jdelete itsPruneBranchList;
-		itsPruneBranchList = nullptr;
 	}
 
 	else if (sender == itsIconWidget && message.Is(JXWindowIcon::kHandleEnter))
@@ -2454,7 +2341,8 @@ FileTreeTable::UpdateInfo()
 	JString device;
 	JFileSystemType fsType;
 
-	itsIgnoreExecPermFlag = JIsMounted((itsFileTree->GetRootDirInfo())->GetDirectory(),
+	itsIgnoreExecPermFlag =
+		JIsMounted(itsFileTree->GetRootDirInfo()->GetDirectory(),
 				   &writable, &isTop, &device, &fsType) &&
 		!JMountSupportsExecFlag(fsType);
 	Refresh();
@@ -2487,7 +2375,7 @@ FileTreeTable::UpdateDisplay
 
 	if (!JFSFileTreeNode::CanHaveChildren(itsFileTree->GetDirectory()))
 	{
-		if ((GetApplication())->GetWindowCount() == 1)
+		if (GetApplication()->GetWindowCount() == 1)
 		{
 			JString p;
 			if (!JGetHomeDirectory(&p) || !JFSFileTreeNode::CanHaveChildren(p))
@@ -2920,7 +2808,7 @@ FileTreeTable::OpenSelection
 	JPtrArray<JString> fileList(JPtrArrayT::kDeleteAll);
 	fileList.SetCompareFunction(JCompareStringsCaseSensitive);
 
-	JTableSelectionIterator iter(&(GetTableSelection()));
+	JTableSelectionIterator iter(&GetTableSelection());
 	JPoint cell;
 	while (iter.Next(&cell))
 	{
@@ -2962,24 +2850,21 @@ FileTreeTable::OpenSelection
 
 		if (fileList.GetElementCount() == 1)
 		{
-			AddRecentFile(*(fileList.GetElement(1)));
+			AddRecentFile(*fileList.GetElement(1));
 		}
 	}
 	else if (!found)
 	{
-		JString path;
-		if (!(GetChooseSaveFile())->
-				ChooseRPath(JGetString("SelectDirectory::FileTreeTable"), JString::empty, itsFileTree->GetDirectory(), &path))
+		auto* dlog = ChoosePathDialog::Create(JXChoosePathDialog::kAcceptReadable, itsFileTree->GetDirectory());
+		if (dlog->DoDialog())
 		{
-			return;
-		}
-
-		const bool sameWindow = !(GetChooseSaveFile())->IsOpeningInNewWindow();
-		GoTo(path, sameWindow);
-		if (sameWindow)
-		{
-			(GetWindow()->GetDirector())->Activate();
-			return;
+			const bool sameWindow = !dlog->OpenInNewWindow();
+			GoTo(dlog->GetPath(), sameWindow);
+			if (sameWindow)
+			{
+				GetWindow()->GetDirector()->Activate();
+				return;
+			}
 		}
 	}
 
@@ -2996,6 +2881,7 @@ FileTreeTable::OpenSelection
 		JXCloseDirectorTask::Close(GetWindow()->GetDirector());
 	}
 }
+
 
 /******************************************************************************
  DuplicateSelected
@@ -3178,20 +3064,31 @@ FileTreeTable::FormatDisk()
 	if (itsFormatProcess == nullptr &&
 		JGetUserNotification()->AskUserNo(JGetString("WarnEraseDisk::FileTreeTable")))
 	{
-		assert( itsChooseDiskFormatDialog == nullptr );
-
 		JPtrArray<JString> choiceList(JPtrArrayT::kDeleteAll);
 		for (const auto& name : kFormatName)
 		{
 			choiceList.Append(name);
 		}
 
-		itsChooseDiskFormatDialog =
-			jnew JXRadioGroupDialog(JXGetApplication(), JGetString("FormatWindowTitle::FileTreeTable"),
-								   JGetString("FormatPrompt::FileTreeTable"), choiceList, nullptr);
-		assert(itsChooseDiskFormatDialog != nullptr);
-		itsChooseDiskFormatDialog->BeginDialog();
-		ListenTo(itsChooseDiskFormatDialog);
+		auto* dlog =
+			jnew JXRadioGroupDialog(JGetString("FormatWindowTitle::FileTreeTable"),
+									JGetString("FormatPrompt::FileTreeTable"), choiceList, nullptr);
+		assert( dlog != nullptr );
+		if (dlog->DoDialog())
+		{
+			const JIndex i   = dlog->GetSelectedItem();
+			const JError err = JFormatPartition(itsFileTree->GetDirectory(),
+												kFormatType[i-1], &itsFormatProcess);
+			if (err.OK())
+			{
+				itsFormatProcess->ShouldDeleteWhenFinished();
+				ListenTo(itsFormatProcess);
+			}
+			else
+			{
+				err.ReportIfError();
+			}
+		}
 	}
 }
 
@@ -4082,24 +3979,26 @@ FileTreeTable::HandleGitMenu
 	if (index == kGitStatusCmd)
 	{
 		JSimpleProcess::Create(itsFileTree->GetDirectory(),
-							   (GetApplication())->GetGitStatusCommand(), true);
+							   GetApplication()->GetGitStatusCommand(), true);
 	}
 	else if (index == kGitHistoryCmd)
 	{
 		JSimpleProcess::Create(itsFileTree->GetDirectory(),
-							   (GetApplication())->GetGitHistoryCommand(), true);
+							   GetApplication()->GetGitHistoryCommand(), true);
 	}
 
 	else if (index == kGitCommitAllCmd)
 	{
 		if (getenv("GIT_EDITOR") == nullptr)
 		{
-			itsCommitGitBranchDialog =
-				jnew JXGetStringDialog(GetWindow()->GetDirector(), JGetString("CommitBranchTitle::FileTreeTable"),
-									  JGetString("CommitBranchPrompt::FileTreeTable"));
-			assert( itsCommitGitBranchDialog != nullptr );
-			itsCommitGitBranchDialog->Activate();
-			ListenTo(itsCommitGitBranchDialog);
+			auto* dlog =
+				jnew JXGetStringDialog(JGetString("CommitBranchTitle::FileTreeTable"),
+									   JGetString("CommitBranchPrompt::FileTreeTable"));
+			assert( dlog != nullptr );
+			if (dlog->DoDialog())
+			{
+				CommitGitBranch(dlog->GetString());
+			}
 		}
 		else
 		{
@@ -4113,31 +4012,36 @@ FileTreeTable::HandleGitMenu
 
 	else if (index == kGitStashChangesCmd)
 	{
-		itsGitStashDialog =
-			jnew JXGetStringDialog(GetWindow()->GetDirector(), JGetString("StashTitle::FileTreeTable"),
-								  JGetString("StashPrompt::FileTreeTable"));
-		assert( itsGitStashDialog != nullptr );
-		itsGitStashDialog->Activate();
-		ListenTo(itsGitStashDialog);
+		auto* dlog =
+			jnew JXGetStringDialog(JGetString("StashTitle::FileTreeTable"),
+								   JGetString("StashPrompt::FileTreeTable"));
+		assert( dlog != nullptr );
+		if (dlog->DoDialog())
+		{
+			Stash(dlog->GetString());
+		}
 	}
 
 	else if (index == kGitCreateBranchCmd)
 	{
-		itsCreateGitBranchDialog =
-			jnew JXGetStringDialog(GetWindow()->GetDirector(), JGetString("CreateBranchTitle::FileTreeTable"),
-								  JGetString("CreateBranchPrompt::FileTreeTable"));
-		assert( itsCreateGitBranchDialog != nullptr );
-		itsCreateGitBranchDialog->Activate();
-		ListenTo(itsCreateGitBranchDialog);
+		auto* dlog =
+			jnew JXGetStringDialog(JGetString("CreateBranchTitle::FileTreeTable"),
+								   JGetString("CreateBranchPrompt::FileTreeTable"));
+		assert( dlog != nullptr );
+		if (dlog->DoDialog())
+		{
+			CreateGitBranch(dlog->GetString());
+		}
 	}
 
 	else if (index == kGitAddRemoteCmd)
 	{
-		itsAddGitRemoteDialog =
-			jnew NewGitRemoteDialog(GetWindow()->GetDirector());
-		assert( itsAddGitRemoteDialog != nullptr );
-		itsAddGitRemoteDialog->Activate();
-		ListenTo(itsAddGitRemoteDialog);
+		auto* dlog = jnew NewGitRemoteDialog;
+		assert( dlog != nullptr );
+		if (dlog->DoDialog())
+		{
+			AddGitRemote(dlog->GetRepoURL(), dlog->GetLocalName());
+		}
 	}
 }
 
@@ -4445,51 +4349,37 @@ FileTreeTable::FetchRemoteGitBranch
 	}
 	iter.Invalidate();
 
-	itsFetchGitBranch = branch;
-
-	itsFetchGitBranchDialog =
-		jnew JXGetStringDialog(GetWindow()->GetDirector(), JGetString("FetchBranchTitle::FileTreeTable"),
-							  JGetString("FetchBranchPrompt::FileTreeTable"), name);
-	assert( itsFetchGitBranchDialog != nullptr );
-	itsFetchGitBranchDialog->Activate();
-	ListenTo(itsFetchGitBranchDialog);
-}
-
-/******************************************************************************
- FinishFetchRemoteGitBranch (private)
-
- ******************************************************************************/
-
-void
-FileTreeTable::FinishFetchRemoteGitBranch
-	(
-	const JString& name
-	)
-{
-	assert( itsGitProcess == nullptr );
-
-	JString cmd(
-		"xterm -T 'Fetch branch $name' "
-			"-e '( git checkout -b $name $branch ) | less'");
-
-	const JString nameArg   = JPrepArgForExec(name);
-	const JString branchArg = JPrepArgForExec(itsFetchGitBranch);
-
-	JSubstitute subst;
-	subst.DefineVariable("name", nameArg);
-	subst.DefineVariable("branch", branchArg);
-	subst.Substitute(&cmd);
-
-	JSimpleProcess* p;
-	const JError err = JSimpleProcess::Create(&p, itsFileTree->GetDirectory(), cmd, true);
-	if (err.OK())
+	auto* dlog =
+		jnew JXGetStringDialog(JGetString("FetchBranchTitle::FileTreeTable"),
+							   JGetString("FetchBranchPrompt::FileTreeTable"), name);
+	assert( dlog != nullptr );
+	if (dlog->DoDialog())
 	{
-		itsGitProcess = p;
-		ListenTo(itsGitProcess);
-	}
-	else
-	{
-		err.ReportIfError();
+		assert( itsGitProcess == nullptr );
+
+		JString cmd(
+			"xterm -T 'Fetch branch $name' "
+				"-e '( git checkout -b $name $branch ) | less'");
+
+		const JString nameArg   = JPrepArgForExec(dlog->GetString());
+		const JString branchArg = JPrepArgForExec(branch);
+
+		JSubstitute subst;
+		subst.DefineVariable("name", nameArg);
+		subst.DefineVariable("branch", branchArg);
+		subst.Substitute(&cmd);
+
+		JSimpleProcess* p;
+		const JError err = JSimpleProcess::Create(&p, itsFileTree->GetDirectory(), cmd, true);
+		if (err.OK())
+		{
+			itsGitProcess = p;
+			ListenTo(itsGitProcess);
+		}
+		else
+		{
+			err.ReportIfError();
+		}
 	}
 }
 
@@ -4835,13 +4725,12 @@ FileTreeTable::PruneRemoteGitBranches
 	JString s;
 	JReadAll(fromFD, &s);
 
-	itsPruneBranchList = jnew JPtrArray<JString>(JPtrArrayT::kDeleteAll);
-	assert( itsPruneBranchList != nullptr );
+	JPtrArray<JString> branchList(JPtrArrayT::kDeleteAll);
 
 	JStringIterator iter(s);
 	while (iter.Next(prunedBranchPattern))
 	{
-		itsPruneBranchList->Append(iter.GetLastMatch().GetSubstring(1));
+		branchList.Append(iter.GetLastMatch().GetSubstring(1));
 	}
 	iter.Invalidate();
 
@@ -4856,7 +4745,7 @@ FileTreeTable::PruneRemoteGitBranches
 
 	// check if we have local versions
 
-	if (!itsPruneBranchList->IsEmpty())
+	if (!branchList.IsEmpty())
 	{
 		JPtrArray<JString> localList(JPtrArrayT::kDeleteAll);
 		JIndex i;
@@ -4867,63 +4756,38 @@ FileTreeTable::PruneRemoteGitBranches
 		localList.SetCompareFunction(JCompareStringsCaseInsensitive);
 		localList.Sort();
 
-		const JSize branchCount = itsPruneBranchList->GetElementCount();
+		const JSize branchCount = branchList.GetElementCount();
 		for (JIndex i=branchCount; i>=1; i--)
 		{
-			JString* branch = itsPruneBranchList->GetElement(i);
+			JString* branch = branchList.GetElement(i);
 
 			JIndex j;
 			if (!localList.SearchSorted(branch, JListT::kAnyMatch, &j) ||
 				*branch == *currentBranch)
 			{
-				itsPruneBranchList->DeleteElement(i);
+				branchList.DeleteElement(i);
 			}
 		}
 	}
 
 	// ask if should delete local versions
 
-	if (!itsPruneBranchList->IsEmpty())
+	if (!branchList.IsEmpty())
 	{
-		assert( itsPruneBranchesDialog == nullptr );
-
-		itsPruneBranchesDialog =
-			jnew JXCheckboxListDialog(GetWindow()->GetDirector(),
-									  JGetString("DeletePrunedBranchesTitle::FileTreeTable"),
+		auto* dlog =
+			jnew JXCheckboxListDialog(JGetString("DeletePrunedBranchesTitle::FileTreeTable"),
 									  JGetString("DeletePrunedBranchesPrompt::FileTreeTable"),
-									  *itsPruneBranchList);
-		assert( itsPruneBranchesDialog != nullptr );
-		itsPruneBranchesDialog->SelectAllItems();
-		itsPruneBranchesDialog->Activate();
-		ListenTo(itsPruneBranchesDialog);
-	}
-	else
-	{
-		jdelete itsPruneBranchList;
-		itsPruneBranchList = nullptr;
-	}
-}
-
-/******************************************************************************
- PruneLocalBranches (private)
-
- ******************************************************************************/
-
-void
-FileTreeTable::PruneLocalBranches()
-{
-	assert( itsPruneBranchesDialog != nullptr );
-
-	JArray<JIndex> indexList;
-	if (!itsPruneBranchesDialog->GetSelectedItems(&indexList))
-	{
-		return;
-	}
-
-	const JSize count = indexList.GetElementCount();
-	for (JIndex i=1; i<=count; i++)
-	{
-		RemoveGitBranch(*(itsPruneBranchList->GetElement(indexList.GetElement(i))), true);
+									  branchList);
+		assert( dlog != nullptr );
+		dlog->SelectAllItems();
+		JArray<JIndex> indexList;
+		if (dlog->DoDialog() && dlog->GetSelectedItems(&indexList))
+		{
+			for (auto i : indexList)
+			{
+				RemoveGitBranch(*branchList.GetElement(i), true);
+			}
+		}
 	}
 }
 

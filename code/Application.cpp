@@ -13,16 +13,17 @@
 #include "TreeDir.h"
 #include "FileTreeTable.h"
 #include "AboutDialog.h"
-#include "ChooseSaveFile.h"
 #include "stringData.h"
 #include "globals.h"
 #include <jx-af/jx/JXWindow.h>
 #include <jx-af/jx/JXTextMenu.h>
 #include <jx-af/jx/JXToolBar.h>
+#include <jx-af/jx/JXChoosePathDialog.h>
 #include <jx-af/jfs/JFSFileTreeNode.h>
 #include <jx-af/jcore/JSimpleProcess.h>
 #include <jx-af/jcore/JStringIterator.h>
 #include <jx-af/jcore/jFileUtil.h>
+#include <jx-af/jcore/jWebUtil.h>
 #include <jx-af/jcore/jAssert.h>
 
 static const JUtf8Byte* kAppSignature = "systemg";
@@ -65,7 +66,7 @@ Application::Application
 	(
 	int*		argc,
 	char*		argv[],
-	bool*	displayAbout,
+	bool*		displayAbout,
 	JString*	prevVersStr
 	)
 	:
@@ -86,7 +87,7 @@ Application::Application
 
 	if (!*displayAbout)
 	{
-		*prevVersStr = (GetPrefsMgr())->GetSystemGVersionStr();
+		*prevVersStr = GetPrefsMgr()->GetSystemGVersionStr();
 		if (*prevVersStr == GetVersionNumberStr())
 		{
 			prevVersStr->Clear();
@@ -143,19 +144,13 @@ Application::~Application()
 
  ******************************************************************************/
 
-bool
+void
 Application::OpenDirectory()
 {
-	JString path;
-	if (GetChooseSaveFile()->ChooseRPath(
-			JGetString("OpenDirectoryPrompt::Application"),
-			JString::empty, JString::empty, &path))
+	auto* dlog = JXChoosePathDialog::Create(JXChoosePathDialog::kAcceptReadable);
+	if (dlog->DoDialog())
 	{
-		return OpenDirectory(path);
-	}
-	else
-	{
-		return false;
+		OpenDirectory(dlog->GetPath());
 	}
 }
 
@@ -163,12 +158,12 @@ bool
 Application::OpenDirectory
 	(
 	const JString&	pathName,
-	TreeDir**	dir,
+	TreeDir**		dir,
 	JIndex*			row,
-	const bool	deiconify,
-	const bool	reportError,
-	const bool	forceNew,
-	const bool	clearSelection
+	const bool		deiconify,
+	const bool		reportError,
+	const bool		forceNew,
+	const bool		clearSelection
 	)
 {
 	if (dir != nullptr)
@@ -682,15 +677,19 @@ Application::GetMountPointPrefsPath
 }
 
 /******************************************************************************
- Close (virtual protected)
+ Quit (virtual)
 
  ******************************************************************************/
 
-bool
-Application::Close()
+void
+Application::Quit()
 {
-	SaveProgramState();
-	return JXApplication::Close();
+	if (!IsQuitting() && HasPrefsMgr())
+	{
+		SaveProgramState();
+	}
+
+	JXApplication::Quit();
 }
 
 /******************************************************************************
@@ -702,7 +701,7 @@ bool
 Application::RestoreProgramState()
 {
 	JPtrArray<JString> children(JPtrArrayT::kDeleteAll);
-	if (!(GetPrefsMgr())->RestoreProgramState(&children))
+	if (!GetPrefsMgr()->RestoreProgramState(&children))
 	{
 		return false;
 	}
@@ -736,12 +735,11 @@ void
 Application::SaveProgramState()
 {
 	JPtrArray<JString> children(JPtrArrayT::kDeleteAll);
-	const JSize count = itsWindowList->GetElementCount();
-	for (JIndex i=1; i<=count; i++)
+	for (auto* w : *itsWindowList)
 	{
-		children.Append((itsWindowList->GetElement(i))->GetDirectory());
+		children.Append(w->GetDirectory());
 	}
-	(GetPrefsMgr())->SaveProgramState(children);
+	GetPrefsMgr()->SaveProgramState(children);
 }
 
 /******************************************************************************
@@ -857,12 +855,26 @@ Application::WritePrefs
 void
 Application::DisplayAbout
 	(
-	const JString& prevVersStr
+	const bool		showLicense,
+	const JString&	prevVersStr
 	)
 {
-	auto* dlog = jnew AboutDialog(this, prevVersStr);
-	assert( dlog != nullptr );
-	dlog->BeginDialog();
+	StartFiber([showLicense, prevVersStr]()
+	{
+		if (!showLicense || JGetUserNotification()->AcceptLicense())
+		{
+			auto* dlog = jnew AboutDialog(prevVersStr);
+			assert( dlog != nullptr );
+			dlog->DoDialog();
+
+			JCheckForNewerVersion(GetPrefsMgr(), kSVersionCheckID);
+		}
+		else
+		{
+			ForgetPrefsMgr();
+			JXGetApplication()->Quit();
+		}
+	});
 }
 
 /******************************************************************************

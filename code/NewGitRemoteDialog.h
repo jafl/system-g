@@ -8,15 +8,15 @@
 #ifndef _H_NewGitRemoteDialog
 #define _H_NewGitRemoteDialog
 
-#include <jx-af/jx/JXDialogDirector.h>
+#include <jx-af/jx/JXModalDialogDirector.h>
 
 class JXInputField;
 
-class NewGitRemoteDialog : public JXDialogDirector
+class NewGitRemoteDialog : public JXModalDialogDirector
 {
 public:
 
-	NewGitRemoteDialog(JXDirector* supervisor);
+	NewGitRemoteDialog();
 
 	~NewGitRemoteDialog() override;
 

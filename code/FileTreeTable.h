@@ -18,9 +18,6 @@ class JXMenuBar;
 class JXTextMenu;
 class JXFSDirMenu;
 class JXToolBar;
-class JXCheckboxListDialog;
-class JXRadioGroupDialog;
-class JXGetStringDialog;
 class JXTimerTask;
 class JXWindowIcon;
 class TreeSet;
@@ -28,7 +25,6 @@ class FileTreeList;
 class FileTree;
 class TrashButton;
 class BeginEditingTask;
-class NewGitRemoteDialog;
 
 class FileTreeTable : public JXNamedTreeListWidget
 {
@@ -187,18 +183,9 @@ private:
 
 	JXTextMenu*			itsContextMenu;
 
-	JXRadioGroupDialog*	itsChooseDiskFormatDialog;	// nullptr unless asking user
 	JProcess*			itsFormatProcess;			// nullptr unless formatting
-
-	JXGetStringDialog*	itsCreateGitBranchDialog;	// nullptr unless creating branch
-	JXGetStringDialog*	itsFetchGitBranchDialog;	// nullptr unless creating branch
-	JString				itsFetchGitBranch;
-	JXGetStringDialog*	itsCommitGitBranchDialog;	// nullptr unless committing branch
-	JXGetStringDialog*	itsGitStashDialog;			// nullptr unless stashing
 	JProcess*			itsGitProcess;				// nullptr unless waiting for git
 
-	NewGitRemoteDialog*		itsAddGitRemoteDialog;	// nullptr unless adding remote
-	JXCheckboxListDialog*	itsPruneBranchesDialog;	// nullptr unless pruning local branches
 	JPtrArray<JString>*		itsPruneBranchList;		// nullptr unless pruning local branches
 
 	// Drag-and-Drop
@@ -277,11 +264,9 @@ private:
 	void	SwitchToGitBranch(const JString& branch);
 	void	MergeFromGitBranch(const JString& branch);
 	void	FetchRemoteGitBranch(const JString& branch);
-	void	FinishFetchRemoteGitBranch(const JString& name);
 	void	PullBranch(const JString& repo);
 	void	PushBranch(const JString& repo);
 	bool	RemoveGitBranch(const JString& branch, const bool force = false);
-	void	PruneLocalBranches();
 
 	bool	GetGitStashList(JPtrArray<JString>* idList, JPtrArray<JString>* nameList);
 	void	Stash(const JString& name);

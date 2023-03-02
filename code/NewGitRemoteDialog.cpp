@@ -1,7 +1,7 @@
 /******************************************************************************
  NewGitRemoteDialog.cpp
 
-	BASE CLASS = JXDialogDirector
+	BASE CLASS = JXModalDialogDirector
 
 	Copyright (C) 2014 by John Lindal.
 
@@ -20,12 +20,9 @@
 
  ******************************************************************************/
 
-NewGitRemoteDialog::NewGitRemoteDialog
-	(
-	JXDirector* supervisor
-	)
+NewGitRemoteDialog::NewGitRemoteDialog()
 	:
-	JXDialogDirector(supervisor, true)
+	JXModalDialogDirector()
 {
 	BuildWindow();
 }

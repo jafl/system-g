@@ -16,14 +16,20 @@ class ChoosePathDialog : public JXChoosePathDialog
 {
 public:
 
-	ChoosePathDialog(JXDirector* supervisor, JDirInfo* dirInfo,
-					   const JString& fileFilter,
-					   const bool selectOnlyWritable);
+	static ChoosePathDialog*
+		Create(const SelectPathType type,
+			   const JString& startPath = JString::empty,
+			   const JString& fileFilter = JString::empty,
+			   const JString& message = JString::empty);
 
 	~ChoosePathDialog() override;
 
-	void	BuildWindow(const bool newWindow, const JString& message = JString::empty);
 	bool	OpenInNewWindow() const;
+
+protected:
+
+	ChoosePathDialog(const SelectPathType select,
+					 const JString& fileFilter);
 
 private:
 
@@ -34,6 +40,10 @@ private:
 	JXTextButton*   itsOpenButton;
 
 // end JXLayout
+
+private:
+
+	void	BuildWindow(const JString& startPath, const JString& message);
 };
 
 #endif

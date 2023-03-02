@@ -22,16 +22,16 @@ class PrefsMgr;
 class MDIServer;
 class ViewManPageDialog;
 class FindFileDialog;
-class ChooseSaveFile;
 class FileTreeTable;
 class FileTreeList;
 
 Application*		GetApplication();
+bool				HasPrefsMgr();
 PrefsMgr*			GetPrefsMgr();
+void				ForgetPrefsMgr();
 MDIServer*			GetMDIServer();
 ViewManPageDialog*	GetManPageDialog();
 FindFileDialog*		GetFindFileDialog();
-ChooseSaveFile*		GetChooseSaveFile();
 
 bool	IsTrashDirectory(const JString& path);
 bool	GetTrashDirectory(JString* path, const bool reportErrors = true);

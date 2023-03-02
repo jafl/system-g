@@ -12,7 +12,6 @@
 #include "MDIServer.h"
 #include "ViewManPageDialog.h"
 #include "FindFileDialog.h"
-#include "ChooseSaveFile.h"
 #include "FileTreeTable.h"
 #include "FileTreeList.h"
 #include "FileTree.h"
@@ -34,7 +33,6 @@ static MDIServer*			theMDIServer         = nullptr;	// owned by JX
 
 static ViewManPageDialog*	theManPageDialog     = nullptr;	// not owned
 static FindFileDialog*		theFindFileDialog    = nullptr;	// not owned
-static ChooseSaveFile*		theAltChooseSaveFile = nullptr;
 
 static FileTreeTable*		theDNDSource         = nullptr;	// not owned
 static FileTreeTable*		theDNDTarget         = nullptr;	// not owned
@@ -128,9 +126,6 @@ CreateGlobals
 	theFindFileDialog = jnew FindFileDialog(JXGetPersistentWindowOwner());
 	assert( theFindFileDialog != nullptr );
 
-	theAltChooseSaveFile = jnew ChooseSaveFile(thePrefsMgr, kSAltCSSetupID);
-	assert( theAltChooseSaveFile != nullptr );
-
 	JString trashDir;
 	GetTrashDirectory(&trashDir, false);	// silently creates it
 
@@ -154,9 +149,6 @@ DeleteGlobals()
 
 	theFindFileDialog->JPrefObject::WritePrefs();
 	theFindFileDialog = nullptr;
-
-	jdelete theAltChooseSaveFile;
-	theAltChooseSaveFile = nullptr;
 
 	jdelete theTrashDirInfo;
 	theTrashDirInfo = nullptr;
@@ -193,7 +185,6 @@ CleanUpBeforeSuddenDeath
 {
 	if (reason != JXDocumentManager::kAssertFired)
 	{
-		theAltChooseSaveFile->JPrefObject::WritePrefs();
 		theManPageDialog->JPrefObject::WritePrefs();
 		theFindFileDialog->JPrefObject::WritePrefs();
 	}
@@ -216,7 +207,18 @@ GetApplication()
 }
 
 /******************************************************************************
- GGetPrefsMgr
+ HasPrefsMgr
+
+ ******************************************************************************/
+
+bool
+HasPrefsMgr()
+{
+	return thePrefsMgr != nullptr;
+}
+
+/******************************************************************************
+ GetPrefsMgr
 
  ******************************************************************************/
 
@@ -225,6 +227,19 @@ GetPrefsMgr()
 {
 	assert(thePrefsMgr != nullptr);
 	return thePrefsMgr;
+}
+
+/******************************************************************************
+ ForgetPrefsManager
+
+	Called when license is not accepted, to avoid writing prefs file.
+
+ ******************************************************************************/
+
+void
+ForgetPrefsMgr()
+{
+	thePrefsMgr = nullptr;
 }
 
 /******************************************************************************
@@ -441,18 +456,6 @@ GetFindFileDialog()
 {
 	assert( theFindFileDialog != nullptr );
 	return theFindFileDialog;
-}
-
-/******************************************************************************
- GetChooseSaveFile
-
- ******************************************************************************/
-
-ChooseSaveFile*
-GetChooseSaveFile()
-{
-	assert( theAltChooseSaveFile != nullptr );
-	return theAltChooseSaveFile;
 }
 
 /******************************************************************************

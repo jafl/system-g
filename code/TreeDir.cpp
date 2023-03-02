@@ -123,7 +123,10 @@ TreeDir::~TreeDir()
 bool
 TreeDir::Close()
 {
-	SaveState();
+	if (HasPrefsMgr())
+	{
+		SaveState();
+	}
 	return JXWindowDirector::Close();
 }
 
@@ -367,18 +370,18 @@ TreeDir::BuildWindow
 void
 TreeDir::SaveState()
 {
-	if (!(GetPrefsMgr())->WillSaveFolderPrefs())
+	if (!GetPrefsMgr()->WillSaveFolderPrefs())
 	{
 		return;
 	}
 
 	const JString& path = GetDirectory();
-	if ((GetApplication())->IsMountPoint(path))
+	if (GetApplication()->IsMountPoint(path))
 	{
 		std::ostringstream data;
 		WriteState(data);
 		const std::string s = data.str();
-		(GetApplication())->SetMountPointPrefs(path, JString(s));
+		GetApplication()->SetMountPointPrefs(path, JString(s));
 	}
 
 	JString prefsFile = JCombinePathAndName(path, kDirPrefsName);

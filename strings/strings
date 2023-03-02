@@ -54,15 +54,13 @@ TrashName::globals	"Trash"
 
 # Application
 
-OpenDirectoryPrompt::Application	"Select path"
-PathDoesNotExist::Application		"\"$name\" does not exist."
-Unreadable::Application				"Unable to read contents of \"$name\"."
-InvalidShortcut::Application		"\"$name\" does not exist or is unreadable.  Do you want to remove this shortcut?"
+PathDoesNotExist::Application	"\"$name\" does not exist."
+Unreadable::Application			"Unable to read contents of \"$name\"."
+InvalidShortcut::Application	"\"$name\" does not exist or is unreadable.  Do you want to remove this shortcut?"
 
 # EditPrefsDialog
 
-WindowTitle::EditPrefsDialog		"Edit preferences"
-OpenFilesPrompt::EditPrefsDialog	"Open files"
+WindowTitle::EditPrefsDialog	"Edit preferences"
 
 # TreeDir
 
@@ -89,8 +87,6 @@ MountLabel::FileTreeTable	"Mount"
 UnmountLabel::FileTreeTable	"Unmount"
 
 NewNamePrefix::FileTreeTable	"Untitled"
-
-SelectDirectory::FileTreeTable	"Select path"
 
 WarnDeleteSingleFile::FileTreeTable
 "Are you sure you want to permanently delete \"$name\"?"

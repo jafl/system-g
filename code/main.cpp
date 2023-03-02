@@ -44,22 +44,21 @@ main
 	auto* app = jnew Application(&argc, argv, &displayAbout, &prevVersStr);
 	assert( app != nullptr );
 
-	if (displayAbout &&
-		!JGetUserNotification()->AcceptLicense())
+	JXApplication::StartFiber([argc, argv]()
 	{
-		return 0;
-	}
+		GetMDIServer()->HandleCmdLineOptions(argc, argv);
 
-	JCheckForNewerVersion(GetPrefsMgr(), kSVersionCheckID);
-
-	GetMDIServer()->HandleCmdLineOptions(argc, argv);
+		JXFSBindingManager::Initialize();	// notify user of any upgrades
+	});
 
 	if (displayAbout)
 	{
-		app->DisplayAbout(prevVersStr);
+		app->DisplayAbout(true, prevVersStr);
 	}
-
-	JXFSBindingManager::Initialize();	// notify user of any upgrades
+	else
+	{
+		JCheckForNewerVersion(GetPrefsMgr(), kSVersionCheckID);
+	}
 
 	app->Run();
 	return 0;

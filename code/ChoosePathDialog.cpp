@@ -11,7 +11,9 @@
 
  ******************************************************************************/
 
-#include <ChoosePathDialog.h>
+#include "ChoosePathDialog.h"
+#include "PrefsMgr.h"
+#include "globals.h"
 #include <jx-af/jx/JXWindow.h>
 #include <jx-af/jx/JXStaticText.h>
 #include <jx-af/jx/JXTextButton.h>
@@ -22,8 +24,27 @@
 #include <jx-af/jx/JXScrollbarSet.h>
 #include <jx-af/jx/JXCurrentPathMenu.h>
 #include <jx-af/jcore/jDirUtil.h>
-#include <jx-af/jcore/jGlobals.h>
 #include <jx-af/jcore/jAssert.h>
+
+/******************************************************************************
+ Create (static)
+
+ ******************************************************************************/
+
+ChoosePathDialog*
+ChoosePathDialog::Create
+	(
+	const SelectPathType	type,
+	const JString&			startPath,
+	const JString&			fileFilter,
+	const JString&			message
+	)
+{
+	auto* dlog = jnew ChoosePathDialog(type, fileFilter);
+	assert( dlog != nullptr );
+	dlog->BuildWindow(startPath, message);
+	return dlog;
+}
 
 /******************************************************************************
  Constructor
@@ -32,13 +53,11 @@
 
 ChoosePathDialog::ChoosePathDialog
 	(
-	JXDirector*		supervisor,
-	JDirInfo*		dirInfo,
-	const JString&	fileFilter,
-	const bool	selectOnlyWritable
+	const SelectPathType	type,
+	const JString&			fileFilter
 	)
 	:
-	JXChoosePathDialog(supervisor, dirInfo, fileFilter, selectOnlyWritable)
+	JXChoosePathDialog(type, fileFilter)
 {
 }
 
@@ -52,15 +71,15 @@ ChoosePathDialog::~ChoosePathDialog()
 }
 
 /******************************************************************************
- BuildWindow
+ BuildWindow (private)
 
  ******************************************************************************/
 
 void
 ChoosePathDialog::BuildWindow
 	(
-	const bool	newWindow,
-	const JString&	message
+	const JString& startPath,
+	const JString& message
 	)
 {
 // begin JXLayout
@@ -170,17 +189,17 @@ ChoosePathDialog::BuildWindow
 
 // end JXLayout
 
-	itsNewWindowCB->SetState(newWindow);
+	itsNewWindowCB->SetState(GetPrefsMgr()->WillOpenNewWindows());
 
 	SetObjects(scrollbarSet, pathLabel, pathInput, pathHistory,
 			   filterLabel, filterInput, filterHistory,
 			   itsOpenButton, itsSelectButton, cancelButton,
 			   upButton, homeButton, desktopButton,
-			   newDirButton, showHiddenCB, currPathMenu, message);
+			   newDirButton, showHiddenCB, currPathMenu, startPath, message);
 }
 
 /******************************************************************************
- OpenInNewWindow (public)
+ OpenInNewWindow
 
  ******************************************************************************/
 

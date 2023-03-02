@@ -14,7 +14,6 @@
 #include "ViewManPageDialog.h"
 #include "FileVersions.h"
 #include "globals.h"
-#include <jx-af/jx/JXChooseSaveFile.h>
 #include <jx-af/jcore/jDirUtil.h>
 #include <jx-af/jcore/jAssert.h>
 
@@ -32,14 +31,9 @@ PrefsMgr::PrefsMgr
 	bool* isNew
 	)
 	:
-	JXPrefsManager(kCurrentPrefsFileVersion, true)
+	JXPrefsManager(kCurrentPrefsFileVersion, true, kSgCSFSetupID)
 {
-	itsDialog = nullptr;
-	*isNew    = JPrefsManager::UpgradeData();
-
-	JXChooseSaveFile* csf = JXGetChooseSaveFile();
-	csf->SetPrefInfo(this, kSgCSFSetupID);
-	csf->JPrefObject::ReadPrefs();
+	*isNew = JPrefsManager::UpgradeData();
 }
 
 /******************************************************************************
@@ -93,7 +87,7 @@ PrefsMgr::GetSystemGVersionStr()
 void
 PrefsMgr::UpgradeData
 	(
-	const bool		isNew,
+	const bool			isNew,
 	const JFileVersion	currentVersion
 	)
 {
@@ -167,35 +161,6 @@ PrefsMgr::UpgradeData
 }
 
 /******************************************************************************
- Receive (virtual protected)
-
- ******************************************************************************/
-
-void
-PrefsMgr::Receive
-	(
-	JBroadcaster*	sender,
-	const Message&	message
-	)
-{
-	if (sender == itsDialog && message.Is(JXDialogDirector::kDeactivated))
-	{
-		const auto* info =
-			dynamic_cast<const JXDialogDirector::Deactivated*>(&message);
-		assert(info != nullptr);
-		if (info->Successful())
-		{
-			UpdatePrefs();
-		}
-		itsDialog = nullptr;
-	}
-	else
-	{
-		JXPrefsManager::Receive(sender, message);
-	}
-}
-
-/******************************************************************************
  EditPrefs
 
  ******************************************************************************/
@@ -203,48 +168,35 @@ PrefsMgr::Receive
 void
 PrefsMgr::EditPrefs()
 {
-	assert( itsDialog == nullptr );
-
 	const JString manCmd        = (GetManPageDialog())->GetViewManPageCommand();
 	const JString termCmd       = (GetApplication())->GetTerminalCommand();
 	const JString gitStatusCmd  = (GetApplication())->GetGitStatusCommand();
 	const JString gitHistoryCmd = (GetApplication())->GetGitHistoryCommand();
 	const JString coCmd         = (GetApplication())->GetPostCheckoutCommand();
 
-	itsDialog = jnew EditPrefsDialog(termCmd, manCmd, gitStatusCmd, gitHistoryCmd,
-									   coCmd, DelWillDelete(), WillOpenNewWindows(),
-									   WillSaveFolderPrefs());
-	assert(itsDialog != nullptr);
+	auto* dlog = jnew EditPrefsDialog(termCmd, manCmd, gitStatusCmd, gitHistoryCmd,
+									  coCmd, DelWillDelete(), WillOpenNewWindows(),
+									  WillSaveFolderPrefs());
+	assert( dlog != nullptr );
 
-	itsDialog->BeginDialog();
-	ListenTo(itsDialog);
-}
+	if (dlog->DoDialog())
+	{
+		JString manCmd, termCmd, gitStatusCmd, gitHistoryCmd, postCheckoutCmd;
+		bool del, newWindows, perFolderPrefs;
+		dlog->GetPrefs(&termCmd, &manCmd, &gitStatusCmd, &gitHistoryCmd,
+					   &postCheckoutCmd, &del, &newWindows, &perFolderPrefs);
 
-/******************************************************************************
- UpdatePrefs
+		GetApplication()->SetTerminalCommand(termCmd);
+		GetApplication()->SetGitStatusCommand(gitStatusCmd);
+		GetApplication()->SetGitHistoryCommand(gitHistoryCmd);
+		GetApplication()->SetPostCheckoutCommand(postCheckoutCmd);
+		GetManPageDialog()->SetViewManPageCommand(manCmd);
+		DelShouldDelete(del);
+		ShouldOpenNewWindows(newWindows);
+		ShouldSaveFolderPrefs(perFolderPrefs);
 
- ******************************************************************************/
-
-void
-PrefsMgr::UpdatePrefs()
-{
-	assert( itsDialog != nullptr );
-
-	JString manCmd, termCmd, gitStatusCmd, gitHistoryCmd, postCheckoutCmd;
-	bool del, newWindows, perFolderPrefs;
-	itsDialog->GetPrefs(&termCmd, &manCmd, &gitStatusCmd, &gitHistoryCmd,
-						&postCheckoutCmd, &del, &newWindows, &perFolderPrefs);
-
-	(GetApplication())->SetTerminalCommand(termCmd);
-	(GetApplication())->SetGitStatusCommand(gitStatusCmd);
-	(GetApplication())->SetGitHistoryCommand(gitHistoryCmd);
-	(GetApplication())->SetPostCheckoutCommand(postCheckoutCmd);
-	(GetManPageDialog())->SetViewManPageCommand(manCmd);
-	DelShouldDelete(del);
-	ShouldOpenNewWindows(newWindows);
-	ShouldSaveFolderPrefs(perFolderPrefs);
-
-	Broadcast(PrefsChanged());
+		Broadcast(PrefsChanged());
+	}
 }
 
 /******************************************************************************

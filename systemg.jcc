@@ -117,10 +117,6 @@ T
 F
 "./code/ViewManPageDialog.cpp"
 T
-2 "ChooseSaveFile.cpp"
-F
-"./code/ChooseSaveFile.cpp"
-T
 2 "ChoosePathDialog.cpp"
 F
 "./code/ChoosePathDialog.cpp"

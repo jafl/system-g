@@ -30,7 +30,6 @@
 .cpp ./code/FindFileTask
 .cpp ./code/FindFileDialog
 .cpp ./code/ViewManPageDialog
-.cpp ./code/ChooseSaveFile
 .cpp ./code/ChoosePathDialog
 .cpp ./code/NewGitRemoteDialog
 

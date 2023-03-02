@@ -15,7 +15,6 @@
 #include <jx-af/jcore/JFontStyle.h>
 
 class JXStringHistoryMenu;
-class EditPrefsDialog;
 
 enum
 {
@@ -37,7 +36,7 @@ enum
 	kSEmpty6ID,
 	kSEmpty7ID,
 	kSViewManPagePrefID,
-	kSAltCSSetupID,
+	kUnused1ID,		// must clear before re-using
 	kSFindFilePrefID,
 	kSVersionCheckID,
 	kSNewWindowsID,
@@ -83,15 +82,6 @@ protected:
 
 	void	UpgradeData(const bool isNew, const JFileVersion currentVersion) override;
 	void	SaveAllBeforeDestruct() override;
-	void	Receive(JBroadcaster* sender, const Message& message) override;
-
-private:
-
-	EditPrefsDialog*	itsDialog;
-
-private:
-
-	void	UpdatePrefs();
 
 public:
 

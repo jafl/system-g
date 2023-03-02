@@ -362,7 +362,7 @@ CopyProcess::CopyProcess
 
 	if (itsSrcTable != nullptr)
 	{
-		(itsSrcTable->GetTableSelection()).ClearSelection();
+		itsSrcTable->GetTableSelection().ClearSelection();
 		ClearWhenGoingAway(itsSrcTable, &itsSrcTable);
 	}
 

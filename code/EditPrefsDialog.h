@@ -8,14 +8,14 @@
 #ifndef _H_EditPrefsDialog
 #define _H_EditPrefsDialog
 
-#include <jx-af/jx/JXDialogDirector.h>
+#include <jx-af/jx/JXModalDialogDirector.h>
 #include <jx-af/jcore/JPtrArray-JString.h>
 
 class JXInputField;
 class JXRadioGroup;
 class JXTextCheckbox;
 
-class EditPrefsDialog : public JXDialogDirector
+class EditPrefsDialog : public JXModalDialogDirector
 {
 public:
 

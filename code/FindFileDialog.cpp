@@ -20,8 +20,8 @@
 #include <jx-af/jx/JXRadioGroup.h>
 #include <jx-af/jx/JXTextRadioButton.h>
 #include <jx-af/jx/JXPathInput.h>
-#include <jx-af/jx/JXChooseSaveFile.h>
 #include <jx-af/jx/JXFontManager.h>
+#include <jx-af/jx/JXCSFDialogBase.h>
 
 #include <jx-af/jcore/jProcessUtil.h>
 #include <jx-af/jcore/jVCSUtil.h>
@@ -185,11 +185,11 @@ FindFileDialog::BuildWindow()
 
 	const JFont& font = JFontManager::GetDefaultMonospaceFont();
 
-	itsFileInput->GetText()->SetCharacterInWordFunction(JXChooseSaveFile::IsCharacterInWord);
+	itsFileInput->GetText()->SetCharacterInWordFunction(JXCSFDialogBase::IsCharacterInWord);
 	itsFileInput->SetFont(font);
 	ListenTo(itsFileInput);
 
-	itsExprInput->GetText()->SetCharacterInWordFunction(JXChooseSaveFile::IsCharacterInWord);
+	itsExprInput->GetText()->SetCharacterInWordFunction(JXCSFDialogBase::IsCharacterInWord);
 	itsExprInput->SetFont(font);
 	ListenTo(itsExprInput);
 

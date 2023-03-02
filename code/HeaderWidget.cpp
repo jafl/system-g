@@ -98,12 +98,12 @@ HeaderWidget::TableDrawCell
 	if (bufferWidth < 0)
 	{
 		sRect.right += bufferWidth;
-		p.String(sRect, str, JPainter::kHAlignRight, JPainter::kVAlignCenter);
+		p.String(sRect, str, JPainter::HAlign::kRight, JPainter::VAlign::kCenter);
 	}
 	else
 	{
 		sRect.left += bufferWidth;
-		p.String(sRect, str, JPainter::kHAlignLeft, JPainter::kVAlignCenter);
+		p.String(sRect, str, JPainter::HAlign::kLeft, JPainter::VAlign::kCenter);
 	}
 }
 

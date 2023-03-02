@@ -31,7 +31,7 @@ BeginEditingTask::BeginEditingTask
 	itsNode(table->GetFileTreeList()->GetFileNode(cell.y))
 {
 	ClearWhenGoingAway(itsNode, &itsNode);
-	ClearWhenGoingAway(itsNode, &(itsTable->itsEditTask));
+	ClearWhenGoingAway(itsNode, &itsTable->itsEditTask);
 
 	ClearWhenGoingAway(itsTable, &itsNode);
 	ClearWhenGoingAway(itsTable, &itsTable);
@@ -71,19 +71,15 @@ BeginEditingTask::Perform()
 }
 
 /******************************************************************************
- Perform (virtual)
+ Perform (virtual protected)
 
  ******************************************************************************/
 
 void
 BeginEditingTask::Perform
 	(
-	const Time	delta,
-	Time*		maxSleepTime
+	const Time delta
 	)
 {
-	if (TimeToPerform(delta, maxSleepTime))
-	{
-		Perform();
-	}
+	Perform();
 }

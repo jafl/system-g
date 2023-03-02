@@ -1,7 +1,7 @@
 /******************************************************************************
  EditPrefsDialog.cpp
 
-	BASE CLASS = JXDialogDirector
+	BASE CLASS = JXModalDialogDirector
 
 	Copyright (C) 1997 by Glenn W. Bach.
 
@@ -37,7 +37,7 @@ EditPrefsDialog::EditPrefsDialog
 	const bool	perFolderPrefs
 	)
 	:
-	JXDialogDirector(JXGetApplication(), true)
+	JXModalDialogDirector()
 {
 	BuildWindow(terminalCmd, manViewCmd, gitStatusCmd, gitHistoryCmd,
 				postCheckoutCmd, del, newWindows, perFolderPrefs);
@@ -65,9 +65,9 @@ EditPrefsDialog::BuildWindow
 	const JString&	gitStatusCmd,
 	const JString&	gitHistoryCmd,
 	const JString&	postCheckoutCmd,
-	const bool	del,
-	const bool	newWindows,
-	const bool	perFolderPrefs
+	const bool		del,
+	const bool		newWindows,
+	const bool		perFolderPrefs
 	)
 {
 // begin JXLayout

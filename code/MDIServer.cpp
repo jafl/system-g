@@ -10,6 +10,7 @@
 #include "MDIServer.h"
 #include "globals.h"
 #include <jx-af/jfs/JXFSBindingManager.h>
+#include <jx-af/jx/JXChooseFileDialog.h>
 #include <jx-af/jcore/jDirUtil.h>
 #include <jx-af/jcore/jAssert.h>
 
@@ -120,11 +121,11 @@ MDIServer::HandleMDIRequest
 void
 MDIServer::OpenFiles()
 {
-	JPtrArray<JString> fileList(JPtrArrayT::kDeleteAll);
-	if (JGetChooseSaveFile()->ChooseFiles(
-			JGetString("OpenFilesPrompt::EditPrefsDialog"),
-			JString::empty, &fileList))
+	auto* dlog = JXChooseFileDialog::Create(JXChooseFileDialog::kSelectMultipleFiles);
+	if (dlog->DoDialog())
 	{
+		JPtrArray<JString> fileList(JPtrArrayT::kDeleteAll);
+		dlog->GetFullNames(&fileList);
 		JXFSBindingManager::Exec(fileList);
 	}
 }

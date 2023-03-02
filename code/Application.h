@@ -28,9 +28,9 @@ public:
 
 	~Application() override;
 
-	bool	Close() override;
+	void	Quit() override;
 
-	bool	OpenDirectory();
+	void	OpenDirectory();
 	bool	OpenDirectory(const JString& pathName,
 						  TreeDir** dir = nullptr, JIndex* row = nullptr,
 						  const bool deiconify = true,
@@ -69,7 +69,8 @@ public:
 	const JString&	GetPostCheckoutCommand() const;
 	void			SetPostCheckoutCommand(const JString& cmd);
 
-	void	DisplayAbout(const JString& prevVersStr = JString::empty);
+	void	DisplayAbout(const bool showLicense = false,
+						 const JString& prevVersStr = JString::empty);
 
 	bool	RestoreProgramState();
 	void	SaveProgramState();
@@ -88,7 +89,7 @@ protected:
 
 private:
 
-	JPtrArray<TreeDir>*	itsWindowList;
+	JPtrArray<TreeDir>*		itsWindowList;
 	JMountPointList*		itsMountPointList;
 	mutable JMountState		itsMountPointState;
 	JPtrArray<JString>*		itsShortcutList;
