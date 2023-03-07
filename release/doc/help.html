@@ -69,7 +69,7 @@
 
 
 <hr>
-<h2><a name="SyGGettingStartedHelp">Getting started with System G</a></h2>
+<h2><a name="GettingStartedHelp">Getting started with System G</a></h2>
 
 <p>System G is a simple file manager that provides basic access to the file system. The goal is to allow a simple way to access and manipulate files and folders. Files and folders are opened by double-clicking on them, names are changed by clicking on them and then typing in the new name, permissions are changed by clicking on the appropriate permission, etc.</p>
 
@@ -79,7 +79,7 @@
 
 
 <hr>
-<h2><a name="SyGFileHelp">Files</a></h2>
+<h2><a name="FileHelp">Files</a></h2>
 
 <h3>Selecting files</h3>
 
@@ -89,7 +89,7 @@
 
 <p>By holding down Shift when you begin dragging a rectangle, you will toggle the selection of each of the enclosed files.</p>
 
-<h3><a name="SyGFileHelp-Opening">Opening a file</a></h3>
+<h3><a name="FileHelp-Opening">Opening a file</a></h3>
 
 <p>The most basic way to open a file is either to double click on it or to select it and then choose "Open" from the File menu.  This invokes the default program for the file's type as specified in the <a href="http://libjx.sourceforge.net/help/jfs.html">File Binding Editor</a> or, if there is no default program, the <a href="http://libjx.sourceforge.net/help/jfs.html#RunFile">Run Command with File</a> dialog.  This is not your only option, however.  The complete list of all the ways to open a file is as follows:</p>
 
@@ -120,45 +120,45 @@
 
 <p>Notice the similarities between these shortcuts and those for opening folders and running programs.</p>
 
-<h3><a name="SyGFileHelp-Renaming">Renaming names</a></h3>
+<h3><a name="FileHelp-Renaming">Renaming names</a></h3>
 
 <p>To change the name of a file, either left click on the file name, or select the file and then press the Return key.  When you are done typing, simply press Return again and the file's name will be changed.  (If you want to open the file or perform some other action after typing in the new name, you do not need to press Return first.)  To cancel the process, press the Escape key.</p>
 
-<h3><a name="SyGFileHelp-MoveCopy">Moving and copying files</a></h3>
+<h3><a name="FileHelp-MoveCopy">Moving and copying files</a></h3>
 
 <p>Files are moved or copied by dragging the file from one location to another.  If the file is placed over a folder, the arrow to the left of the folder will darken to indicate that it is the target.  By default, files will be moved when they are dragged, unless you are dragging between disks, in which case they will be copied.  To invoke the other action, hold down the Meta key while dragging.  If the Control key is held down while dragging, you will be asked which action to perform on the files.</p>
 
-<h3><a name="SyGFileHelp-Duplicating">Duplicating files</a></h3>
+<h3><a name="FileHelp-Duplicating">Duplicating files</a></h3>
 
 <p>To duplicate a file or group of files, select them and choose "Duplicate" from the File menu.</p>
 
-<h3><a name="SyGFileHelp-Deleting">Deleting files</a></h3>
+<h3><a name="FileHelp-Deleting">Deleting files</a></h3>
 
 <p>Since deleting a file cannot be undone, it must not be possible to perform the required actions unconsciously out of habit.  You must therefore drag the file to the trash can window or the trash can icon in the lower right of any window, open the trash can, and empty it.  Anything easier is too likely to become a habit.  This includes the use of warning dialogs.  Once a warning dialog becomes a habit, you are likely to do it unconsciously, and that defeats the purpose.  Providing a menu item is also too dangerous because it is possible to accidentally select it instead of the adjacent item.  (Warnings are more likely to be effective in this case since they will interrupt one's flow of thought, but programs should always be designed to minimize the possibility of such interruptions.)  Allowing the use of the Backspace and Delete keys is even more dangerous because it is possible to press these keys unconsciously when anticipating the creation of an input field for editing a file name.</p>
 
 <p>Since some people will still want to be able to shoot themselves in the foot, a preference option is provided to allow the Delete key (not the Backspace key) to delete the selected files.  This always warns you, so if you get in the habit of reading the warning carefully, it might be safe to use it.</p>
 
-<h3><a name="SyGFileHelp-Symbolic">Aliases (symbolic links)</a></h3>
+<h3><a name="FileHelp-Symbolic">Aliases (symbolic links)</a></h3>
 
 <p>An alias acts like a file, but is actully just a pointer to a file in another location.  The name of the alias can be anything you like.  The advantage of using aliases is that you can have access to a file or folder from many locations without actually duplicating it several times.  This not only minimizes the amount of disk space used, it also insures that there is only one copy of the data, so there will never be any chance of one version not agreeing with another.</p>
 
 <p>To create an alias, either select the item and choose "Make alias" from the File menu, or drag the item and hold down the Shift key when you drop it.  The alias can be moved to any folder, and its name can be changed.  If you have an alias, you can determine what it points to be seleting "Find original" from the File menu.</p>
 
-<h3><a name="SyGFileHelp-Locating">Locating files in a folder</a></h3>
+<h3><a name="FileHelp-Locating">Locating files in a folder</a></h3>
 
 <p>To locate a file within a window, simply start typing its name. As the letters you type start matching a word, that word will be selected. To clear the selection, or to search for a new word, hit the space key.</p>
 
-<h3><a name="SyGFileHelp-Permissions">File permissions</a></h3>
+<h3><a name="FileHelp-Permissions">File permissions</a></h3>
 
 <p>The permissions on a file or folder determine who can read, write, or execute a file. The permissions are listed from left to right for the owner of the file, the owner's group, and for everyone else. To change the permissions of a file or folder, toggle the permission you want to change. For example, If a file is not currently writable by anyone, and you want to be able to write to it, click the write flag which will be the second digit from the left. Clicking it again will change it back. To change the permissions on every file in a directory, Meta click the appropriate permission on the folder.</p>
 
 
 <hr>
-<h2><a name="SyGFolderHelp">Folders</a></h2>
+<h2><a name="FolderHelp">Folders</a></h2>
 
 <p>A folder, also called a directory, contains a collection of files and other folders.  The icon for a folder is drawn differently depending on the <a href="#FileHelp-Permissions">permissions</a>.  If you are not allowed to write to the folder, e.g., to create new files, the folder's tab will be black.  If you are not allowed to see the contents of the folder, there will not be an arrow to the left of the icon, and there will be a belt around the folder itself.</p>
 
-<h3><a name="SyGFolderHelp-Opening">Opening a folder</a></h3>
+<h3><a name="FolderHelp-Opening">Opening a folder</a></h3>
 
 <p>System G supports several ways of opening a folder in order to accommodate the various ways that people have of navigating through the file system.</p>
 
@@ -232,19 +232,19 @@
 
 <p>Running System G from the command-line opens all of the folders that were opened when you last quit the program (if they still exist). Once it is running, you can also call System G from the command-line with arguments to open other folders. This will not create a new instance of System G, but will pass the arguments to the currently running instance which will open the requested folders. If no arguments are specified on the command-line, System G will open the current working directory.</p>
 
-<h3><a name="SyGFolderHelp-Creating">Creating folders</a></h3>
+<h3><a name="FolderHelp-Creating">Creating folders</a></h3>
 
 <p>You can create a new folder by selecting the "New folder" command from the File menu. If nothing is selected, a folder will be created in the current folder. If a file is created, a folder will be created in the folder containing that file. If a folder is created, a folder will be created within that folder.</p>
 
-<h3><a name="SyGFolderHelp-Views">View options</a></h3>
+<h3><a name="FolderHelp-Views">View options</a></h3>
 
 <p>There are several file properties that can be shown in the window by selecting the appropriate menu item in the Views menu. The properties available are <i>user</i>, <i>group</i>, <i>size</i>, <i>permissions</i>, and <i>date</i>. Selecting "Show hidden" from the View menu will show all of the hidden files with their properties as well.</p>
 
-<h3><a name="SyGFolderHelp-Filters">Filters</a></h3>
+<h3><a name="FolderHelp-Filters">Filters</a></h3>
 
 <p>There are times when there are too many files visible, making it hard to find a particular file or group of files. The filter field is helpful in this. The filter is made visible by selecting "Show filter" from the View menu. The files are filtered based on the pattern in the filter field. Patterns are constructed by replacing letters or groups of letters in a file name with a '*'. For example, \*.cc\ displays all files the end in \.cc\.</p>
 
-<h3><a name="SyGFolderHelp-Shortcuts">The Shortcuts menu</a></h3>
+<h3><a name="FolderHelp-Shortcuts">The Shortcuts menu</a></h3>
 
 <p>Shortcuts provide a way to quickly access a folder. Once you have opened a folder that you will be opening frequently, you can add it to the shortcut list by selecting the "Add shortcut" from the Shortcuts menu.  Later when you wish to open that folder, simply select it from the list in the Shortcuts menu.</p>
 
@@ -252,7 +252,7 @@
 
 
 <hr>
-<h2><a name="SyGGitHelp">Working with Git</a></h2>
+<h2><a name="GitHelp">Working with Git</a></h2>
 
 <p>If the directory is managed by git, the Git menu will be enabled.  The first item tells you the current branch and provides a menu of the locally available branches.  Selecting one of these items will switch your directory contents to that branch.  The rest of the menu items work as follows:</p>
 
@@ -305,7 +305,7 @@
 
 
 <hr>
-<h2><a name="SyGExecHelp">Programs (executables)</a></h2>
+<h2><a name="ExecHelp">Programs (executables)</a></h2>
 
 <p>On UNIX, the only difference between a program and a regular file is that the program has the "executable" flag set (see <a href="#FileHelp-Permissions">File Permissions</a>), i.e., they can be run to perform a task.</p>
 
@@ -345,13 +345,13 @@
 
 
 <hr>
-<h2><a name="SyGMiscHelp">Miscellaneous notes</a></h2>
+<h2><a name="MiscHelp">Miscellaneous notes</a></h2>
 
 <h3>The Clipboard</h3>
 
 <p>By default, Systemg G follows the Macintosh clipboard model.  This means that text is <em>not</em> automatically copied when it is selected.  Instead, it is only copied when you use the "Copy" item on the Edit menu or Meta-C.  (Meta-C works in any input area, regardless of whether or not the window contains an Edit menu.)  The main advantage of this model is that paste can then replace the selected text.  If you prefer the X clipboard model, the "Mac/Win/X Emulation" preferences dialog lets you use this instead.</p>
 
-<h3><a name="SyGViewManHelp">Viewing UNIX Man Pages</a></h3>
+<h3><a name="ViewManHelp">Viewing UNIX Man Pages</a></h3>
 
 <p>The Man Pages window lets you specify what function to look up and which section to look in.  If you leave the section blank, the system will search all sections.</p>
 
@@ -361,11 +361,11 @@
 
 <p>The default action is to display the man page using <a href="http://sourceforge.net/p/codecrusader/">Code Crusader</a>.  If you wish to display it in a terminal instead, you can change the action to "<code>xterm -e man</code>" in the Preferences dialog.</p>
 
-<h3><a name="SyGTermHelp">Opening a terminal</a></h3>
+<h3><a name="TermHelp">Opening a terminal</a></h3>
 
 <p>There are times when the easiest way to do something is with a command line terminal. To open a terminal, select the "Open terminal" item from the File menu.  If a file is selected, this will open a terminal in that file's directory.  If a folder is selected, the terminal will start inside that folder.  If nothing is selected or the window is iconified, this will open a terminal in the current window's directory.  By default, the terminal command uses "<code>xterm</code>", but you can change this in the Preferences dialog.</p>
 
-<h3><a name="SyGMiscHelp-Shortcuts">Useful Shortcuts</a></h3>
+<h3><a name="MiscHelp-Shortcuts">Useful Shortcuts</a></h3>
 
 <p>On PC's, Meta is normally bound to the Alt key on the keyboard.  Your system's configuration may be different, however.  You can use "<a href="#MiscHelp-ModifierKeys"><code>xmodmap</code></a>" to examine and change this configuration.</p>
 
@@ -375,7 +375,7 @@
 
 <p>To use a shortcut for a button or checkbox, hold down the Meta key and press the underlined character.</p>
 
-<h3><a name="SyGMiscHelp-Scrolling">Scrolling</a></h3>
+<h3><a name="MiscHelp-Scrolling">Scrolling</a></h3>
 
 <p>All scrollbars display increment/decrement arrow pairs if there is space.  Coupled with the Shift key which makes the arrows scroll a half page at a time, this conveniently packages all the scrolling functions in one place.</p>
 
@@ -419,7 +419,7 @@
 	<dd>Scroll horizontally instead of vertically</dd>
 </dl>
 
-<h3><a name="SyGMiscHelp-FileChooser">The File Chooser</a></h3>
+<h3><a name="MiscHelp-FileChooser">The File Chooser</a></h3>
 
 <p>Tab completion in the Path input field is supported, but only when the caret is at the far right of the text.  (This allows Tab to be used to switch to the next input area in all other situations.)  You don't actually need tab completion, however, because typing in the file list table performs an incremental search, after which you can use the following keys:</p>
 
@@ -450,7 +450,7 @@
 
 <p>The window is resizable, and always remembers its size and position.</p>
 
-<h3><a name="SyGMiscHelp-MultiSelect">Selecting more than one item in a list</a></h3>
+<h3><a name="MiscHelp-MultiSelect">Selecting more than one item in a list</a></h3>
 
 <p>If selecting more than one item at a time is possible in a particular list, you can do so with the following actions:</p>
 
@@ -497,7 +497,7 @@
 
 <p>The digits correspond to the appropriate positions on a numeric keypad.</p>
 
-<h3><a name="SyGMiscHelp-WindowManagement">How to avoid fiddling with windows</a></h3>
+<h3><a name="MiscHelp-WindowManagement">How to avoid fiddling with windows</a></h3>
 
 <p>System G's paradigm is to display information in many separate windows instead of trying to cram everything into a single window.  This allows you to easily place windows side by side so you can view more than one at a time and drag information from one to the other.  It also allows you to place different windows on different virtual desktops.  For those who prefer to work with all their windows arranged within a single window, refer to the section on <a href="http://libjx.sourceforge.net/help/dock.html">Window Docks</a>.</p>
 
@@ -534,7 +534,7 @@
 
 <p>Window managers like KDE and Gnome that provide a taskbar listing all the currently open windows allow you to filter this list based on the window's title or WM_CLASS attribute.  System G sets WM_CLASS to SystemG_Folder.</p>
 
-<h3><a name="SyGMiscHelp-ModifierKeys">Remapping modifier keys</a></h3>
+<h3><a name="MiscHelp-ModifierKeys">Remapping modifier keys</a></h3>
 
 <p>You can choose which keys on your keyboard should map to each modifier by using <code>xmodmap</code> in your <code>~/.xinitrc</code> file.  As an example, if you have a PC keyboard with the new Windows key between Ctrl and Alt, you can change the left Windows key to produce the Mod4 modifier as follows:</p>
 

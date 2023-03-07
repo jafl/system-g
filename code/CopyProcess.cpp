@@ -278,7 +278,7 @@ CopyProcess::CopyProcess
 	JAppendDirSeparator(&destPath);
 
 	itsVCSType = kJUnknownVCSType;
-{
+	{
 	JVCSType type1 = kJUnknownVCSType, type2 = kJUnknownVCSType, type3 = kJUnknownVCSType;
 	bool anyVCS = false, allVCS = false, sameVCS = false;
 
@@ -358,7 +358,7 @@ CopyProcess::CopyProcess
 		JXDeleteObjectTask<JBroadcaster>::Delete(this);
 		return;
 	}
-}
+	}
 
 	if (itsSrcTable != nullptr)
 	{
