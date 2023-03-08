@@ -23,10 +23,10 @@ enum GFMColType
 	kGFMName
 };
 
-bool	InsertFMCol(JXTable* table, bool visibleCols[],
+bool	InsertFMCol(bool visibleCols[],
 					const JIndex leadingCols, const GFMColType type,
 					JIndex* index, JCoordinate* retWidth);
-bool	RemoveFMCol(JXTable* table, bool visibleCols[],
+bool	RemoveFMCol(bool visibleCols[],
 					const JIndex leadingCols, const GFMColType type,
 					JIndex* index);
 

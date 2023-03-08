@@ -25,7 +25,6 @@ const JCoordinate kGFMBufferWidth = 6;
 bool
 InsertFMCol
 	(
-	JXTable*			table,
 	bool				visibleCols[],
 	const JIndex		leadingCols,
 	const GFMColType	type,
@@ -99,8 +98,6 @@ InsertFMCol
 	}
 
 	return true;
-
-
 }
 
 /******************************************************************************
@@ -111,7 +108,6 @@ InsertFMCol
 bool
 RemoveFMCol
 	(
-	JXTable*			table,
 	bool				visibleCols[],
 	const JIndex		leadingCols,
 	const GFMColType	type,

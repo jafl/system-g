@@ -298,7 +298,6 @@ private:
 	void	HandleContextMenu(const JIndex index);
 
 	void	ChooseDNDCursors();
-	bool	HandleFileDrop(const Time time, const Atom type, const JXWidget* source);
 	bool	GetTrueDropAction(Atom* action);
 
 	JIndex	GetNearestDirIndex(const JIndex index, const bool requireWritable);

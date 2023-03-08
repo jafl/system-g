@@ -1728,22 +1728,6 @@ FileTreeTable::HandleDNDDrop
 }
 
 /******************************************************************************
- HandleFileDrop (private)
-
- ******************************************************************************/
-
-bool
-FileTreeTable::HandleFileDrop
-	(
-	const Time		time,
-	const Atom		type,
-	const JXWidget*	source
-	)
-{
-	return true;
-}
-
-/******************************************************************************
  GetTrueDropAction (private)
 
  ******************************************************************************/
@@ -3528,7 +3512,7 @@ FileTreeTable::InsertFMTreeCol
 	JIndex		index;
 	JCoordinate width;
 
-	if (InsertFMCol(this, itsVisibleCols, GetNodeColIndex(), type, &index, &width))
+	if (InsertFMCol(itsVisibleCols, GetNodeColIndex(), type, &index, &width))
 	{
 		InsertCols(index, 1, width);
 	}
@@ -3547,7 +3531,7 @@ FileTreeTable::RemoveFMTreeCol
 {
 	JIndex index;
 
-	if (RemoveFMCol(this, itsVisibleCols, GetNodeColIndex(), type, &index))
+	if (RemoveFMCol(itsVisibleCols, GetNodeColIndex(), type, &index))
 	{
 		RemoveCol(index);
 	}
@@ -3562,7 +3546,7 @@ void
 FileTreeTable::LoadPrefs()
 {
 	bool prefs[kTreePrefCount];
-	(GetPrefsMgr())->GetTreePreferences(prefs);
+	GetPrefsMgr()->GetTreePreferences(prefs);
 	SetPreferences(prefs);
 }
 
