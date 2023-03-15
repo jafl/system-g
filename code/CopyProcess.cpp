@@ -169,7 +169,7 @@ CopyProcess::OKToReplace
 			ok = JGetTrueName(destPath, &trueDest);
 			assert( ok );
 
-			if (trueDest.BeginsWith(trueSrc))
+			if (trueDest.StartsWith(trueSrc))
 			{
 				const JUtf8Byte* map[] =
 				{
@@ -206,7 +206,7 @@ CopyProcess::OKToReplace
 		ok = JGetTrueName(destName, &trueDest);
 		assert( ok );
 
-		if (trueSrc.BeginsWith(trueDest))
+		if (trueSrc.StartsWith(trueDest))
 		{
 			const JUtf8Byte* map[] =
 			{
@@ -216,7 +216,7 @@ CopyProcess::OKToReplace
 			JGetUserNotification()->ReportError(msg);
 			return false;
 		}
-		else if (trueDest.BeginsWith(trueSrc))
+		else if (trueDest.StartsWith(trueSrc))
 		{
 			const JUtf8Byte* map[] =
 			{

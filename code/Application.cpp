@@ -1001,8 +1001,8 @@ Application::CompareShortcuts
 	JString* const & s2
 	)
 {
-	const bool h1 = s1->BeginsWith("~");
-	const bool h2 = s2->BeginsWith("~");
+	const bool h1 = s1->StartsWith("~");
+	const bool h2 = s2->StartsWith("~");
 	if (h1 && !h2)
 	{
 		return JListT::kFirstLessSecond;

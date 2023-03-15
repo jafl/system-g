@@ -184,7 +184,7 @@ FindFileTask::ReceiveMessageLine()
 	const bool ok = itsMessageLink->GetNextMessage(&path);
 	assert( ok );
 
-	if (!path.BeginsWith("." ACE_DIRECTORY_SEPARATOR_STR))
+	if (!path.StartsWith("." ACE_DIRECTORY_SEPARATOR_STR))
 	{
 		return;
 	}
