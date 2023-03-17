@@ -53,7 +53,6 @@ static JXImage*	theSelectedUnknownIcon        = nullptr;
 
 // owned by JXImageCache
 static JXImage* theHDSmallIcon  = nullptr;
-static JXImage* theZipSmallIcon = nullptr;
 static JXImage* theFDSmallIcon  = nullptr;
 static JXImage* theCDSmallIcon  = nullptr;
 
@@ -609,7 +608,6 @@ GetVersionStr()
  ******************************************************************************/
 
 #include <jx-af/image/jx/jx_hard_disk_small.xpm>
-#include <jx-af/image/jx/jx_zip_disk_small.xpm>
 #include <jx-af/image/jx/jx_floppy_disk_small.xpm>
 #include <jx-af/image/jx/jx_cdrom_disk_small.xpm>
 
@@ -657,10 +655,9 @@ CreateIcons()
 {
 	JXImageCache* c = theApplication->GetDisplay(1)->GetImageCache();
 
-	theHDSmallIcon  = c->GetImage(jx_hard_disk_small);
-	theZipSmallIcon = c->GetImage(jx_zip_disk_small);
-	theFDSmallIcon  = c->GetImage(jx_floppy_disk_small);
-	theCDSmallIcon  = c->GetImage(jx_cdrom_disk_small);
+	theHDSmallIcon = c->GetImage(jx_hard_disk_small);
+	theFDSmallIcon = c->GetImage(jx_floppy_disk_small);
+	theCDSmallIcon = c->GetImage(jx_cdrom_disk_small);
 
 	theTrashEmptySmallIcon         = c->GetImage(jx_trash_can_empty_small);
 	theTrashEmptySelectedSmallIcon = c->GetImage(jx_trash_can_empty_selected_small);
@@ -832,10 +829,10 @@ GetMountPointSmallIcon
 JIndex
 GetMountPointLargeIcon
 	(
-	const JString&		path,
+	const JString&	path,
 	FileTreeList*	fileList,
-	JXPM*				plainIcon,
-	JXPM*				selectedIcon
+	JXPM*			plainIcon,
+	JXPM*			selectedIcon
 	)
 {
 	JMountType type;

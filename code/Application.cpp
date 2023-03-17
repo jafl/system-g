@@ -414,12 +414,10 @@ Application::UpdateShortcutMenu
 
 	JIndex shortcutIndex = 1;
 
-	JSize count = itsMountPointList->GetElementCount();
-	for (JIndex i=1; i<=count; i++)
+	for (const auto& mp : *itsMountPointList)
 	{
-		const JMountPoint mp = itsMountPointList->GetElement(i);
-		menu->AppendItem(*(mp.path), JXMenu::kPlainType, JString::empty,
-						 GetNMShortcut(&shortcutIndex), *(mp.path));
+		menu->AppendItem(*mp.path, JXMenu::kPlainType, JString::empty,
+						 GetNMShortcut(&shortcutIndex), *mp.path);
 
 		JXImage* image;
 		if (GetMountPointSmallIcon(mp.type, &image))
@@ -440,10 +438,8 @@ Application::UpdateShortcutMenu
 
 	JXImage* folderIcon = GetFolderSmallIcon();
 
-	count = itsShortcutList->GetElementCount();
-	for (JIndex i=1; i<=count; i++)
+	for (const auto* path : *itsShortcutList)
 	{
-		const JString* path = itsShortcutList->GetElement(i);
 		menu->AppendItem(*path, JXMenu::kPlainType, JString::empty,
 						 GetNMShortcut(&shortcutIndex), *path);
 		menu->SetItemImage(menu->GetItemCount(), folderIcon, false);
