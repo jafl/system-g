@@ -18,7 +18,7 @@ class JXMenuBar;
 class JXTextMenu;
 class JXFSDirMenu;
 class JXToolBar;
-class JXTimerTask;
+class JXFunctionTask;
 class JXWindowIcon;
 class TreeSet;
 class FileTreeList;
@@ -152,7 +152,7 @@ private:
 	FileTreeList*		itsFileTreeList;	// owned by base class
 	TreeSet*			itsTreeSet;
 	TrashButton*		itsTrashButton;
-	JXTimerTask*		itsUpdateTask;
+	JXFunctionTask*		itsUpdateTask;
 	JFSFileTreeNodeBase*itsUpdateNode;
 
 	bool				itsVisibleCols[5];

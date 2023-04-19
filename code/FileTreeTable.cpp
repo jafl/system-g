@@ -48,7 +48,7 @@
 #include <jx-af/jx/JXRadioGroupDialog.h>
 #include <jx-af/jx/JXCheckboxListDialog.h>
 #include <jx-af/jx/JXGetStringDialog.h>
-#include <jx-af/jx/JXTimerTask.h>
+#include <jx-af/jx/JXFunctionTask.h>
 #include <jx-af/jx/JXToolBar.h>
 #include <jx-af/jx/JXImage.h>
 #include <jx-af/jx/jXUtil.h>
@@ -500,9 +500,8 @@ FileTreeTable::FileTreeTable
 
 	// updating
 
-	itsUpdateTask = jnew JXTimerTask(kDirUpdateInterval);
+	itsUpdateTask = jnew JXFunctionTask(kDirUpdateInterval, std::bind(&FileTreeTable::UpdateDisplay, this, false));
 	assert( itsUpdateTask != nullptr );
-	ListenTo(itsUpdateTask);
 
 	JXWindow* window = GetWindow();
 //	if (!window->IsIconified())		// update window icon while iconified
@@ -2182,11 +2181,6 @@ FileTreeTable::Receive
 			dynamic_cast<const JXMenu::ItemSelected*>(&message);
 		assert( selection != nullptr );
 		HandleShortcutMenu(selection->GetIndex());
-	}
-
-	else if (sender == itsUpdateTask && message.Is(JXTimerTask::kTimerWentOff))
-	{
-		UpdateDisplay();
 	}
 
 	else if (sender == itsContextMenu && message.Is(JXMenu::kNeedsUpdate))
