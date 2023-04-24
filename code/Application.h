@@ -107,7 +107,7 @@ private:
 	void	UpdateMountPointList() const;
 	JString	GetMountPointPrefsPath(const JString& path) const;
 
-	static JListT::CompareResult
+	static std::weak_ordering
 		CompareShortcuts(JString* const & s1, JString* const & s2);
 
 public:

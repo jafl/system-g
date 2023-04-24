@@ -64,19 +64,19 @@ FileTreeNode::SetChildCompareFunction
 {
 	if (type == kGFMUID)
 	{
-		JFSFileTreeNode::SetChildCompareFunction(JFSFileTreeNode::CompareUserName, JListT::kSortAscending, true);
+		JFSFileTreeNode::SetChildCompareFunction(JFSFileTreeNode::CompareUserNames, JListT::kSortAscending, true);
 	}
 	else if (type == kGFMGID)
 	{
-		JFSFileTreeNode::SetChildCompareFunction(JFSFileTreeNode::CompareGroupName, JListT::kSortAscending, true);
+		JFSFileTreeNode::SetChildCompareFunction(JFSFileTreeNode::CompareGroupNames, JListT::kSortAscending, true);
 	}
 	else if (type == kGFMSize)
 	{
-		JFSFileTreeNode::SetChildCompareFunction(JFSFileTreeNode::CompareSize, JListT::kSortDescending, true);
+		JFSFileTreeNode::SetChildCompareFunction(JFSFileTreeNode::CompareSizes, JListT::kSortDescending, true);
 	}
 	else if (type == kGFMDate)
 	{
-		JFSFileTreeNode::SetChildCompareFunction(JFSFileTreeNode::CompareDate, JListT::kSortDescending, true);
+		JFSFileTreeNode::SetChildCompareFunction(JFSFileTreeNode::CompareDates, JListT::kSortDescending, true);
 	}
 	else
 	{

@@ -990,7 +990,7 @@ Application::InitStrings()
 
  ******************************************************************************/
 
-JListT::CompareResult
+std::weak_ordering
 Application::CompareShortcuts
 	(
 	JString* const & s1,
@@ -1001,11 +1001,11 @@ Application::CompareShortcuts
 	const bool h2 = s2->StartsWith("~");
 	if (h1 && !h2)
 	{
-		return JListT::kFirstLessSecond;
+		return std::weak_ordering::less;
 	}
 	else if (!h1 && h2)
 	{
-		return JListT::kFirstGreaterSecond;
+		return std::weak_ordering::greater;
 	}
 	else
 	{

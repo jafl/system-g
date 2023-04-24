@@ -9,7 +9,7 @@
 #define _H_FileTree
 
 #include <jx-af/jfs/JFSFileTree.h>
-#include "ColUtils.h"	// need defn of GFMColType
+#include "ColUtils.h"	// for GFMColType
 
 class JDirInfo;
 class FileTreeNode;
