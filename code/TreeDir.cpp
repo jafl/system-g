@@ -294,7 +294,10 @@ TreeDir::BuildWindow
 
 	// Up button
 
-	ListenTo(itsUpButton);
+	ListenTo(itsUpButton, std::function([this](const JXButton::Pushed&)
+	{
+		GetTable()->GoUp(GetDisplay()->GetLatestKeyModifiers().meta());
+	}));
 
 	// trash button
 
@@ -340,12 +343,12 @@ TreeDir::BuildWindow
 	itsPrefsMenu = menuBar->AppendTextMenu(JGetString("PrefsMenuTitle::JXGlobal"));
 	itsPrefsMenu->SetMenuItems(kPrefsMenuStr, "TreeDir");
 	itsPrefsMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsPrefsMenu);
+	itsPrefsMenu->AttachHandler(this, &TreeDir::HandlePrefsMenu);
 
 	itsHelpMenu = menuBar->AppendTextMenu(JGetString("HelpMenuTitle::JXGlobal"));
 	itsHelpMenu->SetMenuItems(kHelpMenuStr, "TreeDir");
 	itsHelpMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsHelpMenu);
+	itsHelpMenu->AttachHandler(this, &TreeDir::HandleHelpMenu);
 
 	itsHelpMenu->SetItemImage(kTOCCmd, jx_help_toc);
 
@@ -423,45 +426,6 @@ TreeDir::WriteState
 
 	output << ' ';
 	itsTreeSet->SavePreferences(output);
-}
-
-/******************************************************************************
- Receive (virtual protected)
-
- ******************************************************************************/
-
-void
-TreeDir::Receive
-	(
-	JBroadcaster*	sender,
-	const Message&	message
-	)
-{
-	if (sender == itsPrefsMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		HandlePrefsMenu(selection->GetIndex());
-	}
-
-	else if (sender == itsHelpMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		HandleHelpMenu(selection->GetIndex());
-	}
-
-	else if (sender == itsUpButton && message.Is(JXButton::kPushed))
-	{
-		GetTable()->GoUp((GetDisplay()->GetLatestKeyModifiers()).meta());
-	}
-
-	else
-	{
-		JXWindowDirector::Receive(sender, message);
-	}
 }
 
 /******************************************************************************

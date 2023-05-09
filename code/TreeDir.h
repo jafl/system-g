@@ -40,10 +40,6 @@ public:
 
 	void	SaveState();
 
-protected:
-
-	void	Receive(JBroadcaster* sender, const Message& message) override;
-
 private:
 
 	TreeSet*	itsTreeSet;

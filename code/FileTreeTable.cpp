@@ -343,7 +343,9 @@ FileTreeTable::FileTreeTable
 	itsFileMenu = menuBar->PrependTextMenu(JGetString("FileMenuTitle::JXGlobal"));
 	itsFileMenu->SetMenuItems(kFileMenuStr, "FileTreeTable");
 	itsFileMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsFileMenu);
+	itsFileMenu->AttachHandlers(this,
+		&FileTreeTable::UpdateFileMenu,
+		&FileTreeTable::HandleFileMenu);
 
 	itsFileMenu->SetItemImage(kNewDirCmd,      jx_folder_small);
 	itsFileMenu->SetItemImage(kNewTextFileCmd, jx_file_new);
@@ -386,12 +388,16 @@ FileTreeTable::FileTreeTable
 	assert( found );
 	itsCopyPathCmdIndex++;
 	itsEditMenu->InsertMenuItems(itsCopyPathCmdIndex, kEditMenuAddStr, "FileTreeTable");
-	ListenTo(itsEditMenu);
+	itsEditMenu->AttachHandlers(this,
+		&FileTreeTable::UpdateEditMenu,
+		&FileTreeTable::HandleEditMenu);
 
 	itsViewMenu = menuBar->AppendTextMenu(JGetString("ViewMenuTitle::FileTreeTable"));
 	itsViewMenu->SetMenuItems(kViewMenuStr, "FileTreeTable");
 	itsViewMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsViewMenu);
+	itsViewMenu->AttachHandlers(this,
+		&FileTreeTable::UpdateViewMenu,
+		&FileTreeTable::HandleViewMenu);
 
 	itsViewMenu->SetItemImage(kShowFilterCmd, filter);
 	itsViewMenu->SetItemImage(kShowHiddenCmd, hidden);
@@ -405,7 +411,16 @@ FileTreeTable::FileTreeTable
 	itsGitMenu->SetMenuItems(kGitMenuStr);
 	itsGitMenu->SetUpdateAction(JXMenu::kDisableNone);
 	itsGitMenu->Deactivate();
-	ListenTo(itsGitMenu);
+
+	ListenTo(itsGitMenu, std::function([this](const JXMenu::NeedsUpdate& msg)
+	{
+		UpdateGitMenus(msg.IsFromShortcut());
+	}));
+
+	ListenTo(itsGitMenu, std::function([this](const JXMenu::ItemSelected& msg)
+	{
+		HandleGitMenu(msg.GetIndex());
+	}));
 
 	itsGitMenu->SetItemImage(kGitStatusCmd, git_status);
 	itsGitMenu->SetItemImage(kGitHistoryCmd, git_history);
@@ -417,83 +432,135 @@ FileTreeTable::FileTreeTable
 					   itsGitMenu->GetEnclosure());
 	assert( itsGitLocalBranchMenu != nullptr );
 	itsGitLocalBranchMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsGitLocalBranchMenu);
+
+	ListenTo(itsGitLocalBranchMenu, std::function([this](const JXMenu::NeedsUpdate&)
+	{
+		UpdateGitLocalBranchMenu();
+	}));
+
+	ListenTo(itsGitLocalBranchMenu, std::function([this](const JXMenu::ItemSelected& msg)
+	{
+		SwitchToGitBranch(itsGitLocalBranchMenu->GetItemText(msg.GetIndex()));
+	}));
 
 	itsGitPullSourceMenu =
 		jnew JXTextMenu(itsGitMenu, kGitPullItemIndex,
 					   itsGitMenu->GetEnclosure());
 	assert( itsGitPullSourceMenu != nullptr );
 	itsGitPullSourceMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsGitPullSourceMenu);
+
+	ListenTo(itsGitPullSourceMenu, std::function([this](const JXMenu::ItemSelected& msg)
+	{
+		PullBranch(itsGitPullSourceMenu->GetItemText(msg.GetIndex()));
+	}));
 
 	itsGitPushDestMenu =
 		jnew JXTextMenu(itsGitMenu, kGitPushItemIndex,
 					   itsGitMenu->GetEnclosure());
 	assert( itsGitPushDestMenu != nullptr );
 	itsGitPushDestMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsGitPushDestMenu);
+
+	ListenTo(itsGitPushDestMenu, std::function([this](const JXMenu::ItemSelected& msg)
+	{
+		PushBranch(itsGitPushDestMenu->GetItemText(msg.GetIndex()));
+	}));
 
 	itsGitMergeBranchMenu =
 		jnew JXTextMenu(itsGitMenu, kGitMergeFromBranchItemIndex,
 					   itsGitMenu->GetEnclosure());
 	assert( itsGitMergeBranchMenu != nullptr );
 	itsGitMergeBranchMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsGitMergeBranchMenu);
+
+	ListenTo(itsGitMergeBranchMenu, std::function([this](const JXMenu::ItemSelected& msg)
+	{
+		MergeFromGitBranch(itsGitMergeBranchMenu->GetItemText(msg.GetIndex()));
+	}));
 
 	itsGitStashPopMenu =
 		jnew JXTextMenu(itsGitMenu, kGitStashPopItemIndex,
 					   itsGitMenu->GetEnclosure());
 	assert( itsGitStashPopMenu != nullptr );
 	itsGitStashPopMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsGitStashPopMenu);
+
+	ListenTo(itsGitStashPopMenu, std::function([this](const JXMenu::ItemSelected& msg)
+	{
+		Unstash("pop", itsGitStashPopMenu->GetItemText(msg.GetIndex()));
+	}));
 
 	itsGitStashApplyMenu =
 		jnew JXTextMenu(itsGitMenu, kGitStashApplyItemIndex,
 					   itsGitMenu->GetEnclosure());
 	assert( itsGitStashApplyMenu != nullptr );
 	itsGitStashApplyMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsGitStashApplyMenu);
+
+	ListenTo(itsGitStashApplyMenu, std::function([this](const JXMenu::ItemSelected& msg)
+	{
+		Unstash("apply", itsGitStashApplyMenu->GetItemText(msg.GetIndex()));
+	}));
 
 	itsGitStashDropMenu =
 		jnew JXTextMenu(itsGitMenu, kGitStashDropItemIndex,
 					   itsGitMenu->GetEnclosure());
 	assert( itsGitStashDropMenu != nullptr );
 	itsGitStashDropMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsGitStashDropMenu);
+
+	ListenTo(itsGitStashDropMenu, std::function([this](const JXMenu::ItemSelected& msg)
+	{
+		Unstash("drop", itsGitStashDropMenu->GetItemText(msg.GetIndex()));
+	}));
 
 	itsGitRemoteBranchMenu =
 		jnew JXTextMenu(itsGitMenu, kGitFetchBranchItemIndex,
 					   itsGitMenu->GetEnclosure());
 	assert( itsGitRemoteBranchMenu != nullptr );
 	itsGitRemoteBranchMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsGitRemoteBranchMenu);
+
+	ListenTo(itsGitRemoteBranchMenu, std::function([this](const JXMenu::ItemSelected& msg)
+	{
+		FetchRemoteGitBranch(itsGitRemoteBranchMenu->GetItemText(msg.GetIndex()));
+	}));
 
 	itsGitRemoveBranchMenu =
 		jnew JXTextMenu(itsGitMenu, kGitRemoveBranchItemIndex,
 					   itsGitMenu->GetEnclosure());
 	assert( itsGitRemoveBranchMenu != nullptr );
 	itsGitRemoveBranchMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsGitRemoveBranchMenu);
+
+	ListenTo(itsGitRemoveBranchMenu, std::function([this](const JXMenu::ItemSelected& msg)
+	{
+		RemoveGitBranch(itsGitRemoveBranchMenu->GetItemText(msg.GetIndex()));
+	}));
 
 	itsGitRemoveRemoteMenu =
 		jnew JXTextMenu(itsGitMenu, kGitRemoveRemoteItemIndex,
 					   itsGitMenu->GetEnclosure());
 	assert( itsGitRemoveRemoteMenu != nullptr );
 	itsGitRemoveRemoteMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsGitRemoveRemoteMenu);
+
+	ListenTo(itsGitRemoveRemoteMenu, std::function([this](const JXMenu::ItemSelected& msg)
+	{
+		RemoveGitRemote(itsGitRemoveRemoteMenu->GetItemText(msg.GetIndex()));
+	}));
 
 	itsGitPruneRemoteMenu =
 		jnew JXTextMenu(itsGitMenu, kGitPruneRemoteItemIndex,
 					   itsGitMenu->GetEnclosure());
 	assert( itsGitPruneRemoteMenu != nullptr );
 	itsGitPruneRemoteMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsGitPruneRemoteMenu);
+
+	ListenTo(itsGitPruneRemoteMenu, std::function([this](const JXMenu::ItemSelected& msg)
+	{
+		PruneRemoteGitBranches(itsGitPruneRemoteMenu->GetItemText(msg.GetIndex()));
+	}));
 
 	itsShortcutMenu = menuBar->AppendTextMenu(JGetString("ShortcutsMenuTitle::FileTreeTable"));
 	assert (itsShortcutMenu != nullptr);
 	itsShortcutMenu->SetMenuItems(kShortcutMenuStr, "FileTreeTable");
 	itsShortcutMenu->SetUpdateAction(JXMenu::kDisableNone);
-	ListenTo(itsShortcutMenu);
+	itsShortcutMenu->AttachHandlers(this,
+		&FileTreeTable::UpdateShortcutMenu,
+		&FileTreeTable::HandleShortcutMenu);
+
 	ListenTo(GetApplication());
 
 	UpdateShortcutMenu();
@@ -505,9 +572,9 @@ FileTreeTable::FileTreeTable
 
 	JXWindow* window = GetWindow();
 //	if (!window->IsIconified())		// update window icon while iconified
-//		{
+//	{
 		itsUpdateTask->Start();
-//		}
+//	}
 	ListenTo(window);
 
 	ListenTo(itsFileTree);
@@ -1020,7 +1087,9 @@ FileTreeTable::HandleMouseDown
 			itsContextMenu->SetToHiddenPopupMenu(true);
 			itsContextMenu->SetMenuItems(kContextMenuStr);
 			itsContextMenu->SetUpdateAction(JXMenu::kDisableNone);
-			ListenTo(itsContextMenu);
+			itsContextMenu->AttachHandlers(this,
+				&FileTreeTable::UpdateContextMenu,
+				&FileTreeTable::HandleContextMenu);
 		}
 
 		const JPoint cell1(GetNodeColIndex(), cell.y);
@@ -2011,19 +2080,7 @@ FileTreeTable::Receive
 	const Message&	message
 	)
 {
-	if (sender == itsFileMenu && message.Is(JXMenu::kNeedsUpdate))
-	{
-		UpdateFileMenu();
-	}
-	else if (sender == itsFileMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		HandleFileMenu(selection->GetIndex());
-	}
-
-	else if (sender == itsRecentFilesMenu && message.Is(JXFSDirMenu::kFileSelected))
+	if (sender == itsRecentFilesMenu && message.Is(JXFSDirMenu::kFileSelected))
 	{
 		const auto* info	=
 			dynamic_cast<const JXFSDirMenu::FileSelected*>(&message);
@@ -2041,158 +2098,6 @@ FileTreeTable::Receive
 		JPtrArray<JString> fileList(JPtrArrayT::kDeleteAll);
 		fileList.Append(info->GetFileName());
 		JXFSBindingManager::Exec(fileList, alternateOpen);
-	}
-
-	else if (sender == itsEditMenu && message.Is(JXMenu::kNeedsUpdate))
-	{
-		if (HasFocus())
-		{
-			UpdateEditMenu();
-		}
-	}
-	else if (sender == itsEditMenu && message.Is(JXMenu::kItemSelected))
-	{
-		if (HasFocus())
-		{
-			const auto* selection =
-				dynamic_cast<const JXMenu::ItemSelected*>(&message);
-			assert( selection != nullptr );
-			HandleEditMenu(selection->GetIndex());
-		}
-	}
-
-	else if (sender == itsGitMenu && message.Is(JXMenu::kNeedsUpdate))
-	{
-		const auto* info =
-			dynamic_cast<const JXMenu::NeedsUpdate*>(&message);
-		assert( info != nullptr );
-		UpdateGitMenus(info->IsFromShortcut());
-	}
-	else if (sender == itsGitMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		HandleGitMenu(selection->GetIndex());
-	}
-
-	else if (sender == itsGitLocalBranchMenu && message.Is(JXMenu::kNeedsUpdate))
-	{
-		UpdateGitLocalBranchMenu();
-	}
-	else if (sender == itsGitLocalBranchMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		SwitchToGitBranch(itsGitLocalBranchMenu->GetItemText(selection->GetIndex()));
-	}
-
-	else if (sender == itsGitPullSourceMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		PullBranch(itsGitPullSourceMenu->GetItemText(selection->GetIndex()));
-	}
-	else if (sender == itsGitPushDestMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		PushBranch(itsGitPushDestMenu->GetItemText(selection->GetIndex()));
-	}
-	else if (sender == itsGitMergeBranchMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		MergeFromGitBranch(itsGitMergeBranchMenu->GetItemText(selection->GetIndex()));
-	}
-	else if (sender == itsGitStashPopMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		Unstash("pop", itsGitStashPopMenu->GetItemText(selection->GetIndex()));
-	}
-	else if (sender == itsGitStashApplyMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		Unstash("apply", itsGitStashApplyMenu->GetItemText(selection->GetIndex()));
-	}
-	else if (sender == itsGitStashDropMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		Unstash("drop", itsGitStashDropMenu->GetItemText(selection->GetIndex()));
-	}
-	else if (sender == itsGitRemoteBranchMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		FetchRemoteGitBranch(itsGitRemoteBranchMenu->GetItemText(selection->GetIndex()));
-	}
-	else if (sender == itsGitRemoveBranchMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		RemoveGitBranch(itsGitRemoveBranchMenu->GetItemText(selection->GetIndex()));
-	}
-	else if (sender == itsGitRemoveRemoteMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		RemoveGitRemote(itsGitRemoveRemoteMenu->GetItemText(selection->GetIndex()));
-	}
-	else if (sender == itsGitPruneRemoteMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		PruneRemoteGitBranches(itsGitPruneRemoteMenu->GetItemText(selection->GetIndex()));
-	}
-
-	else if (sender == itsViewMenu && message.Is(JXMenu::kNeedsUpdate))
-	{
-		UpdateViewMenu();
-	}
-	else if (sender == itsViewMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		HandleViewMenu(selection->GetIndex());
-	}
-
-	else if (sender == itsShortcutMenu && message.Is(JXMenu::kNeedsUpdate))
-	{
-		UpdateShortcutMenu();
-	}
-	else if (sender == itsShortcutMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		HandleShortcutMenu(selection->GetIndex());
-	}
-
-	else if (sender == itsContextMenu && message.Is(JXMenu::kNeedsUpdate))
-	{
-		UpdateContextMenu();
-	}
-	else if (sender == itsContextMenu && message.Is(JXMenu::kItemSelected))
-	{
-		const auto* selection =
-			dynamic_cast<const JXMenu::ItemSelected*>(&message);
-		assert( selection != nullptr );
-		HandleContextMenu(selection->GetIndex());
 	}
 
 	else if (sender == itsFormatProcess && message.Is(JProcess::kFinished))
@@ -2263,7 +2168,7 @@ FileTreeTable::Receive
 
 		else if (sender == itsFileTree && message.Is(JFSFileTree::kDirectoryRenamed))
 		{
-			(GetApplication())->DirectoryRenamed(message);
+			GetApplication()->DirectoryRenamed(message);
 		}
 		else if (sender == itsFileTree->GetRootDirInfo() &&
 				 message.Is(JDirInfo::kPathChanged))
@@ -3214,6 +3119,11 @@ FileTreeTable::ChangeExecPermission
 void
 FileTreeTable::UpdateEditMenu()
 {
+	if (!HasFocus())
+	{
+		return;
+	}
+
 	JXTEBase* te = GetEditMenuHandler();
 
 	JIndex index;
@@ -3243,6 +3153,11 @@ FileTreeTable::HandleEditMenu
 	const JIndex index
 	)
 {
+	if (!HasFocus())
+	{
+		return;
+	}
+
 	ClearIncrementalSearchBuffer();
 
 	JTextEditor::CmdIndex cmd;

@@ -160,10 +160,31 @@ ViewManPageDialog::BuildWindow()
 	window->LockCurrentMinSize();
 	window->ShouldFocusWhenShow(true);
 
-	ListenTo(itsViewButton);
-	ListenTo(itsCloseButton);
-	ListenTo(itsHelpButton);
-	ListenTo(itsFnHistoryMenu);
+	ListenTo(itsViewButton, std::function([this](const JXButton::Pushed&)
+	{
+		ViewManPage();
+		if (!itsStayOpenCB->IsChecked())
+		{
+			Deactivate();
+		}
+	}));
+
+	ListenTo(itsCloseButton, std::function([this](const JXButton::Pushed&)
+	{
+		GetWindow()->KillFocus();
+		Deactivate();
+	}));
+
+	ListenTo(itsHelpButton, std::function([](const JXButton::Pushed&)
+	{
+		JXGetHelpManager()->ShowSection("ViewManHelp");
+	}));
+
+	ListenTo(itsFnHistoryMenu, std::function([this](const JXMenu::ItemSelected& msg)
+	{
+		SetFunction(itsFnHistoryMenu->GetItemText(msg));
+		itsFnName->Focus();
+	}));
 
 	itsFnName->GetText()->SetCharacterInWordFunction(JXCSFDialogBase::IsCharacterInWord);
 	ListenTo(itsFnName);
@@ -204,33 +225,9 @@ ViewManPageDialog::Receive
 	const Message&	message
 	)
 {
-	if (sender == itsViewButton && message.Is(JXButton::kPushed))
-	{
-		ViewManPage();
-		if (!itsStayOpenCB->IsChecked())
-		{
-			Deactivate();
-		}
-	}
-	else if (sender == itsCloseButton && message.Is(JXButton::kPushed))
-	{
-		GetWindow()->KillFocus();
-		Deactivate();
-	}
-	else if (sender == itsHelpButton && message.Is(JXButton::kPushed))
-	{
-		(JXGetHelpManager())->ShowSection("ViewManHelp");
-	}
-
-	else if (sender == itsFnHistoryMenu && message.Is(JXMenu::kItemSelected))
-	{
-		SetFunction(itsFnHistoryMenu->GetItemText(message));
-		itsFnName->Focus();
-	}
-
-	else if (sender == itsFnName &&
-			 (message.Is(JStyledText::kTextSet) ||
-			  message.Is(JStyledText::kTextChanged)))
+	if (sender == itsFnName &&
+		(message.Is(JStyledText::kTextSet) ||
+		 message.Is(JStyledText::kTextChanged)))
 	{
 		UpdateDisplay();
 	}

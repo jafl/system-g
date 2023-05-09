@@ -266,7 +266,7 @@ TreeSet::Receive
 	else if (sender == itsPathMenu && message.Is(JXMenu::kItemSelected))
 	{
 		itsTable->GoTo(itsPathMenu->GetPath(message),
-					   (GetDisplay()->GetLatestKeyModifiers()).meta());
+					   GetDisplay()->GetLatestKeyModifiers().meta());
 	}
 
 	else if (sender == itsFilterInput && message.Is(JXWidget::kLostFocus))
