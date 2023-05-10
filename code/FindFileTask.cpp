@@ -15,6 +15,7 @@
 #include <jx-af/jcore/JProcess.h>
 #include <jx-af/jcore/JStringIterator.h>
 #include <jx-af/jcore/jDirUtil.h>
+#include <ranges>
 #include <jx-af/jcore/jAssert.h>
 
 /******************************************************************************
@@ -200,13 +201,13 @@ FindFileTask::ReceiveMessageLine()
 	JString* name = pathList.GetLastElement();
 	pathList.RemoveElement(pathList.GetElementCount());
 
-	for (JIndex i=itsPathList->GetElementCount(); i>=1; i--)
+	for (auto* p : std::views::reverse(*itsPathList))
 	{
-		pathList.Prepend(*(itsPathList->GetElement(i)));
+		pathList.Prepend(*p);
 	}
 
 	JPoint cell;
-	(itsDirector->GetTable())->SelectName(pathList, *name, &cell, false, false);
+	itsDirector->GetTable()->SelectName(pathList, *name, &cell, false, false);
 
 	jdelete name;
 	itsFoundFilesFlag = true;
