@@ -33,8 +33,6 @@ For all other systems, download a package:
 
 <a href="https://sourceforge.net/p/nps-systemg/"><img alt="Download System G" src="https://sourceforge.net/sflogo.php?type=17&group_id=170488" width="250"></a>
 
-[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/systemg)
-
 If you download a tar, unpack it, cd into the directory, and run `sudo ./install`.
 
 Otherwise, put the program (`systemg`) in a directory that is on your execution path.  `~/bin` is typically a good choice.
