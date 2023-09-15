@@ -242,7 +242,7 @@ Application::OpenDirectory
 		}
 
 		iter.ReplaceLastMatch(p1);
-		iter.MoveTo(kJIteratorStartAtBeginning, 0);
+		iter.MoveTo(JStringIterator::kStartAtBeginning, 0);
 		iter.BeginMatch();
 	}
 	iter.Invalidate();
@@ -896,7 +896,7 @@ Application::OpenTerminal
 		iter.ReplaceLastMatch(n);
 	}
 
-	iter.MoveTo(kJIteratorStartAtBeginning, 0);
+	iter.MoveTo(JStringIterator::kStartAtBeginning, 0);
 	while (iter.Next("$p"))
 	{
 		iter.ReplaceLastMatch(fullName);

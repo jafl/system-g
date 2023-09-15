@@ -4234,7 +4234,7 @@ FileTreeTable::FetchRemoteGitBranch
 
 	JString name = branch;
 
-	JStringIterator iter(&name, kJIteratorStartAtEnd);
+	JStringIterator iter(&name, JStringIterator::kStartAtEnd);
 	if (iter.Prev("/"))
 	{
 		iter.SkipNext();
