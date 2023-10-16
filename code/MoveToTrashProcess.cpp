@@ -97,6 +97,12 @@ MoveToTrashProcess::Receive
 {
 	if (sender == itsProcess && message.Is(JProcess::kFinished))
 	{
+		const auto* info = dynamic_cast<const JProcess::Finished*>(&message);
+		if (!info->Successful())
+		{
+			itsProcess->ReportError(false);
+		}
+
 		JXDeleteObjectTask<JBroadcaster>::Delete(itsProcess);
 		itsProcess = nullptr;
 		ProcessNextFile();

@@ -1686,7 +1686,7 @@ FileTreeTable::HandleDNDDrop
 		int actualFormat;
 		unsigned long itemCount, remainingBytes;
 		unsigned char* rawData = nullptr;
-		XGetWindowProperty(*(GetDisplay()), dragWindow,
+		XGetWindowProperty(*GetDisplay(), dragWindow,
 						   dndMgr->GetDNDDirectSave0XAtom(),
 						   0, LONG_MAX, True, selManager->GetMimePlainTextXAtom(),
 						   &actualType, &actualFormat,
@@ -1703,7 +1703,7 @@ FileTreeTable::HandleDNDDrop
 			JString path = (node->GetDirEntry())->GetFullName();
 			path         = JCombinePathAndName(path, JString((char*) rawData, JString::kNoCopy));
 			JString url  = JFileNameToURL(path);
-			XChangeProperty(*(GetDisplay()), dragWindow,
+			XChangeProperty(*GetDisplay(), dragWindow,
 							dndMgr->GetDNDDirectSave0XAtom(),
 							GetSelectionManager()->GetMimePlainTextXAtom(), 8,
 							PropModeReplace,
@@ -1718,7 +1718,7 @@ FileTreeTable::HandleDNDDrop
 			{
 				if (*data == 0x46)		// F: failure
 				{
-					XChangeProperty(*(GetDisplay()), dragWindow,
+					XChangeProperty(*GetDisplay(), dragWindow,
 									dndMgr->GetDNDDirectSave0XAtom(),
 									GetSelectionManager()->GetMimePlainTextXAtom(), 8,
 									PropModeReplace,
@@ -1762,12 +1762,12 @@ FileTreeTable::HandleDNDDrop
 
 				if (realAction == dndMgr->GetDNDActionLinkXAtom())
 				{
-					(GetTableSelection()).ClearSelection();
+					GetTableSelection().ClearSelection();
 
 					const JSize count = fileNameList->GetElementCount();
 					for (JIndex i=1; i<=count; i++)
 					{
-						MakeLinkToFile(*(fileNameList->GetElement(i)), destNode, true);
+						MakeLinkToFile(*fileNameList->GetElement(i), destNode, true);
 					}
 
 					jdelete fileNameList;

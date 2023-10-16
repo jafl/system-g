@@ -30,16 +30,15 @@
 void
 CopyProcess::Copy
 	(
-	FileTreeTable*	srcTable,
+	FileTreeTable*		srcTable,
 	JPtrArray<JString>*	srcNameList,
-	FileTreeTable*	destTable,
-	FileTreeNode*	destNode
+	FileTreeTable*		destTable,
+	FileTreeNode*		destNode
 	)
 {
 	if (CleanSrcList(srcNameList, destNode))
 	{
-		auto* p =
-			jnew CopyProcess(srcTable, srcNameList, destTable, destNode, true);
+		auto* p = jnew CopyProcess(srcTable, srcNameList, destTable, destNode, true);
 		assert( p != nullptr );
 	}
 }
@@ -47,16 +46,15 @@ CopyProcess::Copy
 void
 CopyProcess::Move
 	(
-	FileTreeTable*	srcTable,
+	FileTreeTable*		srcTable,
 	JPtrArray<JString>*	srcNameList,
-	FileTreeTable*	destTable,
-	FileTreeNode*	destNode
+	FileTreeTable*		destTable,
+	FileTreeNode*		destNode
 	)
 {
 	if (CleanSrcList(srcNameList, destNode))
 	{
-		auto* p =
-			jnew CopyProcess(srcTable, srcNameList, destTable, destNode, false);
+		auto* p = jnew CopyProcess(srcTable, srcNameList, destTable, destNode, false);
 		assert( p != nullptr );
 	}
 }
@@ -73,7 +71,7 @@ bool
 CopyProcess::CleanSrcList
 	(
 	JPtrArray<JString>*	srcNameList,
-	FileTreeNode*	destNode
+	FileTreeNode*		destNode
 	)
 {
 	JString destPath = (destNode->GetDirEntry())->GetFullName();
@@ -286,9 +284,9 @@ CopyProcess::CopyProcess
 	JString path, name;
 	for (JIndex i=1; i<=srcCount; i++)
 	{
-		const JString* src   = srcNameList->GetElement(i);
-		const bool isDir = JDirectoryExists(*src);
-		bool isVCS3      = false;
+		const JString* src = srcNameList->GetElement(i);
+		const bool isDir   = JDirectoryExists(*src);
+		bool isVCS3        = false;
 		if (isDir)
 		{
 			isVCS3 = JIsManagedByVCS(*src, &type3);
@@ -366,7 +364,7 @@ CopyProcess::CopyProcess
 		ClearWhenGoingAway(itsSrcTable, &itsSrcTable);
 	}
 
-	(itsDestTable->GetTableSelection()).ClearSelection();
+	itsDestTable->GetTableSelection().ClearSelection();
 	ClearWhenGoingAway(itsDestTable, &itsDestTable);
 	ClearWhenGoingAway(itsDestTable, &itsDestNode);
 	ClearWhenGoingAway(itsDestNode, &itsDestNode);
@@ -478,8 +476,7 @@ CopyProcess::Receive
 		JXDeleteObjectTask<JBroadcaster>::Delete(itsProcess);
 		itsProcess = nullptr;
 
-		const auto* info =
-			dynamic_cast<const JProcess::Finished*>(&message);
+		const auto* info = dynamic_cast<const JProcess::Finished*>(&message);
 		if (info->Successful())
 		{
 			if (itsSrcTable != nullptr)
@@ -529,11 +526,12 @@ CopyProcess::Receive
 				}
 			}
 		}
-		else if (itsVCSType != kJUnknownVCSType && itsIsMoveFlag)
+		else
 		{
 			process->ReportError(false);
 
-			if (JGetUserNotification()->AskUserYes(JGetString("AskPlainVCSMove::CopyProcess")))
+			if (itsVCSType != kJUnknownVCSType && itsIsMoveFlag &&
+				JGetUserNotification()->AskUserYes(JGetString("AskPlainVCSMove::CopyProcess")))
 			{
 				done = false;
 
@@ -575,7 +573,7 @@ CopyProcess::RemoveExecutePermissions
 	if (JFileExists(srcPath))
 	{
 		mode_t p;
-		if ((JGetPermissions(path, &p)).OK())
+		if (JGetPermissions(path, &p).OK())
 		{
 			p &= ~(S_IXUSR | S_IXGRP | S_IXOTH);
 			JSetPermissions(path, p);
