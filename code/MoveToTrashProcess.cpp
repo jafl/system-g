@@ -98,10 +98,7 @@ MoveToTrashProcess::Receive
 	if (sender == itsProcess && message.Is(JProcess::kFinished))
 	{
 		const auto* info = dynamic_cast<const JProcess::Finished*>(&message);
-		if (!info->Successful())
-		{
-			itsProcess->ReportError(false);
-		}
+		itsProcess->ReportError(info->Successful());
 
 		JXDeleteObjectTask<JBroadcaster>::Delete(itsProcess);
 		itsProcess = nullptr;
@@ -154,6 +151,7 @@ MoveToTrashProcess::ProcessNextFile()
 	{
 		ListenTo(itsProcess);
 		JThisProcess::Ignore(itsProcess);	// detach so it always finishes
+		itsProcess->SetMaxReportInterval(1000000);
 	}
 	else
 	{

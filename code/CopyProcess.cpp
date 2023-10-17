@@ -446,6 +446,7 @@ CopyProcess::Start
 	{
 		ListenTo(itsProcess);
 		JThisProcess::Ignore(itsProcess);	// detach so it always finishes
+		itsProcess->SetMaxReportInterval(1000000);
 	}
 	else
 	{
@@ -470,13 +471,13 @@ CopyProcess::Receive
 		JString* destPath = itsSrcNameList->GetLastElement();
 		itsSrcNameList->RemoveElement(itsSrcNameList->GetElementCount());
 
-		bool done = true;
+		const auto* info = dynamic_cast<const JProcess::Finished*>(&message);
+		itsProcess->ReportError(info->Successful());
 
-		JSimpleProcess* process = itsProcess;
 		JXDeleteObjectTask<JBroadcaster>::Delete(itsProcess);
 		itsProcess = nullptr;
 
-		const auto* info = dynamic_cast<const JProcess::Finished*>(&message);
+		bool done = true;
 		if (info->Successful())
 		{
 			if (itsSrcTable != nullptr)
@@ -526,20 +527,15 @@ CopyProcess::Receive
 				}
 			}
 		}
-		else
-		{
-			process->ReportError(false);
-
-			if (itsVCSType != kJUnknownVCSType && itsIsMoveFlag &&
+		else if (itsVCSType != kJUnknownVCSType && itsIsMoveFlag &&
 				JGetUserNotification()->AskUserYes(JGetString("AskPlainVCSMove::CopyProcess")))
-			{
-				done = false;
+		{
+			done = false;
 
-				itsSrcNameList->InsertAtIndex(1, JString("mv", JString::kNoCopy));
-				itsSrcNameList->InsertAtIndex(2, JString("-f", JString::kNoCopy));
-				itsSrcNameList->Append(destPath);
-				Start(2);
-			}
+			itsSrcNameList->InsertAtIndex(1, JString("mv", JString::kNoCopy));
+			itsSrcNameList->InsertAtIndex(2, JString("-f", JString::kNoCopy));
+			itsSrcNameList->Append(destPath);
+			Start(2);
 		}
 
 		if (done)

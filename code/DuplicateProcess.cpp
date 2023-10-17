@@ -89,11 +89,9 @@ DuplicateProcess::Receive
 	if (sender == itsProcess && message.Is(JProcess::kFinished))
 	{
 		const auto* info = dynamic_cast<const JProcess::Finished*>(&message);
-		if (!info->Successful())
-		{
-			itsProcess->ReportError(false);
-		}
-		else if (itsTable != nullptr && !itsTable->IsEditing())
+		itsProcess->ReportError(info->Successful());
+
+		if (info->Successful() && itsTable != nullptr && !itsTable->IsEditing())
 		{
 			FileTreeNode* node   = itsNodeList.GetFirstElement();
 			FileTreeNode* parent = nullptr;
@@ -197,6 +195,7 @@ DuplicateProcess::ProcessNextFile()
 	{
 		ListenTo(itsProcess);
 		JThisProcess::Ignore(itsProcess);	// detach so it always finishes
+		itsProcess->SetMaxReportInterval(1000000);
 	}
 	else
 	{
