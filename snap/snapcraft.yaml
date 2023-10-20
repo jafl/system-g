@@ -21,7 +21,7 @@ architectures:
 
 apps:
   systemg:
-    command: bin/desktop-launch bin/systemg
+    command: bin/desktop-launch systemg
     plugs:
       - unity7
       - network
