@@ -7,149 +7,40 @@ on:
     types: [ new-jx ]
   workflow_dispatch:
 jobs:
-  build-ubuntu:
-    name: Build & Analyze Ubuntu
-    runs-on: ubuntu-latest
+  analyze-ubuntu:
+    name: Ubuntu
     if: ${{ !startsWith(github.ref, 'refs/tags/') }}
-    env:
-      SONAR_SCANNER_VERSION: 4.4.0.2170
-      BUILD_WRAPPER_OUT_DIR: sonar_output
-      LC_ALL: en_US.UTF-8
-      LANG: en_US.UTF-8
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+    uses: jafl/jx_application_framework/.github/workflows/app-analyze-ubuntu.yml@main
+    secrets:
+      sonar-token: ${{ secrets.SONAR_TOKEN }}
 
-      - name: Set environment variables
-        run: |
-          echo SONAR_CACHE_PATH=$HOME/$BUILD_WRAPPER_OUT_DIR >> $GITHUB_ENV
-          echo FORCE_CACHE_UPDATE=${RANDOM}${RANDOM} >> $GITHUB_ENV
-
-      - name: Sonar data cache
-        id: cache-sonar-data
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.SONAR_CACHE_PATH }}
-          key: ${{ runner.os }}-sonar-cache-${{ env.FORCE_CACHE_UPDATE }}
-          restore-keys: |
-            ${{ runner.os }}-sonar-cache-
-
-      - name: Install sonar-scanner and build-wrapper
-        uses: sonarsource/sonarcloud-github-c-cpp@v1
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: cpp
-
-      - name: Configure
-        run: |
-          ./configure ci
-          makemake
-
-      - name: Build
-        run: build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make
-
-      - name: Run sonar-scanner
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
-
-      - name: Perform CodeQL analysis
-        uses: github/codeql-action/analyze@v2
-
-  build-ubuntu-release:
-    name: Build & Package Ubuntu
-    runs-on: ubuntu-latest
+  build-ubuntu:
+    name: Ubuntu
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
-    env:
-      LC_ALL: en_US.UTF-8
-      LANG: en_US.UTF-8
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+    uses: jafl/jx_application_framework/.github/workflows/app-build-ubuntu.yml@main
+    with:
+      pkg-name: systemg
 
-      - name: Configure
-        run: |
-          ./configure ci
-          makemake
-
-      - name: Build
-        run: make
-
-      - name: Build release packages
-        run: |
-          make release
-          mv ../systemg_* .
-
-      - name: Save release packages
-        uses: actions/upload-artifact@v2
-        with:
-          name: release
-          path: systemg_*
+  build-fedora:
+    name: Fedora
+    uses: jafl/jx_application_framework/.github/workflows/app-build-fedora.yml@main
+    with:
+      pkg-name: systemg
 
   build-macos:
-    name: Build & Package MacOS
-    runs-on: macos-13
-    env:
-      PKG_CONFIG_PATH: /usr/local/opt/icu4c/lib/pkgconfig
-      LC_ALL: en_US.UTF-8
-      LANG: en_US.UTF-8
-    steps:
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Configure
-        run: |
-          curl -LO https://libjx.sourceforge.net/ci/jx-application-framework_darwin.tgz
-          tar -xzf jx-application-framework_darwin.tgz
-          pushd jx-application-framework-1ci
-          ./install /usr/local
-          popd
-          ./configure ci
-          brew install cask
-          brew install --cask xquartz
-          makemake
-
-      - name: Build
-        run: make
-
-      - name: Build release packages
-        if: ${{ startsWith(github.ref, 'refs/tags/') }}
-        run: |
-          export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-          make release
-          mv ../systemg_* .
-
-      - name: Save release packages
-        if: ${{ startsWith(github.ref, 'refs/tags/') }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: release
-          path: systemg_*
+    name: macOS
+    uses: jafl/jx_application_framework/.github/workflows/app-build-macos.yml@main
+    with:
+      pkg-name: systemg
 
   release:
-    name: Upload releases
-    runs-on: ubuntu-latest
-    needs: [ build-ubuntu-release, build-macos ]
+    name: Release
+    needs: [ build-ubuntu, build-fedora, build-macos ]
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: release
-
-      - name: Save release packages
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: systemg_*
-          tag: ${{ github.ref }}
-          file_glob: true
+    uses: jafl/jx_application_framework/.github/workflows/app-release.yml@main
+    with:
+      pkg-name: systemg
+      forge-name: nps-systemg
+    secrets:
+      api-key: ${{ secrets.SOURCEFORGE_API_KEY }}
+      ssh-key: ${{ secrets.SOURCEFORGE_SSH_KEY }}
