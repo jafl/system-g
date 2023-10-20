@@ -8,20 +8,27 @@ issues: https://github.com/jafl/system-g/issues
 contact: https://johnlindal.wixsite.com/aboutme/contact-me
 summary: System G provides a graphical interface to UNIX file system.
 description: |
-  System G provides a graphical interface to UNIX file system.
+  System G provides a graphical interface to UNIX file system.  Some features
+  are not available due to the strict snap confinement model.
 
 grade: stable
-confinement: classic
+confinement: strict
 
 architectures:
   - build-on: amd64
   - build-on: arm64
   - build-on: ppc64el
-  - build-on: s390x
 
 apps:
   systemg:
-    command: bin/systemg
+    command: bin/desktop-launch bin/systemg
+    plugs:
+      - unity7
+      - network
+      - home
+      - mount-observe
+      - removable-media
+      - system-backup
 
 parts:
   systemg:
@@ -29,7 +36,8 @@ parts:
     source: .
     override-pull: |
       snapcraftctl pull
-      sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 10
+      sudo locale-gen en_US.UTF-8
+      sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
     build-environment:
       - JX_ROOT: /snap/jx-application-framework/current
       - PATH: $PATH:$JX_ROOT/bin
@@ -62,6 +70,7 @@ parts:
       - xutils-dev
       - libdrm-dev
       - aspell
+      - locales
     build-snaps:
       - jx-application-framework
     after: [ libs ]
@@ -89,3 +98,7 @@ parts:
       - libboost-fiber-dev
       - libxpm4
       - libxrender1
+  launcher:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: glib-only
+    plugin: make
