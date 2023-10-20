@@ -31,4 +31,4 @@ similar to Mac OS 7.
 
 %gnome_app_path/systemg.desktop
 %gnome_app_path/systemg_choose.desktop
-%gnome_icon_path/systemg.xpm
+%gnome_icon_path/systemg.png
