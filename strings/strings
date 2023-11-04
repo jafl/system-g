@@ -4,6 +4,8 @@
 
 # main
 
+Name	"System G"
+
 COPYRIGHT
 "Copyright (C) 1997-2022 John Lindal.
 
@@ -16,8 +18,6 @@ You should have received a copy of the GNU General Public License along with thi
 System G is trademark of Glenn Bach.
 
 https://sourceforge.net/projects/nps-systemg/"
-
-Name	"System G"
 
 HELP_URL		"https://nps-systemg.sourceforge.net/help.html"
 CHANGE_LOG_URL	"https://nps-systemg.sourceforge.net/ChangeLog.html"
