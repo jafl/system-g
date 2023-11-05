@@ -94,7 +94,6 @@ ViewManPageDialog::BuildWindow()
 // begin JXLayout
 
 	auto* window = jnew JXWindow(this, 360,150, JString::empty);
-	assert( window != nullptr );
 
 	itsCloseButton =
 		jnew JXTextButton(JGetString("itsCloseButton::ViewManPageDialog::JXLayout"), window,

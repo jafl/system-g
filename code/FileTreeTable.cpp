@@ -365,7 +365,6 @@ FileTreeTable::FileTreeTable
 	{
 		itsRecentFilesMenu =
 			jnew JXFSDirMenu(recentDir, itsFileMenu, kOpenRecentItemIndex, menuBar);
-		assert( itsRecentFilesMenu != nullptr );
 		itsRecentFilesMenu->ShouldShowPath(true);
 		itsRecentFilesMenu->ShouldDereferenceLinks(true);
 		itsRecentFilesMenu->ShouldDeleteBrokenLinks(true);
@@ -1083,7 +1082,6 @@ FileTreeTable::HandleMouseDown
 		if (itsContextMenu == nullptr)
 		{
 			itsContextMenu = jnew JXTextMenu(JString::empty, this, kFixedLeft, kFixedTop, 0,0, 10,10);
-			assert( itsContextMenu != nullptr );
 			itsContextMenu->SetToHiddenPopupMenu(true);
 			itsContextMenu->SetMenuItems(kContextMenuStr);
 			itsContextMenu->SetUpdateAction(JXMenu::kDisableNone);
@@ -1198,7 +1196,6 @@ FileTreeTable::HandleMouseDrag
 			itsWaitingToEditFlag  = false;
 
 			auto* data = jnew JXFileSelection(this, kDNDClassID);
-			assert(data != nullptr);
 
 			ChooseDNDCursors();
 			if (BeginDND(pt, buttonStates, modifiers, data))
@@ -1283,7 +1280,6 @@ FileTreeTable::HandleMouseUp
 
 			assert( itsEditTask == nullptr );
 			itsEditTask = jnew BeginEditingTask(this, itsEditCell);
-			assert( itsEditTask != nullptr );
 			itsEditTask->Start();
 		}
 	}
@@ -2334,9 +2330,7 @@ FileTreeTable::SetWindowIcon()
 
 		JXDisplay* display = GetDisplay();
 /*		JXImage* icon1 = jnew JXImage(display, plain);
-		assert(icon1 != nullptr);
 		JXImage* icon2 = jnew JXImage(display, selected);
-		assert(icon2 != nullptr);
 
 		itsIconWidget = GetWindow()->SetIcon(icon1, icon2);
 		ListenTo(itsIconWidget);
@@ -3930,7 +3924,6 @@ FileTreeTable::HandleGitMenu
 	else if (index == kGitAddRemoteCmd)
 	{
 		auto* dlog = jnew NewGitRemoteDialog;
-		assert( dlog != nullptr );
 		if (dlog->DoDialog())
 		{
 			AddGitRemote(dlog->GetRepoURL(), dlog->GetLocalName());
@@ -4849,7 +4842,6 @@ FileTreeTable::CreateTreeListInput
 	s.SelectCell(cell);
 
 	JXInputField* obj = jnew JXSaveFileInput(enclosure, hSizing, vSizing, x,y, w,h);
-	assert( obj != nullptr );
 	return obj;
 }
 

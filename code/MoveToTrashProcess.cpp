@@ -34,8 +34,7 @@ MoveToTrashProcess::Move
 	JString trashDir;
 	if (GetTrashDirectory(&trashDir, false))
 	{
-		auto* p = jnew MoveToTrashProcess(table, fullNameList, trashDir);
-		assert( p != nullptr );
+		jnew MoveToTrashProcess(table, fullNameList, trashDir);
 	}
 }
 

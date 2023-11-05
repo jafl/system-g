@@ -145,7 +145,6 @@ void TreeSet::TreeSetX
 	itsScrollbarSet =
 		jnew JXScrollbarSet(this, kHElastic, kVElastic,
 							0, filterHeight, w, h - filterHeight);
-	assert( itsScrollbarSet != nullptr );
 
 	JString path = pathName;
 	if (!JFSFileTreeNode::CanHaveChildren(path))
@@ -157,11 +156,8 @@ void TreeSet::TreeSetX
 	auto* entry = jnew JDirEntry(path);
 	assert( entry != nullptr && JFSFileTreeNode::CanHaveChildren(*entry) );
 	auto* root = jnew FileTreeNode(entry);
-	assert( root != nullptr );
 	itsFileTree = jnew FileTree(root);
-	assert( itsFileTree != nullptr );
 	auto* treeList = jnew FileTreeList(itsFileTree);
-	assert( treeList != nullptr );
 
 	JXContainer* encl = itsScrollbarSet->GetScrollEnclosure();
 	JRect enclApG     = encl->GetApertureGlobal();
@@ -192,7 +188,6 @@ void TreeSet::TreeSetX
 	itsFilterHistory =
 		jnew JXStringHistoryMenu(10, JString::empty, this, kFixedRight, kFixedTop,
 								 0,0, 30, filterHeight);
-	assert( itsFilterHistory != nullptr );
 	ListenTo(itsFilterHistory);
 	itsFilterHistory->Place(w - itsFilterHistory->GetFrameWidth(), 0);
 	itsFilterHistory->SetDefaultFont(font, true);

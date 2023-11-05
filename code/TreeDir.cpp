@@ -205,7 +205,6 @@ TreeDir::BuildWindow
 // begin JXLayout
 
 	auto* window = jnew JXWindow(this, 420,500, JString::empty);
-	assert( window != nullptr );
 
 	auto* menuBar =
 		jnew JXMenuBar(window,

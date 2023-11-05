@@ -47,7 +47,6 @@ FileTreeNode::CreateChild
 	)
 {
 	JFSFileTreeNode* node = jnew FileTreeNode(entry);
-	assert( node != nullptr);
 	return node;
 }
 

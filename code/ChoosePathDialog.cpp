@@ -41,7 +41,6 @@ ChoosePathDialog::Create
 	)
 {
 	auto* dlog = jnew ChoosePathDialog(type, fileFilter);
-	assert( dlog != nullptr );
 	dlog->BuildWindow(startPath, message);
 	return dlog;
 }
@@ -85,7 +84,6 @@ ChoosePathDialog::BuildWindow
 // begin JXLayout
 
 	auto* window = jnew JXWindow(this, 310,400, JString::empty);
-	assert( window != nullptr );
 
 	auto* cancelButton =
 		jnew JXTextButton(JGetString("cancelButton::ChoosePathDialog::JXLayout"), window,

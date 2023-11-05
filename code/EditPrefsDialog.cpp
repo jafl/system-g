@@ -73,7 +73,6 @@ EditPrefsDialog::BuildWindow
 // begin JXLayout
 
 	auto* window = jnew JXWindow(this, 470,380, JString::empty);
-	assert( window != nullptr );
 
 	itsManInput =
 		jnew JXInputField(window,

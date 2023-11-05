@@ -103,7 +103,6 @@ Application::Application
 	}
 
 	itsMountPointList = jnew JMountPointList(JPtrArrayT::kDeleteAll);
-	assert( itsMountPointList != nullptr );
 	JGetUserMountPointList(itsMountPointList, &itsMountPointState);
 
 	itsShortcutList = jnew JPtrArray<JString>(JPtrArrayT::kDeleteAll);
@@ -298,7 +297,6 @@ Application::OpenDirectory
 	JGetTrueName(fixedName, &trueName);
 
 	auto* childDir = jnew TreeDir(trueName);
-	assert( childDir != nullptr );
 
 	if (deiconify)
 	{
@@ -860,7 +858,6 @@ Application::DisplayAbout
 		if (!showLicense || JGetUserNotification()->AcceptLicense())
 		{
 			auto* dlog = jnew AboutDialog(prevVersStr);
-			assert( dlog != nullptr );
 			dlog->DoDialog();
 
 			JCheckForNewerVersion(GetPrefsMgr(), kSVersionCheckID);

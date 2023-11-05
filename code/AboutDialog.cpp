@@ -62,7 +62,6 @@ AboutDialog::BuildWindow
 // begin JXLayout
 
 	auto* window = jnew JXWindow(this, 430,180, JString::empty);
-	assert( window != nullptr );
 
 	auto* sygIcon =
 		jnew JXImageWidget(window,

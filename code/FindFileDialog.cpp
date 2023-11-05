@@ -97,7 +97,6 @@ FindFileDialog::BuildWindow()
 // begin JXLayout
 
 	auto* window = jnew JXWindow(this, 360,220, JString::empty);
-	assert( window != nullptr );
 
 	itsActionRG =
 		jnew JXRadioGroup(window,

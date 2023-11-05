@@ -108,7 +108,6 @@ CreateGlobals
 
 	bool isNew;
 	thePrefsMgr = jnew PrefsMgr(&isNew);
-	assert(thePrefsMgr != nullptr);
 
 	JXInitHelp();
 
@@ -117,7 +116,6 @@ CreateGlobals
 	// registers itself
 
 	theMDIServer = jnew MDIServer;
-	assert( theMDIServer != nullptr );
 
 	theManPageDialog = jnew ViewManPageDialog(JXGetPersistentWindowOwner());
 	assert( theManPageDialog != nullptr );

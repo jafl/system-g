@@ -38,8 +38,7 @@ CopyProcess::Copy
 {
 	if (CleanSrcList(srcNameList, destNode))
 	{
-		auto* p = jnew CopyProcess(srcTable, srcNameList, destTable, destNode, true);
-		assert( p != nullptr );
+		jnew CopyProcess(srcTable, srcNameList, destTable, destNode, true);
 	}
 }
 
@@ -54,8 +53,7 @@ CopyProcess::Move
 {
 	if (CleanSrcList(srcNameList, destNode))
 	{
-		auto* p = jnew CopyProcess(srcTable, srcNameList, destTable, destNode, false);
-		assert( p != nullptr );
+		jnew CopyProcess(srcTable, srcNameList, destTable, destNode, false);
 	}
 }
 

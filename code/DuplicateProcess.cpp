@@ -30,8 +30,7 @@ DuplicateProcess::Duplicate
 	const JPtrArray<FileTreeNode>&	nodeList
 	)
 {
-	auto* p = jnew DuplicateProcess(table, nodeList);
-	assert( p != nullptr );
+	jnew DuplicateProcess(table, nodeList);
 }
 
 /******************************************************************************
