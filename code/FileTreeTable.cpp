@@ -899,10 +899,10 @@ FileTreeTable::SelectName
 	JTableSelection& s   = GetTableSelection();
 	FileTreeNode* parent = itsFileTree->GetFileRoot();
 
-	const JSize count = pathList.GetElementCount();
+	const JSize count = pathList.GetItemCount();
 	for (JIndex i=1; i<=count; i++)
 	{
-		const JString& name1 = *(pathList.GetElement(i));
+		const JString& name1 = *(pathList.GetItem(i));
 
 		const JNamedTreeNode* node;
 		JIndex index;
@@ -1566,10 +1566,10 @@ FileTreeTable::WillAcceptDrop
 	const Atom urlXAtom = GetSelectionManager()->GetURLXAtom(),
 			   xdsXAtom = GetDNDManager()->GetDNDDirectSave0XAtom();
 
-	const JSize typeCount = typeList.GetElementCount();
+	const JSize typeCount = typeList.GetItemCount();
 	for (JIndex i=1; i<=typeCount; i++)
 	{
-		const Atom type = typeList.GetElement(i);
+		const Atom type = typeList.GetItem(i);
 		if (type == urlXAtom || type == xdsXAtom)
 		{
 			if (IsTrashDirectory(itsFileTree->GetDirectory()))
@@ -1662,10 +1662,10 @@ FileTreeTable::HandleDNDDrop
 	if (!isXDS)
 	{
 		const Atom xdsXAtom   = dndMgr->GetDNDDirectSave0XAtom();
-		const JSize typeCount = typeList.GetElementCount();
+		const JSize typeCount = typeList.GetItemCount();
 		for (JIndex i = 1; i <= typeCount; i++)
 		{
-			if (typeList.GetElement(i) == xdsXAtom)
+			if (typeList.GetItem(i) == xdsXAtom)
 			{
 				isXDS = true;
 				break;
@@ -1760,10 +1760,10 @@ FileTreeTable::HandleDNDDrop
 				{
 					GetTableSelection().ClearSelection();
 
-					const JSize count = fileNameList->GetElementCount();
+					const JSize count = fileNameList->GetItemCount();
 					for (JIndex i=1; i<=count; i++)
 					{
-						MakeLinkToFile(*fileNameList->GetElement(i), destNode, true);
+						MakeLinkToFile(*fileNameList->GetItem(i), destNode, true);
 					}
 
 					jdelete fileNameList;
@@ -2725,9 +2725,9 @@ FileTreeTable::OpenSelection
 	{
 		JXFSBindingManager::Exec(fileList, alternate || alwaysRunCmd);
 
-		if (fileList.GetElementCount() == 1)
+		if (fileList.GetItemCount() == 1)
 		{
-			AddRecentFile(*fileList.GetElement(1));
+			AddRecentFile(*fileList.GetItem(1));
 		}
 	}
 	else if (!found)
@@ -2811,10 +2811,10 @@ FileTreeTable::MakeLinks()
 
 	s.ClearSelection();
 
-	const JSize count = nodeList.GetElementCount();
+	const JSize count = nodeList.GetItemCount();
 	for (JIndex i=1; i<=count; i++)
 	{
-		const FileTreeNode* node = nodeList.GetElement(i);
+		const FileTreeNode* node = nodeList.GetItem(i);
 		MakeLinkToFile(node->GetDirEntry()->GetFullName(), node->GetFileParent(), false);
 	}
 
@@ -3562,7 +3562,7 @@ FileTreeTable::RestoreDirState
 			continue;
 		}
 
-		const JSize count = itsFileTreeList->GetElementCount();	// changes after Open()
+		const JSize count = itsFileTreeList->GetItemCount();	// changes after Open()
 		for (JIndex j=1; j<=count; j++)
 		{
 			const JString& n = (itsFileTreeList->GetDirEntry(j))->GetFullName();
@@ -3589,7 +3589,7 @@ FileTreeTable::SaveDirState
 	JPtrArray<JString> names(JPtrArrayT::kDeleteAll);
 	const JString& basePath = itsFileTree->GetDirectory();
 
-	JSize count = itsFileTreeList->GetElementCount();
+	JSize count = itsFileTreeList->GetItemCount();
 	for (JIndex i=1; i<=count; i++)
 	{
 		if (itsFileTreeList->IsOpen(i))
@@ -3599,12 +3599,12 @@ FileTreeTable::SaveDirState
 		}
 	}
 
-	count = names.GetElementCount();
+	count = names.GetItemCount();
 	os << ' ' << count;
 
 	for (JIndex i=1; i<=count; i++)
 	{
-		os << ' ' << *(names.GetElement(i));
+		os << ' ' << *(names.GetItem(i));
 	}
 
 	os << ' ';
@@ -3728,10 +3728,10 @@ FileTreeTable::UpdateGitMenus
 	itsGitRemoveRemoteMenu->RemoveAllItems();
 	itsGitPruneRemoteMenu->RemoveAllItems();
 
-	const JSize repoCount = repoList.GetElementCount();
+	const JSize repoCount = repoList.GetItemCount();
 	for (JIndex i=1; i<=repoCount; i++)
 	{
-		const JString* s = repoList.GetElement(i);
+		const JString* s = repoList.GetItem(i);
 		itsGitPullSourceMenu->AppendItem(*s);
 		itsGitPushDestMenu->AppendItem(*s);
 		itsGitRemoveRemoteMenu->AppendItem(*s);
@@ -3743,10 +3743,10 @@ FileTreeTable::UpdateGitMenus
 	itsGitRemoveBranchMenu->RemoveAllItems();
 	if (hasLocal)
 	{
-		const JSize localCount = localList.GetElementCount();
+		const JSize localCount = localList.GetItemCount();
 		for (JIndex i=1; i<=localCount; i++)
 		{
-			const JString* s = localList.GetElement(i);
+			const JString* s = localList.GetItem(i);
 			itsGitLocalBranchMenu->AppendItem(*s, JXMenu::kRadioType);
 			itsGitMergeBranchMenu->AppendItem(*s);
 			itsGitRemoveBranchMenu->AppendItem(*s);
@@ -3761,7 +3761,7 @@ FileTreeTable::UpdateGitMenus
 	}
 	else if (!localList.IsEmpty())
 	{
-		const JString* s = localList.GetFirstElement();
+		const JString* s = localList.GetFirstItem();
 		itsGitLocalBranchMenu->AppendItem(*s);
 		itsGitLocalBranchMenu->DisableItem(1);
 
@@ -3780,16 +3780,16 @@ FileTreeTable::UpdateGitMenus
 			itsGitMergeBranchMenu->ShowSeparatorAfter(itsGitMergeBranchMenu->GetItemCount());
 		}
 
-		const JSize remoteCount = remoteList.GetElementCount();
+		const JSize remoteCount = remoteList.GetItemCount();
 		for (JIndex i=1; i<=remoteCount; i++)
 		{
-			itsGitRemoteBranchMenu->AppendItem(*remoteList.GetElement(i));
-			itsGitMergeBranchMenu->AppendItem(*remoteList.GetElement(i));
+			itsGitRemoteBranchMenu->AppendItem(*remoteList.GetItem(i));
+			itsGitMergeBranchMenu->AppendItem(*remoteList.GetItem(i));
 		}
 	}
 	else if (!remoteList.IsEmpty())
 	{
-		itsGitRemoteBranchMenu->AppendItem(*remoteList.GetFirstElement());
+		itsGitRemoteBranchMenu->AppendItem(*remoteList.GetFirstItem());
 		itsGitRemoteBranchMenu->DisableItem(1);
 	}
 
@@ -3801,20 +3801,20 @@ FileTreeTable::UpdateGitMenus
 	itsGitStashApplyMenu->RemoveAllItems();
 	itsGitStashDropMenu->RemoveAllItems();
 
-	const JSize stashCount = idList.GetElementCount();
+	const JSize stashCount = idList.GetItemCount();
 	for (JIndex i=1; i<=stashCount; i++)
 	{
 		itsGitStashPopMenu->AppendItem(
-			*(idList.GetElement(i)), JXMenu::kPlainType, JString::empty,
-			*(nameList.GetElement(i)));
+			*(idList.GetItem(i)), JXMenu::kPlainType, JString::empty,
+			*(nameList.GetItem(i)));
 
 		itsGitStashApplyMenu->AppendItem(
-			*(idList.GetElement(i)), JXMenu::kPlainType, JString::empty,
-			*(nameList.GetElement(i)));
+			*(idList.GetItem(i)), JXMenu::kPlainType, JString::empty,
+			*(nameList.GetItem(i)));
 
 		itsGitStashDropMenu->AppendItem(
-			*(idList.GetElement(i)), JXMenu::kPlainType, JString::empty,
-			*(nameList.GetElement(i)));
+			*(idList.GetItem(i)), JXMenu::kPlainType, JString::empty,
+			*(nameList.GetItem(i)));
 	}
 
 	if (!itsCurrentGitBranch.IsEmpty())
@@ -4078,7 +4078,7 @@ FileTreeTable::GetGitBranches
 		branchList->Append(line);
 		if (current)
 		{
-			*currentIndex       = branchList->GetElementCount();
+			*currentIndex       = branchList->GetItemCount();
 			itsCurrentGitBranch = line;
 		}
 
@@ -4159,12 +4159,12 @@ FileTreeTable::SwitchToGitBranch
 		};
 			const JString name = JGetString("BranchIndicator::FileTreeTable", map, sizeof(map));
 
-			const JSize count = nameList.GetElementCount();
+			const JSize count = nameList.GetItemCount();
 			for (JIndex i=1; i<=count; i++)
 			{
-				if (name == *(nameList.GetElement(i)))
+				if (name == *(nameList.GetItem(i)))
 				{
-					Unstash("pop", *(idList.GetElement(i)));
+					Unstash("pop", *(idList.GetItem(i)));
 					break;
 				}
 			}
@@ -4407,12 +4407,12 @@ FileTreeTable::FindGitStash
 {
 	const JString s = branchName + kStashDisplaySuffix;
 
-	const JSize count = idList.GetElementCount();
+	const JSize count = idList.GetItemCount();
 	for (JIndex i=1; i<=count; i++)
 	{
-		if (nameList.GetElement(i)->EndsWith(s))
+		if (nameList.GetItem(i)->EndsWith(s))
 		{
-			*id = *idList.GetElement(i);
+			*id = *idList.GetItem(i);
 			return true;
 		}
 	}
@@ -4637,21 +4637,21 @@ FileTreeTable::PruneRemoteGitBranches
 		JIndex i;
 		GetGitBranches("git branch", &localList, &i, nullptr);
 
-		const JString* currentBranch = localList.GetElement(i);	// before sorting
+		const JString* currentBranch = localList.GetItem(i);	// before sorting
 
 		localList.SetCompareFunction(JCompareStringsCaseInsensitive);
 		localList.Sort();
 
-		const JSize branchCount = branchList.GetElementCount();
+		const JSize branchCount = branchList.GetItemCount();
 		for (JIndex i=branchCount; i>=1; i--)
 		{
-			JString* branch = branchList.GetElement(i);
+			JString* branch = branchList.GetItem(i);
 
 			JIndex j;
 			if (!localList.SearchSorted(branch, JListT::kAnyMatch, &j) ||
 				*branch == *currentBranch)
 			{
-				branchList.DeleteElement(i);
+				branchList.DeleteItem(i);
 			}
 		}
 	}
@@ -4671,7 +4671,7 @@ FileTreeTable::PruneRemoteGitBranches
 		{
 			for (auto i : indexList)
 			{
-				RemoveGitBranch(*branchList.GetElement(i), true);
+				RemoveGitBranch(*branchList.GetItem(i), true);
 			}
 		}
 	}

@@ -198,8 +198,8 @@ FindFileTask::ReceiveMessageLine()
 	JPtrArray<JString> pathList(JPtrArrayT::kDeleteAll);
 	SplitPath(path, &pathList);
 
-	JString* name = pathList.GetLastElement();
-	pathList.RemoveElement(pathList.GetElementCount());
+	JString* name = pathList.GetLastItem();
+	pathList.RemoveItem(pathList.GetItemCount());
 
 	for (auto* p : std::views::reverse(*itsPathList))
 	{

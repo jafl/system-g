@@ -75,16 +75,16 @@ CopyProcess::CleanSrcList
 	JString destPath = (destNode->GetDirEntry())->GetFullName();
 	JAppendDirSeparator(&destPath);
 
-	JSize count = srcNameList->GetElementCount();
+	JSize count = srcNameList->GetItemCount();
 	JString destName;
 	bool ask, first = true;
 	for (JIndex i=1; i<=count; i++)
 	{
-		const JString* srcName = srcNameList->GetElement(i);
+		const JString* srcName = srcNameList->GetItem(i);
 		if (!ActionIsUseful(*srcName, destPath, &destName) ||
 			!OKToReplace(*srcName, destName, &ask, &first))
 		{
-			srcNameList->DeleteElement(i);
+			srcNameList->DeleteItem(i);
 			i--;
 			count--;	// don't confuse user by going in reverse order
 		}
@@ -278,11 +278,11 @@ CopyProcess::CopyProcess
 	JVCSType type1 = kJUnknownVCSType, type2 = kJUnknownVCSType, type3 = kJUnknownVCSType;
 	bool anyVCS = false, allVCS = false, sameVCS = false;
 
-	const JSize srcCount = srcNameList->GetElementCount();
+	const JSize srcCount = srcNameList->GetItemCount();
 	JString path, name;
 	for (JIndex i=1; i<=srcCount; i++)
 	{
-		const JString* src = srcNameList->GetElement(i);
+		const JString* src = srcNameList->GetItem(i);
 		const bool isDir   = JDirectoryExists(*src);
 		bool isVCS3        = false;
 		if (isDir)
@@ -428,7 +428,7 @@ CopyProcess::Start
 	const JSize prefixCount
 	)
 {
-	const JString* destPath = itsSrcNameList->GetLastElement();
+	const JString* destPath = itsSrcNameList->GetLastItem();
 
 	const JError err = JSimpleProcess::Create(&itsProcess, *destPath, *itsSrcNameList);
 
@@ -436,7 +436,7 @@ CopyProcess::Start
 
 	for (JIndex i=1; i<=prefixCount; i++)
 	{
-		itsSrcNameList->DeleteElement(1);
+		itsSrcNameList->DeleteItem(1);
 	}
 
 	err.ReportIfError();
@@ -466,8 +466,8 @@ CopyProcess::Receive
 {
 	if (sender == itsProcess && message.Is(JProcess::kFinished))
 	{
-		JString* destPath = itsSrcNameList->GetLastElement();
-		itsSrcNameList->RemoveElement(itsSrcNameList->GetElementCount());
+		JString* destPath = itsSrcNameList->GetLastItem();
+		itsSrcNameList->RemoveItem(itsSrcNameList->GetItemCount());
 
 		const auto* info = dynamic_cast<const JProcess::Finished*>(&message);
 		itsProcess->ReportError(info->Successful());
@@ -492,12 +492,12 @@ CopyProcess::Receive
 				selectName = false;
 			}
 
-			const JSize count = itsSrcNameList->GetElementCount();
+			const JSize count = itsSrcNameList->GetItemCount();
 			JString path, name, oldName, newName, device;
 			JFileSystemType fsType;
 			for (JIndex i=1; i<=count; i++)
 			{
-				JString* fullName = itsSrcNameList->GetElement(i);
+				JString* fullName = itsSrcNameList->GetItem(i);
 				JStripTrailingDirSeparator(fullName);
 				JSplitPathAndName(*fullName, &path, &name);
 
@@ -517,7 +517,7 @@ CopyProcess::Receive
 				newName = JCombinePathAndName(*destPath, name);
 				if (itsIsMoveFlag && JDirectoryExists(newName))
 				{
-					oldName = *(itsSrcNameList->GetElement(i));
+					oldName = *(itsSrcNameList->GetItem(i));
 					JAppendDirSeparator(&oldName);
 					JAppendDirSeparator(&newName);
 					JFSFileTree::DirectoryRenamed msg(oldName, newName);

@@ -148,10 +148,10 @@ TrashButton::WillAcceptDrop
 
 	const Atom urlXAtom = GetSelectionManager()->GetURLXAtom();
 
-	const JSize typeCount = typeList.GetElementCount();
+	const JSize typeCount = typeList.GetItemCount();
 	for (JIndex i=1; i<=typeCount; i++)
 	{
-		const Atom a = typeList.GetElement(i);
+		const Atom a = typeList.GetItem(i);
 		if (a == urlXAtom)
 		{
 			*action = GetDNDManager()->GetDNDActionPrivateXAtom();

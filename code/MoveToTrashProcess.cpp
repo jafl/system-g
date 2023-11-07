@@ -123,7 +123,7 @@ MoveToTrashProcess::ProcessNextFile()
 		return;
 	}
 
-	JString* origName = itsFullNameList->GetFirstElement();
+	JString* origName = itsFullNameList->GetFirstItem();
 	JStripTrailingDirSeparator(origName);
 	JString path, name;
 	JSplitPathAndName(*origName, &path, &name);
@@ -144,7 +144,7 @@ MoveToTrashProcess::ProcessNextFile()
 
 	const JError err = JSimpleProcess::Create(&itsProcess, argv, sizeof(argv));
 	err.ReportIfError();
-	itsFullNameList->DeleteElement(1);		// before ProcessNextFile()
+	itsFullNameList->DeleteItem(1);		// before ProcessNextFile()
 
 	if (err.OK())
 	{

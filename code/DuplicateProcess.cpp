@@ -48,7 +48,7 @@ DuplicateProcess::DuplicateProcess
 	itsNodeList(JPtrArrayT::kForgetAll),
 	itsFullNameList(JPtrArrayT::kDeleteAll),
 	itsProcess(nullptr),
-	itsShouldEditFlag(nodeList.GetElementCount() == 1)
+	itsShouldEditFlag(nodeList.GetItemCount() == 1)
 {
 	itsTable->GetTableSelection().ClearSelection();
 	ClearWhenGoingAway(itsTable, &itsTable);
@@ -92,7 +92,7 @@ DuplicateProcess::Receive
 
 		if (info->Successful() && itsTable != nullptr && !itsTable->IsEditing())
 		{
-			FileTreeNode* node   = itsNodeList.GetFirstElement();
+			FileTreeNode* node   = itsNodeList.GetFirstItem();
 			FileTreeNode* parent = nullptr;
 			if (node != nullptr)
 			{
@@ -109,7 +109,7 @@ DuplicateProcess::Receive
 
 		JXDeleteObjectTask<JBroadcaster>::Delete(itsProcess);
 		itsProcess = nullptr;
-		itsNodeList.RemoveElement(1);
+		itsNodeList.RemoveItem(1);
 		ProcessNextFile();
 	}
 	else
@@ -130,10 +130,10 @@ DuplicateProcess::ReceiveGoingAway
 	)
 {
 	JIndex nodeIndex  = 0;
-	const JSize count = itsNodeList.GetElementCount();
+	const JSize count = itsNodeList.GetItemCount();
 	for (JIndex i=1; i<=count; i++)
 	{
-		if (sender == itsNodeList.GetElement(i))
+		if (sender == itsNodeList.GetItem(i))
 		{
 			nodeIndex = i;
 			break;
@@ -164,7 +164,7 @@ DuplicateProcess::ProcessNextFile()
 		return;
 	}
 
-	const JString* origName = itsFullNameList.GetFirstElement();
+	const JString* origName = itsFullNameList.GetFirstItem();
 	JString path, name, root, suffix;
 	JSplitPathAndName(*origName, &path, &name);
 	if (JSplitRootAndSuffix(name, &root, &suffix))
@@ -188,7 +188,7 @@ DuplicateProcess::ProcessNextFile()
 
 	const JError err = JSimpleProcess::Create(&itsProcess, argv, sizeof(argv));
 	err.ReportIfError();
-	itsFullNameList.DeleteElement(1);		// before ProcessNextFile()
+	itsFullNameList.DeleteItem(1);		// before ProcessNextFile()
 
 	if (err.OK())
 	{
@@ -199,7 +199,7 @@ DuplicateProcess::ProcessNextFile()
 	else
 	{
 		itsProcess = nullptr;
-		itsNodeList.RemoveElement(1);
+		itsNodeList.RemoveItem(1);
 		ProcessNextFile();
 	}
 }

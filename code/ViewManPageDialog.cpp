@@ -304,21 +304,21 @@ ViewManPageDialog::ViewManPages
 	{
 		JString cmd = kDefaultViewBin;
 
-		const JSize count = list.GetElementCount();
+		const JSize count = list.GetItemCount();
 		for (JIndex i=1; i<=count; i++)
 		{
 			cmd += kDefaultViewArg;
-			cmd += JPrepArgForExec(*(list.GetElement(i)));
+			cmd += JPrepArgForExec(*(list.GetItem(i)));
 		}
 
 		JSimpleProcess::Create(cmd, true);
 	}
 	else
 	{
-		const JSize count = list.GetElementCount();
+		const JSize count = list.GetItemCount();
 		for (JIndex i=1; i<=count; i++)
 		{
-			ViewManPage(*(list.GetElement(i)));
+			ViewManPage(*(list.GetItem(i)));
 		}
 	}
 }

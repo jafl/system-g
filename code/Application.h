@@ -146,7 +146,7 @@ inline JSize
 Application::GetWindowCount()
 	const
 {
-	return itsWindowList->GetElementCount();
+	return itsWindowList->GetItemCount();
 }
 
 /******************************************************************************

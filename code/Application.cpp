@@ -256,13 +256,13 @@ Application::OpenDirectory
 	JPtrArray<JString> pathList(JPtrArrayT::kDeleteAll);
 	while (!JIsRootDirectory(ancestor))
 	{
-		const JIndex count = itsWindowList->GetElementCount();
+		const JIndex count = itsWindowList->GetItemCount();
 		for (JIndex i=1; i<=count; i++)
 		{
-			const JString name = (itsWindowList->GetElement(i))->GetDirectory();
+			const JString name = (itsWindowList->GetItem(i))->GetDirectory();
 			if (JSameDirEntry(name, ancestor))
 			{
-				TreeDir* childDir = itsWindowList->GetElement(i);
+				TreeDir* childDir = itsWindowList->GetItem(i);
 				childDir->Activate();
 				if (dir != nullptr)
 				{
@@ -331,12 +331,12 @@ Application::GetWindowNames
 	JPtrArray<JString>* names
 	)
 {
-	const JIndex count = itsWindowList->GetElementCount();
+	const JIndex count = itsWindowList->GetItemCount();
 	JString name;
 	for (JIndex i=1; i<=count; i++)
 	{
 		name = JConvertToHomeDirShortcut(
-					(itsWindowList->GetElement(i))->GetDirectory());
+					(itsWindowList->GetItem(i))->GetDirectory());
 		names->Append(name);
 	}
 }
@@ -490,7 +490,7 @@ Application::LoadToolBarDefaults
 	const JIndex	firstIndex
 	)
 {
-	const JSize count = itsMountPointList->GetElementCount();
+	const JSize count = itsMountPointList->GetItemCount();
 	for (JIndex i=1; i<=count; i++)
 	{
 		toolBar->AppendButton(shorcutMenu, firstIndex + i-1);
@@ -513,11 +513,11 @@ Application::OpenShortcut
 	JString trashDir;
 	const bool hasTrashDir = GetTrashDirectory(&trashDir, false);
 
-	const JSize mpCount         = itsMountPointList->GetElementCount();
+	const JSize mpCount         = itsMountPointList->GetItemCount();
 	const JIndex shortcutOffset = mpCount + (hasTrashDir ? 1 : 0);
 	if (index <= mpCount)
 	{
-		path = (itsMountPointList->GetElement(index)).path;
+		path = (itsMountPointList->GetItem(index)).path;
 	}
 	else if (hasTrashDir && index == mpCount+1)
 	{
@@ -525,7 +525,7 @@ Application::OpenShortcut
 	}
 	else
 	{
-		path = itsShortcutList->GetElement(index - shortcutOffset);
+		path = itsShortcutList->GetItem(index - shortcutOffset);
 	}
 
 	if (!OpenDirectory(*path, nullptr, nullptr, true, false) && index > shortcutOffset)
@@ -537,7 +537,7 @@ Application::OpenShortcut
 		const JString msg = JGetString("InvalidShortcut::Application", map, sizeof(map));
 		if (JGetUserNotification()->AskUserYes(msg))
 		{
-			itsShortcutList->DeleteElement(index - shortcutOffset);
+			itsShortcutList->DeleteItem(index - shortcutOffset);
 		}
 	}
 }
@@ -576,7 +576,7 @@ Application::RemoveShortcut
 	JIndex i;
 	if (itsShortcutList->SearchSorted(&s, JListT::kAnyMatch, &i))
 	{
-		itsShortcutList->DeleteElement(i);
+		itsShortcutList->DeleteItem(i);
 	}
 }
 
@@ -602,10 +602,10 @@ Application::IsMountPoint
 
 	UpdateMountPointList();
 
-	const JSize count = itsMountPointList->GetElementCount();
+	const JSize count = itsMountPointList->GetItemCount();
 	for (JIndex i=1; i<=count; i++)
 	{
-		const JMountPoint info = itsMountPointList->GetElement(i);
+		const JMountPoint info = itsMountPointList->GetItem(i);
 		if (JSameDirEntry(path, *(info.path)))
 		{
 			if (type != nullptr)
@@ -633,7 +633,7 @@ Application::GetMountPointPrefs
 	const
 {
 	JString s = GetMountPointPrefsPath(path);
-	return itsMountPointPrefs->GetElement(s, prefs);
+	return itsMountPointPrefs->GetItem(s, prefs);
 }
 
 /******************************************************************************
@@ -649,7 +649,7 @@ Application::SetMountPointPrefs
 	)
 {
 	JString s = GetMountPointPrefsPath(path);
-	itsMountPointPrefs->SetElement(s, prefs, JPtrArrayT::kDelete);
+	itsMountPointPrefs->SetItem(s, prefs, JPtrArrayT::kDelete);
 }
 
 /******************************************************************************
@@ -700,10 +700,10 @@ Application::RestoreProgramState()
 		return false;
 	}
 
-	const JSize count = children.GetElementCount();
+	const JSize count = children.GetItemCount();
 	for (JIndex i=1; i<=count; i++)
 	{
-		const JString* str = children.GetElement(i);
+		const JString* str = children.GetItem(i);
 		OpenDirectory(*str, nullptr, nullptr, false, false);
 	}
 
@@ -797,7 +797,7 @@ Application::WritePrefs
 	// flush unused mount point prefs
 
 	JStringPtrMapCursor<JString> cursor(itsMountPointPrefs);
-	const JSize mpCount = itsMountPointList->GetElementCount();
+	const JSize mpCount = itsMountPointList->GetItemCount();
 
 	bool changed;
 	do
@@ -812,7 +812,7 @@ Application::WritePrefs
 			const JString& key = cursor.GetKey();
 			for (JIndex i=1; i<=mpCount; i++)
 			{
-				const JMountPoint info = itsMountPointList->GetElement(i);
+				const JMountPoint info = itsMountPointList->GetItem(i);
 				if (JSameDirEntry(*(info.path), key))
 				{
 					found = true;
@@ -822,7 +822,7 @@ Application::WritePrefs
 
 			if (!found)
 			{
-				itsMountPointPrefs->DeleteElement(key);
+				itsMountPointPrefs->DeleteItem(key);
 				changed = true;
 				break;
 			}
@@ -947,10 +947,10 @@ Application::CleanUpBeforeSuddenDeath
 		JPrefObject::WritePrefs();
 		SaveProgramState();
 
-		const JSize count = itsWindowList->GetElementCount();
+		const JSize count = itsWindowList->GetItemCount();
 		for (JIndex i=1; i<=count; i++)
 		{
-			(itsWindowList->GetElement(i))->SaveState();
+			(itsWindowList->GetItem(i))->SaveState();
 		}
 	}
 

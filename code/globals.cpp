@@ -539,9 +539,9 @@ GetDNDAskActions
 	)
 {
 	JXDNDManager* dndMgr = (JXGetApplication()->GetCurrentDisplay())->GetDNDManager();
-	actionList->AppendElement(dndMgr->GetDNDActionCopyXAtom());
-	actionList->AppendElement(dndMgr->GetDNDActionMoveXAtom());
-	actionList->AppendElement(dndMgr->GetDNDActionLinkXAtom());
+	actionList->AppendItem(dndMgr->GetDNDActionCopyXAtom());
+	actionList->AppendItem(dndMgr->GetDNDActionMoveXAtom());
+	actionList->AppendItem(dndMgr->GetDNDActionLinkXAtom());
 
 	auto* s = jnew JString(JGetString("DNDCopyDescription::globals"));
 	assert( s != nullptr );

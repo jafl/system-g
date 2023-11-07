@@ -46,7 +46,7 @@ MDIServer::HandleMDIRequest
 	const JPtrArray<JString>&	argList
 	)
 {
-	const JSize argCount = argList.GetElementCount();
+	const JSize argCount = argList.GetItemCount();
 	Application* app  = GetApplication();
 
 	const JString cwd = JGetCurrentDirectory();
@@ -58,12 +58,12 @@ MDIServer::HandleMDIRequest
 	}
 
 	bool restore = IsFirstTime();
-	if (argCount == 2 && *(argList.GetLastElement()) == "--choose")
+	if (argCount == 2 && *(argList.GetLastItem()) == "--choose")
 	{
 		app->OpenDirectory();
 		restore = false;
 	}
-	else if (argCount == 2 && *(argList.GetLastElement()) == "--open")
+	else if (argCount == 2 && *(argList.GetLastItem()) == "--open")
 	{
 		OpenFiles();
 		if (IsFirstTime())
@@ -71,7 +71,7 @@ MDIServer::HandleMDIRequest
 			exit(0);
 		}
 	}
-	else if (argCount == 2 && *(argList.GetLastElement()) == "--run")
+	else if (argCount == 2 && *(argList.GetLastItem()) == "--run")
 	{
 		JXFSBindingManager::Exec(dir);
 	}
@@ -81,7 +81,7 @@ MDIServer::HandleMDIRequest
 		bool clearSelection = true;
 		for (JIndex i=2; i<=argCount; i++)
 		{
-			const JString& arg = *(argList.GetElement(i));
+			const JString& arg = *(argList.GetItem(i));
 			if (arg == "--no-force-new")
 			{
 				forceNew = false;
