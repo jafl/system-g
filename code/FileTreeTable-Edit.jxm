@@ -1,0 +1,26 @@
+jx_menu_editor 0
+670 300
+"FileTreeTable"
+"Edit"
+' 
+40
+40
+100
+100
+100
+100
+100
+75
+
+0
+1
+0
+0 ""
+"Copy with path"
+"Ctrl-Shift-C"
+' 
+"CopyWithPath"
+"__SGCopyWithPath"
+0
+
+0

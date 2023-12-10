@@ -74,10 +74,6 @@ EmptyTrashLabel::TreeSet	"Empty"
 
 # FileTreeTable
 
-ViewMenuTitle::FileTreeTable		"View"
-GitMenuTitle::FileTreeTable			"Git"
-ShortcutsMenuTitle::FileTreeTable	"Shortcuts"
-
 BranchIndicator::FileTreeTable		"On $branch$stash"
 
 FormatWindowTitle::FileTreeTable	"Erase disk"

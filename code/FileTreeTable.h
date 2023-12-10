@@ -179,7 +179,7 @@ private:
 	JXTextMenu*			itsGitRemoveRemoteMenu;
 	JXTextMenu*			itsGitPruneRemoteMenu;
 	JXTextMenu* 		itsViewMenu;
-	JXTextMenu*			itsShortcutMenu;
+	JXTextMenu*			itsShortcutsMenu;
 
 	JXTextMenu*			itsContextMenu;
 

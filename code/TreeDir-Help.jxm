@@ -1,0 +1,66 @@
+jx_menu_editor 0
+670 300
+"TreeDir"
+"Help"
+'h
+40
+40
+100
+100
+100
+100
+100
+75
+
+0
+1
+0
+0 ""
+"About"
+""
+'a
+"__About"
+"kAboutCmd"
+1
+
+1
+0
+1 "jx_help_toc.xpm"
+"Table of Contents"
+"F1"
+'c
+"HelpTOC::JX"
+"kTOCCmd"
+0
+
+1
+0
+0 ""
+"Getting started"
+""
+'g
+"__GettingStarted"
+"kOverviewCmd"
+1
+
+1
+0
+0 ""
+"Changes"
+""
+'h
+"__Changes"
+"kChangesCmd"
+0
+
+1
+0
+0 ""
+"Credits"
+""
+'r
+"__Credits"
+"kCreditsCmd"
+0
+
+0

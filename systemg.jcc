@@ -1,4 +1,4 @@
-jx_browser_data 93
+jx_browser_data 94
 # project tree
 0 "root"
 T
@@ -39,6 +39,14 @@ T
 F
 "./code/TreeDir.cpp"
 T
+2 "TreeDir-Preferences.jxm"
+F
+"./code/TreeDir-Preferences.jxm"
+T
+2 "TreeDir-Help.jxm"
+F
+"./code/TreeDir-Help.jxm"
+T
 2 "TreeSet.cpp"
 F
 "./code/TreeSet.cpp"
@@ -46,6 +54,26 @@ T
 2 "FileTreeTable.cpp"
 F
 "./code/FileTreeTable.cpp"
+T
+2 "FileTreeTable-File.jxm"
+F
+"./code/FileTreeTable-File.jxm"
+T
+2 "FileTreeTable-Edit.jxm"
+F
+"./code/FileTreeTable-Edit.jxm"
+T
+2 "FileTreeTable-View.jxm"
+F
+"./code/FileTreeTable-View.jxm"
+T
+2 "FileTreeTable-Git.jxm"
+F
+"./code/FileTreeTable-Git.jxm"
+T
+2 "FileTreeTable-Shortcuts.jxm"
+F
+"./code/FileTreeTable-Shortcuts.jxm"
 T
 2 "FileTreeList.cpp"
 F
@@ -158,7 +186,6 @@ F
 # tasks
 4
 "makemake"
-T "./" "make -k personal" "" TFTFTFT "" "" "',zr*.RST,~UET!;/(p]::CBCommandManager" F
 F
 # build settings
 1

@@ -22,7 +22,6 @@
 #include "CopyProcess.h"
 #include "DuplicateProcess.h"
 #include "globals.h"
-#include "actionDefs.h"
 
 #include <jx-af/jfs/JXFSBindingManager.h>
 #include <jx-af/jfs/JXFSDirMenu.h>
@@ -71,178 +70,20 @@
 #include <jx-af/jcore/jASCIIConstants.h>
 #include <jx-af/jcore/jAssert.h>
 
-#include <jx-af/image/jx/jx_file_new.xpm>
-#include <jx-af/image/jx/jx_file_open.xpm>
-#include <jx-af/image/jx/jx_folder_small.xpm>
-#include <jx-af/image/jx/jx_find.xpm>
-#include "mini_term.xpm"
-#include "man.xpm"
-#include "home.xpm"
-#include "filter.xpm"
-#include "hidden.xpm"
-#include "user.xpm"
-#include "group.xpm"
-#include "size.xpm"
-#include "mode.xpm"
-#include "month.xpm"
-#include "git_status.xpm"
-#include "git_history.xpm"
-#include "git_commit_all.xpm"
-#include "git_revert_all.xpm"
-
 const Time kDirUpdateInterval = 10;		// milliseconds
 const JUtf8Character kPermTestChar('w');
 
 static const JUtf8Byte* kDNDClassID = "FileTreeTable";
 
-// File menu
-
-static const JUtf8Byte* kFileMenuStr =
-	"    New folder                  %k Meta-N           %i" kNewFolderAction
-	"  | New text file               %k Meta-Shift-N     %i" kNewTextFileAction
-	"  | Open                        %k Meta-O           %i" kOpenAction
-	"  | Open ... and close this     %k Ctrl-O           %i" kOpenAndCloseAction
-	"  | Open ... and iconify this   %k Ctrl-Shift-O     %i" kOpenAndIconifyAction
-	"  | Alternate open              %k Meta-Shift-O     %i" kAlternateOpenAction
-	"  | Run command on selection... %k Middle-dbl-click %i" kRunOnFileAction
-	"%l| Find...                     %k Meta-F           %i" kFindAction
-	"  | Open recent"
-	"%l| Rename                      %k Return / F2      %i" kRenameAction
-	"  | Convert to file             %k Meta-Shift-F     %i" kConvertToFile
-	"  | Convert to program          %k Meta-Shift-P     %i" kConvertToProgram
-	"%l| Duplicate                   %k Meta-D           %i" kDuplicateAction
-	"  | Make alias                                      %i" kMakeAliasAction
-	"  | Find original                                   %i" kFindOriginalAction
-	"%l| Mount                                           %i" kMountAction
-	"  | Erase                                           %i" kEraseAction
-	"%l| Home window                 %k Meta-H           %i" kOpenHomeWindowAction
-	"%l| Look up man page            %k Meta-I           %i" kViewManPageAction
-	"  | Open terminal               %k Meta-T           %i" kOpenTerminalAction
-	"  | Run command...              %k Meta-R           %i" kRunCommandAction
-	"%l| Close                       %k Meta-W           %i" kJXCloseWindowAction
-	"  | Quit                        %k Meta-Q           %i" kJXQuitAction;
-
-enum
-{
-	kNewDirCmd = 1,
-	kNewTextFileCmd,
-	kOpenCmd,
-	kOpenCloseCmd,
-	kOpenIconifyCmd,
-	kAltOpenCmd,
-	kRunOnSelCmd,
-	kFindCmd,
-	kOpenRecentItemIndex,
-	kRenameCmd,
-	kConvertToFileCmd,
-	kConvertToProgramCmd,
-	kDuplicateCmd,
-	kMakeAliasCmd,
-	kFindOriginalCmd,
-	kToggleMountCmd,
-	kEraseDiskCmd,
-	kHomeWindowCmd,
-	kViewManCmd,
-	kOpenTermCmd,
-	kRunCmdCmd,
-	kCloseCmd,
-	kQuitCmd
-};
-
-// Edit menu additions
-
-static const JUtf8Byte* kEditMenuAddStr =
-	"Copy with path  %k Meta-Shift-C  %i" kCopyWithPathAction;
-
-// View menu
-
-static const JUtf8Byte* kViewMenuStr =
-	"    Wildcard filter     %b    %i" kShowFilterAction
-	"  | Hidden files        %b    %i" kShowHiddenAction
-	"%l| User name           %b    %i" kShowUserAction
-	"  | Group name          %b    %i" kShowGroupAction
-	"  | Size                %b    %i" kShowSizeAction
-	"  | Permissions         %b    %i" kShowPermissionsAction
-	"  | Modification date   %b    %i" kShowDateAction
-	"%l| Show all attributes       %i" kShowAllAction
-	"  | Hide all attributes       %i" kShowNoneAction
-	"%l| Refresh             %k F5 %i" kRefreshAction;
-
-enum
-{
-	kShowFilterCmd = 1,
-	kShowHiddenCmd,
-	kShowUserCmd,
-	kShowGroupCmd,
-	kShowSizeCmd,
-	kShowModeCmd,
-	kShowDateCmd,
-	kShowAllAttrCmd,
-	kHideAllAttrCmd,
-	kRefreshCmd
-};
-
-// Git menu
-// (can take time to run "git branch", so only run it when user opens the menu)
-
-static const JUtf8Byte* kGitMenuStr =
-	"    Branch:"
-	"%l| Status...                     %i" kGitStatusAction
-	"  | History...                    %i" kGitHistoryAction
-	"  | Commit all changes...         %i" kGitCommitAllAction
-	"  | Revert all changes            %i" kGitRevertAllAction
-	"  | Stash all changes...          %i" kGitStashChangesAction
-	"  | Pop"
-	"  | Apply"
-	"  | Drop"
-	"%l| Pull from remote "
-	"  | Push current branch to remote"
-	"%l| Merge from branch"
-	"%l| Fetch remote branch"
-	"  | Create local branch...        %i" kGitCreateBranchAction
-	"  | Remove local branch"
-	"%l| Add remote...                 %i" kGitAddRemoteAction
-	"  | Remove remote"
-	"  | Clean list of remote branches %i" kGitPruneRemoteAction;
-
-enum
-{
-	kGitSwitchBranchItemIndex = 1,
-	kGitStatusCmd,
-	kGitHistoryCmd,
-	kGitCommitAllCmd,
-	kGitRevertAllCmd,
-	kGitStashChangesCmd,
-	kGitStashPopItemIndex,
-	kGitStashApplyItemIndex,
-	kGitStashDropItemIndex,
-	kGitPullItemIndex,
-	kGitPushItemIndex,
-	kGitMergeFromBranchItemIndex,
-	kGitFetchBranchItemIndex,
-	kGitCreateBranchCmd,
-	kGitRemoveBranchItemIndex,
-	kGitAddRemoteCmd,
-	kGitRemoveRemoteItemIndex,
-	kGitPruneRemoteItemIndex
-};
+#include "FileTreeTable-File.h"
+#include "FileTreeTable-Edit.h"
+#include "FileTreeTable-View.h"
+#include "FileTreeTable-Git.h"
+#include "FileTreeTable-Shortcuts.h"
 
 static const JString kStashDisplaySuffix(": systemg-temp");
 
 // Shortcuts menu
-
-static const JUtf8Byte* kShortcutMenuStr =
-	"    Add Shortcut         %k Meta-plus  %i" kAddShortcutAction
-	"  | Remove Shortcut      %k Meta-minus %i" kRemoveShortcutAction
-	"  | Remove All Shortcuts               %i" kRemoveAllShortcutsAction
-	"%l";
-
-enum
-{
-	kAddShortcutCmd = 1,
-	kRemoveShortcutCmd,
-	kRemoveAllShortcutsCmd
-};
 
 const JIndex kShortcutCmdOffset = 3;
 
@@ -258,30 +99,6 @@ static const JString kFormatType[] =
 {
 	JString("ext2", JString::kNoCopy),
 	JString("msdos", JString::kNoCopy)
-};
-
-// Context menu
-
-static const JUtf8Byte* kContextMenuStr =
-	"    Duplicate"
-	"  | Make alias"
-	"  | Find original"
-	"%l| Open this and close window"
-	"  | Open this and iconify window"
-	"%l| Run command on selection..."
-	"%l| Convert to file"
-	"  | Convert to program";
-
-enum
-{
-	kDuplicateCtxCmd = 1,
-	kMakeAliasCtxCmd,
-	kFindOriginalCtxCmd,
-	kOpenCloseCtxCmd,
-	OpenIconifyCtxCmd,
-	kRunOnSelCtxCmd,
-	kConvertToFileCtxCmd,
-	kConvertToProgramCtxCmd
 };
 
 /******************************************************************************
@@ -340,20 +157,13 @@ FileTreeTable::FileTreeTable
 
 	// menus
 
-	itsFileMenu = menuBar->PrependTextMenu(JGetString("FileMenuTitle::JXGlobal"));
-	itsFileMenu->SetMenuItems(kFileMenuStr, "FileTreeTable");
+	itsFileMenu = menuBar->PrependTextMenu(JGetString("MenuTitle::FileTreeTable_File"));
+	itsFileMenu->SetMenuItems(kFileMenuStr);
 	itsFileMenu->SetUpdateAction(JXMenu::kDisableNone);
 	itsFileMenu->AttachHandlers(this,
 		&FileTreeTable::UpdateFileMenu,
 		&FileTreeTable::HandleFileMenu);
-
-	itsFileMenu->SetItemImage(kNewDirCmd,      jx_folder_small);
-	itsFileMenu->SetItemImage(kNewTextFileCmd, jx_file_new);
-	itsFileMenu->SetItemImage(kOpenCmd,        jx_file_open);
-	itsFileMenu->SetItemImage(kFindCmd,        jx_find);
-	itsFileMenu->SetItemImage(kHomeWindowCmd,  home);
-	itsFileMenu->SetItemImage(kViewManCmd,     man);
-	itsFileMenu->SetItemImage(kOpenTermCmd,    mini_term);
+	ConfigureFileMenu(itsFileMenu);
 
 	JXKeyModifiers homeModifiers(GetDisplay());
 	homeModifiers.SetState(kJXMetaKeyIndex, true);
@@ -386,30 +196,25 @@ FileTreeTable::FileTreeTable
 	const bool found = te->EditMenuCmdToIndex(JTextEditor::kCopyCmd, &itsCopyPathCmdIndex);
 	assert( found );
 	itsCopyPathCmdIndex++;
-	itsEditMenu->InsertMenuItems(itsCopyPathCmdIndex, kEditMenuAddStr, "FileTreeTable");
+	itsEditMenu->InsertMenuItems(itsCopyPathCmdIndex, kEditMenuStr);
 	itsEditMenu->AttachHandlers(this,
 		&FileTreeTable::UpdateEditMenu,
 		&FileTreeTable::HandleEditMenu);
+	ConfigureEditMenu(itsEditMenu, itsCopyPathCmdIndex-1);
 
-	itsViewMenu = menuBar->AppendTextMenu(JGetString("ViewMenuTitle::FileTreeTable"));
-	itsViewMenu->SetMenuItems(kViewMenuStr, "FileTreeTable");
+	itsViewMenu = menuBar->AppendTextMenu(JGetString("MenuTitle::FileTreeTable_View"));
+	itsViewMenu->SetMenuItems(kViewMenuStr);
 	itsViewMenu->SetUpdateAction(JXMenu::kDisableNone);
 	itsViewMenu->AttachHandlers(this,
 		&FileTreeTable::UpdateViewMenu,
 		&FileTreeTable::HandleViewMenu);
+	ConfigureViewMenu(itsViewMenu);
 
-	itsViewMenu->SetItemImage(kShowFilterCmd, filter);
-	itsViewMenu->SetItemImage(kShowHiddenCmd, hidden);
-	itsViewMenu->SetItemImage(kShowUserCmd,   user);
-	itsViewMenu->SetItemImage(kShowGroupCmd,  group);
-	itsViewMenu->SetItemImage(kShowSizeCmd,   size);
-	itsViewMenu->SetItemImage(kShowModeCmd,   mode);
-	itsViewMenu->SetItemImage(kShowDateCmd,   month);
-
-	itsGitMenu = itsMenuBar->AppendTextMenu(JGetString("GitMenuTitle::FileTreeTable"));
+	itsGitMenu = itsMenuBar->AppendTextMenu(JGetString("MenuTitle::FileTreeTable_Git"));
 	itsGitMenu->SetMenuItems(kGitMenuStr);
 	itsGitMenu->SetUpdateAction(JXMenu::kDisableNone);
 	itsGitMenu->Deactivate();
+	ConfigureGitMenu(itsGitMenu);
 
 	ListenTo(itsGitMenu, std::function([this](const JXMenu::NeedsUpdate& msg)
 	{
@@ -420,11 +225,6 @@ FileTreeTable::FileTreeTable
 	{
 		HandleGitMenu(msg.GetIndex());
 	}));
-
-	itsGitMenu->SetItemImage(kGitStatusCmd, git_status);
-	itsGitMenu->SetItemImage(kGitHistoryCmd, git_history);
-	itsGitMenu->SetItemImage(kGitCommitAllCmd, git_commit_all);
-	itsGitMenu->SetItemImage(kGitRevertAllCmd, git_revert_all);
 
 	itsGitLocalBranchMenu =
 		jnew JXTextMenu(itsGitMenu, kGitSwitchBranchItemIndex,
@@ -552,13 +352,14 @@ FileTreeTable::FileTreeTable
 		PruneRemoteGitBranches(itsGitPruneRemoteMenu->GetItemText(msg.GetIndex()));
 	}));
 
-	itsShortcutMenu = menuBar->AppendTextMenu(JGetString("ShortcutsMenuTitle::FileTreeTable"));
-	assert (itsShortcutMenu != nullptr);
-	itsShortcutMenu->SetMenuItems(kShortcutMenuStr, "FileTreeTable");
-	itsShortcutMenu->SetUpdateAction(JXMenu::kDisableNone);
-	itsShortcutMenu->AttachHandlers(this,
+	itsShortcutsMenu = menuBar->AppendTextMenu(JGetString("MenuTitle::FileTreeTable_Shortcuts"));
+	assert (itsShortcutsMenu != nullptr);
+	itsShortcutsMenu->SetMenuItems(kShortcutsMenuStr);
+	itsShortcutsMenu->SetUpdateAction(JXMenu::kDisableNone);
+	itsShortcutsMenu->AttachHandlers(this,
 		&FileTreeTable::UpdateShortcutMenu,
 		&FileTreeTable::HandleShortcutMenu);
+	ConfigureShortcutsMenu(itsShortcutsMenu);
 
 	ListenTo(GetApplication());
 
@@ -640,7 +441,7 @@ FileTreeTable::LoadToolBarDefaults
 	toolBar->AppendButton(itsViewMenu, kShowModeCmd);
 	toolBar->AppendButton(itsViewMenu, kShowDateCmd);
 	toolBar->NewGroup();
-	GetApplication()->LoadToolBarDefaults(toolBar, itsShortcutMenu,
+	GetApplication()->LoadToolBarDefaults(toolBar, itsShortcutsMenu,
 										  kShortcutCmdOffset+1);
 }
 
@@ -727,7 +528,7 @@ FileTreeTable::GetImage
 	)
 	const
 {
-	bool selected = (GetTableSelection()).IsSelected(index, GetNodeColIndex());
+	bool selected = GetTableSelection().IsSelected(index, GetNodeColIndex());
 
 	JIndex dndIndex;
 	if (GetDNDTargetIndex(&dndIndex) && dndIndex == index)
@@ -857,7 +658,7 @@ FileTreeTable::SelectName
 			itsFileTreeList->FindNode(node, &index))
 		{
 			cell->Set(GetNodeColIndex(), index);
-			(GetTableSelection()).SelectCell(*cell);
+			GetTableSelection().SelectCell(*cell);
 
 			if (updateView)
 			{
@@ -986,6 +787,8 @@ FileTreeTable::HandleMouseHere
 
  ******************************************************************************/
 
+#include "FileTreeTable-Context.h"
+
 void
 FileTreeTable::HandleMouseDown
 	(
@@ -1088,6 +891,7 @@ FileTreeTable::HandleMouseDown
 			itsContextMenu->AttachHandlers(this,
 				&FileTreeTable::UpdateContextMenu,
 				&FileTreeTable::HandleContextMenu);
+			ConfigureContextMenu(itsContextMenu);
 		}
 
 		const JPoint cell1(GetNodeColIndex(), cell.y);
@@ -1187,7 +991,7 @@ FileTreeTable::HandleMouseDrag
 	}
 	else if (itsWaitingForDragFlag)
 	{
-		assert( (GetTableSelection()).HasSelection() );
+		assert( GetTableSelection().HasSelection() );
 
 		if (JMouseMoved(itsStartPt, pt))
 		{
@@ -1343,7 +1147,7 @@ FileTreeTable::HandleKeyPress
 
 	else if ((c == kJUpArrow || c == kJDownArrow) && !IsEditing())
 	{
-		const bool hasSelection = (GetTableSelection()).HasSelection();
+		const bool hasSelection = GetTableSelection().HasSelection();
 		if (!hasSelection && c == kJUpArrow && GetRowCount() > 0)
 		{
 			SelectSingleCell(JPoint(GetNodeColIndex(), GetRowCount()));
@@ -2451,7 +2255,7 @@ FileTreeTable::HandleFileMenu
 	else if (index == kRenameCmd)
 	{
 		JPoint cell;
-		if ((GetTableSelection()).GetSingleSelectedCell(&cell))
+		if (GetTableSelection().GetSingleSelectedCell(&cell))
 		{
 			BeginEditing(cell);
 		}
@@ -3047,8 +2851,8 @@ FileTreeTable::GetCommandPath()
 	{
 		path = itsFileTree->GetDirectory();
 	}
-	else if ((GetTableSelection()).GetFirstSelectedCell(&cell1) &&
-			 (GetTableSelection()).GetLastSelectedCell(&cell2))
+	else if (GetTableSelection().GetFirstSelectedCell(&cell1) &&
+			 GetTableSelection().GetLastSelectedCell(&cell2))
 	{
 		const JDirEntry* e1 = itsFileTreeList->GetDirEntry(cell1.y);
 		const JDirEntry* e2 = itsFileTreeList->GetDirEntry(cell2.y);
@@ -3126,7 +2930,7 @@ FileTreeTable::UpdateEditMenu()
 		itsEditMenu->EnableItem(index);
 	}
 
-	if ((GetTableSelection()).HasSelection() &&
+	if (GetTableSelection().HasSelection() &&
 		te->EditMenuCmdToIndex(JTextEditor::kCopyCmd, &index))
 	{
 		assert( itsCopyPathCmdIndex == index+1 );
@@ -3170,7 +2974,7 @@ FileTreeTable::HandleEditMenu
 	}
 	else if (cmd == JTextEditor::kSelectAllCmd)
 	{
-		(GetTableSelection()).SelectCol(GetNodeColIndex());
+		GetTableSelection().SelectCol(GetNodeColIndex());
 	}
 }
 
@@ -4685,14 +4489,14 @@ FileTreeTable::PruneRemoteGitBranches
 void
 FileTreeTable::UpdateShortcutMenu()
 {
-	const JSize count = itsShortcutMenu->GetItemCount();
+	const JSize count = itsShortcutsMenu->GetItemCount();
 	for (JIndex i=count; i>kShortcutCmdOffset; i--)
 	{
-		itsShortcutMenu->RemoveItem(i);
+		itsShortcutsMenu->RemoveItem(i);
 	}
 
 	StopListening(GetApplication());		// avoid double update
-	GetApplication()->UpdateShortcutMenu(itsShortcutMenu);
+	GetApplication()->UpdateShortcutMenu(itsShortcutsMenu);
 	ListenTo(GetApplication());
 }
 

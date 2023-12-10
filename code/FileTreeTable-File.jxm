@@ -1,0 +1,246 @@
+jx_menu_editor 0
+676 623
+"FileTreeTable"
+"File"
+'f
+40
+40
+100
+100
+100
+100
+100
+75
+
+0
+1
+0
+1 "jx_folder_small.xpm"
+"New folder"
+"Ctrl-N"
+'f
+"NewFolder"
+"kNewDirCmd"
+0
+
+1
+0
+1 "jx_file_new.xpm"
+"New text file"
+"Ctrl-Shift-N"
+'t
+"NewTextFile"
+"kNewTextFileCmd"
+0
+
+1
+0
+1 "jx_file_open.xpm"
+"Open"
+"Ctrl-O"
+'o
+"Open"
+"kOpenCmd"
+0
+
+1
+0
+0 ""
+"Open ... and close this"
+"Meta-O"
+' 
+"OpenAndClose"
+"kOpenCloseCmd"
+0
+
+1
+0
+0 ""
+"Open ... and iconify this"
+"Meta-Shift-O"
+' 
+"OpenAndIconify"
+"kOpenIconifyCmd"
+0
+
+1
+0
+0 ""
+"Alternate open"
+"Ctrl-Shift-O"
+' 
+"AlternateOpen"
+"kAltOpenCmd"
+0
+
+1
+0
+0 ""
+"Run command on selection..."
+"Middle-dbl-click"
+' 
+"RunOnFile"
+"kRunOnSelCmd"
+1
+
+1
+0
+1 "jx_find.xpm"
+"Find..."
+"Ctrl-F"
+'i
+"Find"
+"kFindCmd"
+0
+
+1
+0
+0 ""
+"Open recent"
+""
+' 
+"__OpenRecent"
+"kOpenRecentItemIndex"
+1
+
+1
+0
+0 ""
+"Rename"
+"Return / F2"
+'e
+"Rename"
+"kRenameCmd"
+0
+
+1
+0
+1 "jx_plain_file_small.xpm"
+"Convert to file"
+"Ctrl-Shift-F"
+'n
+"ConvertToFile"
+"kConvertToFileCmd"
+0
+
+1
+0
+1 "jx_executable_small.xpm"
+"Convert to program"
+"Ctrl-Shift-P"
+'v
+"ConvertToProgram"
+"kConvertToProgramCmd"
+1
+
+1
+0
+1 "jx_library_file_small.xpm"
+"Duplicate"
+"Ctrl-D"
+'d
+"Duplicate"
+"kDuplicateCmd"
+0
+
+1
+0
+0 ""
+"Make alias"
+""
+'a
+"MakeAlias"
+"kMakeAliasCmd"
+0
+
+1
+0
+0 ""
+"Find original"
+""
+'g
+"FindOriginal"
+"kFindOriginalCmd"
+1
+
+1
+0
+0 ""
+"Mount"
+""
+' 
+"Mount"
+"kToggleMountCmd"
+0
+
+1
+0
+0 ""
+"Erase"
+""
+' 
+"Erase"
+"kEraseDiskCmd"
+1
+
+1
+0
+0 "home.xpm"
+"Home window"
+"Ctrl-H"
+'h
+"OpenHomeWindow"
+"kHomeWindowCmd"
+1
+
+1
+0
+0 "man.xpm"
+"Look up man page"
+"Ctrl-I"
+'m
+"ViewManPage"
+"kViewManCmd"
+0
+
+1
+0
+0 "mini_term.xpm"
+"Open terminal"
+"Ctrl-T"
+'r
+"OpenTerminal"
+"kOpenTermCmd"
+0
+
+1
+0
+0 ""
+"Run command..."
+"Ctrl-R"
+'u
+"RunCommand"
+"kRunCmdCmd"
+1
+
+1
+0
+0 ""
+"Close"
+"Ctrl-W"
+'c
+"CloseWindow::JX"
+"kCloseCmd"
+0
+
+1
+0
+0 ""
+"Quit"
+"Ctrl-Q"
+'q
+"Quit::JX"
+"kQuitCmd"
+0
+
+0

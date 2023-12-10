@@ -1,0 +1,66 @@
+jx_menu_editor 0
+983 265
+"TreeDir"
+"Preferences"
+'p
+40
+40
+207
+100
+100
+186
+175
+75
+
+0
+1
+0
+0 ""
+"Preferences..."
+""
+'p
+"__Preferences"
+"kEditPrefsCmd"
+0
+
+1
+0
+0 ""
+"File bindings..."
+""
+'f
+"__FileBindings"
+"kEditBindingsCmd"
+0
+
+1
+0
+0 ""
+"Toolbar buttons..."
+""
+'t
+"__EditToolBar"
+"kEditToolBarCmd"
+0
+
+1
+0
+0 ""
+"Mac/Win/X emulation..."
+""
+'e
+"__MacWinXEmulation"
+"kEditMacWinPrefsCmd"
+1
+
+1
+0
+0 ""
+"Save window setup as default"
+""
+'s
+"__SaveWindowSetupAsDefault"
+"kSaveWindSizeCmd"
+0
+
+0

@@ -1,0 +1,116 @@
+jx_menu_editor 0
+672 357
+"FileTreeTable"
+"View"
+'v
+40
+40
+100
+100
+100
+100
+100
+75
+
+0
+1
+1
+0 "filter.xpm"
+"Wildcard filter"
+""
+'w
+"ShowFilter"
+"kShowFilterCmd"
+0
+
+1
+1
+0 "hidden.xpm"
+"Hidden files"
+""
+'h
+"ShowHidden"
+"kShowHiddenCmd"
+1
+
+1
+1
+0 "user.xpm"
+"User name"
+""
+'u
+"ShowUser"
+"kShowUserCmd"
+0
+
+1
+1
+0 "group.xpm"
+"Group name"
+""
+'g
+"ShowGroup"
+"kShowGroupCmd"
+0
+
+1
+1
+0 "size.xpm"
+"Size"
+""
+'s
+"ShowSize"
+"kShowSizeCmd"
+0
+
+1
+1
+0 "mode.xpm"
+"Permissions"
+""
+'p
+"ShowPermissions"
+"kShowModeCmd"
+0
+
+1
+1
+0 "month.xpm"
+"Modification date"
+""
+'m
+"ShowDate"
+"kShowDateCmd"
+1
+
+1
+0
+0 ""
+"Show all attributes"
+""
+'a
+"ShowAll"
+"kShowAllAttrCmd"
+0
+
+1
+0
+0 ""
+"Hide all attributes"
+""
+'i
+"ShowNone"
+"kHideAllAttrCmd"
+1
+
+1
+0
+0 ""
+"Refresh"
+"F5"
+'r
+"Refresh"
+"kRefreshCmd"
+0
+
+0

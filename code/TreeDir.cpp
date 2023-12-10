@@ -17,7 +17,6 @@
 #include "PrefsMgr.h"
 #include "globals.h"
 #include "FileVersions.h"
-#include "actionDefs.h"
 #include <jx-af/jfs/JXFSBindingManager.h>
 #include <jx-af/jx/JXDisplay.h>
 #include <jx-af/jx/JXWindow.h>
@@ -36,46 +35,8 @@
 #include <sstream>
 #include <jx-af/jcore/jAssert.h>
 
-#include <jx-af/image/jx/jx_help_toc.xpm>
-
 const JString kDirPrefsName    (".systemg_folder_prefs_", JString::kNoCopy);
 const JString kOrigDirPrefsName(".systemG.Desktop", JString::kNoCopy);
-
-// Preferences menu
-
-static const JUtf8Byte* kPrefsMenuStr =
-	"    Preferences..."
-	"  | File bindings..."
-	"  | Toolbar buttons..."
-	"  | Mac/Win/X emulation..."
-	"%l| Save window setup as default";
-
-enum
-{
-	kEditPrefsCmd = 1,
-	kEditBindings,
-	kEditToolBarCmd,
-	kEditMacWinPrefsCmd,
-	kSaveWindSizeCmd
-};
-
-// Help menu
-
-static const JUtf8Byte* kHelpMenuStr =
-	"    About"
-	"%l| Table of Contents %k F1 %i" kJXHelpTOCAction
-	"  | Getting started"
-	"%l| Changes"
-	"  | Credits";
-
-enum
-{
-	kAboutCmd = 1,
-	kTOCCmd,
-	kOverviewCmd,
-	kChangesCmd,
-	kCreditsCmd
-};
 
 /******************************************************************************
  Constructor
@@ -193,6 +154,9 @@ TreeDir::GetDirectory()
  BuildWindow (private)
 
  ******************************************************************************/
+
+#include "TreeDir-Preferences.h"
+#include "TreeDir-Help.h"
 
 void
 TreeDir::BuildWindow
@@ -339,17 +303,17 @@ TreeDir::BuildWindow
 	assert( windowsMenu != nullptr );
 	menuBar->AppendMenu(windowsMenu);
 
-	itsPrefsMenu = menuBar->AppendTextMenu(JGetString("PrefsMenuTitle::JXGlobal"));
-	itsPrefsMenu->SetMenuItems(kPrefsMenuStr, "TreeDir");
+	itsPrefsMenu = menuBar->AppendTextMenu(JGetString("MenuTitle::TreeDir_Preferences"));
+	itsPrefsMenu->SetMenuItems(kPreferencesMenuStr);
 	itsPrefsMenu->SetUpdateAction(JXMenu::kDisableNone);
 	itsPrefsMenu->AttachHandler(this, &TreeDir::HandlePrefsMenu);
+	ConfigurePreferencesMenu(itsPrefsMenu);
 
-	itsHelpMenu = menuBar->AppendTextMenu(JGetString("HelpMenuTitle::JXGlobal"));
-	itsHelpMenu->SetMenuItems(kHelpMenuStr, "TreeDir");
+	itsHelpMenu = menuBar->AppendTextMenu(JGetString("MenuTitle::TreeDir_Help"));
+	itsHelpMenu->SetMenuItems(kHelpMenuStr);
 	itsHelpMenu->SetUpdateAction(JXMenu::kDisableNone);
 	itsHelpMenu->AttachHandler(this, &TreeDir::HandleHelpMenu);
-
-	itsHelpMenu->SetItemImage(kTOCCmd, jx_help_toc);
+	ConfigureHelpMenu(itsHelpMenu);
 
 	itsToolBar->LoadPrefs();
 	if (itsToolBar->IsEmpty())
@@ -442,7 +406,7 @@ TreeDir::HandlePrefsMenu
 	{
 		GetPrefsMgr()->EditPrefs();
 	}
-	else if (index == kEditBindings)
+	else if (index == kEditBindingsCmd)
 	{
 		JXFSBindingManager::EditBindings();
 	}

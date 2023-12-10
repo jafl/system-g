@@ -449,7 +449,7 @@ Application::UpdateShortcutMenu
 
  ******************************************************************************/
 
-static JString kShortcutPrefix("Ctrl-");
+static JString kShortcutPrefix("Meta-");
 
 static const JUtf8Byte* kShortcutKey[] =
 {

@@ -1,0 +1,196 @@
+jx_menu_editor 0
+673 514
+"FileTreeTable"
+"Git"
+'g
+40
+40
+100
+100
+100
+100
+100
+75
+
+0
+1
+0
+0 ""
+"Branch:"
+""
+' 
+"__Branch"
+"kGitSwitchBranchItemIndex"
+1
+
+1
+0
+0 "git_status.xpm"
+"Status..."
+""
+'s
+"GitStatus"
+"kGitStatusCmd"
+0
+
+1
+0
+0 "git_history.xpm"
+"History..."
+""
+'h
+"GitHistory"
+"kGitHistoryCmd"
+0
+
+1
+0
+0 "git_commit_all.xpm"
+"Commit all changes..."
+""
+'a
+"GitCommitAll"
+"kGitCommitAllCmd"
+0
+
+1
+0
+0 "git_revert_all.xpm"
+"Revert all changes"
+""
+'r
+"GitRevertAll"
+"kGitRevertAllCmd"
+0
+
+1
+0
+0 ""
+"Stash all changes..."
+""
+'t
+"GitStashChanges"
+"kGitStashChangesCmd"
+0
+
+1
+0
+0 ""
+"Pop"
+""
+' 
+"__Pop"
+"kGitStashPopItemIndex"
+0
+
+1
+0
+0 ""
+"Apply"
+""
+' 
+"__Apply"
+"kGitStashApplyItemIndex"
+0
+
+1
+0
+0 ""
+"Drop"
+""
+' 
+"__Drop"
+"kGitStashDropItemIndex"
+1
+
+1
+0
+0 ""
+"Pull from remote"
+""
+' 
+"__PullFromRemote"
+"kGitPullItemIndex"
+0
+
+1
+0
+0 ""
+"Push current branch to remote"
+""
+' 
+"__PushCurrentBranchToRemote"
+"kGitPushItemIndex"
+1
+
+1
+0
+0 ""
+"Merge from branch"
+""
+' 
+"__MergeFromBranch"
+"kGitMergeFromBranchItemIndex"
+1
+
+1
+0
+0 ""
+"Fetch remote branch"
+""
+' 
+"__FetchRemoteBranch"
+"kGitFetchBranchItemIndex"
+0
+
+1
+0
+0 ""
+"Create local branch..."
+""
+'l
+"GitCreateBranch"
+"kGitCreateBranchCmd"
+0
+
+1
+0
+0 ""
+"Remove local branch"
+""
+' 
+"__RemoveLocalBranch"
+"kGitRemoveBranchItemIndex"
+1
+
+1
+0
+0 ""
+"Add remote..."
+""
+'d
+"GitAddRemote"
+"kGitAddRemoteCmd"
+0
+
+1
+0
+0 ""
+"Remove remote"
+""
+'e
+"__RemoveRemote"
+"kGitRemoveRemoteItemIndex"
+0
+
+1
+0
+0 ""
+"Clean list of remote branches"
+""
+' 
+"GitPruneRemote"
+"kGitPruneRemoteItemIndex"
+0
+
+0

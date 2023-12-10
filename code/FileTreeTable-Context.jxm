@@ -1,0 +1,96 @@
+jx_menu_editor 0
+670 300
+"FileTreeTable"
+"Context"
+' 
+40
+40
+100
+100
+100
+100
+100
+75
+
+0
+1
+0
+1 "jx_library_file_small.xpm"
+"Duplicate"
+""
+' 
+"__Duplicate"
+"kDuplicateCtxCmd"
+0
+
+1
+0
+0 ""
+"Make alias"
+""
+' 
+"__MakeAlias"
+"kMakeAliasCtxCmd"
+0
+
+1
+0
+0 ""
+"Find original"
+""
+' 
+"__FindOriginal"
+"kFindOriginalCtxCmd"
+1
+
+1
+0
+0 ""
+"Open this and close window"
+""
+' 
+"__OpenThisAndCloseWindow"
+"kOpenCloseCtxCmd"
+0
+
+1
+0
+0 ""
+"Open this and iconify window"
+""
+' 
+"__OpenThisAndIconifyWindow"
+"OpenIconifyCtxCmd"
+1
+
+1
+0
+0 ""
+"Run command on selection..."
+""
+' 
+"__RunCommandOnSelection"
+"kRunOnSelCtxCmd"
+1
+
+1
+0
+1 "jx_plain_file_small.xpm"
+"Convert to file"
+""
+' 
+"__ConvertToFile"
+"kConvertToFileCtxCmd"
+0
+
+1
+0
+1 "jx_executable_small.xpm"
+"Convert to program"
+""
+' 
+"__ConvertToProgram"
+"kConvertToProgramCtxCmd"
+0
+
+0

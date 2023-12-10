@@ -1,0 +1,46 @@
+jx_menu_editor 0
+670 300
+"FileTreeTable"
+"Shortcuts"
+' 
+40
+40
+100
+100
+100
+100
+100
+75
+
+0
+1
+0
+0 ""
+"Add Shortcut"
+"Ctrl-plus"
+' 
+"AddShortcut"
+"kAddShortcutCmd"
+0
+
+1
+0
+0 ""
+"Remove Shortcut"
+"Ctrl-minus"
+' 
+"RemoveShortcut"
+"kRemoveShortcutCmd"
+0
+
+1
+0
+0 ""
+"Remove All Shortcuts"
+""
+' 
+"RemoveAllShortcuts"
+"kRemoveAllShortcutsCmd"
+1
+
+0
