@@ -110,3 +110,7 @@ if [[ ! -d $INSTALL_ROOT/include/jx-af/ && ! -f ../JX/Makefile && -z $JX_ROOT ]]
 fi
 
 makemake;
+
+if [[ $1 != package ]]; then
+	touch image-build/*;
+fi
