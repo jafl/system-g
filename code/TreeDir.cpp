@@ -315,7 +315,7 @@ TreeDir::BuildWindow
 	itsHelpMenu->AttachHandler(this, &TreeDir::HandleHelpMenu);
 	ConfigureHelpMenu(itsHelpMenu);
 
-	itsToolBar->LoadPrefs();
+	itsToolBar->LoadPrefs(UpgradeToolBarID);
 	if (itsToolBar->IsEmpty())
 	{
 		GetTable()->LoadToolBarDefaults(itsToolBar);
@@ -326,6 +326,26 @@ TreeDir::BuildWindow
 	jdelete input;
 
 	GetDisplay()->GetWDManager()->DirectorCreated(this);
+}
+
+/******************************************************************************
+ UpgradeToolBarID (static private)
+
+ ******************************************************************************/
+
+void
+TreeDir::UpgradeToolBarID
+	(
+	JString* s
+	)
+{
+	if (s->StartsWith("SG"))
+	{
+		JStringIterator iter(s);
+		iter.SkipNext(2);
+		iter.RemoveAllPrev();
+		*s += "::FileTreeTable";
+	}
 }
 
 /******************************************************************************

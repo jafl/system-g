@@ -64,6 +64,8 @@ private:
 
 	void	HandleHelpMenu(const JIndex index);
 	void	HandlePrefsMenu(const JIndex index);
+
+	static void	UpgradeToolBarID(JString* s);
 };
 
 
