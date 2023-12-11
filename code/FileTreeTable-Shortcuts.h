@@ -19,6 +19,9 @@ enum {
 
 
 static void ConfigureShortcutsMenu(JXTextMenu* menu, const int offset = 0) {
+	if (offset == 0 && JXMenu::GetDisplayStyle() == JXMenu::kWindowsStyle) {
+		menu->SetShortcuts(JString("#s", JString::kNoCopy));
+	}
 };
 
 #endif

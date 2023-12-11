@@ -6,6 +6,6 @@
 
 MenuTitle::FileTreeTable_Shortcuts "Shortcuts"
 
-AddShortcut::FileTreeTable "Add Shortcut %k Ctrl-plus"
-RemoveShortcut::FileTreeTable "Remove Shortcut %k Ctrl-minus"
-RemoveAllShortcuts::FileTreeTable "Remove All Shortcuts"
+AddShortcut::FileTreeTable "Add Shortcut %k Ctrl-plus %h a"
+RemoveShortcut::FileTreeTable "Remove Shortcut %k Ctrl-minus %h r"
+RemoveAllShortcuts::FileTreeTable "Remove All Shortcuts %h l"
