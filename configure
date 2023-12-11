@@ -40,12 +40,11 @@ elif command -v apt-get; then
 	if [[ -z $SNAPCRAFT_BUILD_ENVIRONMENT ]]; then
 		$SUDO apt update;
 		if [[ $MODE != ci ]]; then
-			$SUDO apt -y install git-gui;
+			$SUDO apt -y install git-gui xdg-utils;
 		fi
 
 		if [[ ! -f ../JX/Makefile && -z $JX_ROOT ]]; then
 			curl -LO https://libjx.sourceforge.net/ci/jx-application-framework.deb;
-			$SUDO apt -y remove nginx libgd3;	# hack
 			$SUDO apt install ./jx-application-framework.deb;
 		fi
 	fi
@@ -56,7 +55,7 @@ elif command -v dnf; then
 
 	if [[ -z $SNAPCRAFT_BUILD_ENVIRONMENT ]]; then
 		if [[ $MODE != ci ]]; then
-			$SUDO dnf -y install git-gui xterm;
+			$SUDO dnf -y install git-gui xdg-utils xterm;
 		fi
 
 		if [[ ! -f ../JX/Makefile && -z $JX_ROOT ]]; then
@@ -72,7 +71,7 @@ elif command -v zypper; then
 
 	if [[ -z $SNAPCRAFT_BUILD_ENVIRONMENT ]]; then
 		if [[ $MODE != ci ]]; then
-			$SUDO zypper -in install git-gui xterm;
+			$SUDO zypper -in install git-gui xdg-utils xterm;
 		fi
 	fi
 
