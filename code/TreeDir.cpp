@@ -315,7 +315,10 @@ TreeDir::BuildWindow
 	itsHelpMenu->AttachHandler(this, &TreeDir::HandleHelpMenu);
 	ConfigureHelpMenu(itsHelpMenu);
 
-	itsToolBar->LoadPrefs(UpgradeToolBarID);
+	// must be done after creating widgets
+
+	auto f = std::function(UpgradeToolBarID);
+	itsToolBar->LoadPrefs(&f);
 	if (itsToolBar->IsEmpty())
 	{
 		GetTable()->LoadToolBarDefaults(itsToolBar);
