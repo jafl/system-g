@@ -302,6 +302,10 @@ TreeDir::BuildWindow
 					 JXWidget::kFixedLeft, JXWidget::kVElastic, 0,0, 10,10);
 	assert( windowsMenu != nullptr );
 	menuBar->AppendMenu(windowsMenu);
+	if (JXMenu::GetDisplayStyle() == JXMenu::kWindowsStyle)
+	{
+		windowsMenu->SetShortcuts(JGetString("WindowsMenuShortcut::JXGlobal"));
+	}
 
 	itsPrefsMenu = menuBar->AppendTextMenu(JGetString("MenuTitle::TreeDir_Preferences"));
 	itsPrefsMenu->SetMenuItems(kPreferencesMenuStr);
