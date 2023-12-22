@@ -116,24 +116,24 @@ protected:
 	bool	WillAcceptDrop(const JArray<Atom>& typeList, Atom* action,
 						   const JPoint& pt, const Time time,
 						   const JXWidget* source) override;
-	void		HandleDNDEnter() override;
-	void		HandleDNDHere(const JPoint& pt, const JXWidget* source) override;
-	void		HandleDNDLeave() override;
-	void		HandleDNDDrop(const JPoint& pt, const JArray<Atom>& typeList,
-							  const Atom action, const Time time,
-							  const JXWidget* source) override;
+	void	HandleDNDEnter() override;
+	void	HandleDNDHere(const JPoint& pt, const JXWidget* source) override;
+	void	HandleDNDLeave() override;
+	void	HandleDNDDrop(const JPoint& pt, const JArray<Atom>& typeList,
+						  const Atom action, const Time time,
+						  const JXWidget* source) override;
 
-	void		GetSelectionData(JXSelectionData* data,
-								 const JString& id) override;
-	Atom		GetDNDAction(const JXContainer* target,
-							 const JXButtonStates& buttonStates,
-							 const JXKeyModifiers& modifiers) override;
-	void		GetDNDAskActions(const JXButtonStates& buttonStates,
-								 const JXKeyModifiers& modifiers,
-								 JArray<Atom>* askActionList,
-								 JPtrArray<JString>* askDescriptionList) override;
-	void		HandleDNDResponse(const JXContainer* target,
-								  const bool dropAccepted, const Atom action) override;
+	void	GetSelectionData(JXSelectionData* data,
+							 const JString& id) override;
+	Atom	GetDNDAction(const JXContainer* target,
+						 const JXButtonStates& buttonStates,
+						 const JXKeyModifiers& modifiers) override;
+	void	GetDNDAskActions(const JXButtonStates& buttonStates,
+							 const JXKeyModifiers& modifiers,
+							 JArray<Atom>* askActionList,
+							 JPtrArray<JString>* askDescriptionList) override;
+	void	HandleDNDResponse(const JXContainer* target,
+							  const bool dropAccepted, const Atom action) override;
 
 	JXInputField*
 		CreateTreeListInput(const JPoint& cell, JXContainer* enclosure,
@@ -155,42 +155,42 @@ private:
 	JXFunctionTask*		itsUpdateTask;
 	JFSFileTreeNodeBase*itsUpdateNode;
 
-	bool				itsVisibleCols[5];
-	GFMColType			itsCurrentColType;
-	JColorID			itsAltRowColor;
-	JCoordinate			itsPermCharWidth;
+	bool		itsVisibleCols[5];
+	GFMColType	itsCurrentColType;
+	JColorID	itsAltRowColor;
+	JCoordinate	itsPermCharWidth;
 	bool				itsIgnoreExecPermFlag;
 
-	JXMenuBar*			itsMenuBar;
-	JXTextMenu*			itsFileMenu;
-	JXFSDirMenu*		itsRecentFilesMenu;
-	JXTextMenu*			itsEditMenu;				// not owned
-	JIndex				itsCopyPathCmdIndex;
-	JXTextMenu*			itsGitMenu;
-	JXTextMenu*			itsGitLocalBranchMenu;
-	JXTextMenu*			itsGitPullSourceMenu;
-	JXTextMenu*			itsGitPushDestMenu;
-	JXTextMenu*			itsGitMergeBranchMenu;
-	JXTextMenu*			itsGitStashPopMenu;
-	JXTextMenu*			itsGitStashApplyMenu;
-	JXTextMenu*			itsGitStashDropMenu;
-	JXTextMenu*			itsGitRemoteBranchMenu;
-	JXTextMenu*			itsGitRemoveBranchMenu;
-	JXTextMenu*			itsGitRemoveRemoteMenu;
-	JXTextMenu*			itsGitPruneRemoteMenu;
-	JXTextMenu* 		itsViewMenu;
-	JXTextMenu*			itsShortcutsMenu;
+	JXMenuBar*	itsMenuBar;
+	JXTextMenu*	itsFileMenu;
+	JXFSDirMenu*itsRecentFilesMenu;
+	JXTextMenu*	itsEditMenu;					// not owned
+	JIndex		itsCopyPathCmdIndex;
+	JXTextMenu*	itsGitMenu;
+	JXTextMenu*	itsGitLocalBranchMenu;
+	JXTextMenu*	itsGitPullSourceMenu;
+	JXTextMenu*	itsGitPushDestMenu;
+	JXTextMenu*	itsGitMergeBranchMenu;
+	JXTextMenu*	itsGitStashPopMenu;
+	JXTextMenu*	itsGitStashApplyMenu;
+	JXTextMenu*	itsGitStashDropMenu;
+	JXTextMenu*	itsGitRemoteBranchMenu;
+	JXTextMenu*	itsGitRemoveBranchMenu;
+	JXTextMenu*	itsGitRemoveRemoteMenu;
+	JXTextMenu*	itsGitPruneRemoteMenu;
+	JXTextMenu* itsViewMenu;
+	JXTextMenu*	itsShortcutsMenu;
 
-	JXTextMenu*			itsContextMenu;
+	JXTextMenu*	itsContextMenu;
 
-	JProcess*			itsFormatProcess;			// nullptr unless formatting
-	JProcess*			itsGitProcess;				// nullptr unless waiting for git
+	JProcess*	itsFormatProcess;				// nullptr unless formatting
+	JProcess*	itsGitProcess;					// nullptr unless waiting for git
 
-	JPtrArray<JString>*		itsPruneBranchList;		// nullptr unless pruning local branches
+	JPtrArray<JString>*	itsPruneBranchList;		// nullptr unless pruning local branches
 
 	// Drag-and-Drop
 
-	JXWindowIcon*	itsIconWidget;			// not owned
+	JXWindowIcon*	itsIconWidget;				// not owned
 	JIndex			itsWindowIconType;
 
 	enum CursorType
@@ -204,9 +204,9 @@ private:
 
 	// used during dragging
 
-	JPoint		itsStartPt;
-	JPoint		itsPrevPt;
-	JSize		itsLastClickCount;
+	JPoint	itsStartPt;
+	JPoint	itsPrevPt;
+	JSize	itsLastClickCount;
 	bool	itsWaitingForDragFlag;
 	bool	itsClearIfNotDNDFlag;
 
@@ -214,7 +214,7 @@ private:
 
 	bool				itsWaitingToEditFlag;
 	BeginEditingTask*	itsEditTask;	// nullptr unless waiting to edit
-	JPoint					itsEditCell;
+	JPoint				itsEditCell;
 	FileTreeNode*		itsSortNode;	// sort when mouse released
 
 	// set by GetGitBranches()

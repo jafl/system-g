@@ -465,7 +465,7 @@ GetFindFileDialog()
 bool
 GetDNDSource
 	(
-	const JXWidget*		dndSource,
+	const JXWidget*	dndSource,
 	FileTreeTable**	widget
 	)
 {
@@ -498,7 +498,7 @@ bool
 GetDNDTarget
 	(
 	const JXContainer*	dndTarget,
-	FileTreeTable**	widget
+	FileTreeTable**		widget
 	)
 {
 	// We can't compare dndTarget and widget because they aren't the same

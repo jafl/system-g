@@ -830,7 +830,7 @@ FileTreeTable::HandleMouseDown
 		}
 	}
 	else if (GetFMColType(cell.x, GetNodeColIndex(), itsVisibleCols) == kGFMMode &&
-			 !(itsFileTreeList->GetDirEntry(cell.y))->IsLink())
+			 !itsFileTreeList->GetDirEntry(cell.y)->IsLink())
 	{
 		if (!s.IsSelected(cell.y, GetNodeColIndex()))
 		{
@@ -876,7 +876,7 @@ FileTreeTable::HandleMouseDown
 		}
 	}
 	else if (part == kBeforeImage || part == kAfterText ||
-			 (part == kOtherColumn && (GetCellString(cell)).IsEmpty()))
+			 (part == kOtherColumn && GetCellString(cell).IsEmpty()))
 	{
 		StartDragRect(pt, button, modifiers);
 	}
@@ -1124,7 +1124,7 @@ FileTreeTable::HandleKeyPress
 	const JXKeyModifiers&	modifiers
 	)
 {
-	if (!(GetDisplay()->GetLatestButtonStates()).AllOff())
+	if (!GetDisplay()->GetLatestButtonStates().AllOff())
 	{
 		return;		// don't let selection change during DND
 	}
@@ -1163,7 +1163,7 @@ FileTreeTable::HandleKeyPress
 		ClearIncrementalSearchBuffer();
 	}
 
-	else if (c == kJForwardDeleteKey && (GetPrefsMgr())->DelWillDelete())
+	else if (c == kJForwardDeleteKey && GetPrefsMgr()->DelWillDelete())
 	{
 		ClearIncrementalSearchBuffer();
 		DeleteSelected();
@@ -1193,7 +1193,7 @@ FileTreeTable::DeleteSelected()
 	while (iter.Next(&cell))
 	{
 		FileTreeNode* node = itsFileTreeList->GetFileNode(cell.y);
-		const JString file = (node->GetDirEntry())->GetFullName();
+		const JString file = node->GetDirEntry()->GetFullName();
 		JProcess* p;
 		JRemoveVCS(file, false, &p);
 		if (p != nullptr)
@@ -1230,7 +1230,7 @@ FileTreeTable::WarnForDelete()
 		{
 			"name", node->GetName().GetBytes()
 		};
-		msg = JGetString((node->GetDirEntry())->GetType() == JDirEntry::kDir ?
+		msg = JGetString(node->GetDirEntry()->GetType() == JDirEntry::kDir ?
 							"WarnDeleteSingleDir::FileTreeTable" :
 							"WarnDeleteSingleFile::FileTreeTable",
 						 map, sizeof(map));
@@ -1241,7 +1241,7 @@ FileTreeTable::WarnForDelete()
 		JTableSelectionIterator iter(&s);
 		while (iter.Next(&cell))
 		{
-			if ((itsFileTreeList->GetDirEntry(cell.y))->GetType() == JDirEntry::kDir)
+			if (itsFileTreeList->GetDirEntry(cell.y)->GetType() == JDirEntry::kDir)
 			{
 				hasDirs = true;
 				break;
@@ -1384,8 +1384,8 @@ FileTreeTable::WillAcceptDrop
 			HandleDNDHere(pt, source);
 
 			JIndex dndIndex;
-			const bool accept = GetDNDTargetIndex(&dndIndex);
-			const JString dest    = itsFileTree->GetFileRoot()->GetDirEntry()->GetFullName();
+			const bool accept  = GetDNDTargetIndex(&dndIndex);
+			const JString dest = itsFileTree->GetFileRoot()->GetDirEntry()->GetFullName();
 			return accept || JDirectoryWritable(dest);
 		}
 	}
@@ -1500,7 +1500,7 @@ FileTreeTable::HandleDNDDrop
 				itsFileTreeList->GetFileNode(dndIndex) :
 				itsFileTree->GetFileRoot();
 
-			JString path = (node->GetDirEntry())->GetFullName();
+			JString path = node->GetDirEntry()->GetFullName();
 			path         = JCombinePathAndName(path, JString((char*) rawData, JString::kNoCopy));
 			JString url  = JFileNameToURL(path);
 			XChangeProperty(*GetDisplay(), dragWindow,
@@ -1669,7 +1669,7 @@ FileTreeTable::GetSelectionData
 		auto* fileList = jnew JPtrArray<JString>(JPtrArrayT::kDeleteAll);
 		assert( fileList != nullptr );
 
-		JTableSelectionIterator iter(&(GetTableSelection()));
+		JTableSelectionIterator iter(&GetTableSelection());
 		JPoint cell;
 		while (iter.Next(&cell))
 		{
@@ -1731,34 +1731,35 @@ FileTreeTable::GetDNDAction
 			sygTarget->itsFileTreeList->GetFileNode(dndIndex) :
 			sygTarget->itsFileTree->GetFileRoot();
 
-		if (!JIsSamePartition(sourcePath, (node->GetDirEntry())->GetFullName()))
+		if (!JIsSamePartition(sourcePath, node->GetDirEntry()->GetFullName()))
 		{
 			moveDef = false;
 		}
 	}
 
 	const JXMenu::Style style = JXMenu::GetDisplayStyle();
-	const bool toggleMoveToCopy = ((style == JXMenu::kMacintoshStyle && modifiers.meta()) ||
-		 (style == JXMenu::kWindowsStyle   && modifiers.control()));
+	const bool toggleMoveToCopy =
+		(style == JXMenu::kMacintoshStyle && modifiers.meta()) ||
+		(style == JXMenu::kWindowsStyle   && modifiers.control());
 
 	if ((style == JXMenu::kMacintoshStyle && modifiers.control()) ||
 		(style == JXMenu::kWindowsStyle   && modifiers.shift()))
 	{
-		return (source->GetDNDManager())->GetDNDActionAskXAtom();
+		return source->GetDNDManager()->GetDNDActionAskXAtom();
 	}
 	else if ((style == JXMenu::kMacintoshStyle && modifiers.shift()) ||
 			 (style == JXMenu::kWindowsStyle   && modifiers.meta()))
 	{
-		return (source->GetDNDManager())->GetDNDActionLinkXAtom();
+		return source->GetDNDManager()->GetDNDActionLinkXAtom();
 	}
 	else if (( toggleMoveToCopy &&  moveDef) ||
 			 (!toggleMoveToCopy && !moveDef))
 	{
-		return (source->GetDNDManager())->GetDNDActionCopyXAtom();
+		return source->GetDNDManager()->GetDNDActionCopyXAtom();
 	}
 	else
 	{
-		return (source->GetDNDManager())->GetDNDActionMoveXAtom();
+		return source->GetDNDManager()->GetDNDActionMoveXAtom();
 	}
 }
 
@@ -1801,11 +1802,11 @@ FileTreeTable::ChooseDNDCursors()
 {
 	bool hasDir = false, hasFile = false;
 
-	JTableSelectionIterator iter(&(GetTableSelection()));
+	JTableSelectionIterator iter(&GetTableSelection());
 	JPoint cell;
 	while (iter.Next(&cell) && JIndex(cell.x) == GetNodeColIndex())
 	{
-		if ((itsFileTreeList->GetDirEntry(cell.y))->IsDirectory())
+		if (itsFileTreeList->GetDirEntry(cell.y)->IsDirectory())
 		{
 			hasDir = true;
 		}
