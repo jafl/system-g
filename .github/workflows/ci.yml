@@ -44,3 +44,4 @@ jobs:
     secrets:
       api-key: ${{ secrets.SOURCEFORGE_API_KEY }}
       ssh-key: ${{ secrets.SOURCEFORGE_SSH_KEY }}
+      update-homebrew: ${{ secrets.UPDATE_HOMEBREW }}
