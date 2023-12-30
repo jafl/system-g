@@ -4366,7 +4366,7 @@ FileTreeTable::RemoveGitRemote
 
  ******************************************************************************/
 
-static const JRegex prunedBranchPattern = "^\\s*\\*\\s*\\[.+?\\]\\s*.+?/(.+)$";
+static const JRegex prunedBranchPattern("^\\s*\\*\\s*\\[.+?\\]\\s*.+?/(.+)$");
 
 void
 FileTreeTable::PruneRemoteGitBranches
