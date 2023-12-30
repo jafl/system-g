@@ -371,34 +371,34 @@ CopyProcess::CopyProcess
 	if (isCopy && itsVCSType == kJSVNType)
 	{
 		prefixCount = 2;
-		itsSrcNameList->InsertAtIndex(1, JString("svn", JString::kNoCopy));
-		itsSrcNameList->InsertAtIndex(2, JString("cp", JString::kNoCopy));
+		itsSrcNameList->InsertAtIndex(1, "svn");
+		itsSrcNameList->InsertAtIndex(2, "cp");
 	}
 	else if (isCopy)
 	{
 		prefixCount = 2;
-		itsSrcNameList->InsertAtIndex(1, JString("cp", JString::kNoCopy));
-		itsSrcNameList->InsertAtIndex(2, JString("-Rdf", JString::kNoCopy));
+		itsSrcNameList->InsertAtIndex(1, "cp");
+		itsSrcNameList->InsertAtIndex(2, "-Rdf");
 	}
 	else if (itsVCSType == kJSVNType)
 	{
 		prefixCount = 3;
-		itsSrcNameList->InsertAtIndex(1, JString("svn", JString::kNoCopy));
-		itsSrcNameList->InsertAtIndex(2, JString("mv", JString::kNoCopy));
-		itsSrcNameList->InsertAtIndex(3, JString("--force", JString::kNoCopy));
+		itsSrcNameList->InsertAtIndex(1, "svn");
+		itsSrcNameList->InsertAtIndex(2, "mv");
+		itsSrcNameList->InsertAtIndex(3, "--force");
 	}
 	else if (itsVCSType == kJGitType)
 	{
 		prefixCount = 3;
-		itsSrcNameList->InsertAtIndex(1, JString("git", JString::kNoCopy));
-		itsSrcNameList->InsertAtIndex(2, JString("mv", JString::kNoCopy));
-		itsSrcNameList->InsertAtIndex(3, JString("-f", JString::kNoCopy));
+		itsSrcNameList->InsertAtIndex(1, "git");
+		itsSrcNameList->InsertAtIndex(2, "mv");
+		itsSrcNameList->InsertAtIndex(3, "-f");
 	}
 	else
 	{
 		prefixCount = 2;
-		itsSrcNameList->InsertAtIndex(1, JString("mv", JString::kNoCopy));
-		itsSrcNameList->InsertAtIndex(2, JString("-f", JString::kNoCopy));
+		itsSrcNameList->InsertAtIndex(1, "mv");
+		itsSrcNameList->InsertAtIndex(2, "-f");
 	}
 
 	itsSrcNameList->Append(destPath);
@@ -530,8 +530,8 @@ CopyProcess::Receive
 		{
 			done = false;
 
-			itsSrcNameList->InsertAtIndex(1, JString("mv", JString::kNoCopy));
-			itsSrcNameList->InsertAtIndex(2, JString("-f", JString::kNoCopy));
+			itsSrcNameList->InsertAtIndex(1, "mv");
+			itsSrcNameList->InsertAtIndex(2, "-f");
 			itsSrcNameList->Append(destPath);
 			Start(2);
 		}

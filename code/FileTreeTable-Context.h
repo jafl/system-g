@@ -16,16 +16,7 @@ static const JUtf8Byte* kContextMenuStr =
 "|* %i __ConvertToProgram::FileTreeTable"
 ;
 
-enum {
-	kDuplicateCtxCmd=1,
-	kMakeAliasCtxCmd,
-	kFindOriginalCtxCmd,
-	kOpenCloseCtxCmd,
-	OpenIconifyCtxCmd,
-	kRunOnSelCtxCmd,
-	kConvertToFileCtxCmd,
-	kConvertToProgramCtxCmd,
-};
+#include "FileTreeTable-Context-enum.h"
 
 #ifndef _H_jx_af_image_jx_jx_library_file_small
 #define _H_jx_af_image_jx_jx_library_file_small

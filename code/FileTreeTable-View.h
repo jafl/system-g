@@ -18,18 +18,7 @@ static const JUtf8Byte* kViewMenuStr =
 "|* %i Refresh::FileTreeTable"
 ;
 
-enum {
-	kShowFilterCmd=1,
-	kShowHiddenCmd,
-	kShowUserCmd,
-	kShowGroupCmd,
-	kShowSizeCmd,
-	kShowModeCmd,
-	kShowDateCmd,
-	kShowAllAttrCmd,
-	kHideAllAttrCmd,
-	kRefreshCmd,
-};
+#include "FileTreeTable-View-enum.h"
 
 #ifndef _H_filter
 #define _H_filter
@@ -62,7 +51,7 @@ enum {
 
 static void ConfigureViewMenu(JXTextMenu* menu, const int offset = 0) {
 	if (offset == 0 && JXMenu::GetDisplayStyle() == JXMenu::kWindowsStyle) {
-		menu->SetShortcuts(JString("#v", JString::kNoCopy));
+		menu->SetShortcuts("#v");
 	}
 	menu->SetItemImage(kShowFilterCmd + offset, filter);
 	menu->SetItemImage(kShowHiddenCmd + offset, hidden);

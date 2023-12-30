@@ -26,26 +26,7 @@ static const JUtf8Byte* kGitMenuStr =
 "|* %i GitPruneRemote::FileTreeTable"
 ;
 
-enum {
-	kGitSwitchBranchItemIndex=1,
-	kGitStatusCmd,
-	kGitHistoryCmd,
-	kGitCommitAllCmd,
-	kGitRevertAllCmd,
-	kGitStashChangesCmd,
-	kGitStashPopItemIndex,
-	kGitStashApplyItemIndex,
-	kGitStashDropItemIndex,
-	kGitPullItemIndex,
-	kGitPushItemIndex,
-	kGitMergeFromBranchItemIndex,
-	kGitFetchBranchItemIndex,
-	kGitCreateBranchCmd,
-	kGitRemoveBranchItemIndex,
-	kGitAddRemoteCmd,
-	kGitRemoveRemoteItemIndex,
-	kGitPruneRemoteItemIndex,
-};
+#include "FileTreeTable-Git-enum.h"
 
 #ifndef _H_git_status
 #define _H_git_status
@@ -66,7 +47,7 @@ enum {
 
 static void ConfigureGitMenu(JXTextMenu* menu, const int offset = 0) {
 	if (offset == 0 && JXMenu::GetDisplayStyle() == JXMenu::kWindowsStyle) {
-		menu->SetShortcuts(JString("#g", JString::kNoCopy));
+		menu->SetShortcuts("#g");
 	}
 	menu->SetItemImage(kGitStatusCmd + offset, git_status);
 	menu->SetItemImage(kGitHistoryCmd + offset, git_history);

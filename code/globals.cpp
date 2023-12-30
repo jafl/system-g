@@ -97,7 +97,7 @@ CreateGlobals
 	JString oldPrefsFile, newPrefsFile;
 	if (JGetPrefsDirectory(&oldPrefsFile))
 	{
-		oldPrefsFile = JCombinePathAndName(oldPrefsFile, JString(".gSystemG.pref", JString::kNoCopy));
+		oldPrefsFile = JCombinePathAndName(oldPrefsFile, ".gSystemG.pref");
 		if (JFileExists(oldPrefsFile) &&
 			(JPrefsFile::GetFullName(app->GetSignature(), &newPrefsFile)).OK() &&
 			!JFileExists(newPrefsFile))

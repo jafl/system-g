@@ -9,9 +9,7 @@ static const JUtf8Byte* kEditMenuStr =
 "* %i CopyWithPath::FileTreeTable"
 ;
 
-enum {
-	__SGCopyWithPath=1,
-};
+#include "FileTreeTable-Edit-enum.h"
 
 
 static void ConfigureEditMenu(JXTextMenu* menu, const int offset = 0) {

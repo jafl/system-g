@@ -13,13 +13,7 @@ static const JUtf8Byte* kHelpMenuStr =
 "|* %i __Credits::TreeDir"
 ;
 
-enum {
-	kAboutCmd=1,
-	kTOCCmd,
-	kOverviewCmd,
-	kChangesCmd,
-	kCreditsCmd,
-};
+#include "TreeDir-Help-enum.h"
 
 #ifndef _H_jx_af_image_jx_jx_help_toc
 #define _H_jx_af_image_jx_jx_help_toc
@@ -28,7 +22,7 @@ enum {
 
 static void ConfigureHelpMenu(JXTextMenu* menu, const int offset = 0) {
 	if (offset == 0 && JXMenu::GetDisplayStyle() == JXMenu::kWindowsStyle) {
-		menu->SetShortcuts(JString("#h", JString::kNoCopy));
+		menu->SetShortcuts("#h");
 	}
 	menu->SetItemImage(kTOCCmd + offset, jx_help_toc);
 };

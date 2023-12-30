@@ -281,7 +281,7 @@ FindFileDialog::Receive
 	}
 	else if (sender == itsHelpButton && message.Is(JXButton::kPushed))
 	{
-		(GetManPageDialog())->ViewManPage(JString("find", JString::kNoCopy));
+		GetManPageDialog()->ViewManPage("find");
 	}
 
 	else if (sender == itsChoosePathButton && message.Is(JXButton::kPushed))

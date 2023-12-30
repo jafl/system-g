@@ -91,14 +91,14 @@ const JIndex kShortcutCmdOffset = 3;
 
 static const JString kFormatName[] =
 {
-	JString("Linux", JString::kNoCopy),
-	JString("DOS", JString::kNoCopy)
+	"Linux",
+	"DOS"
 };
 
 static const JString kFormatType[] =
 {
-	JString("ext2", JString::kNoCopy),
-	JString("msdos", JString::kNoCopy)
+	"ext2",
+	"msdos"
 };
 
 /******************************************************************************
@@ -126,20 +126,20 @@ FileTreeTable::FileTreeTable
 	JXNamedTreeListWidget(treeList, scrollbarSet, enclosure,
 						  hSizing,vSizing, x,y, w,h)
 {
-	itsFileTree					= fileTree;
-	itsFileTreeList				= treeList;
-	itsTreeSet					= treeSet;
-	itsTrashButton				= trashButton;
-	itsMenuBar					= menuBar;
-	itsContextMenu				= nullptr;
-	itsUpdateTask				= nullptr;
-	itsEditTask					= nullptr;
-	itsUpdateNode				= nullptr;
-	itsSortNode					= nullptr;
-	itsFormatProcess			= nullptr;
-	itsGitProcess				= nullptr;
-	itsIconWidget				= nullptr;
-	itsWindowIconType			= 0;
+	itsFileTree			= fileTree;
+	itsFileTreeList		= treeList;
+	itsTreeSet			= treeSet;
+	itsTrashButton		= trashButton;
+	itsMenuBar			= menuBar;
+	itsContextMenu		= nullptr;
+	itsUpdateTask		= nullptr;
+	itsEditTask			= nullptr;
+	itsUpdateNode		= nullptr;
+	itsSortNode			= nullptr;
+	itsFormatProcess	= nullptr;
+	itsGitProcess		= nullptr;
+	itsIconWidget		= nullptr;
+	itsWindowIconType	= 0;
 
 	for (JUnsignedOffset i=0; i<5; i++)
 	{
@@ -229,7 +229,6 @@ FileTreeTable::FileTreeTable
 	itsGitLocalBranchMenu =
 		jnew JXTextMenu(itsGitMenu, kGitSwitchBranchItemIndex,
 					   itsGitMenu->GetEnclosure());
-	assert( itsGitLocalBranchMenu != nullptr );
 	itsGitLocalBranchMenu->SetUpdateAction(JXMenu::kDisableNone);
 
 	ListenTo(itsGitLocalBranchMenu, std::function([this](const JXMenu::NeedsUpdate&)
@@ -245,7 +244,6 @@ FileTreeTable::FileTreeTable
 	itsGitPullSourceMenu =
 		jnew JXTextMenu(itsGitMenu, kGitPullItemIndex,
 					   itsGitMenu->GetEnclosure());
-	assert( itsGitPullSourceMenu != nullptr );
 	itsGitPullSourceMenu->SetUpdateAction(JXMenu::kDisableNone);
 
 	ListenTo(itsGitPullSourceMenu, std::function([this](const JXMenu::ItemSelected& msg)
@@ -256,7 +254,6 @@ FileTreeTable::FileTreeTable
 	itsGitPushDestMenu =
 		jnew JXTextMenu(itsGitMenu, kGitPushItemIndex,
 					   itsGitMenu->GetEnclosure());
-	assert( itsGitPushDestMenu != nullptr );
 	itsGitPushDestMenu->SetUpdateAction(JXMenu::kDisableNone);
 
 	ListenTo(itsGitPushDestMenu, std::function([this](const JXMenu::ItemSelected& msg)
@@ -267,7 +264,6 @@ FileTreeTable::FileTreeTable
 	itsGitMergeBranchMenu =
 		jnew JXTextMenu(itsGitMenu, kGitMergeFromBranchItemIndex,
 					   itsGitMenu->GetEnclosure());
-	assert( itsGitMergeBranchMenu != nullptr );
 	itsGitMergeBranchMenu->SetUpdateAction(JXMenu::kDisableNone);
 
 	ListenTo(itsGitMergeBranchMenu, std::function([this](const JXMenu::ItemSelected& msg)
@@ -278,7 +274,6 @@ FileTreeTable::FileTreeTable
 	itsGitStashPopMenu =
 		jnew JXTextMenu(itsGitMenu, kGitStashPopItemIndex,
 					   itsGitMenu->GetEnclosure());
-	assert( itsGitStashPopMenu != nullptr );
 	itsGitStashPopMenu->SetUpdateAction(JXMenu::kDisableNone);
 
 	ListenTo(itsGitStashPopMenu, std::function([this](const JXMenu::ItemSelected& msg)
@@ -289,7 +284,6 @@ FileTreeTable::FileTreeTable
 	itsGitStashApplyMenu =
 		jnew JXTextMenu(itsGitMenu, kGitStashApplyItemIndex,
 					   itsGitMenu->GetEnclosure());
-	assert( itsGitStashApplyMenu != nullptr );
 	itsGitStashApplyMenu->SetUpdateAction(JXMenu::kDisableNone);
 
 	ListenTo(itsGitStashApplyMenu, std::function([this](const JXMenu::ItemSelected& msg)
@@ -300,7 +294,6 @@ FileTreeTable::FileTreeTable
 	itsGitStashDropMenu =
 		jnew JXTextMenu(itsGitMenu, kGitStashDropItemIndex,
 					   itsGitMenu->GetEnclosure());
-	assert( itsGitStashDropMenu != nullptr );
 	itsGitStashDropMenu->SetUpdateAction(JXMenu::kDisableNone);
 
 	ListenTo(itsGitStashDropMenu, std::function([this](const JXMenu::ItemSelected& msg)
@@ -311,7 +304,6 @@ FileTreeTable::FileTreeTable
 	itsGitRemoteBranchMenu =
 		jnew JXTextMenu(itsGitMenu, kGitFetchBranchItemIndex,
 					   itsGitMenu->GetEnclosure());
-	assert( itsGitRemoteBranchMenu != nullptr );
 	itsGitRemoteBranchMenu->SetUpdateAction(JXMenu::kDisableNone);
 
 	ListenTo(itsGitRemoteBranchMenu, std::function([this](const JXMenu::ItemSelected& msg)
@@ -322,7 +314,6 @@ FileTreeTable::FileTreeTable
 	itsGitRemoveBranchMenu =
 		jnew JXTextMenu(itsGitMenu, kGitRemoveBranchItemIndex,
 					   itsGitMenu->GetEnclosure());
-	assert( itsGitRemoveBranchMenu != nullptr );
 	itsGitRemoveBranchMenu->SetUpdateAction(JXMenu::kDisableNone);
 
 	ListenTo(itsGitRemoveBranchMenu, std::function([this](const JXMenu::ItemSelected& msg)
@@ -333,7 +324,6 @@ FileTreeTable::FileTreeTable
 	itsGitRemoveRemoteMenu =
 		jnew JXTextMenu(itsGitMenu, kGitRemoveRemoteItemIndex,
 					   itsGitMenu->GetEnclosure());
-	assert( itsGitRemoveRemoteMenu != nullptr );
 	itsGitRemoveRemoteMenu->SetUpdateAction(JXMenu::kDisableNone);
 
 	ListenTo(itsGitRemoveRemoteMenu, std::function([this](const JXMenu::ItemSelected& msg)
@@ -344,7 +334,6 @@ FileTreeTable::FileTreeTable
 	itsGitPruneRemoteMenu =
 		jnew JXTextMenu(itsGitMenu, kGitPruneRemoteItemIndex,
 					   itsGitMenu->GetEnclosure());
-	assert( itsGitPruneRemoteMenu != nullptr );
 	itsGitPruneRemoteMenu->SetUpdateAction(JXMenu::kDisableNone);
 
 	ListenTo(itsGitPruneRemoteMenu, std::function([this](const JXMenu::ItemSelected& msg)
@@ -368,7 +357,6 @@ FileTreeTable::FileTreeTable
 	// updating
 
 	itsUpdateTask = jnew JXFunctionTask(kDirUpdateInterval, std::bind(&FileTreeTable::UpdateDisplay, this, false));
-	assert( itsUpdateTask != nullptr );
 
 	JXWindow* window = GetWindow();
 //	if (!window->IsIconified())		// update window icon while iconified
@@ -594,7 +582,7 @@ FileTreeTable::GetCellString
 	{
 		if (dirEntry->IsDirectory())
 		{
-			return JString("-", JString::kNoCopy);
+			return "-";
 		}
 		else
 		{
@@ -1317,7 +1305,7 @@ FileTreeTable::GoUp
 	}
 	else
 	{
-		const JString path = JCombinePathAndName(itsFileTree->GetDirectory(), JString("..", JString::kNoCopy));
+		const JString path = JCombinePathAndName(itsFileTree->GetDirectory(), "..");
 		GetApplication()->OpenDirectory(path);
 	}
 }
@@ -1548,7 +1536,6 @@ FileTreeTable::HandleDNDDrop
 			if (returnType == selManager->GetURLXAtom())
 			{
 				auto* fileNameList = jnew JPtrArray<JString>(JPtrArrayT::kDeleteAll);
-				assert( fileNameList != nullptr );
 				JPtrArray<JString> urlList(JPtrArrayT::kDeleteAll);
 				JXUnpackFileNames((char*) data, dataLength, fileNameList, &urlList);
 
@@ -1667,7 +1654,6 @@ FileTreeTable::GetSelectionData
 		assert( fileData != nullptr );
 
 		auto* fileList = jnew JPtrArray<JString>(JPtrArrayT::kDeleteAll);
-		assert( fileList != nullptr );
 
 		JTableSelectionIterator iter(&GetTableSelection());
 		JPoint cell;
@@ -2500,7 +2486,7 @@ FileTreeTable::OpenSelection
 		{
 			if (node->IsOpenable())
 			{
-				const JString newPath = (node->GetDirEntry())->GetFullName();
+				const JString newPath = node->GetDirEntry()->GetFullName();
 				GoTo(newPath, alternate);
 				if (alternate)
 				{
@@ -2510,13 +2496,12 @@ FileTreeTable::OpenSelection
 		}
 		else if (!alwaysRunCmd && !itsIgnoreExecPermFlag && entry->IsExecutable())
 		{
-			const JString file = (node->GetDirEntry())->GetFullName();
+			const JString file = node->GetDirEntry()->GetFullName();
 			JXFSBindingManager::Exec(file, alternate);
 		}
 		else
 		{
-			auto* s = jnew JString((node->GetDirEntry())->GetFullName());
-			assert( s != nullptr );
+			auto* s = jnew JString(node->GetDirEntry()->GetFullName());
 			if (!fileList.InsertSorted(s, false))
 			{
 				jdelete s;
@@ -2755,7 +2740,6 @@ FileTreeTable::FormatDisk()
 		auto* dlog =
 			jnew JXRadioGroupDialog(JGetString("FormatWindowTitle::FileTreeTable"),
 									JGetString("FormatPrompt::FileTreeTable"), choiceList, nullptr);
-		assert( dlog != nullptr );
 		if (dlog->DoDialog())
 		{
 			const JIndex i   = dlog->GetSelectedItem();
@@ -3012,8 +2996,6 @@ FileTreeTable::CopySelectedFileNames
 		}
 
 		auto* data = jnew JXTextSelection(GetDisplay(), list);
-		assert( data != nullptr );
-
 		GetSelectionManager()->SetData(kJXClipboardName, data);
 	}
 }
@@ -3686,7 +3668,6 @@ FileTreeTable::HandleGitMenu
 			auto* dlog =
 				jnew JXGetStringDialog(JGetString("CommitBranchTitle::FileTreeTable"),
 									   JGetString("CommitBranchPrompt::FileTreeTable"));
-			assert( dlog != nullptr );
 			if (dlog->DoDialog())
 			{
 				CommitGitBranch(dlog->GetString());
@@ -3707,7 +3688,6 @@ FileTreeTable::HandleGitMenu
 		auto* dlog =
 			jnew JXGetStringDialog(JGetString("StashTitle::FileTreeTable"),
 								   JGetString("StashPrompt::FileTreeTable"));
-		assert( dlog != nullptr );
 		if (dlog->DoDialog())
 		{
 			Stash(dlog->GetString());
@@ -3719,7 +3699,6 @@ FileTreeTable::HandleGitMenu
 		auto* dlog =
 			jnew JXGetStringDialog(JGetString("CreateBranchTitle::FileTreeTable"),
 								   JGetString("CreateBranchPrompt::FileTreeTable"));
-		assert( dlog != nullptr );
 		if (dlog->DoDialog())
 		{
 			CreateGitBranch(dlog->GetString());
@@ -3891,7 +3870,6 @@ FileTreeTable::GetGitBranches
 		if (repoList != nullptr && iter.Next("/") && !iter.AtBeginning())
 		{
 			repo = jnew JString(iter.FinishMatch().GetString());
-			assert( repo != nullptr );
 			if (!repoList->InsertSorted(repo, false))
 			{
 				jdelete repo;
@@ -4043,7 +4021,6 @@ FileTreeTable::FetchRemoteGitBranch
 	auto* dlog =
 		jnew JXGetStringDialog(JGetString("FetchBranchTitle::FileTreeTable"),
 							   JGetString("FetchBranchPrompt::FileTreeTable"), name);
-	assert( dlog != nullptr );
 	if (dlog->DoDialog())
 	{
 		assert( itsGitProcess == nullptr );
@@ -4469,7 +4446,6 @@ FileTreeTable::PruneRemoteGitBranches
 			jnew JXCheckboxListDialog(JGetString("DeletePrunedBranchesTitle::FileTreeTable"),
 									  JGetString("DeletePrunedBranchesPrompt::FileTreeTable"),
 									  branchList);
-		assert( dlog != nullptr );
 		dlog->SelectAllItems();
 		JArray<JIndex> indexList;
 		if (dlog->DoDialog() && dlog->GetSelectedItems(&indexList))
@@ -4646,8 +4622,7 @@ FileTreeTable::CreateTreeListInput
 	s.ClearSelection();
 	s.SelectCell(cell);
 
-	JXInputField* obj = jnew JXSaveFileInput(enclosure, hSizing, vSizing, x,y, w,h);
-	return obj;
+	return jnew JXSaveFileInput(enclosure, hSizing, vSizing, x,y, w,h);
 }
 
 /******************************************************************************

@@ -31,31 +31,7 @@ static const JUtf8Byte* kFileMenuStr =
 "|* %i Quit::JX"
 ;
 
-enum {
-	kNewDirCmd=1,
-	kNewTextFileCmd,
-	kOpenCmd,
-	kOpenCloseCmd,
-	kOpenIconifyCmd,
-	kAltOpenCmd,
-	kRunOnSelCmd,
-	kFindCmd,
-	kOpenRecentItemIndex,
-	kRenameCmd,
-	kConvertToFileCmd,
-	kConvertToProgramCmd,
-	kDuplicateCmd,
-	kMakeAliasCmd,
-	kFindOriginalCmd,
-	kToggleMountCmd,
-	kEraseDiskCmd,
-	kHomeWindowCmd,
-	kViewManCmd,
-	kOpenTermCmd,
-	kRunCmdCmd,
-	kCloseCmd,
-	kQuitCmd,
-};
+#include "FileTreeTable-File-enum.h"
 
 #ifndef _H_jx_af_image_jx_jx_folder_small
 #define _H_jx_af_image_jx_jx_folder_small
@@ -100,7 +76,7 @@ enum {
 
 static void ConfigureFileMenu(JXTextMenu* menu, const int offset = 0) {
 	if (offset == 0 && JXMenu::GetDisplayStyle() == JXMenu::kWindowsStyle) {
-		menu->SetShortcuts(JString("#f", JString::kNoCopy));
+		menu->SetShortcuts("#f");
 	}
 	menu->SetItemImage(kNewDirCmd + offset, jx_folder_small);
 	menu->SetItemImage(kNewTextFileCmd + offset, jx_file_new);
