@@ -29,20 +29,24 @@
 static const JUtf8Byte* kAppSignature = "systemg";
 
 #ifdef _J_MACOS
-static const JString kDefaultTermCmd       ("open -a Terminal $p", JString::kNoCopy);
-static const JString kDefaultGitStatusCmd  ("git gui", JString::kNoCopy);
-static const JString kDefaultGitHistoryCmd ("gitk --all", JString::kNoCopy);
+static const JString kDefaultTermCmd       ("open -a Terminal $p");
+static const JString kDefaultGitStatusCmd  ("git gui");
+static const JString kDefaultGitHistoryCmd ("gitk --all");
 #elif defined _J_CYGWIN
-static const JString kDefaultTermCmd       ("xterm -title $n -n $n", JString::kNoCopy);
-static const JString kDefaultGitStatusCmd  ("xterm -e git gui", JString::kNoCopy);
-static const JString kDefaultGitHistoryCmd ("xterm -e gitk --all", JString::kNoCopy);
+static const JString kDefaultTermCmd       ("xterm -title $n -n $n");
+static const JString kDefaultGitStatusCmd  ("xterm -e git gui");
+static const JString kDefaultGitHistoryCmd ("xterm -e gitk --all");
+#elif defined _J_SNAP
+static const JString kDefaultTermCmd       ("xterm -e 'cd $p && /bin/bash'");
+static const JString kDefaultGitStatusCmd  ("git gui");
+static const JString kDefaultGitHistoryCmd ("gitk --all");
 #else
-static const JString kDefaultTermCmd       ("gnome-terminal --working-directory=$p", JString::kNoCopy);
-static const JString kDefaultGitStatusCmd  ("git gui", JString::kNoCopy);
-static const JString kDefaultGitHistoryCmd ("gitk --all", JString::kNoCopy);
+static const JString kDefaultTermCmd       ("gnome-terminal --working-directory=$p");
+static const JString kDefaultGitStatusCmd  ("git gui");
+static const JString kDefaultGitHistoryCmd ("gitk --all");
 #endif
 
-static const JString kDefaultPostCheckoutCmd("jcc --reload-open", JString::kNoCopy);
+static const JString kDefaultPostCheckoutCmd("jcc --reload-open");
 
 const JFileVersion kCurrentPrefsVersion = 5;
 

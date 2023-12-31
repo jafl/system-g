@@ -26,9 +26,9 @@
 
 const JSize kHistoryLength = 20;
 
-static const JString kDefaultViewCmd("jcc --man", JString::kNoCopy);
-static const JString kDefaultViewBin("jcc", JString::kNoCopy);
-static const JString kDefaultViewArg(" --man ", JString::kNoCopy);
+static const JString kDefaultViewCmd("jcc --man");
+static const JString kDefaultViewBin("jcc");
+static const JString kDefaultViewArg(" --man ");
 
 JString ViewManPageDialog::itsViewCmd = kDefaultViewCmd;
 
@@ -270,7 +270,7 @@ ViewManPageDialog::ViewManPage
 	(
 	const JString&			item,
 	const JUtf8Character&	index,
-	const bool			apropos
+	const bool				apropos
 	)
 {
 	JString cmd = itsViewCmd;
@@ -308,7 +308,7 @@ ViewManPageDialog::ViewManPages
 		for (JIndex i=1; i<=count; i++)
 		{
 			cmd += kDefaultViewArg;
-			cmd += JPrepArgForExec(*(list.GetItem(i)));
+			cmd += JPrepArgForExec(*list.GetItem(i));
 		}
 
 		JSimpleProcess::Create(cmd, true);
@@ -318,7 +318,7 @@ ViewManPageDialog::ViewManPages
 		const JSize count = list.GetItemCount();
 		for (JIndex i=1; i<=count; i++)
 		{
-			ViewManPage(*(list.GetItem(i)));
+			ViewManPage(*list.GetItem(i));
 		}
 	}
 }
