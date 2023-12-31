@@ -22,6 +22,10 @@ architectures:
 apps:
   systemg:
     command: bin/desktop-launch systemg
+    environment:
+      - GIT_EXEC_PATH: $SNAP/usr/lib/git-core
+      - TCL_LIBRARY: $SNAP/usr/share/tcltk/tcl8.6:$TCL_LIBRARY:$TK_LIBRARY
+      - TK_LIBRARY: $SNAP/usr/share/tcltk/tk8.6:$TK_LIBRARY:$TCL_LIBRARY
     plugs:
       - unity7
       - network
