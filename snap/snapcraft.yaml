@@ -101,6 +101,7 @@ parts:
       - git
       - gitk
       - git-gui
+      - xterm
   launcher:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
     source-subdir: glib-only
