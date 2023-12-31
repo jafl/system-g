@@ -33,6 +33,8 @@ For all other systems, download a package:
 
 <a href="https://sourceforge.net/p/nps-systemg/"><img alt="Download System G" src="https://sourceforge.net/sflogo.php?type=17&group_id=170488" width="250"></a>
 
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/systemg)
+
 If you download a tar, unpack it, cd into the directory, and run `sudo ./install`.
 
 Otherwise, put the program (`systemg`) in a directory that is on your execution path.  `~/bin` is typically a good choice.
@@ -48,3 +50,13 @@ Otherwise, put the program (`systemg`) in a directory that is on your execution 
 ## FAQ
 
 For general questions, refer to the [Programs FAQ](https://github.com/jafl/jx_application_framework/blob/master/APPS.md).
+
+### Ubuntu snap
+
+#### Why don't some of the features work?
+
+Canonical refused to allow the program to run in "classic" mode, so it has very limited permissions.
+
+If you want to use the git features, run the following in a terminal:
+
+    sudo snap connect systemg:ssh-keys
