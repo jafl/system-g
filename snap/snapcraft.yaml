@@ -26,6 +26,7 @@ apps:
       GIT_EXEC_PATH: $SNAP/usr/lib/git-core
       TCL_LIBRARY: $SNAP/usr/share/tcltk/tcl8.6
       TK_LIBRARY: $SNAP/usr/share/tcltk/tk8.6
+      TCL8_6_TM_PATH: $SNAP/usr/share/tcltk/tcl8.6/tcl8
     plugs:
       - unity7
       - network
