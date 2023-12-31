@@ -24,6 +24,7 @@ apps:
     command: bin/desktop-launch systemg
     environment:
       GIT_EXEC_PATH: $SNAP/usr/lib/git-core
+      GIT_GUI_LIB_DIR: $SNAP/usr/share/git-gui/lib
       TCL_LIBRARY: $SNAP/usr/share/tcltk/tcl8.6
       TK_LIBRARY: $SNAP/usr/share/tcltk/tk8.6
       TCL8_6_TM_PATH: $SNAP/usr/share/tcltk/tcl8.6/tcl8
