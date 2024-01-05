@@ -4711,7 +4711,7 @@ FileTreeTable::GetMinCellWidth
 		const JString str = GetCellString(cell);
 
 		const GFMColType type       = GetFMColType(cell.x, GetNodeColIndex(), itsVisibleCols);
-		const JCoordinate theBuffer = JLAbs(GetFMBufferWidth(itsVisibleCols, GetNodeColIndex(), cell.x));
+		const JCoordinate theBuffer = labs(GetFMBufferWidth(itsVisibleCols, GetNodeColIndex(), cell.x));
 		JSize w;
 		if (type == kGFMMode)
 		{
