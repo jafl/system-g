@@ -35,8 +35,8 @@
 #include <sstream>
 #include <jx-af/jcore/jAssert.h>
 
-const JString kDirPrefsName    (".systemg_folder_prefs_", JString::kNoCopy);
-const JString kOrigDirPrefsName(".systemG.Desktop", JString::kNoCopy);
+const JString kDirPrefsName    (".systemg_folder_prefs_");
+const JString kOrigDirPrefsName(".systemG.Desktop");
 
 /******************************************************************************
  Constructor

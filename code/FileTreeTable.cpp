@@ -3453,8 +3453,8 @@ FileTreeTable::SetCurrentColType
 
  ******************************************************************************/
 
-static const JString gitBranchCmd("git branch", JString::kNoCopy);
-static const JString gitRemoteBranchCmd("git branch -r", JString::kNoCopy);
+static const JString gitBranchCmd("git branch");
+static const JString gitRemoteBranchCmd("git branch -r");
 
 void
 FileTreeTable::InitGitBranchMenus()
@@ -3785,7 +3785,7 @@ FileTreeTable::CommitGitBranch
 
  ******************************************************************************/
 
-static const JString gitRevertCmd("git reset --hard", JString::kNoCopy);
+static const JString gitRevertCmd("git reset --hard");
 
 void
 FileTreeTable::RevertGitBranch()
@@ -3886,8 +3886,8 @@ FileTreeTable::GetGitBranches
 
  ******************************************************************************/
 
-static const JString gitStashStatusCmd("git statuz -z", JString::kNoCopy);
-static const JString gitStashTempCmd("git stash save systemg-temp", JString::kNoCopy);
+static const JString gitStashStatusCmd("git statuz -z");
+static const JString gitStashTempCmd("git stash save systemg-temp");
 
 void
 FileTreeTable::SwitchToGitBranch
@@ -4208,7 +4208,7 @@ FileTreeTable::FindGitStash
 
  ******************************************************************************/
 
-static const JString gitListStashesCmd("git stash list --pretty=format:'%gd;%s'", JString::kNoCopy);
+static const JString gitListStashesCmd("git stash list --pretty=format:'%gd;%s'");
 
 bool
 FileTreeTable::GetGitStashList

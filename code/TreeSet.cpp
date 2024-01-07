@@ -228,8 +228,6 @@ void TreeSet::TreeSetX
 	UpdateDisplay(path);
 
 	FitToEnclosure();	// must be called before ReadScrollSetup()
-
-	SetNeedsInternalFTC();
 }
 
 /******************************************************************************

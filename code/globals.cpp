@@ -62,10 +62,10 @@ static JXImage* theTrashEmptySelectedSmallIcon = nullptr;
 static JXImage* theTrashFullSmallIcon          = nullptr;
 static JXImage* theTrashFullSelectedSmallIcon  = nullptr;
 
-static const JString kTrashDirName("/.trashcan/", JString::kNoCopy);
+static const JString kTrashDirName("/.trashcan/");
 static JString theTrashDir;			// only need to compute this once
 static JDirInfo* theTrashDirInfo = nullptr;
-static const JString kRecentFileDirName("/.systemg/recent_files/", JString::kNoCopy);
+static const JString kRecentFileDirName("/.systemg/recent_files/");
 static JString theRecentFileDir;	// only need to compute this once
 const JSize kRecentFileCount     = 20;
 
