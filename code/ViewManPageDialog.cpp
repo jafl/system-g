@@ -93,67 +93,57 @@ ViewManPageDialog::BuildWindow()
 {
 // begin JXLayout
 
-	auto* window = jnew JXWindow(this, 360,150, JString::empty);
-
-	itsCloseButton =
-		jnew JXTextButton(JGetString("itsCloseButton::ViewManPageDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 120,120, 60,20);
-	assert( itsCloseButton != nullptr );
-	itsCloseButton->SetShortcuts(JGetString("itsCloseButton::ViewManPageDialog::shortcuts::JXLayout"));
-
-	itsViewButton =
-		jnew JXTextButton(JGetString("itsViewButton::ViewManPageDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 280,120, 60,20);
-	assert( itsViewButton != nullptr );
-	itsViewButton->SetShortcuts(JGetString("itsViewButton::ViewManPageDialog::shortcuts::JXLayout"));
-
-	itsFnName =
-		jnew JXInputField(window,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 20,40, 290,20);
-	assert( itsFnName != nullptr );
+	auto* window = jnew JXWindow(this, 360,150, JGetString("WindowTitle::ViewManPageDialog::JXLayout"));
 
 	auto* fnNameLabel =
 		jnew JXStaticText(JGetString("fnNameLabel::ViewManPageDialog::JXLayout"), window,
 					JXWidget::kFixedLeft, JXWidget::kFixedTop, 20,20, 100,20);
-	assert( fnNameLabel != nullptr );
-	fnNameLabel->SetToLabel();
+	fnNameLabel->SetToLabel(false);
+
+	itsFnHistoryMenu =
+		jnew JXStringHistoryMenu(kHistoryLength, window,
+					JXWidget::kFixedRight, JXWidget::kFixedTop, 310,40, 30,20);
 
 	auto* sectionLabel =
 		jnew JXStaticText(JGetString("sectionLabel::ViewManPageDialog::JXLayout"), window,
 					JXWidget::kFixedLeft, JXWidget::kFixedTop, 20,80, 90,20);
-	assert( sectionLabel != nullptr );
-	sectionLabel->SetToLabel();
+	sectionLabel->SetToLabel(false);
 
 	itsAproposCheckbox =
 		jnew JXTextCheckbox(JGetString("itsAproposCheckbox::ViewManPageDialog::JXLayout"), window,
 					JXWidget::kFixedLeft, JXWidget::kFixedTop, 210,80, 80,20);
-	assert( itsAproposCheckbox != nullptr );
-	itsAproposCheckbox->SetShortcuts(JGetString("itsAproposCheckbox::ViewManPageDialog::shortcuts::JXLayout"));
-
-	itsHelpButton =
-		jnew JXTextButton(JGetString("itsHelpButton::ViewManPageDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 200,120, 60,20);
-	assert( itsHelpButton != nullptr );
-	itsHelpButton->SetShortcuts(JGetString("itsHelpButton::ViewManPageDialog::shortcuts::JXLayout"));
-
-	itsFnHistoryMenu =
-		jnew JXStringHistoryMenu(kHistoryLength, JString::empty, window,
-					JXWidget::kFixedRight, JXWidget::kFixedTop, 310,40, 30,20);
-	assert( itsFnHistoryMenu != nullptr );
-
-	itsManIndex =
-		jnew JXCharInput(window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 110,80, 30,20);
-	assert( itsManIndex != nullptr );
+	itsAproposCheckbox->SetShortcuts(JGetString("itsAproposCheckbox::shortcuts::ViewManPageDialog::JXLayout"));
 
 	itsStayOpenCB =
 		jnew JXTextCheckbox(JGetString("itsStayOpenCB::ViewManPageDialog::JXLayout"), window,
 					JXWidget::kFixedLeft, JXWidget::kFixedTop, 20,120, 90,20);
-	assert( itsStayOpenCB != nullptr );
+
+	itsCloseButton =
+		jnew JXTextButton(JGetString("itsCloseButton::ViewManPageDialog::JXLayout"), window,
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 120,120, 60,20);
+	itsCloseButton->SetShortcuts(JGetString("itsCloseButton::shortcuts::ViewManPageDialog::JXLayout"));
+
+	itsHelpButton =
+		jnew JXTextButton(JGetString("itsHelpButton::ViewManPageDialog::JXLayout"), window,
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 200,120, 60,20);
+	itsHelpButton->SetShortcuts(JGetString("itsHelpButton::shortcuts::ViewManPageDialog::JXLayout"));
+
+	itsViewButton =
+		jnew JXTextButton(JGetString("itsViewButton::ViewManPageDialog::JXLayout"), window,
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 279,119, 62,22);
+	itsViewButton->SetShortcuts(JGetString("itsViewButton::shortcuts::ViewManPageDialog::JXLayout"));
+
+	itsFnName =
+		jnew JXInputField(window,
+					JXWidget::kHElastic, JXWidget::kFixedTop, 20,40, 290,20);
+	itsFnName->SetIsRequired();
+
+	itsManIndex =
+		jnew JXCharInput(window,
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 110,80, 30,20);
 
 // end JXLayout
 
-	window->SetTitle(JGetString("WindowTitle::ViewManPageDialog"));
 	window->SetCloseAction(JXWindow::kDeactivateDirector);
 	window->PlaceAsDialogWindow();
 	window->LockCurrentMinSize();

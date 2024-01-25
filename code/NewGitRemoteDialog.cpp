@@ -70,47 +70,39 @@ NewGitRemoteDialog::BuildWindow()
 {
 // begin JXLayout
 
-	auto* window = jnew JXWindow(this, 310,160, JString::empty);
-
-	auto* okButton =
-		jnew JXTextButton(JGetString("okButton::NewGitRemoteDialog::JXLayout"), window,
-					JXWidget::kFixedRight, JXWidget::kFixedBottom, 190,130, 60,20);
-	assert( okButton != nullptr );
-	okButton->SetShortcuts(JGetString("okButton::NewGitRemoteDialog::shortcuts::JXLayout"));
-
-	auto* cancelButton =
-		jnew JXTextButton(JGetString("cancelButton::NewGitRemoteDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedBottom, 60,130, 60,20);
-	assert( cancelButton != nullptr );
-	cancelButton->SetShortcuts(JGetString("cancelButton::NewGitRemoteDialog::shortcuts::JXLayout"));
-
-	itsRemoteURLInputField =
-		jnew JXInputField(window,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 20,40, 270,20);
-	assert( itsRemoteURLInputField != nullptr );
+	auto* window = jnew JXWindow(this, 310,160, JGetString("WindowTitle::NewGitRemoteDialog::JXLayout"));
 
 	auto* remoteLabel =
 		jnew JXStaticText(JGetString("remoteLabel::NewGitRemoteDialog::JXLayout"), window,
 					JXWidget::kHElastic, JXWidget::kFixedTop, 20,20, 270,20);
-	assert( remoteLabel != nullptr );
-	remoteLabel->SetToLabel();
-
-	itsLocalNameInputField =
-		jnew JXInputField(window,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 20,90, 270,20);
-	assert( itsLocalNameInputField != nullptr );
+	remoteLabel->SetToLabel(false);
 
 	auto* localLabel =
 		jnew JXStaticText(JGetString("localLabel::NewGitRemoteDialog::JXLayout"), window,
 					JXWidget::kHElastic, JXWidget::kFixedTop, 20,70, 270,20);
-	assert( localLabel != nullptr );
-	localLabel->SetToLabel();
+	localLabel->SetToLabel(false);
+
+	auto* cancelButton =
+		jnew JXTextButton(JGetString("cancelButton::NewGitRemoteDialog::JXLayout"), window,
+					JXWidget::kFixedLeft, JXWidget::kFixedBottom, 60,130, 60,20);
+	cancelButton->SetShortcuts(JGetString("cancelButton::shortcuts::NewGitRemoteDialog::JXLayout"));
+
+	auto* okButton =
+		jnew JXTextButton(JGetString("okButton::NewGitRemoteDialog::JXLayout"), window,
+					JXWidget::kFixedRight, JXWidget::kFixedBottom, 189,129, 62,22);
+	okButton->SetShortcuts(JGetString("okButton::shortcuts::NewGitRemoteDialog::JXLayout"));
+
+	itsRemoteURLInputField =
+		jnew JXInputField(window,
+					JXWidget::kHElastic, JXWidget::kFixedTop, 20,40, 270,20);
+	itsRemoteURLInputField->SetIsRequired();
+
+	itsLocalNameInputField =
+		jnew JXInputField(window,
+					JXWidget::kHElastic, JXWidget::kFixedTop, 20,90, 270,20);
+	itsLocalNameInputField->SetIsRequired();
 
 // end JXLayout
 
-	window->SetTitle(JGetString("WindowTitle::NewGitRemoteDialog"));
 	SetButtons(okButton, cancelButton);
-
-	itsRemoteURLInputField->SetIsRequired();
-	itsLocalNameInputField->SetIsRequired();
 }

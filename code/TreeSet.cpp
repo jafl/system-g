@@ -186,7 +186,7 @@ void TreeSet::TreeSetX
 	itsFilterLabel->SetToLabel();
 
 	itsFilterHistory =
-		jnew JXStringHistoryMenu(10, JString::empty, this, kFixedRight, kFixedTop,
+		jnew JXStringHistoryMenu(10, this, kFixedRight, kFixedTop,
 								 0,0, 30, filterHeight);
 	ListenTo(itsFilterHistory);
 	itsFilterHistory->Place(w - itsFilterHistory->GetFrameWidth(), 0);

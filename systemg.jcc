@@ -24,6 +24,10 @@ T
 F
 "./code/EditPrefsDialog.cpp"
 T
+2 "EditPrefsDialog.jxl"
+F
+"./code/EditPrefsDialog.jxl"
+T
 2 "MDIServer.cpp"
 F
 "./code/MDIServer.cpp"
@@ -31,6 +35,10 @@ T
 2 "AboutDialog.cpp"
 F
 "./code/AboutDialog.cpp"
+T
+2 "AboutDialog.jxl"
+F
+"./code/AboutDialog.jxl"
 F
 T
 1 "tree"
@@ -38,6 +46,10 @@ T
 2 "TreeDir.cpp"
 F
 "./code/TreeDir.cpp"
+T
+2 "TreeDir.jxl"
+F
+"./code/TreeDir.jxl"
 T
 2 "TreeDir-Preferences.jxm"
 F
@@ -141,24 +153,33 @@ T
 F
 "./code/FindFileDialog.cpp"
 T
+2 "FindFileDialog.jxl"
+F
+"./code/FindFileDialog.jxl"
+T
 2 "ViewManPageDialog.cpp"
 F
 "./code/ViewManPageDialog.cpp"
+T
+2 "ViewManPageDialog.jxl"
+F
+"./code/ViewManPageDialog.jxl"
 T
 2 "ChoosePathDialog.cpp"
 F
 "./code/ChoosePathDialog.cpp"
 T
+2 "ChoosePathDialog.jxl"
+F
+"./code/ChoosePathDialog.jxl"
+T
 2 "NewGitRemoteDialog.cpp"
 F
 "./code/NewGitRemoteDialog.cpp"
-F
 T
-1 "layouts"
-T
-2 "systemg.fd"
+2 "NewGitRemoteDialog.jxl"
 F
-"./systemg.fd"
+"./code/NewGitRemoteDialog.jxl"
 F
 T
 1 "strings"

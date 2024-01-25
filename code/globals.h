@@ -84,9 +84,4 @@ JXImage*	GetTrashSmallIcon(const bool selected = false);
 const JString&	GetVersionNumberStr();
 JString			GetVersionStr();
 
-	// called by Directors
-
-const JUtf8Byte*	GetWMClassInstance();
-const JUtf8Byte*	GetFolderWindowClass();
-
 #endif

@@ -169,6 +169,8 @@ TreeDir::BuildWindow
 // begin JXLayout
 
 	auto* window = jnew JXWindow(this, 420,500, JString::empty);
+	window->SetMinSize(150, 150);
+	window->SetWMClass(JXGetApplication()->GetWMName().GetBytes(), "SystemG_Folder");
 
 	auto* menuBar =
 		jnew JXMenuBar(window,
@@ -178,27 +180,23 @@ TreeDir::BuildWindow
 	itsToolBar =
 		jnew JXToolBar(GetPrefsMgr(), kSMainToolBarID, menuBar, window,
 					JXWidget::kHElastic, JXWidget::kVElastic, 0,30, 420,450);
-	assert( itsToolBar != nullptr );
+
+	itsDragSrc =
+		jnew FolderDragSource(itsPathInput, &pathMenu, window,
+					JXWidget::kFixedLeft, JXWidget::kFixedBottom, 0,480, 20,20);
 
 	itsPathInput =
 		jnew PathInput(window,
 					JXWidget::kHElastic, JXWidget::kFixedBottom, 20,480, 340,20);
-	assert( itsPathInput != nullptr );
+
+	itsUpButton =
+		jnew JXTextButton(JGetString("itsUpButton::TreeDir::JXLayout"), window,
+					JXWidget::kFixedRight, JXWidget::kFixedBottom, 360,480, 30,20);
 
 	auto* trashButton =
 		jnew TrashButton(window,
 					JXWidget::kFixedRight, JXWidget::kFixedBottom, 390,480, 30,20);
 	assert( trashButton != nullptr );
-
-	itsDragSrc =
-		jnew FolderDragSource(itsPathInput, &pathMenu, window,
-					JXWidget::kFixedLeft, JXWidget::kFixedBottom, 0,480, 20,20);
-	assert( itsDragSrc != nullptr );
-
-	itsUpButton =
-		jnew JXTextButton(JGetString("itsUpButton::TreeDir::JXLayout"), window,
-					JXWidget::kFixedRight, JXWidget::kFixedBottom, 360,480, 30,20);
-	assert( itsUpButton != nullptr );
 
 // end JXLayout
 
@@ -250,10 +248,7 @@ TreeDir::BuildWindow
 		jdelete input;
 		input = nullptr;
 	}
-	window->SetCloseAction(JXWindow::kCloseDirector);
-	window->SetWMClass(GetWMClassInstance(), GetFolderWindowClass());
 	window->ShouldFocusWhenShow(true);
-	window->SetMinSize(150, 150);
 
 	// Up button
 
@@ -278,18 +273,18 @@ TreeDir::BuildWindow
 
 		itsTreeSet =
 			jnew TreeSet(*input, vers, menuBar, startPath,
-							itsPathInput, pathMenu, trashButton,
-							itsToolBar->GetWidgetEnclosure(),
-							JXWidget::kHElastic, JXWidget::kVElastic,
-							0,0, 1000,1000);
+						itsPathInput, pathMenu, trashButton,
+						itsToolBar->GetWidgetEnclosure(),
+						JXWidget::kHElastic, JXWidget::kVElastic,
+						0,0, 1000,1000);
 	}
 	else
 	{
 		itsTreeSet =
 			jnew TreeSet(menuBar, startPath, itsPathInput, pathMenu,
-							trashButton, itsToolBar->GetWidgetEnclosure(),
-							JXWidget::kHElastic, JXWidget::kVElastic,
-							0,0, 1000,1000);
+						trashButton, itsToolBar->GetWidgetEnclosure(),
+						JXWidget::kHElastic, JXWidget::kVElastic,
+						0,0, 1000,1000);
 	}
 	assert( itsTreeSet != nullptr );
 	// itsTreeSet has already called FitToEnclosure()

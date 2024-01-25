@@ -43,15 +43,15 @@ private:
 
 // begin JXLayout
 
+	JXTextButton*   itsChoosePathButton;
 	JXRadioGroup*   itsActionRG;
+	JXTextCheckbox* itsStayOpenCB;
 	JXTextButton*   itsCloseButton;
+	JXTextButton*   itsHelpButton;
 	JXTextButton*   itsSearchButton;
 	JXInputField*   itsFileInput;
-	JXTextButton*   itsHelpButton;
-	JXTextCheckbox* itsStayOpenCB;
 	JXInputField*   itsExprInput;
 	JXPathInput*    itsPathInput;
-	JXTextButton*   itsChoosePathButton;
 
 // end JXLayout
 

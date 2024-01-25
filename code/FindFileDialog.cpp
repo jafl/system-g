@@ -96,77 +96,67 @@ FindFileDialog::BuildWindow()
 {
 // begin JXLayout
 
-	auto* window = jnew JXWindow(this, 360,220, JString::empty);
-
-	itsActionRG =
-		jnew JXRadioGroup(window,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 10,50, 340,120);
-	assert( itsActionRG != nullptr );
-
-	itsCloseButton =
-		jnew JXTextButton(JGetString("itsCloseButton::FindFileDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 120,190, 60,20);
-	assert( itsCloseButton != nullptr );
-	itsCloseButton->SetShortcuts(JGetString("itsCloseButton::FindFileDialog::shortcuts::JXLayout"));
-
-	itsSearchButton =
-		jnew JXTextButton(JGetString("itsSearchButton::FindFileDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 280,190, 60,20);
-	assert( itsSearchButton != nullptr );
-	itsSearchButton->SetShortcuts(JGetString("itsSearchButton::FindFileDialog::shortcuts::JXLayout"));
-
-	itsFileInput =
-		jnew JXInputField(itsActionRG,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 35,30, 295,20);
-	assert( itsFileInput != nullptr );
-
-	auto* fileLabel =
-		jnew JXTextRadioButton(kFindFileAction, JGetString("fileLabel::FindFileDialog::JXLayout"), itsActionRG,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 10,10, 270,20);
-	assert( fileLabel != nullptr );
-	fileLabel->SetShortcuts(JGetString("fileLabel::FindFileDialog::shortcuts::JXLayout"));
-
-	itsHelpButton =
-		jnew JXTextButton(JGetString("itsHelpButton::FindFileDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 200,190, 60,20);
-	assert( itsHelpButton != nullptr );
-	itsHelpButton->SetShortcuts(JGetString("itsHelpButton::FindFileDialog::shortcuts::JXLayout"));
-
-	itsStayOpenCB =
-		jnew JXTextCheckbox(JGetString("itsStayOpenCB::FindFileDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 20,190, 90,20);
-	assert( itsStayOpenCB != nullptr );
-
-	itsExprInput =
-		jnew JXInputField(itsActionRG,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 35,90, 295,20);
-	assert( itsExprInput != nullptr );
-
-	auto* findLabel =
-		jnew JXTextRadioButton(kFindExprAction, JGetString("findLabel::FindFileDialog::JXLayout"), itsActionRG,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 10,70, 270,20);
-	assert( findLabel != nullptr );
-	findLabel->SetShortcuts(JGetString("findLabel::FindFileDialog::shortcuts::JXLayout"));
+	auto* window = jnew JXWindow(this, 360,220, JGetString("WindowTitle::FindFileDialog::JXLayout"));
 
 	auto* startLabel =
 		jnew JXStaticText(JGetString("startLabel::FindFileDialog::JXLayout"), window,
 					JXWidget::kFixedLeft, JXWidget::kFixedTop, 20,20, 50,20);
-	assert( startLabel != nullptr );
-	startLabel->SetToLabel();
-
-	itsPathInput =
-		jnew JXPathInput(window,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 70,20, 210,20);
-	assert( itsPathInput != nullptr );
+	startLabel->SetToLabel(false);
 
 	itsChoosePathButton =
 		jnew JXTextButton(JGetString("itsChoosePathButton::FindFileDialog::JXLayout"), window,
 					JXWidget::kFixedLeft, JXWidget::kFixedTop, 280,20, 60,20);
-	assert( itsChoosePathButton != nullptr );
+
+	itsActionRG =
+		jnew JXRadioGroup(window,
+					JXWidget::kHElastic, JXWidget::kFixedTop, 10,50, 340,120);
+
+	auto* fileLabel =
+		jnew JXTextRadioButton(kFindFileAction, JGetString("fileLabel::FindFileDialog::JXLayout"), itsActionRG,
+					JXWidget::kHElastic, JXWidget::kFixedTop, 10,10, 270,20);
+	fileLabel->SetShortcuts(JGetString("fileLabel::shortcuts::FindFileDialog::JXLayout"));
+
+	auto* findLabel =
+		jnew JXTextRadioButton(kFindExprAction, JGetString("findLabel::FindFileDialog::JXLayout"), itsActionRG,
+					JXWidget::kHElastic, JXWidget::kFixedTop, 10,70, 270,20);
+	findLabel->SetShortcuts(JGetString("findLabel::shortcuts::FindFileDialog::JXLayout"));
+
+	itsStayOpenCB =
+		jnew JXTextCheckbox(JGetString("itsStayOpenCB::FindFileDialog::JXLayout"), window,
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 20,190, 90,20);
+
+	itsCloseButton =
+		jnew JXTextButton(JGetString("itsCloseButton::FindFileDialog::JXLayout"), window,
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 120,190, 60,20);
+	itsCloseButton->SetShortcuts(JGetString("itsCloseButton::shortcuts::FindFileDialog::JXLayout"));
+
+	itsHelpButton =
+		jnew JXTextButton(JGetString("itsHelpButton::FindFileDialog::JXLayout"), window,
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 200,190, 60,20);
+	itsHelpButton->SetShortcuts(JGetString("itsHelpButton::shortcuts::FindFileDialog::JXLayout"));
+
+	itsSearchButton =
+		jnew JXTextButton(JGetString("itsSearchButton::FindFileDialog::JXLayout"), window,
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 279,189, 62,22);
+	itsSearchButton->SetShortcuts(JGetString("itsSearchButton::shortcuts::FindFileDialog::JXLayout"));
+
+	itsFileInput =
+		jnew JXInputField(itsActionRG,
+					JXWidget::kHElastic, JXWidget::kFixedTop, 35,30, 295,20);
+
+	itsExprInput =
+		jnew JXInputField(itsActionRG,
+					JXWidget::kHElastic, JXWidget::kFixedTop, 35,90, 295,20);
+
+	itsPathInput =
+		jnew JXPathInput(window,
+					JXWidget::kHElastic, JXWidget::kFixedTop, 70,20, 210,20);
+	itsPathInput->SetIsRequired(true);
+	itsPathInput->ShouldAllowInvalidPath(true);
+	itsPathInput->ShouldRequireWritable(false);
 
 // end JXLayout
 
-	window->SetTitle(JGetString("WindowTitle::FindFileDialog"));
 	window->SetCloseAction(JXWindow::kDeactivateDirector);
 	window->PlaceAsDialogWindow();
 	window->LockCurrentMinSize();
@@ -179,8 +169,6 @@ FindFileDialog::BuildWindow()
 	ListenTo(itsSearchButton);
 	ListenTo(itsCloseButton);
 	ListenTo(itsHelpButton);
-
-	itsPathInput->ShouldAllowInvalidPath();
 
 	const JFont& font = JFontManager::GetDefaultMonospaceFont();
 

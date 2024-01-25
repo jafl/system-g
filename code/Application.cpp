@@ -74,7 +74,7 @@ Application::Application
 	JString*	prevVersStr
 	)
 	:
-	JXApplication(argc, argv, kAppSignature, kDefaultStringData),
+	JXApplication(argc, argv, kAppSignature, kAppSignature, kDefaultStringData),
 	JPrefObject(nullptr, kSAppID),
 	itsTermCmd(kDefaultTermCmd),
 	itsGitStatusCmd(kDefaultGitStatusCmd),

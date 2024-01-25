@@ -58,10 +58,6 @@ PathDoesNotExist::Application	"\"$name\" does not exist."
 Unreadable::Application			"Unable to read contents of \"$name\"."
 InvalidShortcut::Application	"\"$name\" does not exist or is unreadable.  Do you want to remove this shortcut?"
 
-# EditPrefsDialog
-
-WindowTitle::EditPrefsDialog	"Edit preferences"
-
 # TreeDir
 
 TrashButtonHint::TreeDir
@@ -141,10 +137,6 @@ DeletePrunedBranchesPrompt::FileTreeTable	"Select the local branches that you wo
 
 RemoteSavingUnusupported::FileTreeTable	"Remote saving is not yet supported."
 
-# NewGitRemoteDialog
-
-WindowTitle::NewGitRemoteDialog "Link to Remote Repo"
-
 # FindFileTask
 
 NoMatch::FindFileTask	"No matching files or directories were found."
@@ -218,7 +210,6 @@ Usage:  systemg [--choose | --open | --run | (path|file) [...]]
 
 # AboutDialog
 
-WindowTitle::AboutDialog		"About"
 ChangeButtonLabel::AboutDialog	"Changes"
 
 UpgradeNotice::AboutDialog
@@ -226,14 +217,6 @@ UpgradeNotice::AboutDialog
 
 
 You have just upgraded from version $vers"
-
-# ViewManPageDialog
-
-WindowTitle::ViewManPageDialog	"Man pages"
-
-# FindFileDialog
-
-WindowTitle::FindFileDialog	"Find files"
 
 # ColUtils
 

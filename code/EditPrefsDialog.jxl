@@ -1,0 +1,336 @@
+jx_layout_editor 5
+470
+380
+"JXLayout"
+"Edit preferences"
+""
+""
+0
+
+1
+0
+"TextCheckbox"
+0
+0
+20 10 40 230
+"itsOpenNewWindowsCB"
+1
+0
+0
+"Open folders in new windows"
+""
+
+1
+0
+"StaticText"
+0
+0
+40 40 60 450
+"openHint"
+0
+0
+0
+"(Hold down Meta key (clicks) or Shift key (shortcuts) to toggle this temporarily.)"
+1
+0
+0
+0
+0
+
+1
+0
+"TextCheckbox"
+0
+0
+70 10 90 230
+"itsDelCB"
+1
+0
+0
+"Delete key deletes selected files"
+""
+
+1
+0
+"StaticText"
+0
+0
+90 40 110 350
+"warnLabel"
+0
+0
+0
+"(Read the on-line help to understand why this is dangerous!)"
+1
+0
+0
+0
+0
+
+1
+0
+"TextCheckbox"
+0
+0
+120 10 140 230
+"itsAllowSpaceCB"
+1
+0
+0
+"Allow spaces in file names"
+""
+
+1
+0
+"TextCheckbox"
+0
+0
+150 10 170 230
+"itsFolderPrefsCB"
+1
+0
+0
+"Save preferences for each folder"
+""
+
+1
+0
+"StaticText"
+0
+0
+190 10 210 155
+"manPageLabel"
+0
+0
+0
+"Cmd to view man page:"
+1
+0
+0
+0
+0
+
+1
+0
+"InputField"
+2
+0
+190 155 210 455
+"itsManInput"
+1
+1
+0
+1
+0
+0
+""
+""
+""
+0
+0
+
+1
+0
+"StaticText"
+0
+0
+210 10 230 155
+"terminalLabel"
+0
+0
+0
+"Cmd to open terminal:"
+1
+0
+0
+0
+0
+
+1
+0
+"InputField"
+2
+0
+210 155 230 455
+"itsTerminalInput"
+1
+2
+0
+1
+0
+0
+""
+""
+""
+0
+0
+
+1
+0
+"StaticText"
+0
+0
+230 155 250 455
+"cmdHint"
+0
+0
+0
+"(use $n in place of folder name, $p in place of path to folder)"
+1
+0
+0
+0
+0
+
+1
+0
+"StaticText"
+0
+0
+260 10 280 215
+"statusLabel"
+0
+0
+0
+"Cmd to display git status:"
+1
+0
+0
+0
+0
+
+1
+0
+"InputField"
+2
+0
+260 215 280 455
+"itsGitStatusInput"
+1
+3
+0
+1
+0
+0
+""
+""
+""
+0
+0
+
+1
+0
+"StaticText"
+0
+0
+280 10 300 215
+"historyLabel"
+0
+0
+0
+"Cmd to display git history:"
+1
+0
+0
+0
+0
+
+1
+0
+"InputField"
+2
+0
+280 215 300 455
+"itsGitHistoryInput"
+1
+4
+0
+1
+0
+0
+""
+""
+""
+0
+0
+
+1
+0
+"StaticText"
+0
+0
+300 10 320 215
+"branchLabel"
+0
+0
+0
+"Cmd to run after changing branch:"
+1
+0
+0
+0
+0
+
+1
+0
+"InputField"
+2
+0
+300 215 320 455
+"itsPostCheckoutInput"
+1
+5
+0
+1
+0
+0
+""
+""
+""
+0
+0
+
+1
+0
+"StaticText"
+0
+0
+320 215 340 455
+"branchHint"
+0
+0
+0
+"(automatically run in checkout directory)"
+1
+0
+0
+0
+0
+
+1
+0
+"TextButton"
+0
+0
+350 105 370 165
+"cancelButton"
+0
+0
+0
+"Cancel"
+"^["
+
+1
+0
+"TextButton"
+1
+0
+350 305 370 365
+"okButton"
+0
+0
+0
+"OK"
+"^M"
+
+0

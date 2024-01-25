@@ -72,8 +72,6 @@ const JSize kRecentFileCount     = 20;
 const long kTrashCanPerms      = 0700;
 const long kRecentFileDirPerms = 0700;
 
-static const JUtf8Byte* kFolderWindowClass = "SystemG_Folder";
-
 // private functions
 
 void	CreateIcons();
@@ -554,23 +552,6 @@ GetDNDAskActions
 	s = jnew JString(JGetString("DNDLinkDescription::globals"));
 	assert( s != nullptr );
 	descriptionList->Append(s);
-}
-
-/******************************************************************************
- GetWMClassInstance
-
- ******************************************************************************/
-
-const JUtf8Byte*
-GetWMClassInstance()
-{
-	return JGetString("Name").GetBytes();
-}
-
-const JUtf8Byte*
-GetFolderWindowClass()
-{
-	return kFolderWindowClass;
 }
 
 /******************************************************************************

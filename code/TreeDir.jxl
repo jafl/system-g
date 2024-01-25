@@ -1,0 +1,93 @@
+jx_layout_editor 5
+420
+500
+"JXLayout"
+""
+"SystemG_Folder"
+""
+0
+
+1
+0
+"MenuBar"
+2
+0
+0 0 30 420
+"menuBar"
+0
+0
+0
+
+1
+0
+"ToolBar"
+2
+2
+30 0 480 420
+"itsToolBar"
+1
+0
+0
+"GetPrefsMgr()"
+"kSMainToolBarID"
+"menuBar"
+
+1
+0
+"CustomWidget"
+0
+1
+480 0 500 20
+"itsDragSrc"
+1
+0
+0
+"FolderDragSource"
+"itsPathInput, &pathMenu"
+0
+""
+
+1
+0
+"CustomWidget"
+2
+1
+480 20 500 360
+"itsPathInput"
+1
+0
+0
+"PathInput"
+""
+0
+""
+
+1
+0
+"TextButton"
+1
+1
+480 360 500 390
+"itsUpButton"
+1
+0
+0
+"Up"
+""
+
+1
+0
+"CustomWidget"
+1
+1
+480 390 500 420
+"trashButton"
+0
+0
+0
+"TrashButton"
+""
+0
+""
+
+0
