@@ -1,6 +1,6 @@
-jx_layout_editor 5
+jx_layout_editor 6
 470
-380
+360
 "JXLayout"
 "Edit preferences"
 ""
@@ -128,6 +128,9 @@ jx_layout_editor 5
 ""
 0
 0
+1
+"$n for folder name
+$p for path to folder"
 
 1
 0
@@ -164,30 +167,16 @@ jx_layout_editor 5
 ""
 0
 0
+1
+"$n for folder name
+$p for path to folder"
 
 1
 0
 "StaticText"
 0
 0
-230 155 250 455
-"cmdHint"
-0
-0
-0
-"(use $n in place of folder name, $p in place of path to folder)"
-1
-0
-0
-0
-0
-
-1
-0
-"StaticText"
-0
-0
-260 10 280 215
+240 10 260 215
 "statusLabel"
 0
 0
@@ -204,7 +193,7 @@ jx_layout_editor 5
 "InputField"
 2
 0
-260 215 280 455
+240 215 260 455
 "itsGitStatusInput"
 1
 3
@@ -217,13 +206,15 @@ jx_layout_editor 5
 ""
 0
 0
+1
+""
 
 1
 0
 "StaticText"
 0
 0
-280 10 300 215
+260 10 280 215
 "historyLabel"
 0
 0
@@ -240,7 +231,7 @@ jx_layout_editor 5
 "InputField"
 2
 0
-280 215 300 455
+260 215 280 455
 "itsGitHistoryInput"
 1
 4
@@ -253,13 +244,15 @@ jx_layout_editor 5
 ""
 0
 0
+1
+""
 
 1
 0
 "StaticText"
 0
 0
-300 10 320 215
+280 10 300 215
 "branchLabel"
 0
 0
@@ -276,7 +269,7 @@ jx_layout_editor 5
 "InputField"
 2
 0
-300 215 320 455
+280 215 300 455
 "itsPostCheckoutInput"
 1
 5
@@ -289,13 +282,15 @@ jx_layout_editor 5
 ""
 0
 0
+1
+""
 
 1
 0
 "StaticText"
 0
 0
-320 215 340 455
+300 215 320 455
 "branchHint"
 0
 0
@@ -312,7 +307,7 @@ jx_layout_editor 5
 "TextButton"
 0
 0
-350 105 370 165
+330 105 350 165
 "cancelButton"
 0
 0
@@ -325,7 +320,7 @@ jx_layout_editor 5
 "TextButton"
 1
 0
-350 305 370 365
+330 305 350 365
 "okButton"
 0
 0

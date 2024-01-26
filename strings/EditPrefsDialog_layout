@@ -1,14 +1,17 @@
 0
 manPageLabel::EditPrefsDialog::JXLayout "Cmd to view man page:"
-cmdHint::EditPrefsDialog::JXLayout "(use $n in place of folder name, $p in place of path to folder)"
+itsTerminalInput::EditPrefsDialog::JXLayout "$n for folder name
+$p for path to folder"
+cancelButton::shortcuts::EditPrefsDialog::JXLayout "^["
 branchLabel::EditPrefsDialog::JXLayout "Cmd to run after changing branch:"
 WindowTitle::EditPrefsDialog::JXLayout "Edit preferences"
 itsFolderPrefsCB::EditPrefsDialog::JXLayout "Save preferences for each folder"
 itsOpenNewWindowsCB::EditPrefsDialog::JXLayout "Open folders in new windows"
 okButton::EditPrefsDialog::JXLayout "OK"
-cancelButton::shortcuts::EditPrefsDialog::JXLayout "^["
 okButton::shortcuts::EditPrefsDialog::JXLayout "^M"
 historyLabel::EditPrefsDialog::JXLayout "Cmd to display git history:"
+itsManInput::EditPrefsDialog::JXLayout "$n for folder name
+$p for path to folder"
 openHint::EditPrefsDialog::JXLayout "(Hold down Meta key (clicks) or Shift key (shortcuts) to toggle this temporarily.)"
 cancelButton::EditPrefsDialog::JXLayout "Cancel"
 itsDelCB::EditPrefsDialog::JXLayout "Delete key deletes selected files"

@@ -72,7 +72,7 @@ EditPrefsDialog::BuildWindow
 {
 // begin JXLayout
 
-	auto* window = jnew JXWindow(this, 470,380, JGetString("WindowTitle::EditPrefsDialog::JXLayout"));
+	auto* window = jnew JXWindow(this, 470,360, JGetString("WindowTitle::EditPrefsDialog::JXLayout"));
 
 	itsOpenNewWindowsCB =
 		jnew JXTextCheckbox(JGetString("itsOpenNewWindowsCB::EditPrefsDialog::JXLayout"), window,
@@ -110,65 +110,67 @@ EditPrefsDialog::BuildWindow
 					JXWidget::kFixedLeft, JXWidget::kFixedTop, 10,210, 145,20);
 	terminalLabel->SetToLabel(false);
 
-	auto* cmdHint =
-		jnew JXStaticText(JGetString("cmdHint::EditPrefsDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 155,230, 300,20);
-	cmdHint->SetToLabel(false);
-
 	auto* statusLabel =
 		jnew JXStaticText(JGetString("statusLabel::EditPrefsDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 10,260, 205,20);
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 10,240, 205,20);
 	statusLabel->SetToLabel(false);
 
 	auto* historyLabel =
 		jnew JXStaticText(JGetString("historyLabel::EditPrefsDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 10,280, 205,20);
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 10,260, 205,20);
 	historyLabel->SetToLabel(false);
 
 	auto* branchLabel =
 		jnew JXStaticText(JGetString("branchLabel::EditPrefsDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 10,300, 205,20);
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 10,280, 205,20);
 	branchLabel->SetToLabel(false);
 
 	auto* branchHint =
 		jnew JXStaticText(JGetString("branchHint::EditPrefsDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 215,320, 240,20);
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 215,300, 240,20);
 	branchHint->SetToLabel(false);
 
 	auto* cancelButton =
 		jnew JXTextButton(JGetString("cancelButton::EditPrefsDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 105,350, 60,20);
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 105,330, 60,20);
 	cancelButton->SetShortcuts(JGetString("cancelButton::shortcuts::EditPrefsDialog::JXLayout"));
 
 	auto* okButton =
 		jnew JXTextButton(JGetString("okButton::EditPrefsDialog::JXLayout"), window,
-					JXWidget::kFixedRight, JXWidget::kFixedTop, 304,349, 62,22);
+					JXWidget::kFixedRight, JXWidget::kFixedTop, 304,329, 62,22);
 	okButton->SetShortcuts(JGetString("okButton::shortcuts::EditPrefsDialog::JXLayout"));
 
 	itsManInput =
 		jnew JXInputField(window,
 					JXWidget::kHElastic, JXWidget::kFixedTop, 155,190, 300,20);
 	itsManInput->SetIsRequired();
+	itsManInput->SetFont(JFontManager::GetDefaultMonospaceFont());
+	itsManInput->SetHint(JGetString("itsManInput::EditPrefsDialog::JXLayout"));
 
 	itsTerminalInput =
 		jnew JXInputField(window,
 					JXWidget::kHElastic, JXWidget::kFixedTop, 155,210, 300,20);
 	itsTerminalInput->SetIsRequired();
+	itsTerminalInput->SetFont(JFontManager::GetDefaultMonospaceFont());
+	itsTerminalInput->SetHint(JGetString("itsTerminalInput::EditPrefsDialog::JXLayout"));
 
 	itsGitStatusInput =
 		jnew JXInputField(window,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 215,260, 240,20);
+					JXWidget::kHElastic, JXWidget::kFixedTop, 215,240, 240,20);
 	itsGitStatusInput->SetIsRequired();
+	itsGitStatusInput->SetFont(JFontManager::GetDefaultMonospaceFont());
 
 	itsGitHistoryInput =
 		jnew JXInputField(window,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 215,280, 240,20);
+					JXWidget::kHElastic, JXWidget::kFixedTop, 215,260, 240,20);
 	itsGitHistoryInput->SetIsRequired();
+	itsGitHistoryInput->SetFont(JFontManager::GetDefaultMonospaceFont());
 
 	itsPostCheckoutInput =
 		jnew JXInputField(window,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 215,300, 240,20);
+					JXWidget::kHElastic, JXWidget::kFixedTop, 215,280, 240,20);
 	itsPostCheckoutInput->SetIsRequired();
+	itsPostCheckoutInput->SetFont(JFontManager::GetDefaultMonospaceFont());
 
 // end JXLayout
 
@@ -176,25 +178,13 @@ EditPrefsDialog::BuildWindow
 
 	openHint->SetFontSize(JFontManager::GetDefaultFontSize()-2);
 	warnLabel->SetFontSize(JFontManager::GetDefaultFontSize()-2);
-	cmdHint->SetFontSize(JFontManager::GetDefaultFontSize()-2);
 	branchHint->SetFontSize(JFontManager::GetDefaultFontSize()-2);
 
-	const JFont& font = JFontManager::GetDefaultMonospaceFont();
-
 	itsManInput->GetText()->SetText(manViewCmd);
-	itsManInput->SetFont(font);
-
 	itsTerminalInput->GetText()->SetText(terminalCmd);
-	itsTerminalInput->SetFont(font);
-
 	itsGitStatusInput->GetText()->SetText(gitStatusCmd);
-	itsGitStatusInput->SetFont(font);
-
 	itsGitHistoryInput->GetText()->SetText(gitHistoryCmd);
-	itsGitHistoryInput->SetFont(font);
-
 	itsPostCheckoutInput->GetText()->SetText(postCheckoutCmd);
-	itsPostCheckoutInput->SetFont(font);
 
 	itsOpenNewWindowsCB->SetState(newWindows);
 	itsDelCB->SetState(del);
