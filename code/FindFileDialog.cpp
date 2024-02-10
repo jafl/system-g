@@ -110,15 +110,16 @@ FindFileDialog::BuildWindow()
 	itsActionRG =
 		jnew JXRadioGroup(window,
 					JXWidget::kHElastic, JXWidget::kFixedTop, 10,50, 340,120);
+	itsActionRG->SetBorderWidth(0);
 
 	auto* fileLabel =
 		jnew JXTextRadioButton(kFindFileAction, JGetString("fileLabel::FindFileDialog::JXLayout"), itsActionRG,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 10,10, 270,20);
+					JXWidget::kHElastic, JXWidget::kFixedTop, 10,10, 274,20);
 	fileLabel->SetShortcuts(JGetString("fileLabel::shortcuts::FindFileDialog::JXLayout"));
 
 	auto* findLabel =
 		jnew JXTextRadioButton(kFindExprAction, JGetString("findLabel::FindFileDialog::JXLayout"), itsActionRG,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 10,70, 270,20);
+					JXWidget::kHElastic, JXWidget::kFixedTop, 10,70, 274,20);
 	findLabel->SetShortcuts(JGetString("findLabel::shortcuts::FindFileDialog::JXLayout"));
 
 	itsStayOpenCB =
@@ -142,11 +143,11 @@ FindFileDialog::BuildWindow()
 
 	itsFileInput =
 		jnew JXInputField(itsActionRG,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 35,30, 295,20);
+					JXWidget::kHElastic, JXWidget::kFixedTop, 35,30, 299,20);
 
 	itsExprInput =
 		jnew JXInputField(itsActionRG,
-					JXWidget::kHElastic, JXWidget::kFixedTop, 35,90, 295,20);
+					JXWidget::kHElastic, JXWidget::kFixedTop, 35,90, 299,20);
 
 	itsPathInput =
 		jnew JXPathInput(window,
@@ -161,8 +162,6 @@ FindFileDialog::BuildWindow()
 	window->PlaceAsDialogWindow();
 	window->LockCurrentMinSize();
 	window->ShouldFocusWhenShow(true);
-
-	itsActionRG->SetBorderWidth(0);
 
 	ListenTo(itsChoosePathButton);
 	ListenTo(itsActionRG);

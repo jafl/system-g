@@ -1,4 +1,4 @@
-jx_layout_editor 5
+jx_layout_editor 8
 360
 220
 "JXLayout"
@@ -8,6 +8,7 @@ jx_layout_editor 5
 0
 
 1
+0
 0
 "StaticText"
 0
@@ -26,6 +27,7 @@ jx_layout_editor 5
 
 1
 0
+0
 "PathInput"
 2
 0
@@ -40,6 +42,7 @@ jx_layout_editor 5
 
 1
 0
+0
 "TextButton"
 0
 0
@@ -53,6 +56,7 @@ jx_layout_editor 5
 
 1
 0
+0
 "RadioGroup"
 2
 0
@@ -61,13 +65,15 @@ jx_layout_editor 5
 1
 0
 0
+1
 
 1
 4
+1
 "TextRadioButton"
 2
 0
-10 10 30 280
+10 10 30 284
 "fileLabel"
 0
 0
@@ -78,10 +84,11 @@ jx_layout_editor 5
 
 1
 4
+1
 "InputField"
 2
 0
-30 35 50 330
+30 35 50 334
 "itsFileInput"
 1
 1
@@ -94,13 +101,16 @@ jx_layout_editor 5
 ""
 0
 0
+0
+""
 
 1
 4
+1
 "TextRadioButton"
 2
 0
-70 10 90 280
+70 10 90 284
 "findLabel"
 0
 0
@@ -111,10 +121,11 @@ jx_layout_editor 5
 
 1
 4
+1
 "InputField"
 2
 0
-90 35 110 330
+90 35 110 334
 "itsExprInput"
 1
 2
@@ -127,8 +138,11 @@ jx_layout_editor 5
 ""
 0
 0
+0
+""
 
 1
+0
 0
 "TextCheckbox"
 0
@@ -143,6 +157,7 @@ jx_layout_editor 5
 
 1
 0
+0
 "TextButton"
 0
 0
@@ -156,6 +171,7 @@ jx_layout_editor 5
 
 1
 0
+0
 "TextButton"
 0
 0
@@ -168,6 +184,7 @@ jx_layout_editor 5
 "F1"
 
 1
+0
 0
 "TextButton"
 0
