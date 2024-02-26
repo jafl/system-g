@@ -51,9 +51,9 @@ private:
 // begin JXLayout
 
 	JXToolBar*        itsToolBar;
-	FolderDragSource* itsDragSrc;
 	PathInput*        itsPathInput;
 	JXTextButton*     itsUpButton;
+	FolderDragSource* itsDragSrc;
 
 // end JXLayout
 

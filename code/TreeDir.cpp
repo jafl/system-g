@@ -51,11 +51,11 @@ TreeDir::TreeDir
 	JXWindowDirector(JXGetApplication()),
 	itsAutoMountFlag(false)
 {
-	if ((GetApplication())->IsMountPoint(startPath) &&
+	if (GetApplication()->IsMountPoint(startPath) &&
 		!JIsMounted(startPath))
 	{
 		itsAutoMountFlag = true;
-		(GetApplication())->DisplayBusyCursor();
+		GetApplication()->DisplayBusyCursor();
 		JMount(startPath, true, true);
 	}
 
@@ -71,7 +71,7 @@ TreeDir::~TreeDir()
 {
 	if (itsAutoMountFlag)
 	{
-		(GetApplication())->DisplayBusyCursor();		// can take time to flush buffers
+		GetApplication()->DisplayBusyCursor();		// can take time to flush buffers
 		JMount(GetDirectory(), false);
 	}
 }
@@ -181,10 +181,6 @@ TreeDir::BuildWindow
 		jnew JXToolBar(GetPrefsMgr(), kSMainToolBarID, menuBar, window,
 					JXWidget::kHElastic, JXWidget::kVElastic, 0,30, 420,450);
 
-	itsDragSrc =
-		jnew FolderDragSource(itsPathInput, &pathMenu, window,
-					JXWidget::kFixedLeft, JXWidget::kFixedBottom, 0,480, 20,20);
-
 	itsPathInput =
 		jnew PathInput(window,
 					JXWidget::kHElastic, JXWidget::kFixedBottom, 20,480, 340,20);
@@ -197,6 +193,10 @@ TreeDir::BuildWindow
 		jnew TrashButton(window,
 					JXWidget::kFixedRight, JXWidget::kFixedBottom, 390,480, 30,20);
 	assert( trashButton != nullptr );
+
+	itsDragSrc =
+		jnew FolderDragSource(itsPathInput, &pathMenu, window,
+					JXWidget::kFixedLeft, JXWidget::kFixedBottom, 0,480, 20,20);
 
 // end JXLayout
 
