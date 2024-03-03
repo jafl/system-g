@@ -138,7 +138,7 @@ FindFileDialog::BuildWindow()
 
 	itsSearchButton =
 		jnew JXTextButton(JGetString("itsSearchButton::FindFileDialog::JXLayout"), window,
-					JXWidget::kFixedLeft, JXWidget::kFixedTop, 279,189, 62,22);
+					JXWidget::kFixedLeft, JXWidget::kFixedTop, 280,190, 60,20);
 	itsSearchButton->SetShortcuts(JGetString("itsSearchButton::shortcuts::FindFileDialog::JXLayout"));
 
 	itsFileInput =

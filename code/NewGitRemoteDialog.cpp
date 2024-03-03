@@ -89,7 +89,7 @@ NewGitRemoteDialog::BuildWindow()
 
 	auto* okButton =
 		jnew JXTextButton(JGetString("okButton::NewGitRemoteDialog::JXLayout"), window,
-					JXWidget::kFixedRight, JXWidget::kFixedBottom, 189,129, 62,22);
+					JXWidget::kFixedRight, JXWidget::kFixedBottom, 190,130, 60,20);
 	okButton->SetShortcuts(JGetString("okButton::shortcuts::NewGitRemoteDialog::JXLayout"));
 
 	itsRemoteURLInputField =

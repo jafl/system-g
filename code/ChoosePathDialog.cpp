@@ -147,7 +147,7 @@ ChoosePathDialog::BuildWindow
 
 	itsOpenButton =
 		jnew JXTextButton(JGetString("itsOpenButton::ChoosePathDialog::JXLayout"), window,
-					JXWidget::kFixedRight, JXWidget::kFixedBottom, 219,279, 72,22);
+					JXWidget::kFixedRight, JXWidget::kFixedBottom, 220,280, 70,20);
 	itsOpenButton->SetShortcuts(JGetString("itsOpenButton::shortcuts::ChoosePathDialog::JXLayout"));
 
 	auto* cancelButton =
