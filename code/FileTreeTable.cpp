@@ -2329,8 +2329,9 @@ FileTreeTable::CreateNewDirectory()
 
 	JString dirName  = node->GetDirEntry()->GetFullName();
 	dirName          = JGetUniqueDirEntryName(dirName, JGetString("NewNamePrefix::FileTreeTable"));
-	const JError err = JCreateDirectory(dirName);
-	if (err.OK())
+
+	JError err = JNoError();
+	if (JCreateDirectory(dirName, &err))
 	{
 		JString p, n;
 		JSplitPathAndName(dirName, &p, &n);
@@ -2658,8 +2659,8 @@ FileTreeTable::MakeLinkToFile
 		}
 	}
 
-	const JError err = JCreateSymbolicLink(src, dest);
-	if (err.OK())
+	JError err = JNoError();
+	if (JCreateSymbolicLink(src, dest, &err))
 	{
 		JString p, n;
 		JSplitPathAndName(dest, &p, &n);

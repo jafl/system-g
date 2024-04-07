@@ -297,16 +297,16 @@ GetTrashDirectory
 	JError err = JNoError();
 	if (!JDirectoryExists(*path))
 	{
-		err = JCreateDirectory(*path, kTrashCanPerms);
+		JCreateDirectory(*path, kTrashCanPerms, &err);
 	}
 	else
 	{
-		err = JSetPermissions(*path, kTrashCanPerms);
+		JSetPermissions(*path, kTrashCanPerms, &err);
 	}
 
 	if (err.OK())
 	{
-		theTrashDir       = *path;
+		theTrashDir   = *path;
 		const bool ok = JDirInfo::Create(theTrashDir, &theTrashDirInfo);
 		assert( ok );
 		return true;
@@ -317,10 +317,10 @@ GetTrashDirectory
 		if (reportErrors)
 		{
 			const JUtf8Byte* map[] =
-		{
+			{
 				"name", kTrashDirName.GetBytes(),
 				"err",  err.GetMessage().GetBytes()
-		};
+			};
 			const JString msg = JGetString("CreatePrefsDirError::globals", map, sizeof(map));
 			JGetUserNotification()->ReportError(msg);
 		}
@@ -945,11 +945,11 @@ GetRecentFileDirectory
 	JError err = JNoError();
 	if (!JDirectoryExists(*path))
 	{
-		err = JCreateDirectory(*path, kRecentFileDirPerms);
+		JCreateDirectory(*path, kRecentFileDirPerms, &err);
 	}
 	else
 	{
-		err = JSetPermissions(*path, kRecentFileDirPerms);
+		JSetPermissions(*path, kRecentFileDirPerms, &err);
 	}
 
 	if (err.OK())
@@ -963,10 +963,10 @@ GetRecentFileDirectory
 		if (reportErrors)
 		{
 			const JUtf8Byte* map[] =
-		{
+			{
 				"name", kRecentFileDirName.GetBytes(),
 				"err",  err.GetMessage().GetBytes()
-		};
+			};
 			const JString msg = JGetString("CreatePrefsDirError::globals", map, sizeof(map));
 			JGetUserNotification()->ReportError(msg);
 		}

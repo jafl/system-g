@@ -567,7 +567,7 @@ CopyProcess::RemoveExecutePermissions
 	if (JFileExists(srcPath))
 	{
 		mode_t p;
-		if (JGetPermissions(path, &p).OK())
+		if (JGetPermissions(path, &p))
 		{
 			p &= ~(S_IXUSR | S_IXGRP | S_IXOTH);
 			JSetPermissions(path, p);
