@@ -342,7 +342,6 @@ FileTreeTable::FileTreeTable
 	}));
 
 	itsShortcutsMenu = menuBar->AppendTextMenu(JGetString("MenuTitle::FileTreeTable_Shortcuts"));
-	assert (itsShortcutsMenu != nullptr);
 	itsShortcutsMenu->SetMenuItems(kShortcutsMenuStr);
 	itsShortcutsMenu->SetUpdateAction(JXMenu::kDisableNone);
 	itsShortcutsMenu->AttachHandlers(this,
@@ -356,7 +355,9 @@ FileTreeTable::FileTreeTable
 
 	// updating
 
-	itsUpdateTask = jnew JXFunctionTask(kDirUpdateInterval, std::bind(&FileTreeTable::UpdateDisplay, this, false));
+	itsUpdateTask = jnew JXFunctionTask(kDirUpdateInterval,
+		std::bind(&FileTreeTable::UpdateDisplay, this, false),
+		"FileTreeTable::UpdateDisplay");
 
 	JXWindow* window = GetWindow();
 //	if (!window->IsIconified())		// update window icon while iconified
@@ -1869,8 +1870,7 @@ FileTreeTable::Receive
 {
 	if (sender == itsRecentFilesMenu && message.Is(JXFSDirMenu::kFileSelected))
 	{
-		const auto* info	=
-			dynamic_cast<const JXFSDirMenu::FileSelected*>(&message);
+		auto* info = dynamic_cast<const JXFSDirMenu::FileSelected*>(&message);
 		assert( info != nullptr );
 
 		const JDirEntry entry(info->GetFileName());
@@ -1895,8 +1895,7 @@ FileTreeTable::Receive
 
 	else if (sender == itsGitProcess && message.Is(JProcess::kFinished))
 	{
-		const auto* info =
-			dynamic_cast<const JProcess::Finished*>(&message);
+		auto* info = dynamic_cast<const JProcess::Finished*>(&message);
 		assert(info != nullptr);
 		if (info->Successful())
 		{
@@ -1915,8 +1914,7 @@ FileTreeTable::Receive
 	}
 	else if (sender == itsIconWidget && message.Is(JXWindowIcon::kHandleDrop))
 	{
-		const auto* info =
-			dynamic_cast<const JXWindowIcon::HandleDrop*>(&message);
+		auto* info = dynamic_cast<const JXWindowIcon::HandleDrop*>(&message);
 		assert( info != nullptr );
 		HandleDNDDrop(JPoint(0,0), info->GetTypeList(), info->GetAction(),
 					  info->GetTime(), info->GetSource());
@@ -1986,8 +1984,7 @@ FileTreeTable::ReceiveWithFeedback
 {
 	if (sender == itsIconWidget && message->Is(JXWindowIcon::kAcceptDrop))
 	{
-		auto* info =
-			dynamic_cast<JXWindowIcon::AcceptDrop*>(message);
+		auto* info = dynamic_cast<JXWindowIcon::AcceptDrop*>(message);
 		assert( info != nullptr );
 		info->ShouldAcceptDrop(WillAcceptDrop(
 									info->GetTypeList(), info->GetActionPtr(),

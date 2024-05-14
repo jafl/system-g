@@ -26,9 +26,9 @@
 bool
 FindFileTask::Create
 	(
-	TreeDir*			dir,
-	const JString&		path,
-	const JString&		expr,
+	TreeDir*		dir,
+	const JString&	path,
+	const JString&	expr,
 	FindFileTask**	task
 	)
 {
@@ -50,7 +50,6 @@ FindFileTask::Create
 		iter.Invalidate();
 
 		*task = jnew FindFileTask(dir, relPath, p, outFD, errFD);
-		assert( *task != nullptr );
 		return true;
 	}
 	else
@@ -92,8 +91,6 @@ FindFileTask::FindFileTask
 	ListenTo(itsDirector);
 
 	itsPathList = jnew JPtrArray<JString>(JPtrArrayT::kDeleteAll);
-	assert( itsPathList != nullptr );
-
 	SplitPath(relPath, itsPathList);
 
 	itsDirector->GetTable()->GetFileTree()->Update(true);

@@ -239,7 +239,6 @@ TrashButton::MoveFilesToTrash
 		if (returnType == selManager->GetURLXAtom())
 		{
 			auto* fileNameList = jnew JPtrArray<JString>(JPtrArrayT::kDeleteAll);
-			assert( fileNameList != nullptr );
 			JPtrArray<JString> urlList(JPtrArrayT::kDeleteAll);
 			JXUnpackFileNames((char*) data, dataLength, fileNameList, &urlList);
 

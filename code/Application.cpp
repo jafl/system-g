@@ -85,7 +85,6 @@ Application::Application
 	// warn that prefs are unreadable.
 
 	itsWindowList = jnew JPtrArray<TreeDir>(JPtrArrayT::kForgetAll);
-	assert( itsWindowList != nullptr );
 
 	*displayAbout = CreateGlobals(this);
 
@@ -110,12 +109,10 @@ Application::Application
 	JGetUserMountPointList(itsMountPointList, &itsMountPointState);
 
 	itsShortcutList = jnew JPtrArray<JString>(JPtrArrayT::kDeleteAll);
-	assert( itsShortcutList != nullptr );
 	itsShortcutList->SetCompareFunction(CompareShortcuts);
 	itsShortcutList->SetSortOrder(JListT::kSortAscending);
 
 	itsMountPointPrefs = jnew JStringPtrMap<JString>(JPtrArrayT::kDeleteAll);
-	assert( itsMountPointPrefs != nullptr );
 
 	SetPrefInfo(GetPrefsMgr(), kSAppID);
 	JPrefObject::ReadPrefs();
@@ -558,7 +555,6 @@ Application::AddShortcut
 	)
 {
 	auto* s = jnew JString(JConvertToHomeDirShortcut(shortcut));
-	assert( s != nullptr );
 	if (!itsShortcutList->InsertSorted(s, false))
 	{
 		jdelete s;
@@ -871,7 +867,8 @@ Application::DisplayAbout
 			ForgetPrefsMgr();
 			JXGetApplication()->Quit();
 		}
-	});
+	},
+	"Application::DisplayAbout");
 }
 
 /******************************************************************************

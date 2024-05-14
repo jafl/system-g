@@ -154,7 +154,7 @@ void TreeSet::TreeSetX
 	}
 
 	auto* entry = jnew JDirEntry(path);
-	assert( entry != nullptr && JFSFileTreeNode::CanHaveChildren(*entry) );
+	assert( JFSFileTreeNode::CanHaveChildren(*entry) );
 	auto* root = jnew FileTreeNode(entry);
 	itsFileTree = jnew FileTree(root);
 	auto* treeList = jnew FileTreeList(itsFileTree);
@@ -167,22 +167,18 @@ void TreeSet::TreeSetX
 									 itsScrollbarSet, encl, kHElastic, kVElastic,
 									 0, headerHeight,
 									 enclApG.width(), enclApG.height()-headerHeight);
-	assert( itsTable != nullptr );
 	ListenTo(itsFileTree->GetRootDirInfo());
 
-	auto* colHeader =
-		jnew HeaderWidget(itsTable, itsScrollbarSet, encl,
-							 kHElastic, kFixedTop,
-							 0,0, enclApG.width(),
-							 headerHeight);
-	assert(colHeader != nullptr);
+	jnew HeaderWidget(itsTable, itsScrollbarSet, encl,
+					  kHElastic, kFixedTop,
+					  0,0, enclApG.width(),
+					  headerHeight);
 
 	// header:  filter
 
 	itsFilterLabel =
 		jnew JXStaticText(JGetString("FilterLabel::TreeSet"), this, kFixedLeft, kFixedTop,
 						  5,0, 40, filterHeight);
-	assert( itsFilterLabel != nullptr );
 	itsFilterLabel->SetToLabel();
 
 	itsFilterHistory =
@@ -195,7 +191,6 @@ void TreeSet::TreeSetX
 	itsFilterInput =
 		jnew FilterInput(itsTable, this, kHElastic, kFixedTop,
 							45,0, w - 45 - itsFilterHistory->GetFrameWidth(), filterHeight);
-	assert( itsFilterInput != nullptr );
 	itsFilterInput->SetFont(font);
 
 	// footer:  path input, drag source
@@ -338,7 +333,6 @@ TreeSet::UpdateDisplay
 			jnew JXTextButton(JGetString("EmptyTrashLabel::TreeSet"), encl, kFixedRight, kFixedTop,
 							 w - kEmptyButtonWidth, 0,
 							 kEmptyButtonWidth, kJXDefaultMenuBarHeight);
-		assert( itsEmptyButton != nullptr );
 		ListenTo(itsEmptyButton);
 	}
 	else if (!isTrashDir && itsEmptyButton != nullptr)

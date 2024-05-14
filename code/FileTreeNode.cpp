@@ -92,7 +92,7 @@ FileTree*
 FileTreeNode::GetFileTree()
 {
 	auto* tree = dynamic_cast<FileTree*>(GetTree());
-	assert (tree != nullptr);
+	assert( tree != nullptr );
 	return tree;
 }
 
@@ -101,7 +101,7 @@ FileTreeNode::GetFileTree()
 	const
 {
 	const auto* tree = dynamic_cast<const FileTree*>(GetTree());
-	assert (tree != nullptr);
+	assert( tree != nullptr );
 	return tree;
 }
 
@@ -182,7 +182,7 @@ FileTreeNode::GetFileChild
 	)
 {
 	auto* node = dynamic_cast<FileTreeNode*>(GetChild(index));
-	assert (node != nullptr);
+	assert( node != nullptr );
 	return node;
 }
 
@@ -194,6 +194,6 @@ FileTreeNode::GetFileChild
 	const
 {
 	const auto* node = dynamic_cast<const FileTreeNode*>(GetChild(index));
-	assert (node != nullptr);
+	assert( node != nullptr );
 	return node;
 }

@@ -71,7 +71,7 @@ FileTreeList::GetFileNode
 	)
 {
 	auto* node = dynamic_cast<FileTreeNode*>(GetNode(index));
-	assert (node != nullptr);
+	assert( node != nullptr );
 	return node;
 }
 
@@ -83,7 +83,7 @@ FileTreeList::GetFileNode
 	const
 {
 	const auto* node = dynamic_cast<const FileTreeNode*>(GetNode(index));
-	assert (node != nullptr);
+	assert( node != nullptr );
 	return node;
 }
 

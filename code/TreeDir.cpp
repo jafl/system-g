@@ -223,7 +223,6 @@ TreeDir::BuildWindow
 	{
 		input = jnew std::ifstream(prefsFile.GetBytes());
 	}
-	assert( input != nullptr );
 
 	JFileVersion vers = 0;
 	JSize w, h;
@@ -286,7 +285,6 @@ TreeDir::BuildWindow
 						JXWidget::kHElastic, JXWidget::kVElastic,
 						0,0, 1000,1000);
 	}
-	assert( itsTreeSet != nullptr );
 	// itsTreeSet has already called FitToEnclosure()
 	ListenTo(GetTable());
 
@@ -295,7 +293,6 @@ TreeDir::BuildWindow
 	auto* windowsMenu =
 		jnew JXWDMenu(JGetString("WindowsMenuTitle::JXGlobal"), menuBar,
 					 JXWidget::kFixedLeft, JXWidget::kVElastic, 0,0, 10,10);
-	assert( windowsMenu != nullptr );
 	menuBar->AppendMenu(windowsMenu);
 	if (JXMenu::GetDisplayStyle() == JXMenu::kWindowsStyle)
 	{

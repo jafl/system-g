@@ -52,7 +52,6 @@ FolderDragSource::FolderDragSource
 	SetHint(JGetString("Hint::FolderDragSource"));
 
 	itsPathMenu = jnew JXCurrentPathMenu(JGetRootDirectory(), this, kFixedLeft, kFixedTop, 0,0, 10,10);
-	assert( itsPathMenu != nullptr );
 	itsPathMenu->Hide();
 	itsPathMenu->SetToHiddenPopupMenu(true);
 	*pathMenu = itsPathMenu;
@@ -114,8 +113,6 @@ FolderDragSource::HandleMouseDrag
 		list.Append(&const_cast<JString&>(path));
 
 		auto* data = jnew JXFileSelection(GetDisplay(), list);
-		assert( data != nullptr );
-
 		BeginDND(pt, buttonStates, modifiers, data);
 	}
 }

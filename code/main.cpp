@@ -48,7 +48,8 @@ main
 		GetMDIServer()->HandleCmdLineOptions(argc, argv);
 
 		JXFSBindingManager::Initialize();	// notify user of any upgrades
-	});
+	},
+	"main->mdi");
 
 	if (displayAbout)
 	{

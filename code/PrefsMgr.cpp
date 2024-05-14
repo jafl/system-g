@@ -177,8 +177,6 @@ PrefsMgr::EditPrefs()
 	auto* dlog = jnew EditPrefsDialog(termCmd, manCmd, gitStatusCmd, gitHistoryCmd,
 									  coCmd, DelWillDelete(), WillOpenNewWindows(),
 									  WillSaveFolderPrefs());
-	assert( dlog != nullptr );
-
 	if (dlog->DoDialog())
 	{
 		JString manCmd, termCmd, gitStatusCmd, gitHistoryCmd, postCheckoutCmd;

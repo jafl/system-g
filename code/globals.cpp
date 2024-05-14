@@ -109,17 +109,12 @@ CreateGlobals
 
 	JXInitHelp();
 
-	auto* wdMgr = jnew JXWDManager(app->GetCurrentDisplay(), true);
-	assert( wdMgr != nullptr );
+	jnew JXWDManager(app->GetCurrentDisplay(), true);
 	// registers itself
 
-	theMDIServer = jnew MDIServer;
-
-	theManPageDialog = jnew ViewManPageDialog(JXGetPersistentWindowOwner());
-	assert( theManPageDialog != nullptr );
-
+	theMDIServer      = jnew MDIServer;
+	theManPageDialog  = jnew ViewManPageDialog(JXGetPersistentWindowOwner());
 	theFindFileDialog = jnew FindFileDialog(JXGetPersistentWindowOwner());
-	assert( theFindFileDialog != nullptr );
 
 	JString trashDir;
 	GetTrashDirectory(&trashDir, false);	// silently creates it
@@ -541,17 +536,9 @@ GetDNDAskActions
 	actionList->AppendItem(dndMgr->GetDNDActionMoveXAtom());
 	actionList->AppendItem(dndMgr->GetDNDActionLinkXAtom());
 
-	auto* s = jnew JString(JGetString("DNDCopyDescription::globals"));
-	assert( s != nullptr );
-	descriptionList->Append(s);
-
-	s = jnew JString(JGetString("DNDMoveDescription::globals"));
-	assert( s != nullptr );
-	descriptionList->Append(s);
-
-	s = jnew JString(JGetString("DNDLinkDescription::globals"));
-	assert( s != nullptr );
-	descriptionList->Append(s);
+	descriptionList->Append(JGetString("DNDCopyDescription::globals"));
+	descriptionList->Append(JGetString("DNDMoveDescription::globals"));
+	descriptionList->Append(JGetString("DNDLinkDescription::globals"));
 }
 
 /******************************************************************************
@@ -733,7 +720,7 @@ GetDirectorySmallIcon
 {
 	JMountType type;
 	JXImage* image;
-	if ((GetApplication())->IsMountPoint(path, &type) &&
+	if (GetApplication()->IsMountPoint(path, &type) &&
 		GetMountPointSmallIcon(type, &image))
 	{
 		return image;
