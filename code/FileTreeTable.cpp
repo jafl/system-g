@@ -1651,9 +1651,6 @@ FileTreeTable::GetSelectionData
 	{
 		assert( GetTableSelection().HasSelection() );
 
-		auto* fileData = dynamic_cast<JXFileSelection*>(data);
-		assert( fileData != nullptr );
-
 		auto* fileList = jnew JPtrArray<JString>(JPtrArrayT::kDeleteAll);
 
 		JTableSelectionIterator iter(&GetTableSelection());
@@ -1664,7 +1661,8 @@ FileTreeTable::GetSelectionData
 			fileList->Append(entry->GetFullName());
 		}
 
-		fileData->SetData(fileList);
+		auto& fileData = dynamic_cast<JXFileSelection&>(*data);
+		fileData.SetData(fileList);
 	}
 	else
 	{
@@ -1870,20 +1868,18 @@ FileTreeTable::Receive
 {
 	if (sender == itsRecentFilesMenu && message.Is(JXFSDirMenu::kFileSelected))
 	{
-		auto* info = dynamic_cast<const JXFSDirMenu::FileSelected*>(&message);
-		assert( info != nullptr );
-
-		const JDirEntry entry(info->GetFileName());
+		auto& info = dynamic_cast<const JXFSDirMenu::FileSelected&>(message);
+		const JDirEntry entry(info.GetFileName());
 		const JString* link;
 		if (entry.GetLinkName(&link))
 		{
 			AddRecentFile(*link);
 		}
 
-		const bool alternateOpen = (GetDisplay()->GetLatestKeyModifiers()).meta();
+		const bool alternateOpen = GetDisplay()->GetLatestKeyModifiers().meta();
 
 		JPtrArray<JString> fileList(JPtrArrayT::kDeleteAll);
-		fileList.Append(info->GetFileName());
+		fileList.Append(info.GetFileName());
 		JXFSBindingManager::Exec(fileList, alternateOpen);
 	}
 
@@ -1895,11 +1891,10 @@ FileTreeTable::Receive
 
 	else if (sender == itsGitProcess && message.Is(JProcess::kFinished))
 	{
-		auto* info = dynamic_cast<const JProcess::Finished*>(&message);
-		assert(info != nullptr);
-		if (info->Successful())
+		auto& info = dynamic_cast<const JProcess::Finished&>(message);
+		if (info.Successful())
 		{
-			JExecute(itsFileTree->GetDirectory(), (GetApplication())->GetPostCheckoutCommand(), nullptr);
+			JExecute(itsFileTree->GetDirectory(), GetApplication()->GetPostCheckoutCommand(), nullptr);
 		}
 		itsGitProcess = nullptr;
 	}
@@ -1914,10 +1909,9 @@ FileTreeTable::Receive
 	}
 	else if (sender == itsIconWidget && message.Is(JXWindowIcon::kHandleDrop))
 	{
-		auto* info = dynamic_cast<const JXWindowIcon::HandleDrop*>(&message);
-		assert( info != nullptr );
-		HandleDNDDrop(JPoint(0,0), info->GetTypeList(), info->GetAction(),
-					  info->GetTime(), info->GetSource());
+		auto& info = dynamic_cast<const JXWindowIcon::HandleDrop&>(message);
+		HandleDNDDrop(JPoint(0,0), info.GetTypeList(), info.GetAction(),
+					  info.GetTime(), info.GetSource());
 	}
 
 	else if (sender == GetApplication() && message.Is(Application::kTrashNeedsUpdate))
@@ -1984,11 +1978,10 @@ FileTreeTable::ReceiveWithFeedback
 {
 	if (sender == itsIconWidget && message->Is(JXWindowIcon::kAcceptDrop))
 	{
-		auto* info = dynamic_cast<JXWindowIcon::AcceptDrop*>(message);
-		assert( info != nullptr );
-		info->ShouldAcceptDrop(WillAcceptDrop(
-									info->GetTypeList(), info->GetActionPtr(),
-									info->GetPoint(), info->GetTime(), info->GetSource()));
+		auto& info = dynamic_cast<JXWindowIcon::AcceptDrop&>(*message);
+		info.ShouldAcceptDrop(WillAcceptDrop(
+							  info.GetTypeList(), info.GetActionPtr(),
+							  info.GetPoint(), info.GetTime(), info.GetSource()));
 	}
 	else
 	{

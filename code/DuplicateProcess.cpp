@@ -87,10 +87,10 @@ DuplicateProcess::Receive
 {
 	if (sender == itsProcess && message.Is(JProcess::kFinished))
 	{
-		const auto* info = dynamic_cast<const JProcess::Finished*>(&message);
-		itsProcess->ReportError(info->Successful());
+		auto& info = dynamic_cast<const JProcess::Finished&>(message);
+		itsProcess->ReportError(info.Successful());
 
-		if (info->Successful() && itsTable != nullptr && !itsTable->IsEditing())
+		if (info.Successful() && itsTable != nullptr && !itsTable->IsEditing())
 		{
 			FileTreeNode* node   = itsNodeList.GetFirstItem();
 			FileTreeNode* parent = nullptr;

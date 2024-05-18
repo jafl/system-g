@@ -469,14 +469,14 @@ CopyProcess::Receive
 		JString* destPath = itsSrcNameList->GetLastItem();
 		itsSrcNameList->RemoveItem(itsSrcNameList->GetItemCount());
 
-		const auto* info = dynamic_cast<const JProcess::Finished*>(&message);
-		itsProcess->ReportError(info->Successful());
+		auto& info = dynamic_cast<const JProcess::Finished&>(message);
+		itsProcess->ReportError(info.Successful());
 
 		JXDeleteObjectTask<JBroadcaster>::Delete(itsProcess);
 		itsProcess = nullptr;
 
 		bool done = true;
-		if (info->Successful())
+		if (info.Successful())
 		{
 			if (itsSrcTable != nullptr)
 			{
@@ -521,7 +521,7 @@ CopyProcess::Receive
 					JAppendDirSeparator(&oldName);
 					JAppendDirSeparator(&newName);
 					JFSFileTree::DirectoryRenamed msg(oldName, newName);
-					(GetApplication())->DirectoryRenamed(msg);
+					GetApplication()->DirectoryRenamed(msg);
 				}
 			}
 		}
