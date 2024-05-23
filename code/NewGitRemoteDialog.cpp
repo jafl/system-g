@@ -7,7 +7,7 @@
 
  ******************************************************************************/
 
-#include <NewGitRemoteDialog.h>
+#include "NewGitRemoteDialog.h"
 #include <jx-af/jx/JXWindow.h>
 #include <jx-af/jx/JXStaticText.h>
 #include <jx-af/jx/JXTextButton.h>
