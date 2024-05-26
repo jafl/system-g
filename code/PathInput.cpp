@@ -9,11 +9,9 @@
 
  ******************************************************************************/
 
-#include <PathInput.h>
-#include <jx-af/jcore/JString.h>
+#include "PathInput.h"
 #include <jx-af/jx/JXWindow.h>
 #include <jx-af/jcore/jASCIIConstants.h>
-
 #include <jx-af/jcore/jAssert.h>
 
 /******************************************************************************

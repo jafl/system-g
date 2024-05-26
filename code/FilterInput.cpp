@@ -9,7 +9,7 @@
 
  ******************************************************************************/
 
-#include <FilterInput.h>
+#include "FilterInput.h"
 #include <jx-af/jcore/JString.h>
 #include <jx-af/jx/JXWindow.h>
 #include <jx-af/jcore/jASCIIConstants.h>
