@@ -108,12 +108,6 @@ if [[ ! -d $INSTALL_ROOT/include/jx-af/ && ! -f ../JX/Makefile && -z $JX_ROOT ]]
 
 fi
 
-echo PKG_CONFIG_PATH=$PKG_CONFIG_PATH;
-echo /opt/homebrew/opt/icu4c
-ls -R /opt/homebrew/opt/icu4c/lib || true
-echo /usr/local/opt/icu4c
-ls -R /usr/local/opt/icu4c/lib || true
-
 makemake;
 
 if [[ $1 != package ]]; then
