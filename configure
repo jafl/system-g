@@ -110,9 +110,9 @@ fi
 
 echo PKG_CONFIG_PATH=$PKG_CONFIG_PATH;
 echo /opt/homebrew/opt/icu4
-ls /opt/homebrew/opt/icu4
+ls /opt/homebrew/opt/icu4 || true
 echo /usr/local/opt/icu4
-ls /usr/local/opt/icu4
+ls /usr/local/opt/icu4 || true
 
 makemake;
 
