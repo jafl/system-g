@@ -210,7 +210,7 @@ F
 F
 # build settings
 1
-T
+F
 "systemg"
 "${LIB_DEPS}"
 "make -k all"

@@ -3341,13 +3341,30 @@ FileTreeTable::RestoreDirState
 		}
 
 		const JSize count = itsFileTreeList->GetItemCount();	// changes after Open()
+
+		bool found = false;
 		for (JIndex j=1; j<=count; j++)
 		{
-			const JString& n = (itsFileTreeList->GetDirEntry(j))->GetFullName();
-			if (JSameDirEntry(n, full))
+			const JString& n = itsFileTreeList->GetDirEntry(j)->GetFullName();
+			if (n == full)
 			{
 				itsFileTreeList->Open(j);
+				found = true;
 				break;
+			}
+		}
+
+		if (!found)
+		{
+			for (JIndex j=1; j<=count; j++)
+			{
+				const JString& n = itsFileTreeList->GetDirEntry(j)->GetFullName();
+				if (JSameDirEntry(n, full))
+				{
+					itsFileTreeList->Open(j);
+					found = true;
+					break;
+				}
 			}
 		}
 	}
@@ -3373,7 +3390,7 @@ FileTreeTable::SaveDirState
 		if (itsFileTreeList->IsOpen(i))
 		{
 			names.Append(JConvertToRelativePath(
-				(itsFileTreeList->GetDirEntry(i))->GetFullName(), basePath));
+				itsFileTreeList->GetDirEntry(i)->GetFullName(), basePath));
 		}
 	}
 
