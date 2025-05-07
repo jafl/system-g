@@ -1,0 +1,13 @@
+store alternate-open prefs for every executable in the directory
+	use these prefs when plain-open is invoked
+	when open prefs file for directory, flush non-existent executables
+
+trash must remember where each file came from
+	~/.trash/.source stores list of original locations
+	cull non-existent when re-write the file
+	delete when empty trash
+
+optimize selection of multiple items via cmd line
+	systemg code/*.cpp code/*.h
+	rewrite MDI server to collect files in same directory
+		then pass collection to SyGFindFileTask
